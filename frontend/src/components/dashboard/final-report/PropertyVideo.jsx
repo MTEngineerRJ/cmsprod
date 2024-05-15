@@ -16,6 +16,8 @@ import {
 } from "./functions";
 import { AccidentContent, summaryNotes } from "./Content";
 import toast from "react-hot-toast";
+import TotalLoss_01 from "./TotalLoss";
+import { getTotalLoss } from "./getEditorContent/totalLoss";
 
 const materials = [
   { qty: "12", desc: "12", price: "12" },
@@ -558,6 +560,15 @@ const [AccidentTime,setAccidentTime]=useState("");
   const [totalLabrorAssessed, setTotalLabrorAssessed] = useState(0);
   const [ValidUpto, setValidUpto] = useState(0);
 
+  const [CommTaxRatePct,setCommTaxRatePct] = useState(0);
+  const [CashLoss,setCashLoss] = useState(0);
+  const [SuspectedParts,setSuspectedParts] = useState("");
+  const [WreckValueWith,setWreckValueWith] = useState(0);
+  const [WreckValueWithout,setWreckValueWithout] = useState(0);
+  const [MissingItem,setMissingItem] = useState("");
+  const [RtiAmount,setRtiAmount] = useState(0);
+  const [TotalLossEditor,setTotalLossEditor] = useState("");
+
   const getNextYear = () => {
     if (PolicyPeriodStart && !isNaN(new Date(PolicyPeriodStart).getTime())) {
       const oneYearLater = new Date(PolicyPeriodStart);
@@ -874,17 +885,19 @@ const formatDateFinal = (inputDate2,type) => {
     setIMT(claim?.claimDetails?.IMT !==null ? claim?.claimDetails?.IMT : "")
     setphyCheck(claim?.vehicleDetails?.phyCheck !==null ? claim?.vehicleDetails?.phyCheck : "" )
     setShowInReport(claim?.commercialVehicleDetails?.IsActive)
+
+    //Total Loss
+    setCommTaxRatePct(claim?.totalLoss?.CommTaxRatePct || 0);
+    setCashLoss(claim?.totalLoss?.CashLoss || 0);
+    setSuspectedParts(claim?.totalLoss?.SuspectedParts || "");
+    setWreckValueWith(claim?.totalLoss?.WreckValueWith || 0);
+    setMissingItem(claim?.totalLoss?.MissingItem || "");
+    setWreckValueWithout(claim?.totalLoss?.WreckValueWithout || 0);
+    setRtiAmount(claim?.totalLoss?.RtiAmount || 0);
+    setTotalLossEditor(claim?.TotalLoss?.totalLossEditorContent || getTotalLoss());
+
   }, [claim]);
 
-  // console.log("PolicyPeriodStart-----------",PolicyPeriodStart,claim?.claimDetails?.PolicyPeriodStart);
-  // const calculateVehicleAge = () => {
-  //   if (
-  //     !claim.vehicleDetails?.DateOfRegistration  ||
-  //     claim?.vehicleDetails?.DateOfRegistration === "undefined" ||
-  //     !claim.claimDetails?.AddedDateTime
-  //   ) {
-  //     return "0";
-  //   }
     const calculateVehicleAge = () => {
       if (
         !claim.vehicleDetails?.DateOfRegistration  ||
@@ -1074,6 +1087,14 @@ const formatDateFinal = (inputDate2,type) => {
       Endurance,
       DateOfBirth,
       ValidFrom,
+      CommTaxRatePct,
+      CashLoss,
+      SuspectedParts,
+      WreckValueWith,
+      WreckValueWithout,
+      RtiAmount,
+      MissingItem,
+      TotalLossEditor,
       TotalLoss : TotalLoss,
       IMT : IMT,
       phyCheck,
@@ -1081,7 +1102,6 @@ const formatDateFinal = (inputDate2,type) => {
       leadId,
     };
     
-    console.log('----1084',payload);
     
     toast.loading("Updating the final Report!!", {
       className: "toast-loading-message",
@@ -1155,7 +1175,7 @@ const formatDateFinal = (inputDate2,type) => {
             Survey
           </a>
         </li>
-        <li className="nav-item">
+        {TotalLoss === 0 && <li className="nav-item">
           <a
             className="nav-link "
             data-bs-toggle="tab"
@@ -1165,8 +1185,8 @@ const formatDateFinal = (inputDate2,type) => {
           >
             New Parts
           </a>
-        </li>
-        <li className="nav-item">
+        </li>}
+        {TotalLoss === 0 && <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="tab"
@@ -1176,8 +1196,8 @@ const formatDateFinal = (inputDate2,type) => {
           >
             Labour
           </a>
-        </li>
-        <li className="nav-item">
+        </li>}
+        {TotalLoss === 0 && <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="tab"
@@ -1187,7 +1207,18 @@ const formatDateFinal = (inputDate2,type) => {
           >
             Summary & Notes
           </a>
-        </li>
+        </li>}
+        {TotalLoss === 1 && <li className="nav-item">
+          <a
+            className="nav-link"
+            data-bs-toggle="tab"
+            href="#totalLoss"
+            role="tab"
+            style={{ padding: "10px" }}
+          >
+            Total Loss
+          </a>
+        </li>}
         <li className="nav-item" style={{ marginLeft: "360px" }}>
           <a href={`/claim-details?leadId=${claim.LeadID}`}>{claim.PolicyNo}</a>
         </li>
@@ -1809,6 +1840,7 @@ const formatDateFinal = (inputDate2,type) => {
               <Summary
               allLabour={allLabour}
                disable={disable}
+               currentGst={currentGst}
               leadId={leadId}
               documents={documents}
               allNewParts={allNewParts}
@@ -1898,17 +1930,40 @@ const formatDateFinal = (inputDate2,type) => {
             </div>
           </div>
         </div>
-        {/* <div
+        <div
           className="tab-pane fade row pl15 pl0-1199 pr15 pr0-1199"
-          id="table"
+          id="totalLoss"
           role="tabpanel"
         >
           <div className="property_video">
             <div className="thumb">
-              <Table data={materials} />
+              <TotalLoss_01
+              claim={claim}
+              allDepreciations = {allDepreciations}
+              currentGst={currentGst}
+              allLabour={allLabour}
+              allNewParts={allNewParts}
+              saveHandler={saveHandler}
+              CommTaxRatePct={CommTaxRatePct}
+              TotalLossEditor={TotalLossEditor}
+              setTotalLossEditor={setTotalLossEditor}
+              setCommTaxRatePct={setCommTaxRatePct}
+              CashLoss={CashLoss}
+              setCashLoss={setCashLoss}
+              SuspectedParts={SuspectedParts}
+              setSuspectedParts={setSuspectedParts}
+              WreckValueWith={WreckValueWith}
+              setWreckValueWith={setWreckValueWith}
+              WreckValueWithout={WreckValueWithout}
+              setWreckValueWithout={setWreckValueWithout}
+              MissingItem={MissingItem}
+              setMissingItem={setMissingItem}
+              RtiAmount={RtiAmount}
+              setRtiAmount={setRtiAmount}
+               />
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
       {/* End .tab-conten */}
     </>

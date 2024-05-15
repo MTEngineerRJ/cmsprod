@@ -133,9 +133,16 @@ const updateFinalReport = (req,res)=>{
       DateOfBirth,
       IMT,
       ValidUpto,
+      CommTaxRatePct,
+      CashLoss,
+      SuspectedParts,
+      WreckValueWith,
+      WreckValueWithout,
+      RtiAmount,
+      MissingItem,
+      TotalLossEditor,
       phyCheck
     } = req.body;
-
 
     //Claim Dates
     const formattedPolicyEnd = formatDate(PolicyPeriodEnd)
@@ -387,6 +394,49 @@ const updateFinalReport = (req,res)=>{
         '${SalveDestroy}', '${BillNo}', '${formattedBillDate}', '${BillAmount}', '${Endurance}','${OtherRemark}','${FinalReportNotes}'
       );
     `;
+
+    const updateTotalLossDetails = `
+    UPDATE TotalLoss
+          SET
+          CommTaxRatePct = ${CommTaxRatePct},
+          CashLoss =${CashLoss},
+          SuspectedParts='${SuspectedParts}',
+          WreckValueWith=${WreckValueWith},
+          WreckValueWithout=${WreckValueWithout},
+          RtiAmount=${RtiAmount},
+          MissingItem='${MissingItem}',
+          totalLossEditorContent='${TotalLossEditor}'
+          WHERE LeadID = ${leadId};
+    `;
+  
+    const InsertTotalLossDetails = `
+      INSERT INTO TotalLoss (
+        LeadID, CommTaxRatePct,CashLoss,SuspectedParts, WreckValueWith, WreckValueWithout, RtiAmount, MissingItem,totalLossEditorContent
+      ) VALUES (
+        ${leadId},${CommTaxRatePct},${CashLoss}, '${SuspectedParts}', ${WreckValueWith}, ${WreckValueWithout}, ${RtiAmount},'${MissingItem}',${TotalLossEditor}
+      );
+    `;
+
+    db.query("SELECT * FROM TotalLoss WHERE LeadID=?",[leadId], (err, result2) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error",err);
+        return;
+      }
+     
+        const query = result2?.length ? updateTotalLossDetails : InsertTotalLossDetails;
+        console.log(query);
+        
+      db.query(query, (err, result2) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send("Internal Server Error",err);
+          return;
+        }
+        
+      });
+    
+    });
 
 
     db.query(updateClaimDetails, (err, result2) => {

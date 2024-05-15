@@ -1690,7 +1690,7 @@ const PolicyDetails = ({
                         </div>
                       </div>
                     </div>
-                    <div className="col-lg-5">
+                    {/* <div className="col-lg-5">
                       <div className="row mt-1">
                         <div className="col-lg-3 text-end my_profile_setting_input form-group">
                           <label
@@ -1724,7 +1724,7 @@ const PolicyDetails = ({
                           />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col-lg-7">
                       <div className="row mt-1">
                         <div className="col-lg-7 my_profile_setting_input form-group text-end">
@@ -1766,7 +1766,7 @@ const PolicyDetails = ({
                         </div>
                       </div>
                     </div>
-                    <div className="col-lg-5">
+                    {/* <div className="col-lg-5">
                       <div className="row mt-1">
                         <div className="col-lg-5 text-end my_profile_setting_input form-group">
                           <label
@@ -1800,7 +1800,7 @@ const PolicyDetails = ({
                           />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* <div className="col-lg-12">
                   <div className="row mt-1">
@@ -1929,7 +1929,7 @@ const PolicyDetails = ({
                       </div>
                     </div>
                   </div>
-
+{/* 
                   <div className="col-lg-12">
                     <div className="row mt-1">
                       <div className="col-lg-7 my_profile_setting_input form-group text-end">
@@ -2036,7 +2036,7 @@ const PolicyDetails = ({
                         />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="col-lg-12">
                     <div className="row mt-1">
@@ -2178,7 +2178,7 @@ const PolicyDetails = ({
                     </div>
                   </div>
 
-                  <div className="col-lg-12">
+                  {/* <div className="col-lg-12">
                     <div className="row mt-1">
                       <div className="col-lg-7 my_profile_setting_input form-group text-end">
                         <label
@@ -2215,7 +2215,7 @@ const PolicyDetails = ({
                         />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="col-lg-12">
                     <div className="row mt-1">
@@ -2704,7 +2704,7 @@ const PolicyDetails = ({
                 </div>
               </div>
             </div>
-
+{/* 
             <div className="col-lg-12">
               <div className="row mt-1">
                 <div className="col-lg-4 my_profile_setting_input form-group text-end">
@@ -2735,7 +2735,7 @@ const PolicyDetails = ({
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="col-lg-12">
               <div className="row mt-1">

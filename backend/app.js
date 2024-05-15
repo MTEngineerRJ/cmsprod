@@ -10,14 +10,14 @@ const loginRoute=require("./Routes/loginRoute");
 const newPartsRoute = require("./Routes/newPartsRoute");
 const statusRoute=require("./Routes/statusRoute");
 const uploadRoute = require("./Routes/uploadRoute");
-const vehicleDetailsRoute = require("./Routes/vehicleDetailRoutes");
+const vehicleOnlineDetailRoutes = require("./Routes/vehicleOnlineDetailRoutes");
 const reportRoutes = require("./Routes/reportRoutes");
 const feeReportRoutes = require("./Routes/feereportRoute");
-const driverDetailsRoute=require("./Routes/driverDetailRoutes");
+const driverOnlineDetailRoutes=require("./Routes/driverOnlineDetailRoutes");
 const misSheetRoutes=require("./Routes/misSheetRoutes");
 const insurerRoutes=require("./Routes/InsurerRoute");
 const uploadReportDoc = require("./Routes/reportDocumentUpload");
-const fetchRoutes = require("./Routes/fetchRoutes");
+const servicingOfficeRoutes = require("./Routes/servicingOfficeRoutes");
 const commentRoute = require("./Routes/commentsRoute");
 const regionRoute = require("./Routes/regionRoutes");
 const multer = require("multer");
@@ -57,9 +57,9 @@ app.use("/upload",uploadRoute);
 
 app.use("/report",reportRoutes);
 
-app.use("/vehicleDetails",vehicleDetailsRoute);
+app.use("/vehicleDetails",vehicleOnlineDetailRoutes);
 
-app.use("/driverDetails",driverDetailsRoute);
+app.use("/driverDetails",driverOnlineDetailRoutes);
 
 app.use("/report",reportRoutes);
 
@@ -73,7 +73,7 @@ app.use("/reportDocument",uploadReportDoc);
 
 app.use("/comments",commentRoute)
 
-app.use("/fetch",fetchRoutes);
+app.use("/fetch",servicingOfficeRoutes);
 
 app.use("/region",regionRoute);
 

@@ -3,7 +3,6 @@ const DriverDetailsViewForm = ({ claim, DLStatus }) => {
     const parts = originalDate.split("-");
     return `${parts[2]}-${parts[1]}-${parts[0]}`;
   }
-
   return (
     <>
       <div className="col-lg-12 m-2">
@@ -268,6 +267,36 @@ const DriverDetailsViewForm = ({ claim, DLStatus }) => {
                     </div>
                   </div>
                 </td>
+                <td style={{ border: "1px solid grey", padding: "3px" }}>
+                  <div className="row">
+                    <div className="col-lg-3">
+                      <label
+                        htmlFor=""
+                        className="text-color"
+                        style={{
+                          color: "black",
+                          fontSize: "13px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Address
+                      </label>
+                    </div>
+                    <div className="col-lg-9 text-end">
+                      <label
+                        htmlFor=""
+                        className="text-color"
+                        style={{
+                          color: "#1560bd",
+                          fontSize: "13px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {claim?.driverDetails?.Address}
+                      </label>
+                    </div>
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td style={{ border: "1px solid grey", padding: "3px" }}>
@@ -304,68 +333,6 @@ const DriverDetailsViewForm = ({ claim, DLStatus }) => {
                 </td>
                 <td style={{ border: "1px solid grey", padding: "3px" }}>
                   <div className="row">
-                    <div className="col-lg-6">
-                      <label
-                        htmlFor=""
-                        className="text-color"
-                        style={{
-                          color: "black",
-                          fontSize: "13px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Mobile
-                      </label>
-                    </div>
-                    <div className="col-lg-6 text-end">
-                      <label
-                        htmlFor=""
-                        className="text-color"
-                        style={{
-                          color: "#1560bd",
-                          fontSize: "13px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {claim?.driverDetails?.Mobile}
-                      </label>
-                    </div>
-                  </div>
-                </td>
-                <td style={{ border: "1px solid grey", padding: "3px" }}>
-                  <div className="row">
-                    <div className="col-lg-3">
-                      <label
-                        htmlFor=""
-                        className="text-color"
-                        style={{
-                          color: "black",
-                          fontSize: "13px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        Address
-                      </label>
-                    </div>
-                    <div className="col-lg-9 text-end">
-                      <label
-                        htmlFor=""
-                        className="text-color"
-                        style={{
-                          color: "#1560bd",
-                          fontSize: "13px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {claim?.driverDetails?.Address}
-                      </label>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style={{ border: "1px solid grey", padding: "3px" }}>
-                  <div className="row">
                     <label
                       htmlFor=""
                       className="col-lg-6 text-color"
@@ -393,36 +360,7 @@ const DriverDetailsViewForm = ({ claim, DLStatus }) => {
                     </label>
                   </div>
                 </td>
-                <td style={{ border: "1px solid grey", padding: "3px" }}>
-                  <div className="row">
-                    <div className="col-lg-6">
-                      <label
-                        htmlFor=""
-                        className=" text-color"
-                        style={{
-                          color: "black",
-                          fontSize: "13px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        RTO Name
-                      </label>
-                    </div>
-                    <div className="col-lg-6 text-end">
-                      <label
-                        htmlFor=""
-                        className=" text-color"
-                        style={{
-                          color: "#1560bd",
-                          fontSize: "13px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {claim?.driverDetails?.RtoName}
-                      </label>
-                    </div>
-                  </div>
-                </td>
+
                 <td style={{ border: "1px solid grey", padding: "3px" }}>
                   <div className="row">
                     <label

@@ -20,6 +20,10 @@ const getAllInfo = async(req,res)=>{
         [leadId]
       );
 
+      const totalLoss = await executeQuery(
+        "SELECT * FROM TotalLoss WHERE LeadID=?",
+        [leadId]
+      );
       const vehicleOnlineDetails = await executeQuery(
         "SELECT * FROM VehicleDetailsOnline WHERE LeadId=?",
         [leadId]
@@ -62,7 +66,8 @@ const getAllInfo = async(req,res)=>{
         driverOnlineDetails,
         summaryReport,
         GSTSummaryLabour,
-        GSTSummaryNewParts
+        GSTSummaryNewParts,
+        totalLoss
       };
   
    

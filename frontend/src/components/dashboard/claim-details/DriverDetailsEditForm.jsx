@@ -92,10 +92,15 @@ const DriverDetailsEditForm = ({
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
       const dl_number = claim?.driverDetails?.LicenseNumber;
+      const dob = claim?.driverDetails?.DateOfBirth;
 
       if (dl_number === "") {
         toast.error("Record Not found for empty License Number");
-      } else {
+      }
+      if (dob === "") {
+        toast.error("Record Not found for empty Date Of Birth");
+      }
+       else {
         setFinalDisable(true);
         setEditCase_02(false);
         toast.loading("Fetching the driver details!!");
@@ -108,6 +113,7 @@ const DriverDetailsEditForm = ({
             params: {
               dl_number: dl_number,
               leadId: claim?.claimDetails?.LeadID,
+              dob : claim?.driverDetails?.DateOfBirth
             },
           })
           .then(() => {
@@ -393,7 +399,7 @@ const DriverDetailsEditForm = ({
                       </div>
                     </div>
 
-                    <div className="col-lg-6">
+                    {/* <div className="col-lg-6">
                       <div className="row mt-1">
                         <div className="col-lg-5 my_profile_setting_input form-group">
                           <label
@@ -420,7 +426,7 @@ const DriverDetailsEditForm = ({
                           />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="col-lg-6">
                       <div className="row mt-1">
@@ -483,7 +489,7 @@ const DriverDetailsEditForm = ({
                         </div>
                       </div>
                     </div>
-
+{/* 
                     <div className="col-lg-6">
                       <div className="row mt-1">
                         <div className="col-lg-5 my_profile_setting_input form-group">
@@ -511,7 +517,7 @@ const DriverDetailsEditForm = ({
                           />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="col-lg-6">
                       <div className="row mt-1">
@@ -626,7 +632,7 @@ const DriverDetailsEditForm = ({
                       Gender={Gender}
                       setGender={setGender}
                       BloodGroup={BloodGroup}
-                      setBloodGroup={setBloodGroup}
+                      setLicenseTypeLinceBloodGroup={setBloodGroup}
                       setAddress={setAddress}
                       Address={Address}
                       setRtoName={setRtoName}

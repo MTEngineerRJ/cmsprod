@@ -1,6 +1,6 @@
-const db = require("../Config/dbConfig")
+const db = require("../Config/dbConfig");
 
-const authenticateUser=(req, res, next) =>{
+const authenticateUser = (req, res, next) => {
   const authorizationHeader = req.headers.authorization;
 
   if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
@@ -21,16 +21,11 @@ const authenticateUser=(req, res, next) =>{
     if (result.length === 0) {
       return res.status(401).send("Unauthorized: Invalid token");
     }
-
-    // If the token is valid, add user information to the request for later use
     req.user = {
       username: result[0].username,
-      // Add any other relevant user information
     };
-
-    // Proceed to the next middleware or route
     next();
   });
-}
+};
 
 module.exports = authenticateUser;
