@@ -19,7 +19,7 @@ const insurerRoutes=require("./Routes/InsurerRoute");
 const uploadReportDoc = require("./Routes/reportDocumentUpload");
 const servicingOfficeRoutes = require("./Routes/servicingOfficeRoutes");
 const commentRoute = require("./Routes/commentsRoute");
-const regionRoute = require("./Routes/regionRoutes");
+// const regionRoute = require("./Routes/regionRoutes");
 const multer = require("multer");
 
 
@@ -75,7 +75,6 @@ app.use("/comments",commentRoute)
 
 app.use("/fetch",servicingOfficeRoutes);
 
-app.use("/region",regionRoute);
 
 app.get('/', (req, res) => {
   res.send('Hello, this is your Express server!');
