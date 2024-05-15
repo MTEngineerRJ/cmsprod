@@ -1,3 +1,4 @@
+
 const db = require("../Config/dbConfig");
 
 const getDepreciationRates = (req, res) => {
@@ -14,4 +15,4 @@ const getDepreciationRates = (req, res) => {
   });
 };
 
-module.exports = { getDepreciationRates };
+module.exports={getDepreciationRates}
