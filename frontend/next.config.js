@@ -15,7 +15,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: false,
   env: {
-     BACKEND_DOMAIN: "https://cmsprod.onrender.com",
+     BACKEND_DOMAIN: "https://cmsproduction.onrender.com",
     // BACKEND_DOMAIN: "http://localhost:3007",
     // BACKEND_DOMAIN: "http://13.126.213.200:3006",
 
