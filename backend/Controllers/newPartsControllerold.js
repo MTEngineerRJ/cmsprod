@@ -5,7 +5,7 @@ const getLeadBYSNO = require("../Config/getLeadWithSNO");
 const getSpecificNewParts = (req,res)=>{
   console.log("inside the new parts controller getSpecificNewParts!");
     const leadId = req.params.leadId;
-    db.query("SELECT * FROM NewPartsReport WHERE LeadID=?",[leadId], (err, result2) => {
+    db.query("SELECT * FROM NewPartsReport", (err, result2) => {
       if (err) {
         console.log(err);
         console.error(err);
