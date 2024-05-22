@@ -12,7 +12,7 @@ async function handler(request, response) {
 
     console.log("token",token);
 
-    const userResponse = await axios.get(`${domain}/newParts/getNewParts/${leadId}`, {
+    const userResponse = await axios.get(`${domain}/newParts/getSpecificNewPartsDetails/${leadId}`, {
       headers: {
         Authorization: token,
         'Content-Type': 'application/json',
@@ -26,6 +26,7 @@ async function handler(request, response) {
     return response.status(200).json({ msg: "OK", userData: user });
   } catch (err) {
     if (err.response) {
+      
       // If the error is from an axios request (e.g., HTTP 4xx or 5xx error)
       const axiosError = err.response.data;
       const statusCode = err.response.status;
@@ -35,7 +36,7 @@ async function handler(request, response) {
       return response.status(statusCode).json({ error: axiosError.message });
     } else {
       // Handle other types of errors
-      return response.status(500).json({ error: "Internal Server Error" });
+      return response.status(500).json({ error:err});
     }
   }
 }

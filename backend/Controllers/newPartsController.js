@@ -3,12 +3,13 @@ const getLeadBYSNO = require("../Config/getLeadWithSNO");
 
 
 const getSpecificNewParts = (req,res)=>{
+  console.log("inside the new parts controller getSpecificNewParts!");
     const leadId = req.params.leadId;
     db.query("SELECT * FROM NewPartsReport", (err, result2) => {
       if (err) {
         console.log(err);
         console.error(err);
-        res.status(500).send("Internal Server Error");
+        res.status(500).send("Internal Server Error ");
         return;
       }
       res.status(200).send(result2);
