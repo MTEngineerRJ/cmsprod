@@ -1608,11 +1608,12 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
       leadId,
     };
 
-    // const totalValue = Number(totalPartsAssessed) + Number(totalLabrorAssessed);
-    // if (totalValue > 0 && Number(LessExcess) === 0) {
-    //   toast.error("Less Excess cannot be empty.");
-    //   setDisable(false);
-    // } else {
+    const totalValue = Number(totalPartsAssessed) + Number(totalLabrorAssessed);
+    if (totalValue > 0 && Number(LessExcess) === 0) {
+      toast.error("Less Excess cannot be empty.");
+      setDisable(false);
+      setFunc(true);
+    } else {
       toast.loading("Updating the final Report!!", {
         className: "toast-loading-message",
       });
@@ -1640,7 +1641,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
             className: "toast-loading-message",
           });
         });
-    // }
+    }
     setDisable(false);
     setFunc(false);
   };

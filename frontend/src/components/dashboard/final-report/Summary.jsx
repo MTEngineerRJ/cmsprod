@@ -1029,7 +1029,7 @@ const Summary = ({
                         disabled={disable}
                         onClick={() => {
                           setHide(true);
-                          saveHandler(setIsEdit);
+                          saveHandler(setHide);
                         }}
                       >
                         Update

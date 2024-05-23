@@ -286,11 +286,11 @@ export default function Exemple_01({
       temp.push(row2);
     });
 
-    // if(Number(totalAssessed) > Number(totalEstimate)){
-    //   toast.error("Listed assessed amount(s) cannot be greater than estimate amount(s).");
-    //   setHide(false);
-    // }
-    // else{
+    if(Number(totalAssessed) > Number(totalEstimate)){
+      toast.error("Listed assessed amount(s) cannot be greater than estimate amount(s).");
+      setHide(false);
+    }
+    else{
 
 
     const payload = {
@@ -315,7 +315,7 @@ export default function Exemple_01({
       .catch((Err) => {
         alert(Err);
       });
-    // }
+    }
   };
 
   const [hide,setHide] = useState(false)

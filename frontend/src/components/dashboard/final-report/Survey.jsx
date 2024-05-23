@@ -422,8 +422,8 @@ const Servey = ({
                       value={
                         localDate(AccidentAddedDateTime) 
                       }
-                      // onChange={(e) => handleChangeAccidentDate(e.target.value)}
-                      onChange={(e) => setAccidentAddedDateTime(e.target.value)}
+                      onChange={(e) => handleChangeAccidentDate(e.target.value)}
+                      // onChange={(e) => setAccidentAddedDateTime(e.target.value)}
                     />
                   )}
                  
@@ -621,8 +621,8 @@ const Servey = ({
                         ? InspectionDate
                         : ""
                     }
-                    // onChange={(e) => handleChangeSurveyDate(e.target.value)}
-                    onChange={(e) => setInspectionDate(e.target.value)}
+                    onChange={(e) => handleChangeSurveyDate(e.target.value)}
+                    // onChange={(e) => setInspectionDate(e.target.value)}
                   />
                   {/* <span className="flaticon-calendar m-1 text-dark"></span> */}
                 </div>
