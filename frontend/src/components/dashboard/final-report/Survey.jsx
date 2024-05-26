@@ -155,13 +155,15 @@ const Servey = ({
     const policyStartDate = new Date(claim?.claimDetails?.PolicyPeriodStart);
     const policyEndDate = new Date(claim?.claimDetails?.PolicyPeriodEnd);
 
-    if((policyStartDate <= newDate && newDate <= policyEndDate) || newDate === ""){
+    if((policyStartDate <= newDate && newDate <= policyEndDate) || AccidentAddedDateTime === ""){
       setAccidentAddedDateTime((value));
     }
     else if (policyStartDate > newDate) {
       toast.error("Update failed: The new accident date is before the policy start date.");
     } else if (policyEndDate < newDate) {
       toast.error("Update failed: The new accident date is after the policy end date.");
+    }else{
+      setAccidentAddedDateTime(value);
     }
   }
 
