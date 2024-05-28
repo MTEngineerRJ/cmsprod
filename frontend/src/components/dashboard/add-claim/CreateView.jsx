@@ -22,6 +22,10 @@ const CreateView = () => {
   const [phoneNumber_01, setPhoneNumber_01] = useState("");
   const [phoneNumber_02, setPhoneNumber_02] = useState("");
   const [disable, setDisable] = useState(false);
+  const [showPreInspection,setShowPreInspection] = useState(false);
+  const [showSpot,setShowSpot] = useState(false);
+  const [showFinal,setShowFinal] = useState(false);
+  
   const router = useRouter();
   const todayDate = new Date();
   const formattedTodayDate = todayDate.toISOString().split("T")[0];
@@ -58,6 +62,17 @@ const CreateView = () => {
   }, [policyStartDate]);
 
   useEffect(() => {
+
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    if(userInfo[0].IsPreInspection){
+      setShowPreInspection(true);
+    }
+    if(userInfo[0].IsSpotInspection){
+      setShowSpot(true);
+    }
+    if(userInfo[0].IsFinalInspection){
+      setShowFinal(true);
+    }
     axios
       .get("/api/getClaimServicingOffice")
       .then((res) => {
@@ -102,15 +117,30 @@ const CreateView = () => {
       NatureOfLoss: natureOfLoss,
       EstimatedLoss: estimatedLoss,
     };
-
-    if (!payload.PolicyNumber) {
+    if(String(payload.InspectionType).toLowerCase() === "pre-inspection" && !payload.RegisteredNumber){
+      
+        toast.error("Please fill the Vehicle Number !!", {
+          className: "toast-loading-message",
+        });
+        setDisable(false);
+    }
+    else if(String(payload.InspectionType).toLowerCase() === "pre-inspection" && !payload.InsuredName){
+      
+      toast.error("Please fill the Insured Name !!", {
+        className: "toast-loading-message",
+      });
+      setDisable(false);
+  }
+    else if (!payload.PolicyNumber && String(payload.InspectionType).toLowerCase() !== "pre-inspection") {
       toast.error("Policy Number should be filled !!", {
         className: "toast-loading-message",
       });
+      setDisable(false);
     } else if (!region) {
       toast.error("Region should be filled!!", {
         className: "toast-loading-message",
       });
+      setDisable(false);
     } else {
       toast.loading("Adding claim!!", {
         className: "toast-loading-message",
@@ -219,16 +249,16 @@ const CreateView = () => {
                 value={inspectionType}
                 onChange={(e) => setInspectionType(e.target.value)}
               >
-                <option data-tokens="Status2" value={"Final"}>
+                {showFinal && <option data-tokens="Status2" value={"Final"}>
                   Final
-                </option>
-                <option data-tokens="Status1" value={"spot"}>
+                </option>}
+                {showSpot && <option data-tokens="Status1" value={"spot"}>
                   Spot
-                </option>
+                </option>}
 
-                <option data-tokens="Status3" value={"re-inspection"}>
+                {showPreInspection && <option data-tokens="Status3" value={"pre-inspection"}>
                   Pre-inspection
-                </option>
+                </option>}
               </select>
             </div>
           </div>

@@ -34,6 +34,7 @@ const sendEmail1 = (req, res) => {
     BrokerMailAddress,
     GarageMailAddress,
     Region,
+    InspectionType
   } = req.body;
 
   if (leadId === undefined || !leadId) {
@@ -85,15 +86,16 @@ const sendEmail1 = (req, res) => {
       <br/>
       <strong> ${content} </strong>
 
-      Please provide the clear copy of all the documents so that <br/>
+      ${String(InspectionType).toLowerCase().includes("inspection") ? "" : `Please provide the clear copy of all the documents so that <br/>
       the claim processing can be fast or
-      <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${InsuredToken}&type=${1}&content=${""} target="_blank">Click Here</a> to fill the documents information .</p> <br/>
+      <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${InsuredToken}&type=${1}&content=${""} target="_blank">Click Here</a> to fill the documents information .</p> <br/>`}
 
-      Please provide the clear Vahicle Videos so that the claim <br/>
+      Please provide the  all the clear Images of the Vehicle so  <br/>
       processing can be fast or 
       <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${ImageToken}&type=${2}&content=${"Images"} target="_blank">Click Here</a> to fill the documents information .</p> <br/>
 
-      Please provide the  all the clear Images of the Vehicle so  <br/>
+       
+      Please provide the clear Vehicle Videos so that the claim<br/>
       that the claim processing can be fast or 
       <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${VideoToken}&type=${3}&content=${"Videos"} target="_blank">Click Here</a> to fill the documents information .</p> <br/>
 
@@ -344,6 +346,7 @@ const sendCustomEmail = (req, res) => {
     subject,
     body,
     Region,
+    isPreInspection
   } = req.body;
 
   if (leadId === undefined || !leadId) {

@@ -306,6 +306,7 @@ const addClaim = (req, res) => {
                             vehicleNo: RegisteredNumber,
                             PolicyNo: PolicyNumber,
                             Insured: InsuredName,
+                            InspectionType : InspectionType,
                             toMail: InsuredMailAddress,
                             Date: new Date(),
                             leadId: addLeadId,

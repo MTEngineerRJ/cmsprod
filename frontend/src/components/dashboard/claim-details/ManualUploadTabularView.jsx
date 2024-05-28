@@ -30,22 +30,17 @@ const headCells = [
     label: "Document Name",
     width: 120,
   },
-  {
-    id: "date",
-    numeric: false,
-    label: "Uploaded On",
-    width: 120,
-  },
-  // {
-  //   id: "status",
-  //   numeric: false,
-  //   label: "Status",
-  //   width: 120,
-  // },
+  
   {
     id: "file",
     numeric: false,
     label: "File",
+    width: 120,
+  },
+  {
+    id: "date",
+    numeric: false,
+    label: "Uploaded On",
     width: 150,
   },
   {
@@ -504,6 +499,46 @@ export default function Exemple({ finalDisable, documents, leadId }) {
     { name: "Payment/cash receipt" },
   ];
 
+  function formatDateWithWeekday(dateString) {
+    const date = new Date(dateString);
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const weekdayNames = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const year = date.getFullYear();
+    const month = monthNames[date.getMonth()];
+    const day = date.getDate();
+    const weekday = weekdayNames[date.getDay()];
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const minutesFormatted = minutes < 10 ? "0" + minutes : minutes;
+    const formattedDate = `${month} ${day}, ${year} ${hours}:${minutesFormatted} ${ampm}`;
+
+    return formattedDate;
+  }
+
   const onSubmitHandler = () => {
     setDisable(true);
 
@@ -632,9 +667,17 @@ export default function Exemple({ finalDisable, documents, leadId }) {
         </div>
       );
 
+      const dates = (
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {allInfo?.map((data, index) => {
+            return <div key={index}>{formatDateWithWeekday(data?.Timestamp)}</div>
+          })}
+        </div>
+      );
       const temp = {
         _id: docs._id,
         serial_num: docs.serial_num,
+        date: dates,
         doc_name: docs.doc_name,
         file: alllinks,
         action: (

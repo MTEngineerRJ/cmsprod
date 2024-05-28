@@ -16,7 +16,7 @@ import {
   FaThList,
 } from "react-icons/fa";
 
-const SidebarMenu = ({ leadId, email, policyNo, vehicleNo, Insured ,Region,BrokerMailAddress,GarageMailAddress}) => {
+const SidebarMenu = ({ isInspectionType,leadId, email, policyNo, vehicleNo, Insured ,Region,BrokerMailAddress,GarageMailAddress}) => {
   
   const route = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +31,7 @@ const SidebarMenu = ({ leadId, email, policyNo, vehicleNo, Insured ,Region,Broke
   const closeQuoteModal = () => {
     setIsQuoteModalOpen(false);
   };
+
   const myProperties = [
     { id: 1, name: "General Elements", route: "/my-properties" },
     { id: 2, name: "Advanced Elements", route: "/my-properties" },
@@ -155,9 +156,9 @@ const SidebarMenu = ({ leadId, email, policyNo, vehicleNo, Insured ,Region,Broke
                         : ""
                     }`}
                   >
-                    <Link href={`/final-report/${leadId}`} title="Final Report">
+                    <Link href={isInspectionType ? `inspection-report/${leadId}`: `/final-report/${leadId}`} title="Final Report">
                       <i className="flaticon-invoice"></i>
-                      {/* <span> Message</span> */}
+                     
                     </Link>
                   </li>
                   <li
@@ -194,18 +195,7 @@ const SidebarMenu = ({ leadId, email, policyNo, vehicleNo, Insured ,Region,Broke
                     </Link>
                   </li>
                   }
-                   {/* <li
-                    className={`treeview ${
-                      isSinglePageActive("/mis-sheet", route.pathname)
-                        ? "active"
-                        : ""
-                    }`}
-                  >
-                    <Link href="/mis-sheet" title="MIS Sheet">
-                      <i className="flaticon-document"></i>
-                      <span> </span>
-                    </Link>
-                  </li>*/}
+                  
                   {isprint && <li
                     className={`treeview ${
                       isSinglePageActive(

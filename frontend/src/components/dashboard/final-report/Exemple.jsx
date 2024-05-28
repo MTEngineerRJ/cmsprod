@@ -612,11 +612,11 @@ export default function Exemple_01({
       tempRows.push(r);
     });
 
-    // if(Number(totalAssessed) > Number(totalEstimate)){
-    //   toast.error("Listed assessed amount(s) cannot be greater than estimate amount(s).");
-    //   setHide(false);
-    // }
-    // else{
+    if(Number(totalAssessed) > Number(totalEstimate)){
+      toast.error("Listed assessed amount(s) cannot be greater than estimate amount(s).");
+      setHide(false);
+    }
+    else{
 
     const payload = {
       allRows: JSON.stringify(tempRows),
@@ -639,7 +639,7 @@ export default function Exemple_01({
       .catch((Err) => {
         alert(Err);
       });
-    // }
+    }
   };
 
   const changeTotalAccordingToPolicyType = (policy) => {

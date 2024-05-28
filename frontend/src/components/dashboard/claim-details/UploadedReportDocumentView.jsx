@@ -217,7 +217,6 @@ import UploadedReportTabularView from "./UploadedReportTabularView";
         }
       })
       .then((res)=>{
-        console.log("allUploadDocLists",res.data.data.results);
         const tempData = res.data.data.results;
         let storedData = [];
         tempData.map((report,index)=>{
@@ -228,7 +227,6 @@ import UploadedReportTabularView from "./UploadedReportTabularView";
                     indexValue = idx;
                 }
             })
-            console.log("report",report);
             if(indexValue === -1){
                 let insideData = {
                     name : report?.FileName,
