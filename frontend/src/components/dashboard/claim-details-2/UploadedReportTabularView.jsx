@@ -34,6 +34,9 @@ function UploadedReportTabularView(props) {
       // Clear the timer when the component unmounts or when props change
       return () => clearTimeout(timer);
     }
+    else{
+      setShowButton(false);
+    }
   }, [props.canUndo]);
 
   const fetchData = useCallback(
@@ -118,7 +121,6 @@ function UploadedReportTabularView(props) {
         });
         return bool;
       });
-      console.log("tempData", tempData);
       setData(tempData);
     }
   }, props.searchDebounceTime ?? 800);

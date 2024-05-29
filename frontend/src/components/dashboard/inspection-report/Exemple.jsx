@@ -54,9 +54,6 @@ export default function Exemple_01({
     }
    
   }, [partsData]);
-  console.log("allRows",allRows,specificVehicleParts);
-    
-
   useEffect(() => {
     let temp = [];
 
@@ -94,6 +91,7 @@ export default function Exemple_01({
               value={row.state}
               onChange={(e) => onFeildChangeHandler(e.target.value, index + 1,"state")}
             >
+              <option key={index} data-tokens="Status1" value={""}></option>
               {partsState.map((state, index) => {
                 return (
                   <option key={index} data-tokens="Status1" value={state.State}>

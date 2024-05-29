@@ -108,6 +108,7 @@ const Index = ({}) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [ClaimNumber, setClaimNumber] = useState("");
 
+  const [uploadedFiles, setUploadedFiles] = useState([]);
   const [VehicleModel, setVehicleModel] = useState("");
 
   const [EngineType, setEngineType] = useState("");
@@ -1413,6 +1414,8 @@ const Index = ({}) => {
                               disable={disable}
                               documents={documents}
                               leadId={leadId}
+                              uploadedFiles={uploadedFiles}
+                              setUploadedFiles={setUploadedFiles}
                             />
                           </div>
                         </div>
@@ -1424,6 +1427,7 @@ const Index = ({}) => {
                           <div className="col-lg-12 text-center">
                             <UploadReportDocumentView
                               leadId={leadId}
+                              uploadedFiles={uploadedFiles}
                               documents={documents}
                             />
                           </div>

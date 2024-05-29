@@ -8,7 +8,7 @@ import AWS from "aws-sdk";
 
 
 
-export default function UploadReportDocumentView({ leadId, documents }) {
+export default function UploadReportDocumentView({ leadId, documents ,uploadedFiles}) {
   const [alluploadedDocs, setAlluploadedDocs] = useState([]);
 
   const [canReset,setCanReset] = useState(false);
@@ -120,11 +120,10 @@ export default function UploadReportDocumentView({ leadId, documents }) {
         if(tempData.length > 0){
           setCanReset(true);
         }
-
         setAllSequencedDocs(tempData);
       })
       .catch((err) => {});
-  }, [documents]);
+  }, [documents,uploadedFiles]);
 
   useEffect(() => {
     let tempDocs = [...allSequencedDocs];
@@ -265,21 +264,17 @@ export default function UploadReportDocumentView({ leadId, documents }) {
   const downloadAllFiles = async () => {
     try {
       const zip = new JSZip();
-      for (const file of uploadedFiles) {
-        const data = file.data;
-        if (file.data) {
-          for (const docFile of data) {
-            const fileName = docFile.name;
-            const path = docFile.url;
-            const response = await fetch(path);
-            const blob = await response.blob();
-            zip.file(decodeURIComponent(fileName), blob, { binary: true });
-          }
-        }
+      
+      for (const doc of alluploadedDocs) {
+        const fileName = doc.filename;
+        const path = doc.fileurl;
+        const response = await fetch(path);
+        const blob = await response.blob();
+        zip.file(decodeURIComponent(fileName), blob, { binary: true });
       }
-
+  
       const content = await zip.generateAsync({ type: "blob" });
-
+  
       const a = document.createElement("a");
       const url = URL.createObjectURL(content);
       a.href = url;
@@ -288,13 +283,14 @@ export default function UploadReportDocumentView({ leadId, documents }) {
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-
+  
       toast.success("Successfully downloaded the zip!");
     } catch (error) {
       console.log("Error during download:", error);
       toast.error("Error during download. Please try again.");
     }
   };
+  
 
 
   const updateRowHandler = (id, field, value) => {
@@ -327,7 +323,6 @@ export default function UploadReportDocumentView({ leadId, documents }) {
   const isInsidetheSelectedImage = (fileurl) => {
     let isThere = false;
     allSequencedDocs?.map((row, index) => {
-      console.log("fileurl", row.fileurl, fileurl, row.fileurl === fileurl);
       if (String(row.fileurl) === String(fileurl)) {
         isThere = true;
       }

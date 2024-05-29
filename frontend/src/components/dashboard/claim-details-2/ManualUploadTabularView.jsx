@@ -91,10 +91,10 @@ let LabelData = [
   },
 ];
 
-export default function Exemple({ finalDisable, documents, leadId }) {
+export default function Exemple({ finalDisable, documents, leadId,uploadedFiles,setUploadedFiles }) {
   const [updatedCode, setUpdatedCode] = useState([]);
   const [selectedFile, setSelectedFile] = useState([]);
-  const [uploadedFiles, setUploadedFiles] = useState([]);
+
   const [uploadingDoc,setUploadingDoc] = useState("");
 
   const [data, setData] = useState(LabelData);
@@ -517,22 +517,14 @@ export default function Exemple({ finalDisable, documents, leadId }) {
     });
     try {
       const zip = new JSZip();
-
-      // Iterate through uploadedFiles
       for (const file of uploadedFiles) {
         const data = file.data;
-
-        // Iterate through data array
         if (file.data) {
           for (const docFile of data) {
             const fileName = docFile.name;
             const path = docFile.url;
-
-            // Fetch the image content
             const response = await fetch(path);
             const blob = await response.blob();
-
-            // Add the image to the zip file
             zip.file(decodeURIComponent(fileName), blob, { binary: true });
           }
         }

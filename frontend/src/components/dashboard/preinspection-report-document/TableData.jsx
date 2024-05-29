@@ -68,7 +68,7 @@ const TableData = ({ allInfo }) => {
                       <tr key={index}>
                         <td>{part.partName}</td>
                         <td className={`${part.currentClass} fw-bold`}>
-                          {part.partState}
+                          {part?.partState ? part?.partState : "--"}
                         </td>
                       </tr>
                     );
@@ -88,7 +88,7 @@ const TableData = ({ allInfo }) => {
                       <tr key={index}>
                         <td>{part.partName}</td>
                         <td className={`${part.currentClass} fw-bold`}>
-                          {part.partState}
+                        {part?.partState ? part?.partState : "--"}
                         </td>
                       </tr>
                     );
