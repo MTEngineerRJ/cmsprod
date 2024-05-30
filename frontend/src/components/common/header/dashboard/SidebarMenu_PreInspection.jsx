@@ -16,7 +16,7 @@ import {
   FaThList,
 } from "react-icons/fa";
 
-const SidebarMenu = ({ VehicleType,leadId, email, policyNo, vehicleNo, Insured ,Region,BrokerMailAddress,GarageMailAddress}) => {
+const SidebarMenu = ({ VehicleType,leadId, email, policyNo, vehicleNo, Insured ,Region,BrokerMailAddress,GarageMailAddress,isClaimPage}) => {
   
   const route = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -85,6 +85,10 @@ const SidebarMenu = ({ VehicleType,leadId, email, policyNo, vehicleNo, Insured ,
     }
   }
   },[]);
+
+  const isIncludingPath = (checkPath,currentPath)=>{
+    return String(currentPath).toLowerCase().includes(checkPath)
+  }
 
   return (
     <>
@@ -156,10 +160,11 @@ const SidebarMenu = ({ VehicleType,leadId, email, policyNo, vehicleNo, Insured ,
                       {/* <span> Message</span> */}
                     </Link>
                   </li>
-                  <li
+                  {isClaimPage && <li
                     className={`treeview ${
-                      checkIsActive(
-                        `/inspection-report`
+                      isIncludingPath(
+                        `inspection-report`,
+                          route.pathname
                       )
                         ? "active"
                         : ""
@@ -169,11 +174,12 @@ const SidebarMenu = ({ VehicleType,leadId, email, policyNo, vehicleNo, Insured ,
                       <i className="flaticon-invoice"></i>
                      
                     </Link>
-                  </li>
-                  <li
+                  </li>}
+                  {isClaimPage && <li
                     className={`treeview ${
-                      checkIsActive(
-                        `/preinspection-send-email`
+                      isIncludingPath(
+                        `/preinspection-send-email`,
+                        route.pathname
                       )
                         ? "active"
                         : ""
@@ -186,11 +192,11 @@ const SidebarMenu = ({ VehicleType,leadId, email, policyNo, vehicleNo, Insured ,
                       <i className="flaticon-envelope"></i>
                       {/* <span> Message</span> */}
                     </Link>
-                  </li>
+                  </li>}
                  
                  {isBill && <li
                     className={`treeview ${
-                      checkIsActive("/bill-creation")
+                      checkIsActive("/bill-creation",route.pathname)
                         ? "active"
                         : ""
                     }`}
@@ -207,8 +213,8 @@ const SidebarMenu = ({ VehicleType,leadId, email, policyNo, vehicleNo, Insured ,
                   
                   {isprint && <li
                     className={`treeview ${
-                      isSinglePageActive(
-                        `/preinspection-print-document/${leadId}`,
+                      isIncludingPath(
+                        `/preinspection-print-document`,
                         route.pathname
                       )
                         ? "active"

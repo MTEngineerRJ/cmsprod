@@ -10,7 +10,7 @@ const PrintLayoutView = () => {
     if (selectedValue === "rc") {
       router.push(`/rc-document/${leadId}`);
     }
-    if (selectedValue === "finalreport") {
+    if (selectedValue === "preinspection-report-document") {
       router.push(`/preinspection-report-document/${leadId}`);
     }
     if (selectedValue === "dl") {
@@ -36,7 +36,7 @@ const PrintLayoutView = () => {
             onChange={handleSelectChange}
           >
             <option value="-">Select Documents</option>
-            <option value="finalreport">Final Report</option>
+            <option value="preinspection-report-document">Pre-Inspection Report</option>
             <option value="rc">RC</option>
             <option value="dl">DL</option>
             <option value="billcreation">Bill Creation</option>

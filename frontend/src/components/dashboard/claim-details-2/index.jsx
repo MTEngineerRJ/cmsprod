@@ -998,6 +998,7 @@ const Index = ({}) => {
             Region={claim?.claimDetails?.Region}
             BrokerMailAddress={BrokerMailAddress}
             GarageMailAddress={GarageMailAddress}
+            isClaimPage={true}
           />
         </div>
       </div>
