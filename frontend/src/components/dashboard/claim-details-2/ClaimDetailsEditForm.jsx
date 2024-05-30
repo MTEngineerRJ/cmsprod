@@ -121,6 +121,7 @@ const ClaimDetailsEditForm = ({
         BrokerMailAddress: claim?.claimDetails?.BrokerMailAddress,
         GarageMailAddress: claim?.garageDetails?.GarageMailAddress,
         Region: claim?.claimDetails?.Region,
+        inspectionType : claim?.claimDetails?.InspectionType,
         type: 4,
         date: formatDate(new Date()),
       };

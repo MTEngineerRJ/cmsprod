@@ -170,7 +170,7 @@ const SidebarMenu = ({ VehicleType,leadId, email, policyNo, vehicleNo, Insured ,
                         : ""
                     }`}
                   >
-                    <Link href={`inspection-report?vehicleType=${VehicleType}&leadId=${leadId}`} title="Final Report">
+                    <Link href={`inspection-report?vehicleType=${VehicleType}&leadId=${leadId}`} title="Pre-Inspection Report">
                       <i className="flaticon-invoice"></i>
                      
                     </Link>
@@ -196,14 +196,14 @@ const SidebarMenu = ({ VehicleType,leadId, email, policyNo, vehicleNo, Insured ,
                  
                  {isBill && <li
                     className={`treeview ${
-                      checkIsActive("/bill-creation",route.pathname)
+                      checkIsActive("/inspection-bill-creation",route.pathname)
                         ? "active"
                         : ""
                     }`}
                   >
                     <Link
-                      href={`/bill-creation/${leadId}`}
-                      title="Bill Creation"
+                      href={`/inspection-bill-creation/${leadId}`}
+                      title="Pre-Inspection Bill Creation"
                     >
                       <i className="flaticon-document"></i>
                       <span> </span>

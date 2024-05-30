@@ -194,6 +194,7 @@ const acknowledgmentMail = (req, res) => {
     type,
     BrokerMailAddress,
     GarageMailAddress,
+    inspectionType
   } = req.body;
   const sql = "SELECT * FROM ClaimStatus WHERE LeadId =?";
   const sql1 = "SELECT Region FROM ClaimDetails WHERE LeadId =?";
@@ -210,7 +211,7 @@ const acknowledgmentMail = (req, res) => {
         res.status(500).send("Internal Server Error");
         return;
       }
-      const content = emailHandler(result[0]?.Status);
+      const content = emailHandler(result[0]?.Status,inspectionType);
       const Region = resultRegion[0]?.Region; // Updated assignment for Region
 
       const InsuredToken = generateUniqueToken();
@@ -295,6 +296,9 @@ const acknowledgmentMail = (req, res) => {
             rejectUnauthorized: false,
           },
         });
+
+        console.log("email",inspectionType,emailContent);
+        
         const mailOptions = {
           from: currentMailAddress,
           to: toMail,
