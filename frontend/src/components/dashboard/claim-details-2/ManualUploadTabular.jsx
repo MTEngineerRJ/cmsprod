@@ -125,14 +125,14 @@ function SmartTable(props) {
       {/* <h4 className="mb-3">Vehicle Details</h4> */}
       <div class="accordion" id="accordiTwoxample">
         <div class="accordion-item">
-          <h2 class="accordion-header" id="headingTwo">
+          <h2 class="accordion-header" id="headingSeven">
             <button
               class="btn accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
-              data-bs-target="#collapseTwo"
+              data-bs-target="#collapseSeven"
               aria-expanded="false"
-              aria-controls="collapseTwo"
+              aria-controls="collapseSeven"
               style={{ padding: "5px 10px 0 20px" }}
             >
               {/* <h4 className="">Vehicle Details</h4> */}
@@ -154,9 +154,9 @@ function SmartTable(props) {
             </button>
           </h2>
           <div
-            id="collapseTwo"
+            id="collapseSeven"
             class="accordion-collapse collapse"
-            aria-labelledby="headingTwo"
+            aria-labelledby="headingSeven"
             data-bs-parent="#accordiTwoxample"
           >
             <div class="accordion-body bgc-f6">
