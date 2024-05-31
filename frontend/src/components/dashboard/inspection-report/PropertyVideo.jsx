@@ -77,7 +77,7 @@ const PropertyVideo = ({ vehicleType,leadId }) => {
         setspecificVehicleParts(updatedData);
       })
       .catch((err) => {});
-  }, []);
+  }, [vehicleType,leadId]);
 
   return (
     <>
