@@ -1,4 +1,5 @@
 const db = require("../Config/dbConfig");
+const { logMessage } = require("../utils/LoggerFile");
 
 const getVehicleParts = (req, res) => {
   const vehicleType = req.params.vehicleType;
@@ -142,9 +143,17 @@ const updateVehiclePartsDetails = async (req, res) => {
         `;
       const requiredQuery =
         parseInt(row.PartID) > 0 ? updateQuery : insertQuery;
-      console.log(requiredQuery);
       db.query(requiredQuery, (err, result) => {
         if (err) {
+          logMessage({
+            type: "error",
+            Function: `UPDATING_INSPECTION_REPORT`,
+            message: `Got error while ${requiredQuery === updateQuery ? "updating" : "Inserting"} the Parts Details  for the Inspection_report for leadId --> ${leadId}`,
+            username: row.Username,
+            leadId: leadId,
+            consoleInfo: `Got error while ${requiredQuery === updateQuery ? "updating" : "Inserting"} the Parts Details  for the Inspection_report for leadId --> ${leadId}`,
+            info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query:${requiredQuery}, error : ${err}}}`,
+          });
           console.error(err);
           res
             .status(500)
@@ -158,9 +167,17 @@ const updateVehiclePartsDetails = async (req, res) => {
       if (parseInt(row.PartID) > 0) {
         const deleteQuery =
           "DELETE FROM PreInspection WHERE LeadID = ? AND PartID = ?";
-        console.log("Delete", deleteQuery);
         db.query(deleteQuery, [leadId, parseInt(row.PartID)], (err, result) => {
           if (err) {
+            logMessage({
+              type: "error",
+              Function: `UPDATING_INSPECTION_REPORT`,
+              message: `Got error while deleting the Parts Details  for the Inspection_report for leadId --> ${leadId}`,
+              username: row.Username,
+              leadId: leadId,
+              consoleInfo: `Got error while deleting the Parts Details  for the Inspection_report for leadId --> ${leadId}`,
+              info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query:${deleteQuery}, error : ${err}}}`,
+            });
             console.error(err);
             res
               .status(500)
@@ -172,6 +189,16 @@ const updateVehiclePartsDetails = async (req, res) => {
         });
       }
     }
+  });
+
+  logMessage({
+    type: "info",
+    Function: `UPDATING_INSPECTION_REPORT`,
+    message: `Updated successfully the Inspection report for leadId ---> ${leadId}`,
+    username: newData.length > 0 ? newData[0].Username : "",
+    leadId: leadId,
+    consoleInfo: `Updated successfully the Inspection report for leadId ---> ${leadId}`,
+    info: `{message : 200 SUCCESS }`,
   });
 
   res.status(200).send("Successfully updated!");

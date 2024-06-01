@@ -135,6 +135,7 @@ const Index = () => {
       const Region4 = userInfo[0]["Region4"];
       const Region5 = userInfo[0]["Region5"];
       const CalimStatus = userInfo[0]["CalimStatus"];
+      const Username = userInfo[0].Username;
       toast.loading("Loading the claims!!", {
         className: "toast-loading-message",
       });
@@ -147,6 +148,7 @@ const Index = () => {
             Region4,
             Region5,
             CalimStatus,
+            Username
           },
           headers: {
             Authorization: `Bearer ${userInfo[0]?.Token}`,

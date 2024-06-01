@@ -25,7 +25,6 @@ const VehicleDetails = ({ allInfo }) => {
   };
   return (
     <>
-      
       <div
         className=""
         style={{
@@ -96,7 +95,9 @@ const VehicleDetails = ({ allInfo }) => {
                         padding: "3px",
                         marginRight: "5px",
                         width: "200px", // fixed width
-                        height: "210px", // fixed height
+                        height: "250px", // fixed height
+                        overflow: "hidden", // prevents overflow
+                        textOverflow: "ellipsis", // handles text overflow
                       }}
                     >
                       <table style={{ width: "100%", height: "100%" }}>
@@ -203,7 +204,9 @@ const VehicleDetails = ({ allInfo }) => {
                         padding: "5px",
                         marginRight: "5px",
                         width: "200px", // fixed width
-                        height: "210px", // fixed height
+                        height: "250px", // fixed height
+                        overflow: "hidden", // prevents overflow
+                        textOverflow: "ellipsis", // handles text overflow
                       }}
                     >
                       <table style={{ width: "100%", height: "100%" }}>
@@ -320,7 +323,9 @@ const VehicleDetails = ({ allInfo }) => {
                         padding: "5px",
                         marginRight: "5px",
                         width: "200px", // fixed width
-                        height: "210px", // fixed height
+                        height: "250px", // fixed height
+                        overflow: "hidden", // prevents overflow
+                        textOverflow: "ellipsis", // handles text overflow
                       }}
                     >
                       <table style={{ width: "100%", height: "100%" }}>
@@ -423,10 +428,32 @@ const VehicleDetails = ({ allInfo }) => {
                         </tr>
                       </table>
                     </div>
+                    <div
+                      className="card "
+                      style={{
+                        border: "2px solid #2e008b",
+                        padding: "5px",
+                        marginRight: "5px",
+                        width: "200px", // fixed width
+                        height: "250px", // fixed height
+                        // overflow: "hidden", // prevents overflow
+                        textOverflow: "ellipsis", // handles text overflow
+                      }}
+                    >
+                      <img
+                        width={481}
+                        height={209}
+                        priority
+                        className="w100 mt-2"
+                        src={getCurrentImage().src}
+                        // src="/assets/images/Claim_Logo.jpg"
+                        alt={getCurrentImage().name}
+                      />
+                    </div>
                   </div>
                 </div>
               </td>
-              <td style={{ width: "25%", textAlign: "center" }}>
+              {/* <td style={{ width: "25%", textAlign: "center" }}>
                 <img
                   width={481}
                   height={209}
@@ -436,7 +463,7 @@ const VehicleDetails = ({ allInfo }) => {
                   // src="/assets/images/Claim_Logo.jpg"
                   alt={getCurrentImage().name}
                 />
-              </td>
+              </td> */}
             </tr>
           </table>
         </div>

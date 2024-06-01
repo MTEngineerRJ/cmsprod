@@ -142,6 +142,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
         },
         params: {
           LeadId: leadId,
+          Username : userInfo[0]?.Username
         },
       })
       .then((res) => {
@@ -1606,6 +1607,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
       phyCheck,
       ValidUpto,
       leadId,
+      Username : userInfo[0]?.Username
     };
 
     const totalValue = Number(totalPartsAssessed) + Number(totalLabrorAssessed);

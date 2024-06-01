@@ -75,6 +75,7 @@ const Index = () => {
           startDate: Start,
           EndDate: End,
           DateType: DateType,
+          username : userInfo[0].Username
         },
       })
       .then((res) => {

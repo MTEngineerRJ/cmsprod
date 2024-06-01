@@ -657,6 +657,7 @@ const Index = ({}) => {
           },
           params: {
             LeadId: leadId,
+            Username : userInfo[0].Username
           },
         })
         .then((res) => {
@@ -935,6 +936,7 @@ const Index = ({}) => {
       PlaceOfLoss,
       Pin,
       token: userInfo[0].Token,
+      Username : userInfo[0]?.Username
     };
     setDisable(true);
 

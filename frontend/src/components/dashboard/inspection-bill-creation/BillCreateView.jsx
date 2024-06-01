@@ -318,6 +318,10 @@ const BillCreateView = ({ allInfo, leadID }) => {
 
   const onSubmitHnadler = () => {
     setDisable(true);
+<<<<<<< Updated upstream
+=======
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+>>>>>>> Stashed changes
     const payload = {
       LeadId: leadID,
       Type:
@@ -381,9 +385,16 @@ const BillCreateView = ({ allInfo, leadID }) => {
       Others: Others,
       BillDate: BillDate,
       BillId: allInfo?.feesDetails ? allInfo?.feesDetails?.BillSno : null,
+<<<<<<< Updated upstream
     };
 
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+=======
+      Username : userInfo[0]?.Username
+    };
+
+    
+>>>>>>> Stashed changes
     toast.loading(
       allInfo?.feesDetails?.BillID
         ? "Updating the bill !!"

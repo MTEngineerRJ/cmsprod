@@ -21,6 +21,7 @@ const generateUniqueToken = require("../Config/generateToken");
 const createToken = require("../Config/generateJWTToken");
 const { splitStringToArray } = require("../Config/getStringFromCSV");
 const { csvStringToArray } = require("../Config/getArrayFromCSVString");
+const { logMessage } = require("../utils/LoggerFile");
 
 const sendEmail1 = (req, res) => {
   const {
@@ -38,6 +39,15 @@ const sendEmail1 = (req, res) => {
   } = req.body;
 
   if (leadId === undefined || !leadId) {
+    logMessage({
+      type: "warn",
+      Function: "SENDING_ADD_CLAIM_MAIL",
+      message: `Not able to send mail as LeadId is MISSING..`,
+      username: "",
+      leadId: leadId,
+      consoleInfo: `Not able to send mail as LeadId is MISSING..`,
+      info: `{ERRMESSAGE: ${result}, STATUS: ${`400 || 500 `}}`,
+    });
     res.status(400).send("LeadId is empty");
     return;
   }
@@ -45,6 +55,15 @@ const sendEmail1 = (req, res) => {
   const sql = "SELECT * FROM ClaimStatus WHERE LeadId =?";
   db.query(sql, [leadId], (err, result) => {
     if (err) {
+      logMessage({
+        type: "error",
+        Function: "SENDING_ADD_CLAIM_MAIL",
+        message: `Got error while fetching the Claim Status for leadId --> ${leadId}`,
+        username: "",
+        leadId: leadId,
+        consoleInfo: `${err.status} ${err.details}`,
+        info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+      });
       console.error(err);
       res.status(500).send("Internal Server Error");
       return;
@@ -66,6 +85,15 @@ const sendEmail1 = (req, res) => {
 
     db.query(insertClaimDetails, (err, result2) => {
       if (err) {
+        logMessage({
+          type: "error",
+          Function: "SENDING_ADD_CLAIM_MAIL",
+          message: `Got error while updating the tokens for the specific claim  of leadId --> ${leadId}`,
+          username: "",
+          leadId: leadId,
+          consoleInfo: `Got error while updating the tokens for the specific claim  of leadId --> ${leadId}`,
+          info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+        });
         console.error(err);
         res.status(500).send("Internal Server Error");
         return;
@@ -158,6 +186,15 @@ const sendEmail1 = (req, res) => {
       // Send the email
       transporter2.sendMail(mailOptions, (error, info) => {
         if (error) {
+          logMessage({
+            type: "error",
+            Function: "SENDING_ADD_CLAIM_MAIL",
+            message: `Got error while sending the MAIL from : ${currentMailAddress} , to : ${toMail} , cc : ${ccContent} for LeadId --> ${leadId}`,
+            username: "",
+            leadId: leadId,
+            consoleInfo: `Got error while sending the MAIL from : ${currentMailAddress} , to : ${toMail} , cc : ${ccContent} for LeadId --> ${leadId}`,
+            info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+          });
           console.error(error);
           res.status(500).send("Internal Server Error");
         } else if (String(type) === "1") {
@@ -175,6 +212,15 @@ const sendEmail1 = (req, res) => {
               res.status(500).send("Internal Server Error");
               return;
             }
+            logMessage({
+              type: "info",
+              Function: "SENDING_ADD_CLAIM_MAIL",
+              message: `Successfully Sent the MAIL from : ${currentMailAddress} , to : ${toMail} , cc : ${ccContent} for LeadId --> ${leadId}`,
+              username: "",
+              leadId: leadId,
+              consoleInfo: `Successfully Sent the MAIL from : ${currentMailAddress} , to : ${toMail} , cc : ${ccContent} for LeadId --> ${leadId}`,
+              info: `{message : SUCCESS }`,
+            });
             res.status(200).send("Email sent successfully");
           });
         }
@@ -194,6 +240,7 @@ const acknowledgmentMail = (req, res) => {
     type,
     BrokerMailAddress,
     GarageMailAddress,
+    Username,
     inspectionType
   } = req.body;
   const sql = "SELECT * FROM ClaimStatus WHERE LeadId =?";
@@ -201,12 +248,30 @@ const acknowledgmentMail = (req, res) => {
 
   db.query(sql, [leadId], (err, result) => {
     if (err) {
+      logMessage({
+        type: "error",
+        Function: "SENDING_ACKNOWLEDMENT_MAIL",
+        message: `Got error while fetching the Claim Status for leadId --> ${leadId}`,
+        username: Username,
+        leadId: leadId,
+        consoleInfo: `${err.status} ${err.details}`,
+        info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+      });
       console.error(err);
       res.status(500).send("Internal Server Error");
       return;
     }
     db.query(sql1, [leadId], (err, resultRegion) => {
       if (err) {
+        logMessage({
+          type: "error",
+          Function: "SENDING_ACKNOWLEDMENT_MAIL",
+          message: `Got error while fetching the Region for leadId --> ${leadId}`,
+          username: Username,
+          leadId: leadId,
+          consoleInfo: `${err.status} ${err.details}`,
+          info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+        });
         console.error(err);
         res.status(500).send("Internal Server Error");
         return;
@@ -229,6 +294,15 @@ const acknowledgmentMail = (req, res) => {
 
       db.query(insertClaimDetails, (err, result2) => {
         if (err) {
+          logMessage({
+            type: "error",
+            Function: "SENDING_ACKNOWLEDMENT_MAIL",
+            message: `Got error while updating the tokens for the specific claim  of leadId --> ${leadId}`,
+            username: Username,
+            leadId: leadId,
+            consoleInfo: `Got error while updating the tokens for the specific claim  of leadId --> ${leadId}`,
+            info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+          });
           console.error(err);
           res.status(500).send("Internal Server Error");
           return;
@@ -250,7 +324,7 @@ const acknowledgmentMail = (req, res) => {
       
             Please provide the clear copy of all the documents so that  <br/>
             the claim processing can be fast or <br/>
-            <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${InsuredToken}&type=${1}&content=${""} target="_blank">Click Here</a> to fill the documents information .</p> <br/>
+            <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${InsuredToken}&type=${1}&content=${String(inspectionType).toLowerCase().includes("pre-inspection") ? 'Certificate%20of%20registration%2CAadhar%20card%2CInsurance%20policy%2CDamage%20vehicle%20photographs%2Fvideo%2C' : ''} target="_blank">Click Here</a> to fill the documents information .</p> <br/>
       
             Please provide the clear Vahicle Videos so that the claim <br/>
             processing can be fast or <br/>
@@ -312,6 +386,15 @@ const acknowledgmentMail = (req, res) => {
 
         transporter2.sendMail(mailOptions, (error, info) => {
           if (error) {
+            logMessage({
+              type: "error",
+              Function: "SENDING_ACKNOWLEDMENT_MAIL",
+              message: `Got error while sending the MAIL from : ${currentMailAddress} , to : ${toMail} , cc : ${`${GarageMailAddress},${BrokerMailAddress}`} for LeadId --> ${leadId}`,
+              username: Username,
+              leadId: leadId,
+              consoleInfo: `Got error while sending the MAIL from : ${currentMailAddress} , to : ${toMail} , cc : ${`${GarageMailAddress},${BrokerMailAddress}`} for LeadId --> ${leadId}`,
+              info: `{ERRMESSAGE : ${error.details}, STATUS : ${`${error.status} ${error.message}`}, error : ${error}}}`,
+            });
             console.error(error);
             res.status(500).send("Internal Server Error");
           }
@@ -328,6 +411,15 @@ const acknowledgmentMail = (req, res) => {
               res.status(500).send("Internal Server Error");
               return;
             }
+            logMessage({
+              type: "info",
+              Function: "SENDING_ACKNOWLEDMENT_MAIL",
+              message: `Successfully Sent the MAIL from : ${currentMailAddress} , to : ${toMail} , cc : ${`${GarageMailAddress},${BrokerMailAddress}`} for LeadId --> ${leadId}`,
+              username: Username,
+              leadId: leadId,
+              consoleInfo: `Successfully Sent the MAIL from : ${currentMailAddress} , to : ${toMail} , cc : ${`${GarageMailAddress},${BrokerMailAddress}`} for LeadId --> ${leadId}`,
+              info: `{message : SUCCESS }`,
+            });
             res.status(200).send("Email sent successfully");
           });
         });
@@ -350,10 +442,21 @@ const sendCustomEmail = (req, res) => {
     subject,
     body,
     Region,
-    isPreInspection
+    isPreInspection,
+    Username
   } = req.body;
 
+
   if (leadId === undefined || !leadId) {
+    logMessage({
+      type: "warn",
+      Function: "SENDING_CUSTOM_MAIL",
+      message: `Not able to send mail as LeadId is MISSING..`,
+      username: "",
+      leadId: leadId,
+      consoleInfo: `Not able to send mail as LeadId is MISSING..`,
+      info: `{ERRMESSAGE: ${result}, STATUS: ${`400 || 500 `}}`,
+    });
     res.status(400).send("LeadId is empty");
     return;
   }
@@ -363,6 +466,15 @@ const sendCustomEmail = (req, res) => {
   const sql = "SELECT Token FROM ClaimDetails WHERE LeadId =?";
   db.query(sql, [leadId], (err, result2) => {
     if (err) {
+      logMessage({
+        type: "error",
+        Function: "SENDING_CUSTOM_MAIL",
+        message: `Got error while fetching the Claim Status for leadId --> ${leadId}`,
+        username: Username,
+        leadId: leadId,
+        consoleInfo: `${err.status} ${err.details}`,
+        info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+      });
       console.error(err);
       res.status(500).send("Internal Server Error");
       return;
@@ -378,6 +490,16 @@ const sendCustomEmail = (req, res) => {
       `;
       db.query(insertClaimDetails, (err, result2) => {
         if (err) {
+          
+          logMessage({
+            type: "error",
+            Function: "SENDING_CUSTOM_MAIL",
+            message: `Got error while updating the tokens for the specific claim  of leadId --> ${leadId}`,
+            username: Username,
+            leadId: leadId,
+            consoleInfo: `Got error while updating the tokens for the specific claim  of leadId --> ${leadId}`,
+            info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+          });
           console.error(err);
           res.status(500).send("Internal Server Error");
           return;
@@ -457,10 +579,27 @@ const sendCustomEmail = (req, res) => {
 
           transporter2.sendMail(mailOptions, (error, info) => {
             if (error) {
+              logMessage({
+                type: "error",
+                Function: "SENDING_CUSTOM_MAIL",
+                message: `Got error while sending the MAIL from : ${fromEmail} , to : ${mainEmail} , cc : ${ccArray} for LeadId --> ${leadId}`,
+                username: Username,
+                leadId: leadId,
+                consoleInfo: `Got error while sending the MAIL from : ${fromEmail} , to : ${mainEmail} , cc : ${ccArray} for LeadId --> ${leadId}`,
+                info: `{ERRMESSAGE : ${error.details}, STATUS : ${`${error.status} ${error.message}`}, error : ${error}}}`,
+              });
               console.error(error);
               res.status(500).send("Internal Server Error");
             } else {
-              console.log("Email sent: " + info.response);
+              logMessage({
+                type: "info",
+                Function: "SENDING_CUSTOM_MAIL",
+                message: `Successfully Sent the MAIL from : ${fromEmail} , to : ${mainEmail} , cc : ${ccArray} for LeadId --> ${leadId}`,
+                username: Username,
+                leadId: leadId,
+                consoleInfo: `Successfully Sent the MAIL from : ${fromEmail} , to : ${mainEmail} , cc : ${ccArray} for LeadId --> ${leadId}`,
+                info: `{message : SUCCESS }`,
+              });
               res.status(200).send("Email sent successfully");
             }
           });

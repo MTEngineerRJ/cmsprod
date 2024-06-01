@@ -102,9 +102,10 @@ const CreateList = ({ leadId, email, policyNo, Insured, vehicleNo ,Region,Broker
    
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     
-    const mainUrl=window.location.href
-    const leadUrl = mainUrl?.split("/send-mail/")[1]
+    const mainUrl=window.location.href;
+    const leadUrl = mainUrl?.split("/preinspection-send-mail/")[1];
     const requiredLeadId = leadUrl?.split("?")[0];
+    console.log("requiredLeadId",requiredLeadId)
     const payload = {
       toMail: emailAddress ? emailAddress : email,
       PolicyNo: policyNos ? policyNos : policyNo,

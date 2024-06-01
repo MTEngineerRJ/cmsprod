@@ -22,6 +22,7 @@ const ChatboxContent = ({ leadId, finalDisable }) => {
         },
         params: {
           leadId: leadId,
+          Username : userInfo[0]?.Username
         },
       })
       .then((res) => {

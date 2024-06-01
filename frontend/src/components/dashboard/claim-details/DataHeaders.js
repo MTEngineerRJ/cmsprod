@@ -108,7 +108,8 @@ const subTypeTypes = [
 const requestTypeTypes = [
   { id: 1, type: "SPOT", value: "SPOT" },
   { id: 1, type: "Final", value: "Final" },
-  { id: 1, type: "re-inspection", value: "re-inspection" },
+  { id: 1, type: "Re-Inspection", value: "re-inspection" },
+  { id: 1, type: "Pre-Inspection", value: "pre-inspection" },
 ];
 
 const ManualUploadHeaders = [

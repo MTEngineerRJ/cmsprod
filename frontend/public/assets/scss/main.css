@@ -12006,6 +12006,10 @@ a.btn.btn_error {
   line-height: 1.2;
 }
 
+.error-class{
+  border: 2px solid red !important;
+}
+
 .login_form .form-control,
 .sign_up_form .form-control {
   padding-right: 45px;

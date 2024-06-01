@@ -6,10 +6,6 @@ import axios from "axios";
     const token = request.headers.authorization;
     const domain = process.env.BACKEND_DOMAIN;
     const leadId = request.query.LeadId;
-
-    console.log(leadId);
-
-
     const userResponse = await axios.get(`${domain}/vehicleDetails/getSpecificVehicleDetails`,
     {
         headers: {

@@ -6,7 +6,7 @@ async function handler(request, response) {
     const token = request.headers.authorization;
     const domain = process.env.BACKEND_DOMAIN;
     
-    const { vehicleNo,PolicyNo,Region,Insured,date,content,content2,subject,body,fromEmail,leadId,toMail } = request.body;
+    const { vehicleNo,PolicyNo,Region,Insured,date,content,content2,subject,body,fromEmail,leadId,toMail ,Username} = request.body;
 
     const userResponse = await axios.post(`${domain}/email/sendCustomEmail`, {
         vehicleNo: vehicleNo,
@@ -20,7 +20,8 @@ async function handler(request, response) {
         body:body,
         Region:Region,
         fromEmail:fromEmail,
-        Date:date
+        Date:date,
+        Username
 
     },
     {

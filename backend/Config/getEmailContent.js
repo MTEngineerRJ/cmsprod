@@ -1,7 +1,16 @@
 
 
 
- const emailHandler=(val)=>{
+ const emailHandler=(val,inspectionType)=>{
+    if(String(inspectionType).toLowerCase().includes("inspection")){
+        return `
+        1. Certificate of registration <br/>
+        2. Aadhar Card <br/>
+        3. Insurance policy <br/>
+        4. Damage vehicle photographs/video <br/>
+        5. Signature <br/>
+        `
+    }
 
     if(val === 1){
         return `

@@ -379,6 +379,7 @@ export default function UploadReportDocumentView({ leadId, documents ,uploadedFi
     const payload = {
       updateData,
       newData,
+      Username : userInfo[0]?.Username
     };
     axios
       .put("/api/updateReportImages", payload, {

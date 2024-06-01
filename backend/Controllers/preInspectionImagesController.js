@@ -1,4 +1,5 @@
 const db = require("../Config/dbConfig");
+const { logMessage } = require("../utils/LoggerFile");
 
 const getPreInspectionImages = (req, res) => {
   const leadId = req.params.leadId;
@@ -17,6 +18,7 @@ const updateReportImages = async (req, res) => {
   const newData = req.body.newData;
   const updateData = req.body.updateData;
   const leadId = req.params.leadId;
+  const Username = req.body.Username;
 
   newData.map((row, index) => {
     const insertQuery = `
@@ -34,9 +36,17 @@ const updateReportImages = async (req, res) => {
               '${parseInt(leadId)}'
             );
           `;
-      console.log("insertQuery",insertQuery);
     db.query(insertQuery, (err, result) => {
       if (err) {
+        logMessage({
+          type: "error",
+          Function: `UPLOADING_INSPECTION_REPORT_DOCUMENT`,
+          message: `Got error while inserting the DOCUMENTS for the Inspection_report for leadId --> ${leadId}`,
+          username: Username,
+          leadId: leadId,
+          consoleInfo: `Got error while inserting the DOCUMENTS for the Inspection_report for leadId --> ${leadId}`,
+          info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query:${insertQuery}, error : ${err}}}`,
+        });
         console.error(err);
         res
           .status(500)
@@ -59,9 +69,17 @@ const updateReportImages = async (req, res) => {
     WHERE
       FileID = ${parseInt(row.fileId)} AND LeadID = ${parseInt(leadId)};
   `;
-  console.log("updateQuery",updateQuery);
     db.query(updateQuery, (err, result) => {
       if (err) {
+        logMessage({
+          type: "error",
+          Function: `UPLOADING_INSPECTION_REPORT_DOCUMENT`,
+          message: `Got error while updating the DOCUMENTS for the Inspection_report for leadId --> ${leadId}`,
+          username: Username,
+          leadId: leadId,
+          consoleInfo: `Got error while updating the DOCUMENTS for the Inspection_report for leadId --> ${leadId}`,
+          info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query:${updateQuery}, error : ${err}}}`,
+        });
         console.error(err);
         res
           .status(500)
@@ -71,6 +89,16 @@ const updateReportImages = async (req, res) => {
         return;
       }
     });
+  });
+
+  logMessage({
+    type: "info",
+    Function: `UPLOADING_INSPECTION_REPORT_DOCUMENT`,
+    message: `Successfully uploaded the INSPECTION report documents for leadId --> ${leadId}`,
+    username: Username,
+    leadId: leadId,
+    consoleInfo:`Successfully uploaded the INSPECTION report documents for leadId --> ${leadId}`,
+    info: `{message : 200 SUCCESS }`,
   });
 
   res.status(200).send("Successfully updated!");

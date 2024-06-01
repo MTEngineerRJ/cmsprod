@@ -10,6 +10,7 @@
     "buffer-writer": "^2.0.0",
     "bytes": "^3.1.2",
     "call-bind": "^1.0.5",
+    "chalk": "^5.3.0",
     "content-disposition": "^0.5.4",
     "content-type": "^1.0.5",
     "cookie": "^0.5.0",
@@ -102,6 +103,7 @@
     "unpipe": "^1.0.0",
     "utils-merge": "^1.0.1",
     "vary": "^1.1.2",
+    "winston": "^3.13.0",
     "xtend": "^4.0.2"
   },
   "scripts": {

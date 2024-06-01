@@ -8,6 +8,7 @@ import axios from "axios";
     const domain = process.env.BACKEND_DOMAIN;
 
     const leadId = request.query.leadId;
+    const Username = request.query.Username;
 
 
     const userResponse = await axios.get(`${domain}/comments/getCommentsById`,
@@ -17,7 +18,8 @@ import axios from "axios";
           "Content-Type":"application/json"
         },
         params:{
-            leadId : leadId
+            leadId : leadId,
+            Username 
         }
         
       });

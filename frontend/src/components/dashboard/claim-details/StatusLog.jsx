@@ -182,7 +182,8 @@ const StatusLog = ({leadId,finalDisable,status,statusOptions,subStatus,claim,doc
       LeadId : Number(leadId),
       Status :  (stat) ,
       subStage : subStage ?Number(subStage) : Number(3),
-      token : Number(userInfo[0].Token)
+      token : Number(userInfo[0].Token),
+      Username : userInfo[0]?.Username
     }; 
 
     toast.loading("updating the status!!", {

@@ -3,6 +3,7 @@ const axios = require("axios");
 const convertObjectToString = require("../Config/getObjectToString");
 const { formatDate } = require("../Config/getFormattedDate");
 const { getVehicleType } = require("../utils/vehicleTypeList");
+const { logMessage } = require("../utils/LoggerFile");
 
 const getSpecificVehicleDetails = async (req, res) => {
   const leadId = req.query.LeadId;
@@ -39,6 +40,7 @@ const getSpecificVehicleDetails = async (req, res) => {
 const getOnlineVehicleData = (req, res) => {
   const vehicleNo = req.query.vehicleNo;
   const leadId = req.query.leadId;
+  const Username = req.query.Username;
 
   const payload = {
     id_number: vehicleNo,
@@ -53,35 +55,35 @@ const getOnlineVehicleData = (req, res) => {
     .then((result) => {
       const details = result?.data?.data;
 
-      console.log("-------------------------------------");
-      console.log("****************SUCCESS***************");
-      console.log(`While fetching Online Api Response for RC.. Vehicle No : ${vehicleNo}
-      for LeadID : ${leadId} on ${new Date()}------------------------`);
-      console.log(details);
-      console.log("-------------------------------------------------");
-
+      if (!details) {
+        logMessage({
+          type: "warn",
+          Function: "FETCHING_ONLINE_VEHICLE_DETAILS",
+          message: `Got No response while fetching vehicle details for LeadId --> ${leadId} for VehicleNumber as : ${vehicleNo} `,
+          username: Username,
+          leadId: leadId,
+          consoleInfo: `Check for the issue as doesn't fetched the Information for mentioned VehicleNo ${vehicleNo} on LeadId --> ${leadId}`,
+          info: `{ERRMESSAGE : ${result},STATUS : ${`400 || 500 `}}`,
+        });
+        return res.status(500).send("Internal Server Error");
+      }
 
       const stringformat = convertObjectToString(details);
       const stringformat2 = convertObjectToString(details);
 
-      const formattedDateOfRegistration = formatDate(
-        details?.registration_date
-      );
+      const formattedDateOfRegistration = formatDate(details?.registration_date);
       const formattedFitUpto = formatDate(details?.fit_up_to);
       const formattedMonthYear = formatDate(details?.manufacturing_date);
       const formattedInsuranceUpto = formatDate(details?.insurance_upto);
       const formattedTaxParticulars = formatDate(details?.tax_upto);
       const formattedVehicleType = getVehicleType(details?.vehicle_category_description);
 
-      //Commercial Vehicle Details
+      // Commercial Vehicle Details
       const formattedPermitTo = formatDate(details?.permit_valid_upto);
       const formattedPermitFrom = formatDate(details?.permit_valid_from);
 
       const surveyType = formattedVehicleType === "2W" ? "Motor2W" : "Motor4W";
 
-      if (!details) {
-        return res.status(500).send("Internal Server Error");
-      }
       const insertVehicleDetails = `
       INSERT INTO VehicleDetailsOnline (
         RegisteredNumber, 
@@ -210,85 +212,176 @@ const getOnlineVehicleData = (req, res) => {
               WHERE LeadID = ${leadId};
         `;
 
-      db.query(
-        "SELECT * FROM CommercialVehicleDetails WHERE LeadID=?",
-        [leadId],
-        (err, result2) => {
-          if (err) {
-            console.error(err);
-            res.status(500).send("Internal Server Error", err);
-            return;
-          }
-
-          const query = result2?.length
-            ? updateCommercialVehicleDetails
-            : insertIntoCommercialVehicleDetails;
-
-          db.query(query, (err, result2) => {
-            if (err) {
-              console.error(err);
-              res.status(500).send("Internal Server Error", err);
-              return;
-            }
+      db.getConnection((err, connection) => {
+        if (err) {
+          logMessage({
+            type: "error",
+            Function: "FETCHING_ONLINE_VEHICLE_DETAILS",
+            message: `Got error while getting the database connection.`,
+            username: Username,
+            leadId: leadId,
+            consoleInfo: `${err.status} ${err.details}`,
+            info: `{ERRMESSAGE : ${err.details},STATUS : ${`${err.status} ${err.message}`},error : ${err}}}`,
           });
+          console.error(err);
+          return res.status(500).send("Internal Server Error");
         }
-      );
-      db.query(
-        "DELETE FROM VehicleDetailsOnline WHERE LeadId=?",
-        [leadId],
-        (error, results) => {
-          if (error) {
-            console.error("Error updating data in driver Details:", error);
-            return res
-              .status(500)
-              .json({ error: "Error updating data in driver Details." });
+
+        connection.beginTransaction((err) => {
+          if (err) {
+            logMessage({
+              type: "error",
+              Function: "FETCHING_ONLINE_VEHICLE_DETAILS",
+              message: `Got error while starting the TRANSACTION of fetching online details and updation.`,
+              username: Username,
+              leadId: leadId,
+              consoleInfo: `${err.status} ${err.details}`,
+              info: `{ERRMESSAGE : ${err.details},STATUS : ${`${err.status} ${err.message}`},error : ${err}}}`,
+            });
+            console.error(err);
+            connection.release();
+            return res.status(500).send("Internal Server Error");
           }
-          db.query(insertVehicleDetails, (error, results) => {
-            if (error) {
-              console.error("Error updating data in driver Details:", error);
-              return res
-                .status(500)
-                .json({ error: "Error updating data in driver Details." });
+
+          logMessage({
+            type: "info",
+            Function: "FETCHING_ONLINE_VEHICLE_DETAILS",
+            message: `Transaction for updating and fetching vehicle details online has started :`,
+            username: Username,
+            leadId: leadId,
+            consoleInfo: `200 OK`,
+            info: `Transaction for updating and fetching vehicle details online has started :`,
+          });
+
+          connection.query("SELECT * FROM CommercialVehicleDetails WHERE LeadID=?", [leadId], (err, result2) => {
+            if (err) {
+              logMessage({
+                type: "error",
+                Function: "FETCHING_ONLINE_VEHICLE_DETAILS",
+                message: `Got error while fetching commercial details for LeadId --> ${leadId} for VehicleNumber as : ${vehicleNo} `,
+                username: Username,
+                leadId: leadId,
+                consoleInfo: `${err.status} ${err.details}`,
+                info: `{ERRMESSAGE : ${err.details},STATUS : ${`${err.status} ${err.message}`},error : ${err}}}`,
+              });
+              console.error(err);
+              return connection.rollback(() => {
+                connection.release();
+                res.status(500).send("Internal Server Error");
+              });
             }
-            db.query(updateVehicleDetails, (error, results) => {
-              if (error) {
-                console.error("Error updating data in driver Details:", error);
-                return res
-                  .status(500)
-                  .json({ error: "Error updating data in driver Details." });
+
+            const query = result2?.length ? updateCommercialVehicleDetails : insertIntoCommercialVehicleDetails;
+
+            connection.query(query, (err) => {
+              if (err) {
+                logMessage({
+                  type: "error",
+                  Function: "FETCHING_ONLINE_VEHICLE_DETAILS",
+                  message: `Got error ${query === updateCommercialVehicleDetails ? "updating" : "inserting"} commercial vehicle details for LeadId --> ${leadId} for VehicleNumber as : ${vehicleNo} `,
+                  username: Username,
+                  leadId: leadId,
+                  consoleInfo: `${err.status} ${err.details}`,
+                  info: `{ERRMESSAGE : ${err.details},STATUS : ${`${err.status} ${err.message}`},error : ${err}}}`,
+                });
+                console.error(err);
+                return connection.rollback(() => {
+                  connection.release();
+                  res.status(500).send("Internal Server Error");
+                });
               }
-              db.query(
-                "UPDATE ClaimDetails SET SurveyType =? WHERE LeadID=?",
-                [surveyType, leadId],
-                (error, results) => {
-                  if (error) {
-                    console.error(
-                      "Error updating data in driver Details:",
-                      error
-                    );
-                    return res.status(500).json({
-                      error: "Error updating data in driver Details.",
+
+              connection.query("SELECT * FROM VehicleDetails WHERE LeadId=?", [leadId], (err, result1) => {
+                if (err) {
+                  logMessage({
+                    type: "error",
+                    Function: "FETCHING_ONLINE_VEHICLE_DETAILS",
+                    message: `Got error while fetching vehicle details for LeadId --> ${leadId} for VehicleNumber as : ${vehicleNo} `,
+                    username: Username,
+                    leadId: leadId,
+                    consoleInfo: `${err.status} ${err.details}`,
+                    info: `{ERRMESSAGE : ${err.details},STATUS : ${`${err.status} ${err.message}`},error : ${err}}}`,
+                  });
+                  console.error(err);
+                  return connection.rollback(() => {
+                    connection.release();
+                    res.status(500).send("Internal Server Error");
+                  });
+                }
+
+                const query = result1?.length ? updateVehicleDetails : insertVehicleDetails;
+
+                connection.query(query, (err) => {
+                  if (err) {
+                    logMessage({
+                      type: "error",
+                      Function: "FETCHING_ONLINE_VEHICLE_DETAILS",
+                      message: `Got error ${query === updateVehicleDetails ? "updating" : "inserting"} vehicle details for LeadId --> ${leadId} for VehicleNumber as : ${vehicleNo} `,
+                      username: Username,
+                      leadId: leadId,
+                      consoleInfo: `${err.status} ${err.details}`,
+                      info: `{ERRMESSAGE : ${err.details},STATUS : ${`${err.status} ${err.message}`},error : ${err}}}`,
+                    });
+                    console.error(err);
+                    return connection.rollback(() => {
+                      connection.release();
+                      res.status(500).send("Internal Server Error");
                     });
                   }
-                  res
-                    .status(200)
-                    .json({ message: "Data updated successfully." });
-                }
-              );
+
+                  connection.commit((err) => {
+                    if (err) {
+                      logMessage({
+                        type: "error",
+                        Function: "FETCHING_ONLINE_VEHICLE_DETAILS",
+                        message: `Got error while committing the TRANSACTION of fetching online details and updation.`,
+                        username: Username,
+                        leadId: leadId,
+                        consoleInfo: `${err.status} ${err.details}`,
+                        info: `{ERRMESSAGE : ${err.details},STATUS : ${`${err.status} ${err.message}`},error : ${err}}}`,
+                      });
+                      console.error(err);
+                      return connection.rollback(() => {
+                        connection.release();
+                        res.status(500).send("Internal Server Error");
+                      });
+                    }
+
+                    logMessage({
+                      type: "info",
+                      Function: "FETCHING_ONLINE_VEHICLE_DETAILS",
+                      message: `Transaction for updating and fetching vehicle details online has been successfully committed :`,
+                      username: Username,
+                      leadId: leadId,
+                      consoleInfo: `200 OK`,
+                      info: `Transaction for updating and fetching vehicle details online has been successfully committed :`,
+                    });
+
+                    connection.release();
+                    res.status(200).send("Vehicle details updated successfully");
+                  });
+                });
+              });
             });
           });
-        }
-      );
+        });
+      });
     })
-    .catch((Err) => {
-      console.log("-------------------------------------");
-      console.log("*************ERROR**********************");
-      console.log(` Got error while fetching the online RC Details for Vehicle No : ${vehicleNo} 
-      for LeadID : ${leadId} on ${new Date()}------------`);
-      console.log(Err.response.data);
-      console.log("-------------------------------------");
-      return res.status(500).send("Record Not Found!!");
+    .catch((error) => {
+      logMessage({
+        type: "error",
+        Function: "FETCHING_ONLINE_VEHICLE_DETAILS",
+        message: `Error while fetching vehicle details online: ${error.message}`,
+        username: Username,
+        leadId: leadId,
+        consoleInfo: `${error.status} ${error.details}`,
+        info: `{ERRMESSAGE : ${error.message},STATUS : ${`${error.status} ${error.message}`},error : ${error}}}`,
+      });
+      console.error(error);
+      res.status(500).send("Internal Server Error");
     });
 };
+
+
 
 module.exports = { getOnlineVehicleData, getSpecificVehicleDetails };

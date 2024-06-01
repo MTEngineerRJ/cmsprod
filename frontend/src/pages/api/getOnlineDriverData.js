@@ -8,6 +8,7 @@ async function handler(request, response) {
     const dl_number =  request.query.dl_number;
     const dob = request.query.dob;
     const leadId = request.query.leadId;
+    const  Username = request.query.Username;
 
     const vehicle_data = await axios.get(`${domain}/driverDetails/getOnlineDriverDetails`, {
       headers: {
@@ -17,7 +18,8 @@ async function handler(request, response) {
       params:{
         dl_number:dl_number,
         dob:dob,
-        leadId:leadId
+        leadId:leadId,
+        Username
       }
     });
     const vehicle = vehicle_data.data;

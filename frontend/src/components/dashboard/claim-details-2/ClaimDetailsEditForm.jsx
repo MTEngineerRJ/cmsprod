@@ -124,6 +124,7 @@ const ClaimDetailsEditForm = ({
         inspectionType : claim?.claimDetails?.InspectionType,
         type: 4,
         date: formatDate(new Date()),
+        Username : userInfo[0].Username
       };
 
       toast.loading("Sending Acknowledgment Mail!!");

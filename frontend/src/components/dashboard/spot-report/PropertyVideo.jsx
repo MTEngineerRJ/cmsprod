@@ -146,6 +146,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
         },
         params: {
           LeadId: leadId,
+          Username : userInfo[0]?.Username
         },
       })
       .then((res) => {
@@ -1079,6 +1080,7 @@ const formatDateFinal = (inputDate2,type) => {
       phyCheck,
       ValidUpto,
       leadId,
+      Username : userInfo[0]?.Username
     };
     
     console.log('----1084',payload);

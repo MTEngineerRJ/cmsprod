@@ -318,6 +318,7 @@ const BillCreateView = ({ allInfo, leadID }) => {
 
   const onSubmitHnadler = () => {
     setDisable(true);
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const payload = {
       LeadId: leadID,
       Type:
@@ -381,9 +382,10 @@ const BillCreateView = ({ allInfo, leadID }) => {
       Others: Others,
       BillDate: BillDate,
       BillId: allInfo?.feesDetails ? allInfo?.feesDetails?.BillSno : null,
+      Username : userInfo[0]?.Username
     };
 
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    
     toast.loading(
       allInfo?.feesDetails?.BillID
         ? "Updating the bill !!"

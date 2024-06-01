@@ -144,6 +144,7 @@ const EmailBaseLayout = ({
       body: body,
       Region: Region ? Region : "Chandigarh",
       fromEmail: fromEmail,
+      Username : userInfo[0]?.Username
     };
 
     if (

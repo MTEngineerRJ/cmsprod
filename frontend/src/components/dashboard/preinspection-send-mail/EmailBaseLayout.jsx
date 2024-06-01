@@ -106,10 +106,9 @@ const EmailBaseLayout = ({
 
   const handleSubmit = () => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-
     const mainUrl = window.location.href;
-    const leadUrl = mainUrl?.split("/send-mail/")[1];
-    const requiredLeadId = leadUrl?.split("?")[0];
+    const leadUrl = mainUrl?.split("/preinspection-send-email/")[1];
+    const requiredLeadId = leadUrl?.split("?email=")[0];
     const payload = {
       toMail: emailAddress ? emailAddress : email,
       PolicyNo: policyNos ? policyNos : policyNo,
@@ -128,11 +127,12 @@ const EmailBaseLayout = ({
           : String(type) === "2" || String(type) === "3"
           ? "Images,"
           : "",
-      leadId: requiredLeadId,
+      leadId: Number(requiredLeadId),
       subject: subject,
       body: body,
       Region: Region ? Region : "Chandigarh",
       fromEmail: fromEmail,
+      Username : userInfo[0]?.Username
     };
 
     if (

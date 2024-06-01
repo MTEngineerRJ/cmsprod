@@ -3,6 +3,7 @@ const axios = require("axios");
 
 const generateUniqueToken = require("../Config/generateToken");
 const { formatDate } = require("../Config/getFormattedDate");
+const { logMessage } = require("../utils/LoggerFile");
 
 const addClaim = (req, res) => {
   const {
@@ -84,6 +85,17 @@ const addClaim = (req, res) => {
 
   db.query(insertClaimDetails, (error, results) => {
     if (error) {
+      logMessage({
+        type: "error",
+        Function: "ADDING_CLAIM",
+        message: "Got Error while uploading the claim Details Info.",
+        username: AddedBy,
+        leadId: "",
+        consoleInfo: `${error.status} ${error.details}`,
+        info: `{ERRMESSAGE: ${
+          error.details
+        }, STATUS: ${`${error.status} ${error.message}`}}`,
+      });
       return res
         .status(500)
         .json({ error: "Error inserting data into ClaimDetails." });
@@ -187,6 +199,17 @@ const addClaim = (req, res) => {
 
         executeQueries(queries, (error) => {
           if (error) {
+            logMessage({
+              type: "error",
+              Function: "ADDING_CLAIM_DETAILS",
+              message: "Got Error while uploading the claim related details.",
+              username: AddedBy,
+              leadId: addLeadId,
+              consoleInfo: `${error.status} ${error.details}`,
+              info: `{ERRMESSAGE: ${
+                error.details
+              }, STATUS: ${`${error.status} ${error.message}`}}`,
+            });
             return res
               .status(500)
               .json({ error: "Error inserting claim related data." });
@@ -225,17 +248,48 @@ const addClaim = (req, res) => {
                   }
                 )
                 .then(() => {
+                  logMessage({
+                    type: "info",
+                    Function: "SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL",
+                    message: "Sent Successfully.",
+                    username: AddedBy,
+                    leadId: addLeadId,
+                    consoleInfo: "200 OK",
+                    info: "SENT SUCCESSFULLY",
+                  });
+
                   return res
                     .status(200)
                     .json({ message: "Data inserted successfully." });
                 })
                 .catch((error) => {
+                  logMessage({
+                    type: "error",
+                    Function: "SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL",
+                    message: "Got Error while sending the acknowledgment mail.",
+                    username: AddedBy,
+                    leadId: addLeadId,
+                    consoleInfo: `${error.status} ${error.details}`,
+                    info: `{ERRMESSAGE: ${
+                      error.details
+                    }, STATUS: ${`${error.status} ${error.message}`}}`,
+                  });
                   console.error("Error sending email:", error);
                   return res
                     .status(500)
                     .json({ error: "Error sending acknowledgment email." });
                 });
             } else {
+              logMessage({
+                type: "info",
+                Function: "SUCCESSFULLY_ADDED_CLAIM",
+                message: "Added Successfully.",
+                username: AddedBy,
+                leadId: addLeadId,
+                consoleInfo: "200 OK",
+                info: "FETCHED SUCCESSFULLY",
+              });
+
               return res
                 .status(200)
                 .json({ message: "Data inserted successfully." });
@@ -250,6 +304,7 @@ const addClaim = (req, res) => {
 
 const getSpecificClaim = async (req, res) => {
   const leadId = req.query.LeadId;
+  const Username = req.query.Username;
 
   const executeQuery = (query, values) => {
     return new Promise((resolve, reject) => {
@@ -454,9 +509,19 @@ const getSpecificClaim = async (req, res) => {
       commercialVehicleDetails,
       summaryDetails,
     };
-
     res.json(combinedResult);
   } catch (error) {
+    logMessage({
+      type: "error",
+      Function: "FETCHING_SPECIFIC_CLAIM",
+      message: `Got Error while fetching Specific Details`,
+      username: Username,
+      leadId: leadId,
+      consoleInfo: `${err.status} ${err.details}`,
+      info: `{ERRMESSAGE : ${
+        err.details
+      },STATUS : ${`${err.status} ${err.message}`}}`,
+    });
     console.error(error);
     res.status(500).send("Internal Server Error");
   }
@@ -748,7 +813,7 @@ const updateClaim = async (req, res) => {
 };
 
 const getAllClaims = (req, res) => {
-  const { Region1, Region2, Region3, Region4, Region5, CalimStatus } =
+  const { Region1, Region2, Region3, Username, Region4, Region5, CalimStatus } =
     req.query;
   const sql = "CALL GetPolicyInfoByRegions(?, ?, ?, ?, ?, ?)";
   const params = [
@@ -762,9 +827,20 @@ const getAllClaims = (req, res) => {
 
   db.query(sql, params, (err, result) => {
     if (err) {
-      console.error(err);
+      logMessage({
+        type: "error",
+        Function: "FETCHING_ALL_CLAIMS",
+        message: "Got Error while fetching all the Claims.",
+        username: Username,
+        leadId: "",
+        consoleInfo: `${err.status} ${err.details}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        },STATUS : ${`${err.status} ${err.message}`}}`,
+      });
       return res.status(500).send("Internal Server Error");
     }
+
     res.send(result);
   });
 };
@@ -784,10 +860,6 @@ const getClaimDetails = (req, res) => {
     const stat1 = result2[0]?.InsuredToken === token && String(type) === "1";
     const stat2 = result2[0]?.ImageToken === token && String(type) === "2";
     const stat3 = result2[0]?.VideoToken === token && String(type) === "3";
-
-    console.log("stat1", token, result2[0]?.InsuredToken, type);
-    console.log("stat2", token, result2[0]?.ImageToken, type);
-    console.log("stat3", token, result2[0]?.VideoToken, type);
     if (stat1 || stat2 || stat3) {
       res.status(200).send("Successfully found!!");
     } else {
@@ -816,8 +888,9 @@ const updateDriverDetails = (req, res) => {
     Pht,
     DateOfBirth,
     DateOfIssue,
-
+    Username,
     LeadId,
+    InspectionType,
   } = req.body;
 
   const formattedDateOfbirth = formatDate(DateOfBirth);
@@ -846,17 +919,34 @@ const updateDriverDetails = (req, res) => {
 
   db.query(updateDriverDetails, (error, results) => {
     if (error) {
-      console.log(error);
+      logMessage({
+        type: "error",
+        Function: "UPDATING_DRIVER_DETAILS",
+        message: `Got Error while updating Driver Details  of INSPECTION_TYPE ${InspectionType}`,
+        username: Username,
+        leadId: LeadId,
+        consoleInfo: `${err.status} ${err.details}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        },STATUS : ${`${err.status} ${err.message}`}}`,
+      });
       console.error(
         `Error updating data in ${LeadId} specific DRIVER details:`,
         error
       );
-      return res
-        .status(500)
-        .json({
-          error: `Error updating data in ${LeadId} specific DRIVER details:`,
-        });
+      return res.status(500).json({
+        error: `Error updating data in ${LeadId} specific DRIVER details:`,
+      });
     }
+    logMessage({
+      type: "info",
+      Function: "UPDATED_DRIVER_DETAILS",
+      message: `Successfully updated the Driver Details of INSPECTION_TYPE ${InspectionType}`,
+      username: Username,
+      leadId: LeadId,
+      consoleInfo: `200 OK`,
+      info: `{message : "SUCCESS"}`,
+    });
     res.status(200).json({ message: "Data updated successfully." });
   });
 };
@@ -881,6 +971,7 @@ const updateClaimDetails = (req, res) => {
     BrokerMailAddress,
     GarageMailAddress,
     LeadId,
+    Username,
   } = req.body;
 
   const formattedPolicyEnd = PolicyPeriodEnd;
@@ -931,41 +1022,78 @@ const updateClaimDetails = (req, res) => {
 
   db.query(updateClaimDetails, (error, results) => {
     if (error) {
+      logMessage({
+        type: "error",
+        Function: "UPDATING_CLAIM_DETAILS",
+        message: `Got Error while updating Claim Details  of INSPECTION_TYPE ${InspectionType}`,
+        username: Username,
+        leadId: LeadId,
+        consoleInfo: `${err.status} ${err.details}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        },STATUS : ${`${err.status} ${err.message}`}}`,
+      });
       console.error(
         `Error updating data in ${LeadId} specific CLAIM details:`,
         error
       );
-      return res
-        .status(500)
-        .json({
-          error: `Error updating data in ${LeadId} specific CLAIM details:`,
-        });
+      return res.status(500).json({
+        error: `Error updating data in ${LeadId} specific CLAIM details:`,
+      });
     }
     db.query(updateGarageDetails, (error, results) => {
       if (error) {
+        logMessage({
+          type: "error",
+          Function: "UPDATING_CLAIM_DETAILS",
+          message: `Got Error while updating Claim Details  of INSPECTION_TYPE ${InspectionType}`,
+          username: Username,
+          leadId: LeadId,
+          consoleInfo: `${err.status} ${err.details}`,
+          info: `{ERRMESSAGE : ${
+            err.details
+          },STATUS : ${`${err.status} ${err.message}`}}`,
+        });
         console.error(
           `Error updating data in ${LeadId} specific CLAIM details:`,
           error
         );
-        return res
-          .status(500)
-          .json({
-            error: `Error updating data in ${LeadId} specific CLAIM details:`,
-          });
+        return res.status(500).json({
+          error: `Error updating data in ${LeadId} specific CLAIM details:`,
+        });
       }
     });
     db.query(updateInsuredDetails, (error, results) => {
       if (error) {
+        logMessage({
+          type: "error",
+          Function: "UPDATING_CLAIM_DETAILS",
+          message: `Got Error while updating Claim Details  of INSPECTION_TYPE ${InspectionType}`,
+          username: Username,
+          leadId: LeadId,
+          consoleInfo: `${err.status} ${err.details}`,
+          info: `{ERRMESSAGE : ${
+            err.details
+          },STATUS : ${`${err.status} ${err.message}`}}`,
+        });
         console.error(
           `Error updating data in ${LeadId} specific INSURED details:`,
           error
         );
-        return res
-          .status(500)
-          .json({
-            error: `Error updating data in ${LeadId} specific INSURED details:`,
-          });
+        return res.status(500).json({
+          error: `Error updating data in ${LeadId} specific INSURED details:`,
+        });
       }
+
+      logMessage({
+        type: "info",
+        Function: "UPDATED_CLAIM_DETAILS",
+        message: `Successfully updated the Claim Details of INSPECTION_TYPE ${InspectionType}`,
+        username: Username,
+        leadId: LeadId,
+        consoleInfo: `200 OK`,
+        info: `{message : "SUCCESS"}`,
+      });
       res.status(200).json({ message: "Data updated successfully." });
     });
   });
@@ -1008,6 +1136,8 @@ const updateVehicleDetails = (req, res) => {
     ClassOfVehicle,
     SeatingCapacity,
     LeadId,
+    Username,
+    InspectionType,
   } = req.body;
 
   const formattedDateOfRegistration = formatDate(VehicleDateOfRegistration);
@@ -1071,15 +1201,32 @@ const updateVehicleDetails = (req, res) => {
      }'
    WHERE LeadId = ${LeadId};
  `;
-
-  console.log(updateVehicleDetails);
   db.query(updateVehicleDetails, (error, results) => {
     if (error) {
-      console.log(error);
+      logMessage({
+        type: "error",
+        Function: "UPDATING_VEHICLE_DETAILS",
+        message: `Got Error while updating Vehicle Details  of INSPECTION_TYPE ${InspectionType}`,
+        username: Username,
+        leadId: LeadId,
+        consoleInfo: `${err.status} ${err.details}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        },STATUS : ${`${err.status} ${err.message}`}}`,
+      });
       console.error(
         `Error updating data in ${LeadId} specific VEHICLE details:`,
         error
       );
+      logMessage({
+        type: "info",
+        Function: "UPDATED_VEHICLE_DETAILS",
+        message: `Successfully updated the Vehicle Details of INSPECTION_TYPE ${InspectionType}`,
+        username: Username,
+        leadId: LeadId,
+        consoleInfo: `200 OK`,
+        info: `{message : "SUCCESS"}`,
+      });
       return res.status(500).json({ error: error });
     }
     res.status(200).json({ message: "Data updated successfully." });
@@ -1094,6 +1241,8 @@ const accidentdetails = (req, res) => {
     TimeOfAccident,
     Pin,
     LeadId,
+    Username,
+    InspectionType,
   } = req.body;
 
   const updateAccidentDetails = `
@@ -1109,10 +1258,30 @@ const accidentdetails = (req, res) => {
 
   db.query(updateAccidentDetails, (err, result2) => {
     if (err) {
+      logMessage({
+        type: "error",
+        Function: "UPDATING_ACCIDENT_DETAILS",
+        message: `Got Error while updating Accident Details  of INSPECTION_TYPE ${InspectionType}`,
+        username: Username,
+        leadId: LeadId,
+        consoleInfo: `${err.status} ${err.details}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        },STATUS : ${`${err.status} ${err.message}`}}`,
+      });
       console.error(err);
       res.status(500).send("Internal Server Error");
       return;
     }
+    logMessage({
+      type: "info",
+      Function: "UPDATED_ACCIDENT_DETAILS",
+      message: `Successfully updated the Accident Details of INSPECTION_TYPE ${InspectionType}`,
+      username: Username,
+      leadId: LeadId,
+      consoleInfo: `200 OK`,
+      info: `{message : "SUCCESS"}`,
+    });
     res.status(200).send("Successfully Updated!!");
   });
 };
@@ -1123,8 +1292,9 @@ const garageDetails = (req, res) => {
     GarageAddedBy,
     GarageContactNo1,
     GarageContactNo2,
-    GarageMailAddress,
+    Username,
     LeadId,
+    InspectionType,
   } = req.body;
 
   const updateGarageDetails = `
@@ -1141,16 +1311,34 @@ const garageDetails = (req, res) => {
 
   db.query(updateGarageDetails, (error, results) => {
     if (error) {
+      logMessage({
+        type: "error",
+        Function: "UPDATING_GARAGE_DETAILS",
+        message: `Got Error while updating Garage Details  of INSPECTION_TYPE ${InspectionType}`,
+        username: Username,
+        leadId: LeadId,
+        consoleInfo: `${err.status} ${err.details}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        },STATUS : ${`${err.status} ${err.message}`}}`,
+      });
       console.error(
         `Error updating data in ${LeadId} specific GARAGE details:`,
         error
       );
-      return res
-        .status(500)
-        .json({
-          error: `Error updating data in ${LeadId} specific GARAG details:`,
-        });
+      return res.status(500).json({
+        error: `Error updating data in ${LeadId} specific GARAG details:`,
+      });
     }
+    logMessage({
+      type: "info",
+      Function: "UPDATED_GARAGE_DETAILS",
+      message: `Successfully updated the Garage Details of INSPECTION_TYPE ${InspectionType}`,
+      username: Username,
+      leadId: LeadId,
+      consoleInfo: `200 OK`,
+      info: `{message : "SUCCESS"}`,
+    });
     res.status(200).json({ message: "Data updated successfully." });
   });
 };

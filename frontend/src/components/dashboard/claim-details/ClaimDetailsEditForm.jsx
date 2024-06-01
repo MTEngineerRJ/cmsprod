@@ -123,6 +123,7 @@ const ClaimDetailsEditForm = ({
         Region: claim?.claimDetails?.Region,
         type: 4,
         date: formatDate(new Date()),
+        Username : userInfo[0].Username
       };
 
       toast.loading("Sending Acknowledgment Mail!!");
