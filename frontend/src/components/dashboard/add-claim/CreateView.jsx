@@ -740,6 +740,48 @@ const CreateView = () => {
             </div>
           </div>
         </div>
+{/* 
+        <div className="col-lg-4">
+          <div className="row mt-1">
+            <div className="col-lg-5 my_profile_setting_input form-group">
+              <label
+                className="text-color"
+                style={{
+                  color: "#2e008b",
+                  fontWeight: "",
+                }}
+              >
+                Type Of Report
+              </label>
+            </div>
+            <div className="col-lg-7">
+              <select
+                className="selectpicker form-select"
+                data-live-search="true"
+                data-width="100%"
+                // value={inspectionType}
+                // onChange={(e) => setInspectionType(e.target.value)}
+              >
+                { <option data-tokens="Status2" value={"final-report"}>
+                  Final Report
+                </option>}
+                { <option data-tokens="Status1" value={"spot-report"}>
+                  Spot Report
+                </option>}
+
+                { <option data-tokens="Status3" value={"pre-inspection-report"}>
+                  Pre-inspection Report
+                </option>}
+
+                { <option data-tokens="Status3" value={"re-inspection-report"}>
+                  Re-Insepction Report
+                </option>}
+              </select>
+            </div>
+          </div>
+        </div>
+
+         */}
 
         <div className="col-lg-12">
           <div className="my_profile_setting_input">
