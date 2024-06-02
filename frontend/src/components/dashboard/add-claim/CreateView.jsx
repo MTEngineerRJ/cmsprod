@@ -98,7 +98,7 @@ const CreateView = () => {
       ClaimServicingOffice: claimSurvicingOffice,
       ClaimNumber: claimNumber,
       AddedBy: userInfo[0].Username,
-      Region: region,
+      Region: String(inspectionType).toLowerCase().includes("pre-inspection") ? "Preinspection" : region,
       InspectionType: inspectionType ? inspectionType : "Final",
       IsClaimCompleted: 0,
       IsActive: 1,
@@ -136,7 +136,7 @@ const CreateView = () => {
         className: "toast-loading-message",
       });
       setDisable(false);
-    } else if (!region) {
+    } else if (!region && String(payload.InspectionType).toLowerCase() !== "pre-inspection") {
       toast.error("Region should be filled!!", {
         className: "toast-loading-message",
       });

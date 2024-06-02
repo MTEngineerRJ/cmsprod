@@ -35,7 +35,7 @@ const sendEmail1 = (req, res) => {
     BrokerMailAddress,
     GarageMailAddress,
     Region,
-    InspectionType
+    InspectionType,
   } = req.body;
 
   if (leadId === undefined || !leadId) {
@@ -62,7 +62,9 @@ const sendEmail1 = (req, res) => {
         username: "",
         leadId: leadId,
         consoleInfo: `${err.status} ${err.details}`,
-        info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
       });
       console.error(err);
       res.status(500).send("Internal Server Error");
@@ -92,7 +94,9 @@ const sendEmail1 = (req, res) => {
           username: "",
           leadId: leadId,
           consoleInfo: `Got error while updating the tokens for the specific claim  of leadId --> ${leadId}`,
-          info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+          info: `{ERRMESSAGE : ${
+            err.details
+          }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
         });
         console.error(err);
         res.status(500).send("Internal Server Error");
@@ -114,9 +118,13 @@ const sendEmail1 = (req, res) => {
       <br/>
       <strong> ${content} </strong>
 
-      ${String(InspectionType).toLowerCase().includes("inspection") ? "" : `Please provide the clear copy of all the documents so that <br/>
+      ${
+        String(InspectionType).toLowerCase().includes("inspection")
+          ? ""
+          : `Please provide the clear copy of all the documents so that <br/>
       the claim processing can be fast or
-      <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${InsuredToken}&type=${1}&content=${""} target="_blank">Click Here</a> to fill the documents information .</p> <br/>`}
+      <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${InsuredToken}&type=${1}&content=${""} target="_blank">Click Here</a> to fill the documents information .</p> <br/>`
+      }
 
       Please provide the  all the clear Images of the Vehicle so  <br/>
       processing can be fast or 
@@ -193,7 +201,9 @@ const sendEmail1 = (req, res) => {
             username: "",
             leadId: leadId,
             consoleInfo: `Got error while sending the MAIL from : ${currentMailAddress} , to : ${toMail} , cc : ${ccContent} for LeadId --> ${leadId}`,
-            info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+            info: `{ERRMESSAGE : ${
+              err.details
+            }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
           });
           console.error(error);
           res.status(500).send("Internal Server Error");
@@ -241,7 +251,7 @@ const acknowledgmentMail = (req, res) => {
     BrokerMailAddress,
     GarageMailAddress,
     Username,
-    inspectionType
+    inspectionType,
   } = req.body;
   const sql = "SELECT * FROM ClaimStatus WHERE LeadId =?";
   const sql1 = "SELECT Region FROM ClaimDetails WHERE LeadId =?";
@@ -255,7 +265,9 @@ const acknowledgmentMail = (req, res) => {
         username: Username,
         leadId: leadId,
         consoleInfo: `${err.status} ${err.details}`,
-        info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
       });
       console.error(err);
       res.status(500).send("Internal Server Error");
@@ -270,13 +282,15 @@ const acknowledgmentMail = (req, res) => {
           username: Username,
           leadId: leadId,
           consoleInfo: `${err.status} ${err.details}`,
-          info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+          info: `{ERRMESSAGE : ${
+            err.details
+          }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
         });
         console.error(err);
         res.status(500).send("Internal Server Error");
         return;
       }
-      const content = emailHandler(result[0]?.Status,inspectionType);
+      const content = emailHandler(result[0]?.Status, inspectionType);
       const Region = resultRegion[0]?.Region; // Updated assignment for Region
 
       const InsuredToken = generateUniqueToken();
@@ -301,7 +315,9 @@ const acknowledgmentMail = (req, res) => {
             username: Username,
             leadId: leadId,
             consoleInfo: `Got error while updating the tokens for the specific claim  of leadId --> ${leadId}`,
-            info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+            info: `{ERRMESSAGE : ${
+              err.details
+            }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
           });
           console.error(err);
           res.status(500).send("Internal Server Error");
@@ -313,22 +329,40 @@ const acknowledgmentMail = (req, res) => {
       
             Greeting from the MT Engineers Legal Investigator Pvt. Ltd., <br/>
       
-            We are Appointed for the survey of vehicle no.${vehicleNo}, <br/>
+            ${ !String(inspectionType).toLowerCase().includes("pre-inspection") ? `We are Appointed for the survey of vehicle no.${vehicleNo}, <br/>
             Insured:${Insured} & Policy No.-${PolicyNo} on ${Date} <br/>
             from the United India Insurance co. Ltd. So we request <br/>
             you please provide the complete contact deatils & mails of Repairer/insured.<br/>
             So that we  can procedd further in your case and we also request <br/>
-            you to provide the following details as follows:- <br/>
+            you to provide the following details as follows:-` :
+
+           ` We have request for the Pre Inspection of vehicle no. 
+             on ${Date} .So please provide the document mentioned 
+            below and photographs of said vehicle So that we can 
+            proceed further in your case as follows:-`}
+            <br/>
+
       
             <strong>${content}</strong><br/>
       
             Please provide the clear copy of all the documents so that  <br/>
             the claim processing can be fast or <br/>
-            <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${InsuredToken}&type=${1}&content=${String(inspectionType).toLowerCase().includes("pre-inspection") ? 'Certificate%20of%20registration%2CAadhar%20card%2CInsurance%20policy%2CDamage%20vehicle%20photographs%2Fvideo%2C' : ''} target="_blank">Click Here</a> to fill the documents information .</p> <br/>
+            <p><a href=https://cmsprod.vercel.app/${
+              String(inspectionType).toLowerCase().includes("pre-inspection")
+                ? "inspection-documents"
+                : "documents"
+            }/${leadId}?token=${InsuredToken}&type=${1}&content=${
+          String(inspectionType).toLowerCase().includes("pre-inspection")
+            ? "Certificate%20of%20registration%2CAadhar%20card%2CInsurance%20policy%2CDamage%20vehicle%20photographs%2Fvideo%2CSignature"
+            : ""
+        } target="_blank">Click Here</a> to fill the documents information .</p> <br/>
       
-            Please provide the clear Vahicle Videos so that the claim <br/>
+        ${
+          String(inspectionType).toLowerCase().includes("pre-inspection") ? "" :
+          `Please provide the clear Vahicle Videos so that the claim <br/>
             processing can be fast or <br/>
-            <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${ImageToken}&type=${2}&content=${"Images"} target="_blank">Click Here</a> to fill the documents information .</p> <br/>
+            <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${ImageToken}&type=${2}&content=${"Images"} target="_blank">Click Here</a> to fill the documents information .</p> <br/>`
+          }
       
             Please provide the  all the clear Images of the Vehicle so  <br/>
             that the claim processing can be fast or <br/>
@@ -371,8 +405,8 @@ const acknowledgmentMail = (req, res) => {
           },
         });
 
-        console.log("email",inspectionType,emailContent);
-        
+        console.log("email", inspectionType, emailContent);
+
         const mailOptions = {
           from: currentMailAddress,
           to: toMail,
@@ -393,7 +427,9 @@ const acknowledgmentMail = (req, res) => {
               username: Username,
               leadId: leadId,
               consoleInfo: `Got error while sending the MAIL from : ${currentMailAddress} , to : ${toMail} , cc : ${`${GarageMailAddress},${BrokerMailAddress}`} for LeadId --> ${leadId}`,
-              info: `{ERRMESSAGE : ${error.details}, STATUS : ${`${error.status} ${error.message}`}, error : ${error}}}`,
+              info: `{ERRMESSAGE : ${
+                error.details
+              }, STATUS : ${`${error.status} ${error.message}`}, error : ${error}}}`,
             });
             console.error(error);
             res.status(500).send("Internal Server Error");
@@ -443,9 +479,8 @@ const sendCustomEmail = (req, res) => {
     body,
     Region,
     isPreInspection,
-    Username
+    Username,
   } = req.body;
-
 
   if (leadId === undefined || !leadId) {
     logMessage({
@@ -473,7 +508,9 @@ const sendCustomEmail = (req, res) => {
         username: Username,
         leadId: leadId,
         consoleInfo: `${err.status} ${err.details}`,
-        info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
       });
       console.error(err);
       res.status(500).send("Internal Server Error");
@@ -490,7 +527,6 @@ const sendCustomEmail = (req, res) => {
       `;
       db.query(insertClaimDetails, (err, result2) => {
         if (err) {
-          
           logMessage({
             type: "error",
             Function: "SENDING_CUSTOM_MAIL",
@@ -498,7 +534,9 @@ const sendCustomEmail = (req, res) => {
             username: Username,
             leadId: leadId,
             consoleInfo: `Got error while updating the tokens for the specific claim  of leadId --> ${leadId}`,
-            info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+            info: `{ERRMESSAGE : ${
+              err.details
+            }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
           });
           console.error(err);
           res.status(500).send("Internal Server Error");
@@ -586,7 +624,9 @@ const sendCustomEmail = (req, res) => {
                 username: Username,
                 leadId: leadId,
                 consoleInfo: `Got error while sending the MAIL from : ${fromEmail} , to : ${mainEmail} , cc : ${ccArray} for LeadId --> ${leadId}`,
-                info: `{ERRMESSAGE : ${error.details}, STATUS : ${`${error.status} ${error.message}`}, error : ${error}}}`,
+                info: `{ERRMESSAGE : ${
+                  error.details
+                }, STATUS : ${`${error.status} ${error.message}`}, error : ${error}}}`,
               });
               console.error(error);
               res.status(500).send("Internal Server Error");

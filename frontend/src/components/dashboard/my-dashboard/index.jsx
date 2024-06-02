@@ -135,7 +135,9 @@ const Index = () => {
       const Region4 = userInfo[0]["Region4"];
       const Region5 = userInfo[0]["Region5"];
       const CalimStatus = userInfo[0]["CalimStatus"];
+      const Region6 = userInfo[0].IsPreInspection ? "Preinspection" : "";
       const Username = userInfo[0].Username;
+      
       toast.loading("Loading the claims!!", {
         className: "toast-loading-message",
       });
@@ -147,6 +149,7 @@ const Index = () => {
             Region3,
             Region4,
             Region5,
+            Region6,
             CalimStatus,
             Username
           },
