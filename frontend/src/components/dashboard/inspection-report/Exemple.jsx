@@ -3,15 +3,14 @@ import SmartTable from "./SmartTable";
 import { useEffect, useState } from "react";
 import axios, { all } from "axios";
 import toast from "react-hot-toast";
-// import Select from "react-select";
 
 const headCells = [
-  {
-    id: "row",
-    numeric: false,
-    label: "",
-    width: 10,
-  },
+  // {
+  //   id: "row",
+  //   numeric: false,
+  //   label: "",
+  //   width: 10,
+  // },
   ,
   {
     id: "sno",
@@ -46,6 +45,8 @@ export default function Exemple_01({
   const [edit, setEdit] = useState(false);
   const [isEmpty,setIsEmpty] = useState(false);
   const [allFaultyRows, setAllFaultyRows] = useState({});
+  const [firstPartData,setFirstPartData] = useState([]);
+  const [secondPartData,setSecondPartData] = useState([]);
 
   useEffect(() => {
     if (specificVehicleParts?.length > 0) {
@@ -67,12 +68,12 @@ export default function Exemple_01({
           : {};
 
         const newRow = {
-          row: (
-            <button
-              className="flaticon-minus"
-              onClick={() => handleRemoveRow(row.id)}
-            ></button>
-          ),
+          // row: (
+          //   <button
+          //     className="flaticon-minus"
+          //     onClick={() => handleRemoveRow(row.id)}
+          //   ></button>
+          // ),
           sno: index + 1,
           part: (
             <input
@@ -81,9 +82,6 @@ export default function Exemple_01({
               disabled={!edit}
               value={`${row.part}`}
               required
-              onChange={(e) =>
-                onFeildChangeHandler(e.target.value, index + 1, "part")
-              }
               id="terms"
               style={{ border: "1px solid black" }}
             />
@@ -128,6 +126,10 @@ export default function Exemple_01({
     isEmpty,
     edit,
   ]);
+
+  useEffect(()=>{
+    getSeparatedData(updatedCode);
+  },[updatedCode]);
 
   const editHandler = () => {
     setEdit(true);
@@ -244,11 +246,29 @@ export default function Exemple_01({
     setAllRows(updatedRows);
   };
 
+  const getSeparatedData = (data) => {
+    let wholeData = [...data];
+    let data1 = [];
+    let data2 = [];
+    let length = Math.ceil(wholeData.length / 2);
+    let remainedLength = wholeData.length - length;
+
+    console.log(length, remainedLength);
+
+    data1 = wholeData.splice(0, length);
+    data2 = wholeData.splice(0, remainedLength);
+
+    setFirstPartData(data1);
+    setSecondPartData(data2);
+}
+
   return (
     <SmartTable
       title=""
       data={updatedCode}
       headCells={headCells}
+      firstPartData={firstPartData}
+      secondPartData={secondPartData}
       handleAddRow={handleAddRow}
       editHandler={editHandler}
       edit={edit}

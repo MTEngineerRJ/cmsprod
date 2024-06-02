@@ -98,7 +98,6 @@ const headCells = [
   },
 ];
 
-
 function SmartTable(props) {
   const [loading, setLoading] = useState(false);
   const [sortDesc, setSortDesc] = useState({});
@@ -111,10 +110,10 @@ function SmartTable(props) {
     props.rowsPerPageOptions ?? [5, 10, 25, 50]
   );
 
-  const roundOff = (value)=>{
+  const roundOff = (value) => {
     const roundedValue = parseFloat(value).toFixed(2);
-    return roundedValue
-  }
+    return roundedValue;
+  };
 
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(props.total ?? 0);
@@ -203,36 +202,38 @@ function SmartTable(props) {
     <div className="col-12 p-2">
       <div className="smartTable-container row">
         <div className="col-12">
-          
           <div className="row" style={{ marginTop: "0px" }}>
             <div className="col-lg-12 text-end">
-            <button
+              {/* <button
                 className="btn"
                 onClick={() => props.handleAddRow()}
                 title="Add Row"
               >
                 <span className="flaticon-plus"></span>
-              </button>
-            {!props.edit && <button
+              </button> */}
+              {!props.edit && (
+                <button
                   className="btn"
                   title="Update"
                   onClick={props.editHandler}
                 >
                   <span className="flaticon-edit"></span>
-                </button>}
-                {props.edit && <button
+                </button>
+              )}
+              {props.edit && (
+                <button
                   className="btn"
                   title="Update"
-                  
                   onClick={props.saveHandler}
                 >
                   Save
-                </button>}
+                </button>
+              )}
             </div>
           </div>
           {props.data.length > 0 ? (
             <div className="row">
-              <div>
+              <div className="col-lg-6">
                 <div className="smartTable-tableContainer">
                   <table
                     className={"smartTable-table table"}
@@ -272,7 +273,7 @@ function SmartTable(props) {
                       </tr>
                     </thead>
                     <tbody>
-                      {props.data.map((row, idx) => (
+                      {props.firstPartData.map((row, idx) => (
                         <tr key={"tr_" + idx}>
                           {props.headCells.map((headCell, idxx) => (
                             <td key={"td_" + idx + "_" + idxx}>
@@ -286,7 +287,64 @@ function SmartTable(props) {
                     </tbody>
                   </table>
                 </div>
-                
+
+                <div className="col-lg-12"></div>
+              </div>
+              <div className="col-lg-6">
+                <div className="smartTable-tableContainer">
+                  <table
+                    className={"smartTable-table table"}
+                    style={{ minWidth: props.tableWidth }}
+                  >
+                    <thead className="smartTable-thead">
+                      <tr>
+                        {props.headCells.map((headCell) => (
+                          <th
+                            id={headCell.id}
+                            key={headCell.id}
+                            scope="col"
+                            style={{
+                              width: headCell.width ?? "auto",
+                            }}
+                            className={
+                              headCell.sortable !== false
+                                ? "smartTable-pointer"
+                                : ""
+                            }
+                            onClick={() =>
+                              headCell.sortable !== false
+                                ? sortData(headCell.id)
+                                : {}
+                            }
+                          >
+                            {headCell.label}
+                            {sortDesc[headCell.id] ? (
+                              <SVGArrowDown />
+                            ) : sortDesc[headCell.id] === undefined ? (
+                              ""
+                            ) : (
+                              <SVGArrowUp />
+                            )}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {props.secondPartData.map((row, idx) => (
+                        <tr key={"tr_" + idx}>
+                          {props.headCells.map((headCell, idxx) => (
+                            <td key={"td_" + idx + "_" + idxx}>
+                              {headCell.render
+                                ? headCell.render(row)
+                                : row[headCell.id]}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
                 <div className="col-lg-12"></div>
               </div>
             </div>

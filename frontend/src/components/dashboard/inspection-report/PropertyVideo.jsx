@@ -31,7 +31,7 @@ const PropertyVideo = ({ vehicleType,leadId }) => {
           let newRow = {
             id: index + 1,
             part: part?.PartName,
-            state: "",
+            state: "Safe",
             isActive : true ,
             partId : Number(part?.PartID)
           };
