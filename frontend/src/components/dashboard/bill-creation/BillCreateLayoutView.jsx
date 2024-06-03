@@ -84,6 +84,11 @@ const BillCreateLayoutView = ({
   disable,
   onSubmitHnadler,
 }) => {
+  function convertDateFormat(dateString) {
+    const [year, month, day] = dateString.split('-');
+    return `${day}-${month}-${year}`;
+  }
+  
   return (
     <>
       <div className="row">
@@ -123,17 +128,17 @@ const BillCreateLayoutView = ({
                 </label>
               </div>
               <div className="col-lg-4">
-                <DatePicker
-                  className="form-control"
-                  id="propertyTitle"
-                  dateFormat="dd/MM/yyyy"
-                  selected={
-                    BillDate !== null && !isNaN(new Date(BillDate))
-                      ? new Date(BillDate)
-                      : ""
-                  }
-                  onChange={(date) => setBillDate(date)}
+                {BillDate ?
+                <input
+                type="text"
+                value={convertDateFormat(BillDate)}
                 />
+                :  <input
+                type="date"
+                onChange={(e) => setBillDate(e.target.value)}
+                value={BillDate}
+                />}
+                
               </div>
             </div>
           </div>
