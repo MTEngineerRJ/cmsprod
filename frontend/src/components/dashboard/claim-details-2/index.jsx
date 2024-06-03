@@ -4,14 +4,11 @@ import SidebarMenu from "../../common/header/dashboard/SidebarMenu_PreInspection
 import MobileMenu from "../../common/header/MobileMenu";
 import ChatboxContent from "./ChatboxContent";
 import VehicleDetailsEditForm from "./VehicleDetailsEditForm";
-import DriverDetailsEditForm from "./DriverDetailsEditForm";
 import axios from "axios";
 import StatusLog from "./StatusLog";
 import ManualUploadTabularView from "./ManualUploadTabularView";
-import PaymentDetailsViewForm from "./PaymentDetailsViewForm";
 import ClaimDetailsEditForm from "./ClaimDetailsEditForm";
 import Video from "./Video";
-import GarageEstimationList from "./GarageEstimationList";
 import ClaimDetailsViewForm from "./ClaimDetailsViewForm";
 import { toast, Toaster } from "react-hot-toast";
 import Loader from "../../common/Loader";
@@ -1343,66 +1340,6 @@ const Index = ({}) => {
                               setClassOfVehicle={setClassOfVehicle}
                               VehicleInsuranceUpto={VehicleInsuranceUpto}
                               setVehicleInsuranceUpto={setVehicleInsuranceUpto}
-                            />
-                          </div>
-                        </div>
-                        <div
-                          className="row mt-2"
-                          style={{ marginLeft: "-15px" }}
-                        >
-                          <div className="col-lg-12">
-                            <DriverDetailsEditForm
-                              setFinalDisable={setFinalDisable}
-                              finalDisable={finalDisable}
-                              disable={disable}
-                              onSaveHandler={onSaveHandler}
-                              claim={claim}
-                              edit={editCase_02}
-                              LicenseNumber={LicenseNumber}
-                              setLicenseNumber={setLicenseNumber}
-                              LicenseType={LicenseType}
-                              setLicenseType={setLicenseType}
-                              IssuingAuthority={IssuingAuthority}
-                              setIssuingAuthority={setIssuingAuthority}
-                              editHandler={editHandler}
-                              DriverName={DriverName}
-                              setDriverName={setDriverName}
-                              DriverAddedDate={DriverAddedDate}
-                              setDriverAddedDate={setDriverAddedDate}
-                              Verification={Verification}
-                              setVerification={setVerification}
-                              FatherName={FatherName}
-                              setFatherName={setFatherName}
-                              Gender={Gender}
-                              setGender={setGender}
-                              BloodGroup={BloodGroup}
-                              setBloodGroup={setBloodGroup}
-                              setAddress={setAddress}
-                              Address={Address}
-                              setRtoName={setRtoName}
-                              RtoName={RtoName}
-                              Mobile={Mobile}
-                              setMobile={setMobile}
-                              ValidUpto={ValidUpto}
-                              setValidUpto={setValidUpto}
-                              Vov={Vov}
-                              setVov={setVov}
-                              setPht={setPht}
-                              Pht={Pht}
-                              Photo={Photo}
-                              updateHandlerAfterFetching={
-                                updateHandlerAfterFetching
-                              }
-                              setPhoto={setPhoto}
-                              DateOfBirth={DateOfBirth}
-                              setDateOfBirth={setDateOfBirth}
-                              setDateOfIssue={setDateOfIssue}
-                              DateOfIssue={DateOfIssue}
-                              setIsDriverDetailsFetched={
-                                setIsDriverDetailsFetched
-                              }
-                              setDLStatus={setDLStatus}
-                              DLStatus={DLStatus}
                             />
                           </div>
                         </div>

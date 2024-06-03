@@ -52,6 +52,7 @@ const CreateView = () => {
   const [garageNumber, setGarageNumber] = useState("");
   const [garageMailId, setGarageMailId] = useState("");
   const [claimNumber, setClaimNumber] = useState("");
+  const [preInspectionHide,setpreInspectionHide] = useState(false);
   const [allListedRegions, setAllListedRegions] = useState(regionList);
 
   const [allServicingOffice, setAllServicingOffice] = useState([]);
@@ -60,6 +61,15 @@ const CreateView = () => {
   useEffect(() => {
     setPolicyStartEnd(getNextYear(policyStartDate));
   }, [policyStartDate]);
+
+  useEffect(()=>{
+    if(String(region).toLowerCase().includes("preinspection")){
+      setpreInspectionHide(true);
+    }
+    else{
+      setpreInspectionHide(false);
+    }
+  },[region]);
 
   useEffect(() => {
 
@@ -117,26 +127,26 @@ const CreateView = () => {
       NatureOfLoss: natureOfLoss,
       EstimatedLoss: estimatedLoss,
     };
-    if(String(payload.InspectionType).toLowerCase() === "pre-inspection" && !payload.RegisteredNumber){
+    if(String(payload.Region).toLowerCase() === "preinspection" && !payload.RegisteredNumber){
       
         toast.error("Please fill the Vehicle Number !!", {
           className: "toast-loading-message",
         });
         setDisable(false);
     }
-    else if(String(payload.InspectionType).toLowerCase() === "pre-inspection" && !payload.InsuredName){
+    else if(String(payload.Region).toLowerCase() === "preinspection" && !payload.InsuredName){
       
       toast.error("Please fill the Insured Name !!", {
         className: "toast-loading-message",
       });
       setDisable(false);
   }
-    else if (!payload.PolicyNumber && String(payload.InspectionType).toLowerCase() !== "pre-inspection") {
+    else if (!payload.Region && String(payload.InspectionType).toLowerCase() !== "preinspection") {
       toast.error("Policy Number should be filled !!", {
         className: "toast-loading-message",
       });
       setDisable(false);
-    } else if (!region && String(payload.InspectionType).toLowerCase() !== "pre-inspection") {
+    } else if (!payload.Region && String(payload.Region).toLowerCase() !== "preinspection") {
       toast.error("Region should be filled!!", {
         className: "toast-loading-message",
       });
@@ -288,7 +298,7 @@ const CreateView = () => {
           </div>
         </div>
 
-        <div className="col-lg-4">
+        {!preInspectionHide && <div className="col-lg-4">
           <div className="row mt-1">
             <div className="col-lg-5 my_profile_setting_input form-group">
               <label
@@ -311,7 +321,7 @@ const CreateView = () => {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
         <div className="col-lg-4">
           <div className="row mt-1">
@@ -345,7 +355,7 @@ const CreateView = () => {
           </div>
         </div>
 
-        <div className="col-lg-4">
+        {!preInspectionHide && <div className="col-lg-4">
           <div className="row mt-1">
             <div className="col-lg-5 my_profile_setting_input form-group">
               <label
@@ -370,9 +380,9 @@ const CreateView = () => {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
-        <div className="col-lg-4">
+        {!preInspectionHide && <div className="col-lg-4">
           <div className="row mt-1">
             <div className="col-lg-5 my_profile_setting_input form-group">
               <label
@@ -395,9 +405,9 @@ const CreateView = () => {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
-        <div className="col-lg-4">
+        {!preInspectionHide && <div className="col-lg-4">
           <div className="row mt-1">
             <div className="col-lg-5 my_profile_setting_input form-group">
               <label
@@ -420,7 +430,7 @@ const CreateView = () => {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
         <div className="col-lg-4">
           <div className="row mt-1">
@@ -591,7 +601,7 @@ const CreateView = () => {
           </div>
         </div>
 
-        <div className="col-lg-4">
+        {!preInspectionHide && <div className="col-lg-4">
           <div className="row mt-1">
             <div className="col-lg-5 my_profile_setting_input form-group">
               <label
@@ -614,9 +624,9 @@ const CreateView = () => {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
-        <div className="col-lg-4">
+        {!preInspectionHide && <div className="col-lg-4">
           <div className="row mt-1">
             <div className="col-lg-5 my_profile_setting_input form-group">
               <label
@@ -639,9 +649,9 @@ const CreateView = () => {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
-        <div className="col-lg-4">
+        {!preInspectionHide && <div className="col-lg-4">
           <div className="row mt-1">
             <div className="col-lg-5 my_profile_setting_input form-group">
               <label
@@ -664,7 +674,7 @@ const CreateView = () => {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
         <div className="col-lg-4">
           <div className="row mt-1">
@@ -690,7 +700,7 @@ const CreateView = () => {
             </div>
           </div>
         </div>
-        <div className="col-lg-4">
+        {!preInspectionHide && <div className="col-lg-4">
           <div className="row mt-1">
             <div className="col-lg-5 my_profile_setting_input form-group">
               <label
@@ -713,7 +723,7 @@ const CreateView = () => {
               />
             </div>
           </div>
-        </div>
+        </div>|
 
         <div className="col-lg-4">
           <div className="row mt-1">
@@ -739,7 +749,7 @@ const CreateView = () => {
               />
             </div>
           </div>
-        </div>
+        </div>}
 {/* 
         <div className="col-lg-4">
           <div className="row mt-1">
