@@ -23,7 +23,7 @@ const ReportDetails = ({allInfo}) => {
         }}
       ></div>
       <div className="">
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "" }}>
           <img
             width={481}
             height={139}
