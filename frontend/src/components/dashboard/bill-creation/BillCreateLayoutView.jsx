@@ -84,10 +84,18 @@ const BillCreateLayoutView = ({
   disable,
   onSubmitHnadler,
 }) => {
-  function convertDateFormat(dateString) {
-    const [year, month, day] = dateString.split('-');
+  const convertDateFormat = (dateString) => {
+    if (!dateString) return "";
+  
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "";
+  
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+  
     return `${day}-${month}-${year}`;
-  }
+  };
   
   return (
     <>
