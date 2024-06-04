@@ -329,17 +329,19 @@ const acknowledgmentMail = (req, res) => {
       
             Greeting from the MT Engineers Legal Investigator Pvt. Ltd., <br/>
       
-            ${ !String(inspectionType).toLowerCase().includes("pre-inspection") ? `We are Appointed for the survey of vehicle no.${vehicleNo}, <br/>
+            ${
+              !String(inspectionType).toLowerCase().includes("pre-inspection")
+                ? `We are Appointed for the survey of vehicle no.${vehicleNo}, <br/>
             Insured:${Insured} & Policy No.-${PolicyNo} on ${Date} <br/>
             from the United India Insurance co. Ltd. So we request <br/>
             you please provide the complete contact deatils & mails of Repairer/insured.<br/>
             So that we  can procedd further in your case and we also request <br/>
-            you to provide the following details as follows:-` :
-
-           ` We have request for the Pre Inspection of vehicle no. 
+            you to provide the following details as follows:-`
+                : ` We have request for the Pre Inspection of vehicle no. 
              on ${Date} .So please provide the document mentioned 
             below and photographs of said vehicle So that we can 
-            proceed further in your case as follows:-`}
+            proceed further in your case as follows:-`
+            }
             <br/>
 
       
@@ -358,11 +360,12 @@ const acknowledgmentMail = (req, res) => {
         } target="_blank">Click Here</a> to fill the documents information .</p> <br/>
       
         ${
-          String(inspectionType).toLowerCase().includes("pre-inspection") ? "" :
-          `Please provide the clear Vahicle Videos so that the claim <br/>
+          String(inspectionType).toLowerCase().includes("pre-inspection")
+            ? ""
+            : `Please provide the clear Vahicle Videos so that the claim <br/>
             processing can be fast or <br/>
             <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${ImageToken}&type=${2}&content=${"Images"} target="_blank">Click Here</a> to fill the documents information .</p> <br/>`
-          }
+        }
       
             Please provide the  all the clear Images of the Vehicle so  <br/>
             that the claim processing can be fast or <br/>
@@ -373,26 +376,32 @@ const acknowledgmentMail = (req, res) => {
       
     `;
 
-        const currentMailAddress =
-          Region === "Delhi"
-            ? process.env.NODEMAILER_DELHI_EMAIL
-            : Region === "Jodhpur"
-            ? process.env.NODEMAILER_JODHPUR_EMAIL
-            : Region === "Jaipur"
-            ? process.env.NODEMAILER_JAIPUR_EMAIL
-            : Region === "Hero"
-            ? process.env.NODEMAILER_HERO_EMAIL
-            : process.env.NODEMAILER_CHANDIGARH_EMAIL;
-        const currentMailAddressPass =
-          Region === "Delhi"
-            ? process.env.NODEMAILER_DELHI_EMAIL_PASSWORD
-            : Region === "Jodhpur"
-            ? process.env.NODEMAILER_JODHPUR_EMAIL_PASSWORD
-            : Region === "Jaipur"
-            ? process.env.NODEMAILER_JAIPUR_EMAIL_PASSWORD
-            : Region === "Hero"
-            ? process.env.NODEMAILER_HERO_EMAIL_PASSWORD
-            : process.env.NODEMAILER_CHANDIGARH_EMAIL_PASSWORD;
+        const currentMailAddress = String(inspectionType)
+          .toLowerCase()
+          .includes("pre-inspection")
+          ? process.env.NODEMAILER_PI_EMAIL
+          : Region === "Delhi"
+          ? process.env.NODEMAILER_DELHI_EMAIL
+          : Region === "Jodhpur"
+          ? process.env.NODEMAILER_JODHPUR_EMAIL
+          : Region === "Jaipur"
+          ? process.env.NODEMAILER_JAIPUR_EMAIL
+          : Region === "Hero"
+          ? process.env.NODEMAILER_HERO_EMAIL
+          : process.env.NODEMAILER_CHANDIGARH_EMAIL;
+        const currentMailAddressPass = String(inspectionType)
+          .toLowerCase()
+          .includes("pre-inspection")
+          ? process.env.NODEMAILER_PI_EMAIL_PASSWORD
+          : Region === "Delhi"
+          ? process.env.NODEMAILER_DELHI_EMAIL_PASSWORD
+          : Region === "Jodhpur"
+          ? process.env.NODEMAILER_JODHPUR_EMAIL_PASSWORD
+          : Region === "Jaipur"
+          ? process.env.NODEMAILER_JAIPUR_EMAIL_PASSWORD
+          : Region === "Hero"
+          ? process.env.NODEMAILER_HERO_EMAIL_PASSWORD
+          : process.env.NODEMAILER_CHANDIGARH_EMAIL_PASSWORD;
 
         const transporter2 = nodemailer.createTransport({
           service: "gmail",
@@ -405,14 +414,11 @@ const acknowledgmentMail = (req, res) => {
           },
         });
 
-        console.log("email", inspectionType, emailContent);
-
         const mailOptions = {
           from: currentMailAddress,
           to: toMail,
           cc: `${GarageMailAddress},${BrokerMailAddress}`,
-          subject: `Survey Request for Claim of
-            Vehicle Number - ${vehicleNo} A/c ${
+          subject: `Survey Request for Claim of Vehicle Number - ${vehicleNo} A/c ${
             Insured ? Insured : "N.A."
           }  policy Number - ${PolicyNo}`,
           html: emailContent,
@@ -584,6 +590,9 @@ const sendCustomEmail = (req, res) => {
           };
 
           const currentMailAddress =
+          isPreInspection
+          ? process.env.NODEMAILER_PI_EMAIL
+          :
             Region === "Delhi"
               ? process.env.NODEMAILER_DELHI_EMAIL
               : Region === "Jodhpur"
@@ -594,6 +603,9 @@ const sendCustomEmail = (req, res) => {
               ? process.env.NODEMAILER_HERO_EMAIL
               : process.env.NODEMAILER_CHANDIGARH_EMAIL;
           const currentMailAddressPass =
+          isPreInspection
+          ? process.env.NODEMAILER_PI_EMAIL_PASSWORD
+          :
             Region === "Delhi"
               ? process.env.NODEMAILER_DELHI_EMAIL_PASSWORD
               : Region === "Jodhpur"
@@ -683,6 +695,9 @@ const sendCustomEmail = (req, res) => {
         };
 
         const currentMailAddress =
+        isPreInspection
+          ? process.env.NODEMAILER_PI_EMAIL
+          :
           Region === "Delhi"
             ? process.env.NODEMAILER_DELHI_EMAIL
             : Region === "Jodhpur"
@@ -693,6 +708,9 @@ const sendCustomEmail = (req, res) => {
             ? process.env.NODEMAILER_HERO_EMAIL
             : process.env.NODEMAILER_CHANDIGARH_EMAIL;
         const currentMailAddressPass =
+        isPreInspection
+          ? process.env.NODEMAILER_PI_EMAIL_PASSWORD
+          :
           Region === "Delhi"
             ? process.env.NODEMAILER_DELHI_EMAIL_PASSWORD
             : Region === "Jodhpur"

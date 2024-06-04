@@ -34,6 +34,7 @@ const addClaim = (req, res) => {
     PlaceOfLoss,
     NatureOfLoss,
     EstimatedLoss,
+    InspectionTypeOfConduct
   } = req.body;
 
   const authorizationHeader = req.headers.authorization;
@@ -62,6 +63,7 @@ const addClaim = (req, res) => {
       InsuredToken,
       PolicyIssuingOffice,
       PolicyType,
+      InspectionTypeOfConduct,
       IsActive
     ) VALUES (
       '${SurveyType}',
@@ -79,6 +81,7 @@ const addClaim = (req, res) => {
       '${generatedToken}',
       '${PolicyIssuingOffice}',
       'Regular',
+      '${InspectionTypeOfConduct}',
       ${parseInt(IsActive)}
     );
   `;
@@ -822,6 +825,7 @@ const getAllClaims = (req, res) => {
     Region3 || null,
     Region4 || null,
     Region5 || null,
+    // Region6 || null,
     CalimStatus || null,
 
   ];

@@ -132,6 +132,7 @@ const EmailBaseLayout = ({
       body: body,
       Region: Region ? Region : "Chandigarh",
       fromEmail: fromEmail,
+      isPreInspection : true,
       Username : userInfo[0]?.Username
     };
 
@@ -167,7 +168,7 @@ const EmailBaseLayout = ({
           toast.success("Successfully sent !", {
             className: "toast-loading-message",
           });
-          router.push(`/claim-details?leadId=${requiredLeadId}`);
+          router.push(`/preInspection-claim-details?leadId=${requiredLeadId}`);
         })
         .catch((Err) => {
           toast.dismiss();

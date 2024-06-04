@@ -205,8 +205,12 @@ const BillCreateView = ({ allInfo, leadID }) => {
     const fees = String(allInfo?.otherInfo[0]?.VehicleType)
       .toLowerCase()
       .includes("4W".toLowerCase())
-      ? 700
-      : 500;
+      ? 40 :
+      String(allInfo?.otherInfo[0]?.VehicleType)
+      .toLowerCase()
+      .includes("2W".toLowerCase())
+      ? 30
+      : 41;
     setFinalProfFees(fees);
     setReInsprectionProfFees(fees);
     setSpotProfFees(fees);

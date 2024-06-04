@@ -22,10 +22,10 @@ const CreateView = () => {
   const [phoneNumber_01, setPhoneNumber_01] = useState("");
   const [phoneNumber_02, setPhoneNumber_02] = useState("");
   const [disable, setDisable] = useState(false);
-  const [showPreInspection,setShowPreInspection] = useState(false);
-  const [showSpot,setShowSpot] = useState(false);
-  const [showFinal,setShowFinal] = useState(false);
-  
+  const [showPreInspection, setShowPreInspection] = useState(false);
+  const [showSpot, setShowSpot] = useState(false);
+  const [showFinal, setShowFinal] = useState(false);
+
   const router = useRouter();
   const todayDate = new Date();
   const formattedTodayDate = todayDate.toISOString().split("T")[0];
@@ -52,7 +52,8 @@ const CreateView = () => {
   const [garageNumber, setGarageNumber] = useState("");
   const [garageMailId, setGarageMailId] = useState("");
   const [claimNumber, setClaimNumber] = useState("");
-  const [preInspectionHide,setpreInspectionHide] = useState(false);
+  const [preInspectionHide, setpreInspectionHide] = useState(false);
+  const [InspectionTypeOfConduct,setInspectionTypeOfConduct] = useState("Manual");
   const [allListedRegions, setAllListedRegions] = useState(regionList);
 
   const [allServicingOffice, setAllServicingOffice] = useState([]);
@@ -62,25 +63,23 @@ const CreateView = () => {
     setPolicyStartEnd(getNextYear(policyStartDate));
   }, [policyStartDate]);
 
-  useEffect(()=>{
-    if(String(region).toLowerCase().includes("preinspection")){
+  useEffect(() => {
+    if (String(region).toLowerCase().includes("preinspection")) {
       setpreInspectionHide(true);
-    }
-    else{
+    } else {
       setpreInspectionHide(false);
     }
-  },[region]);
+  }, [region]);
 
   useEffect(() => {
-
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    if(userInfo[0].IsPreInspection){
+    if (userInfo[0].IsPreInspection) {
       setShowPreInspection(true);
     }
-    if(userInfo[0].IsSpotInspection){
+    if (userInfo[0].IsSpotInspection) {
       setShowSpot(true);
     }
-    if(userInfo[0].IsFinalInspection){
+    if (userInfo[0].IsFinalInspection) {
       setShowFinal(true);
     }
     axios
@@ -91,7 +90,6 @@ const CreateView = () => {
       .catch((err) => {
         console.log(err);
       });
- 
   }, []);
 
   const submitHandler = () => {
@@ -108,7 +106,9 @@ const CreateView = () => {
       ClaimServicingOffice: claimSurvicingOffice,
       ClaimNumber: claimNumber,
       AddedBy: userInfo[0].Username,
-      Region: String(inspectionType).toLowerCase().includes("pre-inspection") ? "Preinspection" : region,
+      Region: String(inspectionType).toLowerCase().includes("pre-inspection")
+        ? "Preinspection"
+        : region,
       InspectionType: inspectionType ? inspectionType : "Final",
       IsClaimCompleted: 0,
       IsActive: 1,
@@ -125,28 +125,37 @@ const CreateView = () => {
       GarageContactNo2: garageNumber,
       PlaceOfLoss: placeOfLoss,
       NatureOfLoss: natureOfLoss,
+      InspectionTypeOfConduct : InspectionTypeOfConduct,
       EstimatedLoss: estimatedLoss,
     };
-    if(String(payload.Region).toLowerCase() === "preinspection" && !payload.RegisteredNumber){
-      
-        toast.error("Please fill the Vehicle Number !!", {
-          className: "toast-loading-message",
-        });
-        setDisable(false);
-    }
-    else if(String(payload.Region).toLowerCase() === "preinspection" && !payload.InsuredName){
-      
+    if (
+      String(payload.Region).toLowerCase() === "preinspection" &&
+      !payload.RegisteredNumber
+    ) {
+      toast.error("Please fill the Vehicle Number !!", {
+        className: "toast-loading-message",
+      });
+      setDisable(false);
+    } else if (
+      String(payload.Region).toLowerCase() === "preinspection" &&
+      !payload.InsuredName
+    ) {
       toast.error("Please fill the Insured Name !!", {
         className: "toast-loading-message",
       });
       setDisable(false);
-  }
-    else if (!payload.Region && String(payload.InspectionType).toLowerCase() !== "preinspection") {
+    } else if (
+      !payload.Region &&
+      String(payload.InspectionType).toLowerCase() !== "preinspection"
+    ) {
       toast.error("Policy Number should be filled !!", {
         className: "toast-loading-message",
       });
       setDisable(false);
-    } else if (!payload.Region && String(payload.Region).toLowerCase() !== "preinspection") {
+    } else if (
+      !payload.Region &&
+      String(payload.Region).toLowerCase() !== "preinspection"
+    ) {
       toast.error("Region should be filled!!", {
         className: "toast-loading-message",
       });
@@ -259,16 +268,22 @@ const CreateView = () => {
                 value={inspectionType}
                 onChange={(e) => setInspectionType(e.target.value)}
               >
-                {showFinal && <option data-tokens="Status2" value={"Final"}>
-                  Final
-                </option>}
-                {showSpot && <option data-tokens="Status1" value={"spot"}>
-                  Spot
-                </option>}
+                {showFinal && (
+                  <option data-tokens="Status2" value={"Final"}>
+                    Final
+                  </option>
+                )}
+                {showSpot && (
+                  <option data-tokens="Status1" value={"spot"}>
+                    Spot
+                  </option>
+                )}
 
-                {showPreInspection && <option data-tokens="Status3" value={"pre-inspection"}>
-                  Pre-inspection
-                </option>}
+                {showPreInspection && (
+                  <option data-tokens="Status3" value={"pre-inspection"}>
+                    Pre-inspection
+                  </option>
+                )}
               </select>
             </div>
           </div>
@@ -298,30 +313,32 @@ const CreateView = () => {
           </div>
         </div>
 
-        {!preInspectionHide && <div className="col-lg-4">
-          <div className="row mt-1">
-            <div className="col-lg-5 my_profile_setting_input form-group">
-              <label
-                className="text-color"
-                style={{
-                  color: "#2e008b",
-                  fontWeight: "",
-                }}
-              >
-                Policy Number
-              </label>
-            </div>
-            <div className="col-lg-7">
-              <input
-                type="text"
-                className="form-control"
-                id="propertyTitle"
-                value={policyNumber}
-                onChange={(e) => setPolicyNumber(e.target.value)}
-              />
+        {!preInspectionHide && (
+          <div className="col-lg-4">
+            <div className="row mt-1">
+              <div className="col-lg-5 my_profile_setting_input form-group">
+                <label
+                  className="text-color"
+                  style={{
+                    color: "#2e008b",
+                    fontWeight: "",
+                  }}
+                >
+                  Policy Number
+                </label>
+              </div>
+              <div className="col-lg-7">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="propertyTitle"
+                  value={policyNumber}
+                  onChange={(e) => setPolicyNumber(e.target.value)}
+                />
+              </div>
             </div>
           </div>
-        </div>}
+        )}
 
         <div className="col-lg-4">
           <div className="row mt-1">
@@ -355,82 +372,88 @@ const CreateView = () => {
           </div>
         </div>
 
-        {!preInspectionHide && <div className="col-lg-4">
-          <div className="row mt-1">
-            <div className="col-lg-5 my_profile_setting_input form-group">
-              <label
-                className="text-color"
-                style={{
-                  color: "#2e008b",
-                  fontWeight: "",
-                }}
-              >
-                Policy Period Start
-              </label>
-            </div>
-            <div className="col-lg-7">
-              <input
-                type="date"
-                value={
-                  policyStartDate && policyStartDate !== "null"
-                    ? policyStartDate.substring(0, 10)
-                    : ""
-                }
-                onChange={(e) => setPolicyStartDate(e.target.value)}
-              />
+        {!preInspectionHide && (
+          <div className="col-lg-4">
+            <div className="row mt-1">
+              <div className="col-lg-5 my_profile_setting_input form-group">
+                <label
+                  className="text-color"
+                  style={{
+                    color: "#2e008b",
+                    fontWeight: "",
+                  }}
+                >
+                  Policy Period Start
+                </label>
+              </div>
+              <div className="col-lg-7">
+                <input
+                  type="date"
+                  value={
+                    policyStartDate && policyStartDate !== "null"
+                      ? policyStartDate.substring(0, 10)
+                      : ""
+                  }
+                  onChange={(e) => setPolicyStartDate(e.target.value)}
+                />
+              </div>
             </div>
           </div>
-        </div>}
+        )}
 
-        {!preInspectionHide && <div className="col-lg-4">
-          <div className="row mt-1">
-            <div className="col-lg-5 my_profile_setting_input form-group">
-              <label
-                className="text-color"
-                style={{
-                  color: "#2e008b",
-                  fontWeight: "",
-                }}
-              >
-                Policy Period End
-              </label>
-            </div>
-            <div className="col-lg-7">
-              <MyDatePicker
-                type="date"
-                className="form-control"
-                id="propertyTitle"
-                setSelectedDate={setPolicyStartEnd}
-                selectedDate={policyStartEnd}
-              />
+        {!preInspectionHide && (
+          <div className="col-lg-4">
+            <div className="row mt-1">
+              <div className="col-lg-5 my_profile_setting_input form-group">
+                <label
+                  className="text-color"
+                  style={{
+                    color: "#2e008b",
+                    fontWeight: "",
+                  }}
+                >
+                  Policy Period End
+                </label>
+              </div>
+              <div className="col-lg-7">
+                <MyDatePicker
+                  type="date"
+                  className="form-control"
+                  id="propertyTitle"
+                  setSelectedDate={setPolicyStartEnd}
+                  selectedDate={policyStartEnd}
+                />
+              </div>
             </div>
           </div>
-        </div>}
+        )}
 
-        {!preInspectionHide && <div className="col-lg-4">
-          <div className="row mt-1">
-            <div className="col-lg-5 my_profile_setting_input form-group">
-              <label
-                className="text-color"
-                style={{
-                  color: "#2e008b",
-                  fontWeight: "",
-                }}
-              >
-                Claim Number
-              </label>
-            </div>
-            <div className="col-lg-7">
-              <input
-                type="text"
-                className="form-control"
-                id="propertyTitle"
-                value={claimNumber}
-                onChange={(e) => setClaimNumber(e.target.value)}
-              />
+        {!preInspectionHide && (
+          <div className="col-lg-4">
+            <div className="row mt-1">
+              <div className="col-lg-5 my_profile_setting_input form-group">
+                <label
+                  className="text-color"
+                  style={{
+                    color: "#2e008b",
+                    fontWeight: "",
+                  }}
+                >
+                  Claim Number
+                </label>
+              </div>
+              <div className="col-lg-7">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="propertyTitle"
+                  value={claimNumber}
+                  onChange={(e) => setClaimNumber(e.target.value)}
+                />
+              </div>
             </div>
           </div>
-        </div>}
+        )}
 
         <div className="col-lg-4">
           <div className="row mt-1">
@@ -601,80 +624,86 @@ const CreateView = () => {
           </div>
         </div>
 
-        {!preInspectionHide && <div className="col-lg-4">
-          <div className="row mt-1">
-            <div className="col-lg-5 my_profile_setting_input form-group">
-              <label
-                className="text-color"
-                style={{
-                  color: "#2e008b",
-                  fontWeight: "",
-                }}
-              >
-                Place of Loss
-              </label>
-            </div>
-            <div className="col-lg-7">
-              <input
-                type="text"
-                className="form-control"
-                id="propertyTitle"
-                value={placeOfLoss}
-                onChange={(e) => setPlaceOfLoss(e.target.value)}
-              />
+        {!preInspectionHide && (
+          <div className="col-lg-4">
+            <div className="row mt-1">
+              <div className="col-lg-5 my_profile_setting_input form-group">
+                <label
+                  className="text-color"
+                  style={{
+                    color: "#2e008b",
+                    fontWeight: "",
+                  }}
+                >
+                  Place of Loss
+                </label>
+              </div>
+              <div className="col-lg-7">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="propertyTitle"
+                  value={placeOfLoss}
+                  onChange={(e) => setPlaceOfLoss(e.target.value)}
+                />
+              </div>
             </div>
           </div>
-        </div>}
+        )}
 
-        {!preInspectionHide && <div className="col-lg-4">
-          <div className="row mt-1">
-            <div className="col-lg-5 my_profile_setting_input form-group">
-              <label
-                className="text-color"
-                style={{
-                  color: "#2e008b",
-                  fontWeight: "",
-                }}
-              >
-                Nature of Loss
-              </label>
-            </div>
-            <div className="col-lg-7">
-              <input
-                type="text"
-                className="form-control"
-                id="propertyTitle"
-                value={natureOfLoss}
-                onChange={(e) => setNatureOfLoss(e.target.value)}
-              />
+        {!preInspectionHide && (
+          <div className="col-lg-4">
+            <div className="row mt-1">
+              <div className="col-lg-5 my_profile_setting_input form-group">
+                <label
+                  className="text-color"
+                  style={{
+                    color: "#2e008b",
+                    fontWeight: "",
+                  }}
+                >
+                  Nature of Loss
+                </label>
+              </div>
+              <div className="col-lg-7">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="propertyTitle"
+                  value={natureOfLoss}
+                  onChange={(e) => setNatureOfLoss(e.target.value)}
+                />
+              </div>
             </div>
           </div>
-        </div>}
+        )}
 
-        {!preInspectionHide && <div className="col-lg-4">
-          <div className="row mt-1">
-            <div className="col-lg-5 my_profile_setting_input form-group">
-              <label
-                className="text-color"
-                style={{
-                  color: "#2e008b",
-                  fontWeight: "",
-                }}
-              >
-                Estimated Loss
-              </label>
-            </div>
-            <div className="col-lg-7">
-              <input
-                type="text"
-                className="form-control"
-                id="propertyTitle"
-                value={estimatedLoss}
-                onChange={(e) => setEstimatedLoss(e.target.value)}
-              />
+        {!preInspectionHide && (
+          <div className="col-lg-4">
+            <div className="row mt-1">
+              <div className="col-lg-5 my_profile_setting_input form-group">
+                <label
+                  className="text-color"
+                  style={{
+                    color: "#2e008b",
+                    fontWeight: "",
+                  }}
+                >
+                  Estimated Loss
+                </label>
+              </div>
+              <div className="col-lg-7">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="propertyTitle"
+                  value={estimatedLoss}
+                  onChange={(e) => setEstimatedLoss(e.target.value)}
+                />
+              </div>
             </div>
           </div>
-        </div>}
+        )}
 
         <div className="col-lg-4">
           <div className="row mt-1">
@@ -700,30 +729,60 @@ const CreateView = () => {
             </div>
           </div>
         </div>
-        {!preInspectionHide && <div className="col-lg-4">
-          <div className="row mt-1">
-            <div className="col-lg-5 my_profile_setting_input form-group">
-              <label
-                className="text-color"
-                style={{
-                  color: "#2e008b",
-                  fontWeight: "",
-                }}
-              >
-                Garage Name & Add.
-              </label>
+        {!preInspectionHide &&
+          (
+            <div className="col-lg-4">
+              <div className="row mt-1">
+                <div className="col-lg-5 my_profile_setting_input form-group">
+                  <label
+                    className="text-color"
+                    style={{
+                      color: "#2e008b",
+                      fontWeight: "",
+                    }}
+                  >
+                    Garage Name & Add.
+                  </label>
+                </div>
+                <div className="col-lg-7">
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="propertyTitle"
+                    value={garageName}
+                    onChange={(e) => setGarageName(e.target.value)}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="col-lg-7">
-              <input
-                type="text"
-                className="form-control"
-                id="propertyTitle"
-                value={garageName}
-                onChange={(e) => setGarageName(e.target.value)}
-              />
-            </div>
-          </div>
-        </div>|
+          ) |
+            (
+              <div className="col-lg-4">
+                <div className="row mt-1">
+                  <div className="col-lg-5 my_profile_setting_input form-group">
+                    <label
+                      className="text-color"
+                      style={{
+                        color: "#2e008b",
+                        fontWeight: "",
+                      }}
+                    >
+                      Garage Contact No.
+                    </label>
+                  </div>
+                  <div className="col-lg-7">
+                    <input
+                      type="text"
+                      maxLength={10}
+                      className="form-control"
+                      id="propertyTitle"
+                      value={garageNumber}
+                      onChange={(e) => setGarageNumber(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
 
         <div className="col-lg-4">
           <div className="row mt-1">
@@ -735,33 +794,7 @@ const CreateView = () => {
                   fontWeight: "",
                 }}
               >
-                Garage Contact No.
-              </label>
-            </div>
-            <div className="col-lg-7">
-              <input
-                type="text"
-                maxLength={10}
-                className="form-control"
-                id="propertyTitle"
-                value={garageNumber}
-                onChange={(e) => setGarageNumber(e.target.value)}
-              />
-            </div>
-          </div>
-        </div>}
-{/* 
-        <div className="col-lg-4">
-          <div className="row mt-1">
-            <div className="col-lg-5 my_profile_setting_input form-group">
-              <label
-                className="text-color"
-                style={{
-                  color: "#2e008b",
-                  fontWeight: "",
-                }}
-              >
-                Type Of Report
+                Type Of Conduct
               </label>
             </div>
             <div className="col-lg-7">
@@ -769,29 +802,23 @@ const CreateView = () => {
                 className="selectpicker form-select"
                 data-live-search="true"
                 data-width="100%"
-                // value={inspectionType}
-                // onChange={(e) => setInspectionType(e.target.value)}
+                value={InspectionTypeOfConduct}
+                onChange={(e) => setInspectionTypeOfConduct(e.target.value)}
               >
-                { <option data-tokens="Status2" value={"final-report"}>
-                  Final Report
-                </option>}
-                { <option data-tokens="Status1" value={"spot-report"}>
-                  Spot Report
-                </option>}
-
-                { <option data-tokens="Status3" value={"pre-inspection-report"}>
-                  Pre-inspection Report
-                </option>}
-
-                { <option data-tokens="Status3" value={"re-inspection-report"}>
-                  Re-Insepction Report
-                </option>}
+                {
+                  <option data-tokens="Status2" value={"final-report"}>
+                    Manual
+                  </option>
+                }
+                {
+                  <option data-tokens="Status1" value={"spot-report"}>
+                    Digital
+                  </option>
+                }
               </select>
             </div>
           </div>
         </div>
-
-         */}
 
         <div className="col-lg-12">
           <div className="my_profile_setting_input">

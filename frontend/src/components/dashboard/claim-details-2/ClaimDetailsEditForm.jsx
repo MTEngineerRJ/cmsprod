@@ -271,7 +271,7 @@ const ClaimDetailsEditForm = ({
               />
             </div>
             <div className="col-lg-1" style={{ marginLeft: "-20px" }}>
-              {!claim.claimDetails?.IsMailSent &&
+              {claim.claimDetails?.IsMailSent &&
                 claim?.insuredDetails?.InsuredMailAddress !== "null" && (
                   <button
                     className="btn btn-color-icon p-0 flaticon-envelope"
