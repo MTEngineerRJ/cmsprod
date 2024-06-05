@@ -61,6 +61,9 @@ const Index = ({}) => {
     Date.now()
   );
 
+  const [InspectionTypeOfConduct, setInspectionTypeOfConduct] =
+    useState("Digital");
+
   useEffect(() => {
     const activityHandler = () => {
       setLastActivityTimestamp(Date.now());
@@ -600,6 +603,13 @@ const Index = ({}) => {
         ? claim.garageDetails?.GarageMailAddress
         : ""
     );
+
+    setInspectionTypeOfConduct(
+      claim?.claimDetails?.InspectionTypeOfConduct ?
+      claim?.claimDetails?.InspectionTypeOfConduct :
+      "Digital"
+    );
+
     setBrokerMailAddress(
       claim?.claimDetails?.BrokerMailAddress
         ? claim?.claimDetails?.BrokerMailAddress
@@ -931,6 +941,7 @@ const Index = ({}) => {
       TimeOfAccident,
       PlaceOfLoss,
       Pin,
+      InspectionTypeOfConduct,
       token: userInfo[0].Token,
       Username : userInfo[0]?.Username
     };
@@ -1166,6 +1177,8 @@ const Index = ({}) => {
                           ) : (
                             <ClaimDetailsEditForm
                               claim={claim}
+                              InspectionTypeOfConduct={InspectionTypeOfConduct}
+                              setInspectionTypeOfConduct={setInspectionTypeOfConduct}
                               allListedRegions={allListedRegions}
                               finalDisable={finalDisable}
                               disable={disable}

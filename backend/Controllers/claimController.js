@@ -976,6 +976,7 @@ const updateClaimDetails = (req, res) => {
     BrokerMailAddress,
     GarageMailAddress,
     LeadId,
+    InspectionTypeOfConduct,
     Username,
   } = req.body;
 
@@ -1002,6 +1003,7 @@ const updateClaimDetails = (req, res) => {
       IsDriverDetailsFetched ? IsDriverDetailsFetched : ""
     },
     IsRcDetailsFetched = ${IsRcDetailsFetched ? IsRcDetailsFetched : ""},
+    InspectionTypeOfConduct='${InspectionTypeOfConduct ? InspectionTypeOfConduct : "Digital"}',
     InsuranceCompanyNameAddress = '${
       InsuranceCompanyNameAddress ? `${InsuranceCompanyNameAddress}` : ""
     }'

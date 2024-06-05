@@ -1,1 +1,32 @@
 2024-06-02T07:38:25.129Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,821] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 821" , info : "{message : 200 SUCCESS }"}
+2024-06-02T10:39:42.495Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,2155] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-06-02T10:42:19.158Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-02T17:31:33.869Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-02T17:58:13.343Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2155] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-06-02T17:58:41.411Z SENDING_ACKNOWLEDMENT_MAIL[SSMUTNEJA,2155] : INFO : {message : "Successfully Sent the MAIL from : mt.chro123@gmail.com , to : muskankushwah85@gmail.com , cc : ivijayrajsingh@gmail.com,intimationmt@gmail.com for LeadId --> 2155" , info : "{message : SUCCESS }"}
+2024-06-02T18:22:12.191Z SENDING_ACKNOWLEDMENT_MAIL[SSMUTNEJA,2155] : INFO : {message : "Successfully Sent the MAIL from : mt.chro123@gmail.com , to : muskankushwah85@gmail.com , cc : ivijayrajsingh@gmail.com,intimationmt@gmail.com for LeadId --> 2155" , info : "{message : SUCCESS }"}
+2024-06-03T19:01:33.433Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2160] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-06-03T19:01:43.691Z SENDING_ACKNOWLEDMENT_MAIL[SSMUTNEJA,2160] : INFO : {message : "Successfully Sent the MAIL from : mt.chro123@gmail.com , to : ivijayrajsingh@gmail.com , cc : muskankushwah85@gmail.com,intimationmt@gmail.com for LeadId --> 2160" , info : "{message : SUCCESS }"}
+2024-06-04T18:15:31.940Z SENDING_ACKNOWLEDMENT_MAIL[SSMUTNEJA,2054] : INFO : {message : "Successfully Sent the MAIL from : legalmtpi04@gmail.com , to : ivijayrajsingh@gmail.com , cc : muskankushwah85@gmail.com,intimationmt@gmail.com for LeadId --> 2054" , info : "{message : SUCCESS }"}
+2024-06-04T18:22:28.193Z SENDING_CUSTOM_MAIL[SSMUTNEJA,2054] : INFO : {message : "Successfully Sent the MAIL from : mt.jdro123@gmail.com , to : ivijayrajsingh@gmail.com , cc : intimationmt@gmail.com,muskankushwah85@gmail.com for LeadId --> 2054" , info : "{message : SUCCESS }"}
+2024-06-04T18:59:05.749Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-05T13:12:50.015Z SENDING_ADD_CLAIM_MAIL[,2346] : INFO : {message : "Successfully Sent the MAIL from : mt.chro123@gmail.com , to : xyz@gmail.com , cc : xyz@gmail.com,intimationmt@gmail.com for LeadId --> 2346" , info : "{message : SUCCESS }"}
+2024-06-05T13:12:50.025Z SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL[SSMUTNEJA,2346] : INFO : {message : "Sent Successfully." , info : "SENT SUCCESSFULLY"}
+2024-06-05T13:19:54.253Z SENDING_ADD_CLAIM_MAIL[,2352] : INFO : {message : "Successfully Sent the MAIL from : legalmtpi04@gmail.com , to : muskankushwah85@gmail.com , cc : ivijayrajsingh@gmail.com,intimationmt@gmail.com for LeadId --> 2352" , info : "{message : SUCCESS }"}
+2024-06-05T13:19:54.262Z SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL[SSMUTNEJA,2352] : INFO : {message : "Sent Successfully." , info : "SENT SUCCESSFULLY"}
+2024-06-05T13:25:52.172Z SENDING_ADD_CLAIM_MAIL[,2354] : INFO : {message : "Successfully Sent the MAIL from : legalmtpi04@gmail.com , to : muskankushwah85@gmail.com , cc : ivijayrajsingh@gmail.com,intimationmt@gmail.com for LeadId --> 2354" , info : "{message : SUCCESS }"}
+2024-06-05T13:25:52.183Z SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL[SSMUTNEJA,2354] : INFO : {message : "Sent Successfully." , info : "SENT SUCCESSFULLY"}
+2024-06-05T13:26:33.372Z UPDATING_CLAIM_STATUS[SSMUTNEJA,2352] : INFO : {message : "This last update of status was from Claim Appointment ---> Withdrawl/Rejected for LeadId 2352" , info : "Status Updated to Withdrawl/Rejected from Claim Appointment, LeadID -- 2352 (PLEASE CHECK THIS UPDATION)."}
+2024-06-05T13:26:52.939Z UPDATING_CLAIM_STATUS[SSMUTNEJA,2354] : INFO : {message : "This last update of status was from Claim Appointment ---> Withdrawl/Rejected for LeadId 2354" , info : "Status Updated to Withdrawl/Rejected from Claim Appointment, LeadID -- 2354 (PLEASE CHECK THIS UPDATION)."}
+2024-06-05T13:46:30.769Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2354] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-06-05T13:52:35.920Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2354] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-06-05T13:52:58.341Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2354] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-06-05T14:16:22.246Z UPDATING_BILL_DETAILS[SSMUTNEJA,2354] : INFO : {message : "Successfully Updated the Bill Report for leadId --> 2354" , info : "{message : SUCCESS }"}
+2024-06-05T14:33:37.295Z UPDATING_BILL_DETAILS[SSMUTNEJA,2354] : INFO : {message : "Successfully Updated the Bill Report for leadId --> 2354" , info : "{message : SUCCESS }"}
+2024-06-05T16:34:28.661Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-05T17:24:23.799Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-05T17:29:41.517Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-05T17:34:06.476Z SENDING_CUSTOM_MAIL[SSMUTNEJA,2346] : INFO : {message : "Successfully Sent the MAIL from : mthero893@gmail.com , to : ivijayrajsingh@gmail.com , cc : intimationmt@gmail.com for LeadId --> 2346" , info : "{message : SUCCESS }"}
+2024-06-05T17:38:40.168Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,2365] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-06-05T17:38:50.702Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2365] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-06-05T17:39:03.088Z SENDING_ACKNOWLEDMENT_MAIL[SSMUTNEJA,2365] : INFO : {message : "Successfully Sent the MAIL from : legalmtpi04@gmail.com , to : ivijayrajsingh@gmail.com , cc : muskankushwah85@gmail.com,intimationmt@gmail.com for LeadId --> 2365" , info : "{message : SUCCESS }"}

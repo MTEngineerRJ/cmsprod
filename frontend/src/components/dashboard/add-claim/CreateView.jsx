@@ -53,7 +53,8 @@ const CreateView = () => {
   const [garageMailId, setGarageMailId] = useState("");
   const [claimNumber, setClaimNumber] = useState("");
   const [preInspectionHide, setpreInspectionHide] = useState(false);
-  const [InspectionTypeOfConduct,setInspectionTypeOfConduct] = useState("Digital");
+  const [InspectionTypeOfConduct, setInspectionTypeOfConduct] =
+    useState("Digital");
   const [allListedRegions, setAllListedRegions] = useState(regionList);
 
   const [allServicingOffice, setAllServicingOffice] = useState([]);
@@ -125,7 +126,7 @@ const CreateView = () => {
       GarageContactNo2: garageNumber,
       PlaceOfLoss: placeOfLoss,
       NatureOfLoss: natureOfLoss,
-      InspectionTypeOfConduct : InspectionTypeOfConduct || "Digital",
+      InspectionTypeOfConduct: InspectionTypeOfConduct || "Digital",
       EstimatedLoss: estimatedLoss,
     };
     if (
@@ -160,7 +161,17 @@ const CreateView = () => {
         className: "toast-loading-message",
       });
       setDisable(false);
-    } else {
+    } 
+    else if (
+      !String(payload?.InspectionType).toLowerCase().includes("inspection") &&
+      String(payload.Region).toLowerCase() === "preinspection"
+    ) {
+      toast.error("Inspection Type should be *Preinspection* for the selected Region !", {
+        className: "toast-loading-message",
+      });
+      setDisable(false);
+    } 
+    else {
       toast.loading("Adding claim!!", {
         className: "toast-loading-message",
       });
@@ -180,6 +191,7 @@ const CreateView = () => {
         })
         .catch((err) => {
           toast.dismiss();
+          setDisable(false);
           toast.error("Got error while adding claim!");
         });
     }
@@ -805,19 +817,15 @@ const CreateView = () => {
                 value={InspectionTypeOfConduct}
                 onChange={(e) => setInspectionTypeOfConduct(e.target.value)}
               >
-              {
-                  <option data-tokens="Status2" value={"final-report"}>
-                    
-                  </option>
-                }
                 {
-                  <option data-tokens="Status2" value={"final-report"}>
-                    Manual
-                  </option>
-                }
-                {
-                  <option data-tokens="Status1" value={"spot-report"}>
+                  <option data-tokens="Status1" value={"Digital"}>
                     Digital
+                  </option>
+                }
+
+                {
+                  <option data-tokens="Status2" value={"Manual"}>
+                    Manual
                   </option>
                 }
               </select>

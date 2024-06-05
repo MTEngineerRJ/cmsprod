@@ -1128,7 +1128,7 @@ const BillCreateLayoutView = ({
                   type="text"
                   className="form-control"
                   id="broker_mail_id"
-                  value={addCommasToNumber(roundOff(SGST))}
+                  value={addCommasToNumber(roundOff(Number(SGST)))}
                   onChange={(e) => setSGST(e.target.value)}
                 />
               </div>

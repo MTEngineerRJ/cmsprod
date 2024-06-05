@@ -70,7 +70,7 @@ let LabelData = [
   {
     _id: "6144145976c7fe",
     serial_num: "4",
-    doc_name: "Damage vehicle photographs/video",
+    doc_name: "Vehicle photographs/video",
   },
   {
     _id: "6144145976c7fe",

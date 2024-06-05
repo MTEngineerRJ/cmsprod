@@ -16,6 +16,8 @@ const ClaimDetailsEditForm = ({
   claim,
   disable,
   finalDisable,
+  InspectionTypeOfConduct,
+  setInspectionTypeOfConduct,
   InsuredName,
   setInsuredName,
   InsuredMailAddress,
@@ -628,6 +630,46 @@ const ClaimDetailsEditForm = ({
                 onChange={(e) => setInsuranceCompanyNameAddress(e.target.value)}
                 // placeholder="Enter Registration No."
               />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-lg-4">
+          <div className="row mt-1">
+          <div className="col-lg-4 my_profile_setting_input form-group">
+              <label
+                htmlFor=""
+                className="text-color"
+                style={{
+                  // paddingTop: "15px",
+                  color: "#1560bd",
+                  fontSize: "14px",
+                  // marginTop: "-13px",
+                }}
+              >
+                Type Of Conduct
+              </label>
+            </div>
+            <div className="col-lg-7">
+              <select
+                className="selectpicker form-select"
+                data-live-search="true"
+                data-width="100%"
+                value={InspectionTypeOfConduct}
+                onChange={(e) => setInspectionTypeOfConduct(e.target.value)}
+              >
+                {
+                  <option data-tokens="Status1" value={"Digital"}>
+                    Digital
+                  </option>
+                }
+
+                {
+                  <option data-tokens="Status2" value={"Manual"}>
+                    Manual
+                  </option>
+                }
+              </select>
             </div>
           </div>
         </div>

@@ -20,7 +20,7 @@ const headCells = [
     {
       id: "policy_no",
       numeric: false,
-      label: "Policy No.",
+      label: "Policy No./Vehicle No.",
       width: 150,
     },
     {

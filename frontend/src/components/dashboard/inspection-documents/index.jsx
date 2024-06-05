@@ -20,7 +20,6 @@ const Index = ({ leadId, token, content ,type}) => {
   const [isNotValidLink, setIsNotValidLink] = useState(true);
 
 
-
   const router = useRouter();
 
 
@@ -140,10 +139,10 @@ const Index = ({ leadId, token, content ,type}) => {
 
    const onSubmitHandler = () => {
 
-    console.log("uploaded",uploadedData);
 
     let data = [];
-    for (let i = 0; i < 17; i = i + 1) {
+    for (let i = 0; i < 8; i = i + 1) {
+      console.log('temp',types[i]);
       const temp = types[i].name;
       const tempArray = [];
       uploadedData.map((data, index) => {
@@ -159,8 +158,7 @@ const Index = ({ leadId, token, content ,type}) => {
           data: tempArray,
         });
       }
-    }
-
+    } 
     console.log(String(calculateDocuments()) !== String(data.length),data.length,data)
     if (
       !data)
