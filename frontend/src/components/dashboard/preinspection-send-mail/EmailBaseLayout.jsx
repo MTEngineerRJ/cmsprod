@@ -144,9 +144,11 @@ const EmailBaseLayout = ({
       toast.error("Email is required field !!");
     } else if (!payload.fromEmail) {
       toast.error("Email is required field !!");
-    } else if (!payload.PolicyNo) {
-      toast.error("PolicyNo is required field !!");
-    } else if (
+    } 
+    // else if (!payload.PolicyNo) {
+    //   toast.error("PolicyNo is required field !!");
+    // } 
+    else if (
       (!payload.content || !payload.content2) &&
       String(type) === "1"
     ) {
@@ -287,7 +289,7 @@ const EmailBaseLayout = ({
                   </div>
                 </div>
               </div>
-              <div className="col-lg-12">
+              {/* <div className="col-lg-12">
                 <div className="row">
                   <div className="col-lg-4 my_profile_setting_input form-group">
                     <label
@@ -314,7 +316,7 @@ const EmailBaseLayout = ({
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="col-lg-12">
                 <div className="row">
                   <div className="col-lg-4 my_profile_setting_input form-group">
@@ -465,7 +467,7 @@ const EmailBaseLayout = ({
                   </div>
                 </div>
               </div>
-              <div className="col-lg-12">
+              {/* <div className="col-lg-12">
                 <div className="row mt-3 mb-1">
                   <div className="col-lg-4 my_profile_setting_input form-group">
                     <label
@@ -492,7 +494,7 @@ const EmailBaseLayout = ({
                     />
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="col-lg-12">
                 <div className="row mt-3 mb-1">
                   <div className="col-lg-4 my_profile_setting_input form-group">
