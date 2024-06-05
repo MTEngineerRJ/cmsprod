@@ -226,63 +226,63 @@ const addClaim = (req, res) => {
                 .json({ error: "Error calling InsertIntoIDTable." });
             }
 
-            if (InsuredMailAddress !== "" && RegisteredNumber && addLeadId) {
-              axios
-                .post(
-                  `${process.env.BACKEND_DOMAIN}/email/sendEmail/1`,
-                  {
-                    vehicleNo: RegisteredNumber,
-                    PolicyNo: PolicyNumber,
-                    Insured: InsuredName,
-                    InspectionType: InspectionType,
-                    toMail: InsuredMailAddress,
-                    Date: new Date(),
-                    leadId: addLeadId,
-                    Region: Region,
-                    BrokerMailAddress: BrokerMailAddress,
-                    GarageMailAddress: GarageMailAddress,
-                    type: 1,
-                  },
-                  {
-                    headers: {
-                      Authorization: `Bearer ${token}`,
-                      "Content-Type": "application/json",
-                    },
-                  }
-                )
-                .then(() => {
-                  logMessage({
-                    type: "info",
-                    Function: "SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL",
-                    message: "Sent Successfully.",
-                    username: AddedBy,
-                    leadId: addLeadId,
-                    consoleInfo: "200 OK",
-                    info: "SENT SUCCESSFULLY",
-                  });
+            // if (InsuredMailAddress !== "" && RegisteredNumber && addLeadId) {
+            //   axios
+            //     .post(
+            //       `${process.env.BACKEND_DOMAIN}/email/sendEmail/1`,
+            //       {
+            //         vehicleNo: RegisteredNumber,
+            //         PolicyNo: PolicyNumber,
+            //         Insured: InsuredName,
+            //         InspectionType: InspectionType,
+            //         toMail: InsuredMailAddress,
+            //         Date: new Date(),
+            //         leadId: addLeadId,
+            //         Region: Region,
+            //         BrokerMailAddress: BrokerMailAddress,
+            //         GarageMailAddress: GarageMailAddress,
+            //         type: 1,
+            //       },
+            //       {
+            //         headers: {
+            //           Authorization: `Bearer ${token}`,
+            //           "Content-Type": "application/json",
+            //         },
+            //       }
+            //     )
+            //     .then(() => {
+            //       logMessage({
+            //         type: "info",
+            //         Function: "SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL",
+            //         message: "Sent Successfully.",
+            //         username: AddedBy,
+            //         leadId: addLeadId,
+            //         consoleInfo: "200 OK",
+            //         info: "SENT SUCCESSFULLY",
+            //       });
 
-                  return res
-                    .status(200)
-                    .json({ message: "Data inserted successfully." });
-                })
-                .catch((error) => {
-                  logMessage({
-                    type: "error",
-                    Function: "SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL",
-                    message: "Got Error while sending the acknowledgment mail.",
-                    username: AddedBy,
-                    leadId: addLeadId,
-                    consoleInfo: `${error.status} ${error.details}`,
-                    info: `{ERRMESSAGE: ${
-                      error.details
-                    }, STATUS: ${`${error.status} ${error.message}`}}`,
-                  });
-                  console.error("Error sending email:", error);
-                  return res
-                    .status(500)
-                    .json({ error: "Error sending acknowledgment email." });
-                });
-            } else {
+            //       return res
+            //         .status(200)
+            //         .json({ message: "Data inserted successfully." });
+            //     })
+            //     .catch((error) => {
+            //       logMessage({
+            //         type: "error",
+            //         Function: "SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL",
+            //         message: "Got Error while sending the acknowledgment mail.",
+            //         username: AddedBy,
+            //         leadId: addLeadId,
+            //         consoleInfo: `${error.status} ${error.details}`,
+            //         info: `{ERRMESSAGE: ${
+            //           error.details
+            //         }, STATUS: ${`${error.status} ${error.message}`}}`,
+            //       });
+            //       console.error("Error sending email:", error);
+            //       return res
+            //         .status(500)
+            //         .json({ error: "Error sending acknowledgment email." });
+            //     });
+            // } else {
               logMessage({
                 type: "info",
                 Function: "SUCCESSFULLY_ADDED_CLAIM",
@@ -296,7 +296,7 @@ const addClaim = (req, res) => {
               return res
                 .status(200)
                 .json({ message: "Data inserted successfully." });
-            }
+            // }
           });
         });
       }
