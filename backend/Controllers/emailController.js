@@ -418,7 +418,9 @@ const acknowledgmentMail = (req, res) => {
           from: currentMailAddress,
           to: toMail,
           cc: `${GarageMailAddress},${BrokerMailAddress}`,
-          subject: `Survey Request for Claim of Vehicle Number - ${vehicleNo} A/c ${
+          subject: String(inspectionType)
+          .toLowerCase()
+          .includes("pre-inspection") ?  "Pre Inspection Request of Vehicle Number -  A/c " : `Survey Request for Claim of Vehicle Number - ${vehicleNo} A/c ${
             Insured ? Insured : "N.A."
           }  policy Number - ${PolicyNo}`,
           html: emailContent,
@@ -585,7 +587,7 @@ const sendCustomEmail = (req, res) => {
             from: fromEmail,
             to: mainEmail,
             cc: ccArray,
-            subject: subject,
+            subject: isPreInspection ? "Pre Inspection Request of Vehicle Number -  A/c " : subject,
             html: emailContent,
           };
 
@@ -690,7 +692,7 @@ const sendCustomEmail = (req, res) => {
         const mailOptions = {
           from: fromEmail,
           to: email,
-          subject: subject,
+          subject: isPreInspection ? "Pre Inspection Request of Vehicle Number -  A/c " : subject,
           html: emailContent,
         };
 

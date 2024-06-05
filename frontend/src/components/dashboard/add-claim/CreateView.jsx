@@ -53,7 +53,7 @@ const CreateView = () => {
   const [garageMailId, setGarageMailId] = useState("");
   const [claimNumber, setClaimNumber] = useState("");
   const [preInspectionHide, setpreInspectionHide] = useState(false);
-  const [InspectionTypeOfConduct,setInspectionTypeOfConduct] = useState("Manual");
+  const [InspectionTypeOfConduct,setInspectionTypeOfConduct] = useState("Digital");
   const [allListedRegions, setAllListedRegions] = useState(regionList);
 
   const [allServicingOffice, setAllServicingOffice] = useState([]);
@@ -125,7 +125,7 @@ const CreateView = () => {
       GarageContactNo2: garageNumber,
       PlaceOfLoss: placeOfLoss,
       NatureOfLoss: natureOfLoss,
-      InspectionTypeOfConduct : InspectionTypeOfConduct,
+      InspectionTypeOfConduct : InspectionTypeOfConduct || "Digital",
       EstimatedLoss: estimatedLoss,
     };
     if (
@@ -805,6 +805,11 @@ const CreateView = () => {
                 value={InspectionTypeOfConduct}
                 onChange={(e) => setInspectionTypeOfConduct(e.target.value)}
               >
+              {
+                  <option data-tokens="Status2" value={"final-report"}>
+                    
+                  </option>
+                }
                 {
                   <option data-tokens="Status2" value={"final-report"}>
                     Manual

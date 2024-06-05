@@ -103,6 +103,10 @@ const getBillInfo = async(req,res)=>{
       "CALL GetLabourReport(?)",
       [leadId]
     );
+    const InspectionTypeOfConduct = await executeQuery(
+      "SELECT InspectionTypeOfConduct FROM ClaimDetails WHERE LeadId=?",
+      [leadId]
+    );
     const newPartsDetails = await executeQuery(
       "CALL GetNewPartsReport(?)",
       [leadId]
@@ -130,6 +134,7 @@ const getBillInfo = async(req,res)=>{
       otherInfo,
       feesDetails,
       VehicleOnlineDetails,
+      InspectionTypeOfConduct,
       SummaryDetails
     };
 

@@ -212,10 +212,7 @@ const getFeeReport = async (req, res) => {
       "SELECT * FROM BillReportFees WHERE LeadID=?",
       [leadId]
     );
-    const InspectionTypeOfConduct = await executeQuery(
-      "SELECT InspectionTypeOfConduct FROM ClaimDetails WHERE LeadId=?",
-      [leadId]
-    );
+    
     console.log(InspectionTypeOfConduct)
     const driverDetails = await executeQuery(
       "SELECT * FROM DriverDetailsOnline WHERE LeadID=?",
@@ -265,7 +262,6 @@ const getFeeReport = async (req, res) => {
       vehicleOnlineDetails,
       feeDetails,
       insuredDetails,
-      InspectionTypeOfConduct,
       SummaryDetails,
       accidentDetails: accidentDetails,
     };

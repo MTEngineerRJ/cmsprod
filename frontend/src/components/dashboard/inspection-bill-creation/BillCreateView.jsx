@@ -184,7 +184,6 @@ const BillCreateView = ({ allInfo, leadID }) => {
           requiredStateCode = office.StateCode;
         }
       });
-      console.log("requiredStateCode", requiredStateCode, searchCode);
       if (String(requiredStateCode) === "8") {
         setCGST(9);
         setSGST(9);
@@ -202,7 +201,8 @@ const BillCreateView = ({ allInfo, leadID }) => {
   }, [BillTo, allInfo, allServicingOffice]);
 
   useEffect(() => {
-    const fees = String(allInfo?.otherInfo[0]?.VehicleType)
+    if(String(allInfo?.InspectionTypeOfConduct?.InspectionTypeOfConduct).toLowerCase().includes("digital")){
+      const fees = String(allInfo?.otherInfo[0]?.VehicleType)
       .toLowerCase()
       .includes("4W".toLowerCase())
       ? 40 :
@@ -214,6 +214,22 @@ const BillCreateView = ({ allInfo, leadID }) => {
     setFinalProfFees(fees);
     setReInsprectionProfFees(fees);
     setSpotProfFees(fees);
+    }
+    else{
+      const fees = String(allInfo?.otherInfo[0]?.VehicleType)
+      .toLowerCase()
+      .includes("4W".toLowerCase())
+      ? 140 :
+      String(allInfo?.otherInfo[0]?.VehicleType)
+      .toLowerCase()
+      .includes("2W".toLowerCase())
+      ? 75
+      : 150;
+    setFinalProfFees(fees);
+    setReInsprectionProfFees(fees);
+    setSpotProfFees(fees);
+    }
+    
   }, [allInfo]);
 
   const getTotalValue = () => {
