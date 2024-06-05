@@ -213,7 +213,6 @@ const getFeeReport = async (req, res) => {
       [leadId]
     );
     
-    console.log(InspectionTypeOfConduct)
     const driverDetails = await executeQuery(
       "SELECT * FROM DriverDetailsOnline WHERE LeadID=?",
       [leadId]
