@@ -121,10 +121,10 @@ const ClaimDetailsEditForm = ({
         BrokerMailAddress: claim?.claimDetails?.BrokerMailAddress,
         GarageMailAddress: claim?.garageDetails?.GarageMailAddress,
         Region: claim?.claimDetails?.Region,
-        inspectionType : claim?.claimDetails?.InspectionType,
+        inspectionType: claim?.claimDetails?.InspectionType,
         type: 4,
         date: formatDate(new Date()),
-        Username : userInfo[0].Username
+        Username: userInfo[0].Username,
       };
 
       toast.loading("Sending Acknowledgment Mail!!");
@@ -206,7 +206,7 @@ const ClaimDetailsEditForm = ({
                 className="form-control"
                 id="propertyTitle"
                 value={InsuredMobileNo1}
-                onChange={(e)=>handleInputChange(e,setInsuredMobileNo1)}
+                onChange={(e) => handleInputChange(e, setInsuredMobileNo1)}
                 disabled={!edit}
                 // placeholder="Enter Registration No."
               />
@@ -236,7 +236,7 @@ const ClaimDetailsEditForm = ({
                 className="form-control"
                 id="propertyTitle"
                 value={InsuredMobileNo2}
-                onChange={(e)=>handleInputChange_01(e,setInsuredMobileNo2)}
+                onChange={(e) => handleInputChange_01(e, setInsuredMobileNo2)}
                 disabled={!edit}
                 // placeholder="Enter Registration No."
               />
@@ -271,7 +271,7 @@ const ClaimDetailsEditForm = ({
               />
             </div>
             <div className="col-lg-1" style={{ marginLeft: "-20px" }}>
-              {claim.claimDetails?.IsMailSent &&
+              {!claim.claimDetails?.IsMailSent &&
                 claim?.insuredDetails?.InsuredMailAddress !== "null" && (
                   <button
                     className="btn btn-color-icon p-0 flaticon-envelope"
