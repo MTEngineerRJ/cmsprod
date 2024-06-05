@@ -102,21 +102,10 @@ const ClaimDetailsEditForm = ({
     } else {
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
+
       const payload = {
-        vehicleNo:
-          vehicleNo === "undefined" ||
-          vehicleNo === "null" ||
-          vehicleNo === undefined ||
-          !vehicleNo
-            ? "N.A."
-            : vehicleNo,
-        PolicyNo:
-          PolicyNo === "undefined" ||
-          PolicyNo === "null" ||
-          PolicyNo === undefined ||
-          !PolicyNo
-            ? "N.A."
-            : PolicyNo,
+        vehicleNo:claim?.vehicleDetails?.RegisteredNumber,
+        PolicyNo:PolicyNo,
         Insured: Insured,
         toMail: mailAddress,
         leadId: claim?.claimDetails?.LeadID,
@@ -128,6 +117,7 @@ const ClaimDetailsEditForm = ({
         date: formatDate(new Date()),
         Username: userInfo[0].Username,
       };
+
 
       toast.loading("Sending Acknowledgment Mail!!");
       axios

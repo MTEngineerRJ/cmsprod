@@ -142,7 +142,7 @@ const sendEmail1 = (req, res) => {
           : "documents"
       }/${leadId}?token=${InsuredToken}&type=${1}&content=${
     String(InspectionType).toLowerCase().includes("pre-inspection")
-      ? "Certificate%20of%20registration%2CAadhar%20card%2CInsurance%20policy%2CDamage%20vehicle%20photographs%2Fvideo%2CSignature"
+      ? "Certificate%20of%20registration%2CAadhar%20card%2CInsurance%20policy%2CVehicle%20photographs%2Fvideo%2CSignature"
       : ""
   } target="_blank">Click Here</a> to fill the documents information .</p> <br/>
 
@@ -158,8 +158,9 @@ const sendEmail1 = (req, res) => {
       that the claim processing can be fast or <br/>
       <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${VideoToken}&type=${3}&content=${"Videos"} target="_blank">Click Here</a> to fill the documents information .</p> <br/>
 
-    Note:- <strong> If We Cannot get the response with in 02 days we will inform the insurer that the insured <br/>
-    is not interseted in the claim. So close the file as"No Claim" in non copperation & non submission of the documents. </strong> <br/>
+    ${String(InspectionType).toLowerCase().includes("pre-inspection")
+    ? "" :`Note:- <strong> If We Cannot get the response with in 02 days we will inform the insurer that the insured <br/>
+    is not interseted in the claim. So close the file as"No Claim" in non copperation & non submission of the documents. </strong> <br/>`}
 
   `;
 
@@ -383,7 +384,7 @@ const acknowledgmentMail = (req, res) => {
                 : "documents"
             }/${leadId}?token=${InsuredToken}&type=${1}&content=${
           String(inspectionType).toLowerCase().includes("pre-inspection")
-            ? "Certificate%20of%20registration%2CAadhar%20card%2CInsurance%20policy%2CDamage%20vehicle%20photographs%2Fvideo%2CSignature"
+            ? "Certificate%20of%20registration%2CAadhar%20card%2CInsurance%20policy%2CVehicle%20photographs%2Fvideo%2CSignature"
             : ""
         } target="_blank">Click Here</a> to fill the documents information .</p> <br/>
       
@@ -399,8 +400,10 @@ const acknowledgmentMail = (req, res) => {
             that the claim processing can be fast or <br/>
             <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${VideoToken}&type=${3}&content=${"Videos"} target="_blank">Click Here</a> to fill the documents information .</p> <br/>
       
-          Note:- <strong> If We Cannot get the response with in 02 days we will inform the insurer that the insured <br/>
-          is not interseted in the claim. So close the file as"No Claim" in non copperation & non submission of the documents. </strong> <br/>
+          ${String(inspectionType).toLowerCase().includes("pre-inspection")
+          ? ""
+          :`Note:- <strong> If We Cannot get the response with in 02 days we will inform the insurer that the insured <br/>
+          is not interseted in the claim. So close the file as"No Claim" in non copperation & non submission of the documents. </strong> <br/>`}
       
     `;
 
@@ -594,11 +597,11 @@ const sendCustomEmail = (req, res) => {
         )} target="_blank">Click Here</a> to fill the documents information .</p>
     
           <br/>
-           Note:- 
+          ${isPreInspection ? "" : ` Note:- 
             <strong>If We Cannot get the response with in 02 days we will 
               inform the insurer that the insured is not interseted in the claim. 
               So close the file as"No Claim" in non copperation & non submission
-              of the documents. </strong>
+              of the documents. </strong>`}
           
         `;
 
@@ -708,11 +711,11 @@ const sendCustomEmail = (req, res) => {
   
         <br/>
 
-        Note:- 
+        ${isPreInspection ? "" : ` Note:- 
             <strong>If We Cannot get the response with in 02 days we will 
-            inform the insurer that the insured is not interseted in the claim. 
-            So close the file as"No Claim" in non copperation & non submission
-            of the documents.</strong>
+              inform the insurer that the insured is not interseted in the claim. 
+              So close the file as"No Claim" in non copperation & non submission
+              of the documents. </strong>`}
   
       `;
 
