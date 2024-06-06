@@ -221,7 +221,7 @@ const LayoutView = ({
                   <td></td>
                   <td></td>
                 </tr>
-                <tr>
+                { !String(feeReport?.claimDetails?.Region).toLowerCase().includes("preinspection") && <tr>
                   <td>
                     <span>Date Of Accident</span>
                   </td>
@@ -242,8 +242,8 @@ const LayoutView = ({
                       ₹ {addCommasToNumber(roundOff(Number(Assessed)))}
                     </span>
                   </td>
-                </tr>
-                <tr>
+                </tr>}
+                { !String(feeReport?.claimDetails?.Region).toLowerCase().includes("preinspection") && <tr>
                   <td>
                     <span>Policy/cover note no</span>
                   </td>
@@ -260,8 +260,8 @@ const LayoutView = ({
                       ₹ {addCommasToNumber(roundOff(Number(Estimate)))}
                     </span>
                   </td>
-                </tr>
-                <tr>
+                </tr>}
+                { !String(feeReport?.claimDetails?.Region).toLowerCase().includes("preinspection") && <tr>
                   <td>
                     <span>Claim No</span>
                   </td>
@@ -281,7 +281,7 @@ const LayoutView = ({
                       )}
                     </span>
                   </td>
-                </tr>
+                </tr>}
               </table>
             </div>
           </div>
@@ -388,7 +388,7 @@ const LayoutView = ({
               <span>
                 C GST @{" "}
                 {addCommasToNumber(
-                  roundOff(Number(feeReport?.feeDetails?.Cgst))
+                  roundOff((feeReport?.feeDetails?.Cgst))
                 )}{" "}
                 %
               </span>
@@ -396,7 +396,7 @@ const LayoutView = ({
               <span>
                 S GST @{" "}
                 {addCommasToNumber(
-                  roundOff(Number(feeReport?.feeDetails?.Sgst))
+                  roundOff((feeReport?.feeDetails?.Sgst))
                 )}{" "}
                 %{" "}
               </span>
@@ -404,7 +404,7 @@ const LayoutView = ({
               <span>
                 I GST @{" "}
                 {addCommasToNumber(
-                  roundOff(Number(feeReport?.feeDetails?.Igst))
+                  roundOff((feeReport?.feeDetails?.Igst))
                 )}{" "}
                 %
               </span>
@@ -425,15 +425,15 @@ const LayoutView = ({
               <br />
               <br />
               <span>
-                ₹ {addCommasToNumber(roundOff(calculateCGST(feeReport)))}
+                ₹ {addCommasToNumber((calculateCGST(feeReport)))}
               </span>
               <br />
               <span>
-                ₹ {addCommasToNumber(roundOff(calculateSGST(feeReport)))}
+                ₹ {addCommasToNumber((calculateSGST(feeReport)))}
               </span>
               <br />
               <span>
-                ₹ {addCommasToNumber(roundOff(calculateIGST(feeReport)))}
+                ₹ {addCommasToNumber((calculateIGST(feeReport)))}
               </span>
             </td>
           </tr>
@@ -461,7 +461,7 @@ const LayoutView = ({
               }}
             >
               <span>
-                ₹ {addCommasToNumber(roundOff(grandTotalWithGST(feeReport)))}
+                ₹ {addCommasToNumber((grandTotalWithGST(feeReport)))}
               </span>
             </td>
           </tr>
@@ -487,7 +487,7 @@ const LayoutView = ({
               }}
             >
               <span>
-                ₹ {addCommasToNumber(roundOff(grandTotalWithGST(feeReport)))}
+                ₹ {addCommasToNumber((grandTotalWithGST(feeReport)))}
               </span>
             </td>
           </tr>
