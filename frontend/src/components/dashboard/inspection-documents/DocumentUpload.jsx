@@ -74,7 +74,7 @@ const data = [
   {
     _id: "6144145976c7fe",
     serial_num: "3",
-    doc_name: "Vehicle photographs/video",
+    doc_name: "Damage vehicle photographs/video",
     action: "2021-09-17 19:10:50",
   },
   {

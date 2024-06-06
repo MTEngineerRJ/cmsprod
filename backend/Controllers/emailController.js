@@ -384,7 +384,7 @@ const acknowledgmentMail = (req, res) => {
                 : "documents"
             }/${leadId}?token=${InsuredToken}&type=${1}&content=${
           String(inspectionType).toLowerCase().includes("pre-inspection")
-            ? "Certificate%20of%20registration%2CAadhar%20card%2CInsurance%20policy%2CVehicle%20photographs%2Fvideo%2CSignature"
+            ? "Certificate%20of%20registration%2CAadhar%20card%2CInsurance%20policy%2CDamage%20vehicle%20photographs%2Fvideo%2CSignature"
             : ""
         } target="_blank">Click Here</a> to fill the documents information .</p> <br/>
       
