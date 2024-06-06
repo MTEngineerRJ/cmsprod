@@ -32,8 +32,8 @@ export default function BaseView({
           <div
             style={{ textDecorationLine: "underline", color: "lightskyblue" }}
           >
-            <a href={String(claim?.InspectionType) === "pre-inspection" ? `/preInspection-claim-details?leadId=${claim.LeadID}` : `/claim-details?leadId=${claim.LeadID}`}>
-              {String(claim?.InspectionType) === "pre-inspection" ? claim.VehicleNo : claim?.PolicyNo}
+            <a href={String(claim?.Region).toLowerCase().includes("preinspection") ? `/preInspection-claim-details?leadId=${claim.LeadID}` : `/claim-details?leadId=${claim.LeadID}`}>
+              {String(claim?.Region).toLowerCase().includes("preinspection") ? claim.VehicleNo : claim?.PolicyNo}
             </a>
           </div>
         ),

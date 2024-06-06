@@ -92,6 +92,12 @@ const CreateView = () => {
         console.log(err);
       });
   }, []);
+  
+  useEffect(()=>{
+    if(String(region).toLowerCase().includes("preinspection")){
+      setInspectionType("pre-inspection");
+    }
+  },[region]);
 
   const submitHandler = () => {
     setDisable(true);
@@ -107,9 +113,7 @@ const CreateView = () => {
       ClaimServicingOffice: claimSurvicingOffice,
       ClaimNumber: claimNumber,
       AddedBy: userInfo[0].Username,
-      Region: String(inspectionType).toLowerCase().includes("pre-inspection")
-        ? "Preinspection"
-        : region,
+      Region: region,
       InspectionType: inspectionType ? inspectionType : "Final",
       IsClaimCompleted: 0,
       IsActive: 1,
@@ -796,7 +800,7 @@ const CreateView = () => {
               </div>
             )}
 
-        <div className="col-lg-4">
+        { preInspectionHide ? <div className="col-lg-4">
           <div className="row mt-1">
             <div className="col-lg-5 my_profile_setting_input form-group">
               <label
@@ -831,7 +835,7 @@ const CreateView = () => {
               </select>
             </div>
           </div>
-        </div>
+        </div> : ""}
 
         <div className="col-lg-12">
           <div className="my_profile_setting_input">
@@ -846,7 +850,7 @@ const CreateView = () => {
         </div>
       </div>
     </>
-  );
+  ); 
 };
 
 export default CreateView;
