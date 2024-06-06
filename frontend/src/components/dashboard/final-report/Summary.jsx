@@ -923,7 +923,7 @@ const Summary = ({
               </div>
             </div>
           </div>
-           {/* <div className="row">
+           <div className="row">
             <div className="col-lg-6">
               {claim?.claimDetails?.IMT ? <div className="row">
                 <div className="col-lg-5 text-end">
@@ -997,7 +997,7 @@ const Summary = ({
                 </div>
               </div>
             </div> : ""}
-          </div>  */}
+          </div> 
         </div>
         <div className="col-lg-5">
           <div className="row">

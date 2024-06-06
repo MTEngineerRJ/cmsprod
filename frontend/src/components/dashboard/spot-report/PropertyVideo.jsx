@@ -237,14 +237,6 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
   const [totalMetalRows,settotalMetalRows]=useState(0);
   const [DepreciationValue,setDepreciationValue]=useState(0);
 
-  const calculateDepreciation = ()=>{
-
-  }
-
-  // useEffect(()=>{
-  //   setExpectedSalvage(Number(totalMetalRows) * Number(MetalPercent)/100);
-  // },[totalMetalRows])
-
 
   const returnTotal = () => {
     const a =

@@ -624,10 +624,10 @@ const GSTSummary = ({ totalIMTLabourValue, totalIMTNewPartValue, allInfo }) => {
           policy of insurance works out to{" "}
           <b>
             ₹{" "}
-            {/* {addCommasToNumber(
-              Math.round(getSummaryTotalWithLessSalvage(allInfo,lessExcess,lessSalvage) + totalValue)
-            )}{" "} */}
             {addCommasToNumber(
+              Math.round(getSummaryTotalWithLessSalvage(allInfo,lessExcess,lessSalvage) + totalValue)
+            )}{" "}
+            {/* {addCommasToNumber(
               Math.round(
                 getSummaryTotalWithLessSalvage(
                   allInfo,
@@ -635,12 +635,12 @@ const GSTSummary = ({ totalIMTLabourValue, totalIMTNewPartValue, allInfo }) => {
                   lessSalvage
                 ) 
               )
-            )}{" "}
+            )}{" "} */}
             <br /> (
-            {/* {numberToWords
-              .toWords(Math.round(getSummaryTotalWithLessSalvage(allInfo,lessExcess,lessSalvage)) + totalValue)
-              .toUpperCase()} */}
             {numberToWords
+              .toWords(Math.round(getSummaryTotalWithLessSalvage(allInfo,lessExcess,lessSalvage)) + totalValue)
+              .toUpperCase()}
+            {/* {numberToWords
               .toWords(
                 Math.round(
                   getSummaryTotalWithLessSalvage(
@@ -650,7 +650,7 @@ const GSTSummary = ({ totalIMTLabourValue, totalIMTNewPartValue, allInfo }) => {
                   )
                 ) 
               )
-              .toUpperCase()}
+              .toUpperCase()} */}
             ){" "}
           </b>{" "}
           The assessment of loss, as detailed above, is subject to the terms and
