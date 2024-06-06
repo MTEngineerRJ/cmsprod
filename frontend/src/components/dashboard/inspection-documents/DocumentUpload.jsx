@@ -74,7 +74,7 @@ const data = [
   {
     _id: "6144145976c7fe",
     serial_num: "3",
-    doc_name: "Damage vehicle photographs/video",
+    doc_name: "Vehicle photographs/video",
     action: "2021-09-17 19:10:50",
   },
   {
@@ -576,7 +576,6 @@ export default function DocumentUpload({
           ? checkWithinTheContent(row)
           : true;
 
-          console.log("content",content,row.doc_name)
         if (isAccordingToStatus && !isVideoImagesIncluede) {
           const updatedRow = {
             _id: index + 1,
@@ -590,7 +589,6 @@ export default function DocumentUpload({
                     style={{ display: "flex", flexDirection: "column" }}
                     key={idx}
                   >
-                    {console.log("UPLOAD>>>>>>", file)}
 
                     {fileName.endsWith(".jpg") || fileName.endsWith(".png") ? (
                       <img

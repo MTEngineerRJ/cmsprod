@@ -79,11 +79,28 @@ const calculateTotalAssessed = (allInfo, setAssessed, setEstimate) => {
 };
 
 const calculateProfessionalFees = (allInfo) => {
-  return String(allInfo?.otherInfo[0]?.VehicleType)
+  if(String(allInfo?.otherInfo[0]?.InspectionTypeOfConduct).toLowerCase().includes("digital")){
+    return String(allInfo?.otherInfo[0]?.VehicleType)
     .toLowerCase()
     .includes("4W".toLowerCase())
-    ? 700
-    : 500;
+    ? 40 :
+    String(allInfo?.otherInfo[0]?.VehicleType)
+    .toLowerCase()
+    .includes("2W".toLowerCase())
+    ? 30
+    : 41;
+  } 
+  else{
+    return String(allInfo?.otherInfo[0]?.VehicleType)
+    .toLowerCase()
+    .includes("4W".toLowerCase())
+    ? 140 :
+    String(allInfo?.otherInfo[0]?.VehicleType)
+    .toLowerCase()
+    .includes("2W".toLowerCase())
+    ? 75
+    : 150;
+  }
 };
 
 const roundOff = (value) => {
