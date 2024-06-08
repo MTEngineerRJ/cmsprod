@@ -100,6 +100,8 @@ const ReactEditor = ({ editorContent, setEditorContent,index, finalValue,readOnl
           minHeight: "200px",
           padding: "10px",
           marginTop: "10px",
+          backgroundColor: "white",
+          border:"1px solid black",
           direction: "ltr", // Ensure left-to-right text direction
         }}
         
