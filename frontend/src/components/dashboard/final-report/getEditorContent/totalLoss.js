@@ -74,7 +74,7 @@ export const getTotalLoss = (claim,allLabour,allNewParts,currentGst,allDepreciat
         <tr>
           
 
-        $getDepreciationArray$
+        <td>$getDepreciationArray$</td>
         </tr>
         <tr>
           <td style=" width: 30% " class="text-start">
