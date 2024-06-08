@@ -46,19 +46,13 @@ const getStringFromObject = (array) => {
   let finalArray = [];
   const result = Object.entries(array).map(([key, value]) => {
     const temp = `
-  <td style={{ width: "60%" }} className="text-start">
-  <span>
-    ${value.depPct} % depreciation on ${key} parts worth Rupees ${value.overAllValue} = ${value.Value}
-  </span>
-</td>
-
-<td style={{ width: "40%" }} className="text-end">
-  <span className="fw-bold text-dark">
-    {" "}
-    ${value.Value}
-  </span>
-</td>
-  `;
+  <span> ${value.depPct} % depreciation on ${key} parts worth Rupees ${value.overAllValue} = ${value.Value} </span> <br/>`;
+    //    <td style={{ width: "40%" }} className="text-end">
+    //   <span className="fw-bold text-dark">
+    //     {" "}
+    //     ${value.Value}
+    //   </span>
+    // </td>
     if (value?.Value > 0) {
       finalArray.push(temp);
     }
