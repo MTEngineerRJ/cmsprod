@@ -30,3 +30,9 @@
 2024-06-05T17:38:40.168Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,2365] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
 2024-06-05T17:38:50.702Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2365] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
 2024-06-05T17:39:03.088Z SENDING_ACKNOWLEDMENT_MAIL[SSMUTNEJA,2365] : INFO : {message : "Successfully Sent the MAIL from : legalmtpi04@gmail.com , to : ivijayrajsingh@gmail.com , cc : muskankushwah85@gmail.com,intimationmt@gmail.com for LeadId --> 2365" , info : "{message : SUCCESS }"}
+2024-06-12T04:27:18.574Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-12T04:28:39.686Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-12T04:33:26.005Z UPDATING_FINAL_REPORT[SSMUTNEJA,2392] : INFO : {message : "Updated successfully the final report for leadId ---> 2392" , info : "{message : 200 SUCCESS }"}
+2024-06-12T04:33:35.017Z UPDATING_FINAL_REPORT[SSMUTNEJA,2392] : INFO : {message : "Updated successfully the final report for leadId ---> 2392" , info : "{message : 200 SUCCESS }"}
+2024-06-12T05:31:25.331Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-12T05:32:50.085Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}

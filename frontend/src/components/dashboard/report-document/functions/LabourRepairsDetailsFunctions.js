@@ -2,7 +2,7 @@ const calculateLabourDepreciations = (allInfo) => {
   let totalDep = 0;
   allInfo?.labourDetails?.map((labour, index) => {
     
-    if (String(labour.JobType) === "1" && labour.LabourIsActive) {
+    if (String(labour.JobType) === "1" && labour.LabourIsActive && labour.IsImt === 0) {
       const dep = Number(Number(labour.Assessed) * 12.5) / 100;
      
       totalDep += Number(dep);
@@ -16,7 +16,7 @@ const calculateTotalPaintingEstimate = (allInfo) => {
   let total = 0;
   allInfo?.labourDetails?.map((labour, index) => {
     const estimate = Number(labour.Estimate);
-    if (String(labour.JobType) === "1" && labour.LabourIsActive) {
+    if (String(labour.JobType) === "1" && labour.LabourIsActive && labour.IsImt === 0) {
       total = total + estimate;
     }
   });
@@ -28,7 +28,7 @@ const getFirstPaintingPos = (allInfo) => {
   let found = false;
   allInfo?.labourDetails?.map((labour, index) => {
     const assessed = Number(labour.Assessed);
-    if (String(labour.JobType) === "1" && labour.LabourIsActive && !found) {
+    if (String(labour.JobType) === "1" && labour.LabourIsActive && !found && labour.IsImt === 0) {
       pos = index + 1;
       found = true;
     }
@@ -40,7 +40,7 @@ const calculateTotalPaintingAssessed = (allInfo) => {
   let total = 0;
   allInfo?.labourDetails?.map((labour, index) => {
     const assessed = Number(labour.Assessed);
-    if (String(labour.JobType) === "1" && labour?.LabourIsActive) {
+    if (String(labour.JobType) === "1" && labour?.LabourIsActive && labour.IsImt === 0) {
       total = total + assessed;
     }
   });
@@ -52,7 +52,7 @@ const isGstApplied = (allInfo)=>{
   let gstValue = 0;
   let totalAssessedValue = 0;
   allInfo?.labourDetails?.map((labour,index)=>{
-    if(Number(labour?.IsGSTIncluded) % 2 === 1){
+    if(Number(labour?.IsGSTIncluded) % 2 === 1 && labour.IsImt === 0){
       applied = true;
       gstValue = labour.GSTPercentage;
       totalAssessedValue += Number(labour?.Assessed);
@@ -65,7 +65,7 @@ const calculateGSTNoGSTLabour = (allInfo) => {
   let nonPainting = 0,
     Painting = 0;
   allInfo?.labourDetails?.map((labour, index) => {
-    if (String(labour.JobType) === "1" && labour.LabourIsActive) {
+    if (String(labour.JobType) === "1" && labour.LabourIsActive && labour.IsImt === 0) {
       Painting += 1;
     } else {
       nonPainting += 1;
@@ -82,7 +82,7 @@ const getTotalGlassAssessed = (allInfo) => {
 
     if (
       String(part.NewPartsTypeOfMaterial) === "Glass" &&
-      part.NewPartsIsActive
+      part.NewPartsIsActive && part.IsImt === 0
     ) {
       total = total + assessed;
     }
@@ -98,7 +98,7 @@ const getTotalMetalAssessed = (allInfo) => {
       (assessed * Number(part.NewPartsDepreciationPct)) / 100;
     if (
       String(part.NewPartsTypeOfMaterial) === "Metal" &&
-      part.NewPartsIsActive
+      part.NewPartsIsActive && part.IsImt === 0
     ) {
       total = total + assessed;
     }
@@ -119,7 +119,7 @@ const getTotalOtherMetalAssesses = (allInfo) => {
     if (
       String(part.NewPartsTypeOfMaterial) !== "Glass" &&
       String(part.NewPartsTypeOfMaterial) !== "Metal" &&
-      part.NewPartsIsActive
+      part.NewPartsIsActive && part.IsImt === 0
     ) {
       total = total + assessed;
     }
@@ -136,7 +136,7 @@ const getTotalDepreciation = (allInfo, type, other) => {
 
     if (
       String(part.NewPartsTypeOfMaterial) === String(type) &&
-      part.NewPartsIsActive
+      part.NewPartsIsActive && part.IsImt === 0
     ) {
       total = total + Depreciation;
     }
@@ -153,7 +153,7 @@ const getTotalNonMetaDepreciation = (allInfo) => {
     if (
       String(part.NewPartsTypeOfMaterial) !== "Glass" &&
       String(part.NewPartsTypeOfMaterial) !== "Metal" &&
-      part.NewPartsIsActive
+      part.NewPartsIsActive && part.IsImt === 0
     ) {
       total = total + Depreciation;
     }
@@ -169,7 +169,7 @@ const calculateTypeNewPartsGST = (allInfo, type) => {
 
     if (
       String(part.NewPartsTypeOfMaterial) === String(type) &&
-      part.NewPartsIsActive
+      part.NewPartsIsActive && part.IsImt === 0
     ) {
       total = total + gst;
     }
@@ -186,7 +186,7 @@ const calculateOtherTypeNewPartsGST = (allInfo) => {
     if (
       String(part.NewPartsTypeOfMaterial) !== "Glass" &&
       String(part.NewPartsTypeOfMaterial) !== "Metal" &&
-      part.NewPartsIsActive
+      part.NewPartsIsActive && part.IsImt === 0
     ) {
       total = total + gst;
     }
@@ -199,7 +199,7 @@ const getTotalLabourEstimate = (allInfo) => {
   allInfo?.labourDetails?.map((part, index) => {
     const estimate = Number(part.Estimate);
 
-    if (part.LabourIsActive) {
+    if (part.LabourIsActive && part.IsImt === 0) {
       total = total + estimate;
     }
   });
@@ -217,7 +217,7 @@ const getTotalLabourAssessedSum = (allInfo) => {
 
     const assessedvalue = assessed * Number(part.GSTPercentage);
     const gst = Number(assessedvalue) / 100;
-    if (part.LabourIsActive) {
+    if (part.LabourIsActive && part.IsImt === 0) {
       total = total + assessed;
     }
   });

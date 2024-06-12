@@ -28,13 +28,13 @@ const LiabilityUnderImtLabour = ({
       array2 = [];
     const labours = allInfo?.labourDetails;
     labours?.map((part, index) => {
-      if (Number(part.JobType) === 0) {
+      if (Number(part.JobType) === 0 && part.IsImt === 1) {
         const newRow = {
           ...part,
           pos: index + 1,
         };
         array.push(newRow);
-      } else {
+      } else if(Number(part.JobType) === 1 && part.IsImt === 1){
         const newRow = {
           ...part,
           pos: index + 1,

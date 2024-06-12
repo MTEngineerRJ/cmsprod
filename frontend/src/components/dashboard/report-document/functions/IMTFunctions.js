@@ -44,7 +44,7 @@ const formatDate = (dateString) => {
     const Depreciation =
       (assessed * Number(part.NewPartsDepreciationPct)) / 100;
     if (
-      String(part.NewPartsTypeOfMaterial === "Metal")  &&part.IsImt === 1  &&
+      String(part.NewPartsTypeOfMaterial === "Metal")  && part.IsImt === 1  &&
       part.NewPartsIsActive
     ) {
       return assessed;
@@ -103,7 +103,7 @@ const formatDate = (dateString) => {
     let total = 0;
     allInfo?.newPartsDetails?.map((part, index) => {
       const estimatedValue = Number(part.NewPartsEstimate) * Number(part.QE);
-      const gst  = String(part.NewPartsWithTax) === "1" || String(part.NewPartsWithTax) === "2" ? (estimatedValue * Number(part.NewPartsGSTPct))/100 : 0;
+      const gst  = (String(part.NewPartsWithTax) === "1" || String(part.NewPartsWithTax) === "2") && part.IsImt === 1 ? (estimatedValue * Number(part.NewPartsGSTPct))/100 : 0;
       total = total + gst
     });
     return total;

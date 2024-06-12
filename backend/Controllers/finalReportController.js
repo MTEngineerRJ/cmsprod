@@ -124,9 +124,25 @@ const updateFinalReport = (req, res) => {
     OtherRemark,
     TotalLoss,
     DateOfBirth,
+    OriginToDestThirdParty,
+    LRInvoiceNoThirdParty,
+    QuantityOfGoodsThirdParty,
+    NatureOfGoodsThirdParty,
+    NoOfPassengerInLoad,
+    TransporterNameInLoad,
+    LRInvoiceNoInLoad,
+    OriginToDestination,
+    WeightOfGoodsInLoad,
+    NatureOfGoodsInLoad,
+    StationDiaryNo,
+    PolicStationName,
+    SurveyInspectiononMedium,
+    PersonArrestedOnSpot,
+    Vehicle_Shifted_To,
     IMT,
     ValidUpto,
-    Username
+    Username,
+    InspectionType,
   } = req.body;
 
   //Claim Dates
@@ -197,7 +213,7 @@ const updateFinalReport = (req, res) => {
     PolicyPeriodEnd='${formattedPolicyEnd}' ,
     ClaimNumber = '${ClaimNumber}',
     ClaimServicingOffice='${ClaimServicingOffice}',
-    InspectionType = '${""}',
+    InspectionType = '${InspectionType}',
     PolicyType='${PolicyType}',
     IDV='${IDV}',
     MailRecieveDate='${formattedMailRecevingDate}',
@@ -328,6 +344,65 @@ const updateFinalReport = (req, res) => {
           WHERE LeadID = ${leadId};
     `;
 
+  const insertIntoAccidentSpotDetails = `
+    INSERT INTO AccidentDetailsSpot (
+        OriginToDestThirdParty,
+        LRInvoiceNoThirdParty,
+        QuantityOfGoodsThirdParty,
+        NatureOfGoodsThirdParty,
+        NoOfPassengersInLoad,
+        TransporterNameInLoad,
+        LRInvoiceNoInLoad,
+        OriginToDestInLoad,
+        WeightOfGoodsInLoad,
+        NatureOfGoodsInLoad,
+        StationDiaryNo,
+        PoliceStationName,
+        SurveyInspectionMedium,
+        PersonArrestedOnSpot,
+        Vehicle_Shifted_To,
+        LeadID
+    ) VALUES (
+        '${OriginToDestThirdParty}',
+        '${LRInvoiceNoThirdParty}',
+        '${QuantityOfGoodsThirdParty}',
+        '${NatureOfGoodsThirdParty}',
+        '${NoOfPassengerInLoad}',
+        '${TransporterNameInLoad}',
+        '${LRInvoiceNoInLoad}',
+        '${OriginToDestination}',
+        '${WeightOfGoodsInLoad}',
+        '${NatureOfGoodsInLoad}',
+        '${StationDiaryNo}',
+        '${PolicStationName}',
+        '${SurveyInspectiononMedium}',
+        '${PersonArrestedOnSpot}',
+        '${Vehicle_Shifted_To}',
+        ${leadId}
+    );
+`;
+
+  const updateIntoAccidentSpotDetails = `
+    UPDATE AccidentDetailsSpot
+          SET
+          OriginToDestThirdParty = '${OriginToDestThirdParty}',
+          LRInvoiceNoThirdParty ='${LRInvoiceNoThirdParty}' ,
+          QuantityOfGoodsThirdParty='${QuantityOfGoodsThirdParty}',
+          NatureOfGoodsThirdParty='${NatureOfGoodsThirdParty}',
+          NoOfPassengersInLoad='${NoOfPassengerInLoad}',
+          TransporterNameInLoad='${TransporterNameInLoad}',
+          LRInvoiceNoInLoad='${LRInvoiceNoInLoad}',
+              OriginToDestInLoad='${OriginToDestination}',
+          WeightOfGoodsInLoad='${WeightOfGoodsInLoad}',
+          NatureOfGoodsInLoad='${NatureOfGoodsInLoad}',
+          StationDiaryNo = '${StationDiaryNo}',
+           PoliceStationName='${PolicStationName}',
+          SurveyInspectionMedium='${SurveyInspectiononMedium}',
+          PersonArrestedOnSpot = '${PersonArrestedOnSpot}',
+           Vehicle_Shifted_To='${Vehicle_Shifted_To}'
+          WHERE LeadID = ${leadId};
+    `;
+
   const updateSummaryDetails = `
     UPDATE SummaryReport
           SET
@@ -380,6 +455,107 @@ const updateFinalReport = (req, res) => {
       );
     `;
 
+  const newPartsQuery = `
+    UPDATE NewPartsReport
+          SET
+          IsImt = ${0}
+          WHERE LeadID = ${leadId};
+    `;
+    const LabourQuery = `
+    UPDATE LabourReport
+          SET
+          IsImt = ${0}
+          WHERE LeadID = ${leadId};
+    `;
+
+  if (String(InspectionType).toLowerCase().includes("spot")) {
+    db.query(
+      "SELECT * FROM AccidentDetailsSpot WHERE LeadID=?",
+      [leadId],
+      (err, result2) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send("Internal Server Error", err);
+          return;
+        }
+
+        const query = result2?.length
+          ? updateIntoAccidentSpotDetails
+          : insertIntoAccidentSpotDetails;
+
+        console.log(query);
+        db.query(query, (err, result2) => {
+          if (err) {
+            logMessage({
+              type: "error",
+              Function: `UPDATING_FINAL_REPORT`,
+              message: `Got error while ${
+                query === updateIntoAccidentSpotDetails
+                  ? "Updating"
+                  : "Inserting"
+              } the Accident Spot Details DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+              username: Username,
+              leadId: leadId,
+              consoleInfo: `Got error while ${
+                query === updateIntoAccidentSpotDetails
+                  ? "Updating"
+                  : "Inserting"
+              } the Accident Spot Details  for the ${InspectionType}_report for leadId --> ${leadId}`,
+              info: `{ERRMESSAGE : ${
+                err.details
+              }, STATUS : ${`${err.status} ${err.message}`},query:${query}, error : ${err}}}`,
+            });
+            console.error(err);
+            res.status(500).send("Internal Server Error", err);
+            return;
+          }
+        });
+      }
+    );
+  }
+
+
+  console.log("IMT" , parseInt(IMT),IMT)
+  if(!IMT){
+    console.log(newPartsQuery,LabourQuery)
+    db.query(newPartsQuery, (err, result2) => {
+      if (err) {
+        logMessage({
+          type: "error",
+          Function: `UPDATING_NEW_PART_WHEN_IMT_ZERO_FINAL_REPORT`,
+          message: `Got error while updating the ACCIDENT DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+          username: Username,
+          leadId: leadId,
+          consoleInfo: `Got error while updating the New parts when IMT is 0 for the ${InspectionType}_report for leadId --> ${leadId}`,
+          info: `{ERRMESSAGE : ${
+            err.details
+          }, STATUS : ${`${err.status} ${err.message}`},query:${updateAccidentDetails}, error : ${err}}}`,
+        });
+        console.error(err);
+        res.status(500).send("Internal Server Error", err);
+        return;
+      }
+    })
+      db.query(LabourQuery, (err, result2) => {
+        if (err) {
+          logMessage({
+            type: "error",
+            Function: `UPDATING_LABOUR_WHEN_IMT_ZERO_FINAL_REPORT`,
+            message: `Got error while updating the ACCIDENT DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+            username: Username,
+            leadId: leadId,
+            consoleInfo: `Got error while updating the Labour when IMT is 0 for the ${InspectionType}_report for leadId --> ${leadId}`,
+            info: `{ERRMESSAGE : ${
+              err.details
+            }, STATUS : ${`${err.status} ${err.message}`},query:${updateAccidentDetails}, error : ${err}}}`,
+          });
+          console.error(err);
+          res.status(500).send("Internal Server Error", err);
+          return;
+        }
+      })
+  }
+
   db.query(updateClaimDetails, (err, result2) => {
     if (err) {
       logMessage({
@@ -389,7 +565,9 @@ const updateFinalReport = (req, res) => {
         username: Username,
         leadId: leadId,
         consoleInfo: `Got error while updating the CLAIM DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
-        info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query:${updateClaimDetails}, error : ${err}}}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${updateClaimDetails}, error : ${err}}}`,
       });
       console.error(err);
       res.status(500).send("Internal Server Error", err);
@@ -406,7 +584,9 @@ const updateFinalReport = (req, res) => {
         username: Username,
         leadId: leadId,
         consoleInfo: `Got error while updating the ACCIDENT DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
-        info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query:${updateAccidentDetails}, error : ${err}}}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${updateAccidentDetails}, error : ${err}}}`,
       });
       console.error(err);
       res.status(500).send("Internal Server Error", err);
@@ -422,7 +602,9 @@ const updateFinalReport = (req, res) => {
         username: Username,
         leadId: leadId,
         consoleInfo: `Got error while updating the DRIVER DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
-        info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query:${updateDriverDetails}, error : ${err}}}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${updateDriverDetails}, error : ${err}}}`,
       });
       console.error(err);
       res.status(500).send("Internal Server Error", err);
@@ -438,7 +620,9 @@ const updateFinalReport = (req, res) => {
         username: Username,
         leadId: leadId,
         consoleInfo: `Got error while updating the GARAGE DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
-        info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query:${updateGarageDetails}, error : ${err}}}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${updateGarageDetails}, error : ${err}}}`,
       });
       console.error(err);
       res.status(500).send("Internal Server Error", err);
@@ -455,7 +639,9 @@ const updateFinalReport = (req, res) => {
         username: Username,
         leadId: leadId,
         consoleInfo: `Got error while updating the INSURED DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
-        info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query:${updateInsuredDetails}, error : ${err}}}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${updateInsuredDetails}, error : ${err}}}`,
       });
       console.error(err);
       res.status(500).send("Internal Server Error", err);
@@ -471,7 +657,9 @@ const updateFinalReport = (req, res) => {
         username: Username,
         leadId: leadId,
         consoleInfo: `Got error while updating the VEHICLE DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
-        info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query:${updateVehicleDetails}, error : ${err}}}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${updateVehicleDetails}, error : ${err}}}`,
       });
       console.error(err);
       res.status(500).send("Internal Server Error", err);
@@ -498,11 +686,17 @@ const updateFinalReport = (req, res) => {
           logMessage({
             type: "error",
             Function: `UPDATING_FINAL_REPORT`,
-            message: `Got error while ${query === updateSummaryDetails ? "Updating" : "Inserting"} the SUMMARY DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+            message: `Got error while ${
+              query === updateSummaryDetails ? "Updating" : "Inserting"
+            } the SUMMARY DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
             username: Username,
             leadId: leadId,
-            consoleInfo: `Got error while ${query === updateSummaryDetails ? "Updating" : "Inserting"} the SUMMARY DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
-            info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query:${query}, error : ${err}}}`,
+            consoleInfo: `Got error while ${
+              query === updateSummaryDetails ? "Updating" : "Inserting"
+            } the SUMMARY DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+            info: `{ERRMESSAGE : ${
+              err.details
+            }, STATUS : ${`${err.status} ${err.message}`},query:${query}, error : ${err}}}`,
           });
           console.error(err);
           res.status(500).send("Internal Server Error", err);
@@ -531,11 +725,21 @@ const updateFinalReport = (req, res) => {
           logMessage({
             type: "error",
             Function: `UPDATING_FINAL_REPORT`,
-            message: `Got error while ${query === updateCommercialVehicleDetails ? "Updating" : "Inserting"} the COMMERCIAL DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+            message: `Got error while ${
+              query === updateCommercialVehicleDetails
+                ? "Updating"
+                : "Inserting"
+            } the COMMERCIAL DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
             username: Username,
             leadId: leadId,
-            consoleInfo: `Got error while ${query === updateCommercialVehicleDetails ? "Updating" : "Inserting"} the COMMERCIAL DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
-            info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query:${query}, error : ${err}}}`,
+            consoleInfo: `Got error while ${
+              query === updateCommercialVehicleDetails
+                ? "Updating"
+                : "Inserting"
+            } the COMMERCIAL DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+            info: `{ERRMESSAGE : ${
+              err.details
+            }, STATUS : ${`${err.status} ${err.message}`},query:${query}, error : ${err}}}`,
           });
           console.error(err);
           res.status(500).send("Internal Server Error", err);
