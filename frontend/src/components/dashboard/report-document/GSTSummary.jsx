@@ -638,7 +638,7 @@ const GSTSummary = ({ totalIMTLabourValue, totalIMTNewPartValue, allInfo }) => {
             )}{" "} */}
             <br /> (
             {numberToWords
-              .toWords(Math.round(getSummaryTotalWithLessSalvage(allInfo,lessExcess,lessSalvage)) + totalValue)
+              .toWords(Math.ceil(getSummaryTotalWithLessSalvage(allInfo,lessExcess,lessSalvage)) + totalValue)
               .toUpperCase()}
             {/* {numberToWords
               .toWords(

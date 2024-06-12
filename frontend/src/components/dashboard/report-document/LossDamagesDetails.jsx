@@ -41,8 +41,7 @@ const LossDamagesDetails = ({ allInfo }) => {
           indexValue = idx;
         }
       });
-
-      if (indexValue === -1 && Number(part.IsImt) === 0) {
+      if (indexValue === -1 && part.NewPartsIsActive === 1 && Number(part.IsImt) === 0) {
         const newField = {
           field: part.NewPartsGSTPct,
           value: 1,
@@ -52,7 +51,7 @@ const LossDamagesDetails = ({ allInfo }) => {
     });
 
     array.sort((a, b) => parseFloat(a.field) - parseFloat(b.field));
-    console.log("array", array);
+
     setAllGSTType(array);
   }, [allInfo]);
 

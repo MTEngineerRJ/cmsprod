@@ -93,7 +93,7 @@ const LiabilityUnderImtLabour = ({
           <>
             {noGST?.map((labour, index) => {
               return labour.LabourIsActive === 1 &&
-                labour.isImt === 1 &&
+                labour.IsImt === 1 &&
                 String(labour.JobType) === "0" ? (
                 <tr>
                   <td style={{ border: "1px solid black", padding: "5px" }}>

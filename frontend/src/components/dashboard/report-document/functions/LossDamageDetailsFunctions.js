@@ -408,7 +408,7 @@ const formatDate = (dateString) => {
     );
     let newRevisedArray = [];
     updatedArray.map((row, index) => {
-      if (String(row.NewPartsGSTPct) === String(type)) {
+      if (String(row.NewPartsGSTPct) === String(type) && row.IsImt === 0) {
         const newRow = {
           ...row,
           pos: index + 1,

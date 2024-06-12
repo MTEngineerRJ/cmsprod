@@ -482,8 +482,6 @@ const updateFinalReport = (req, res) => {
         const query = result2?.length
           ? updateIntoAccidentSpotDetails
           : insertIntoAccidentSpotDetails;
-
-        console.log(query);
         db.query(query, (err, result2) => {
           if (err) {
             logMessage({
@@ -514,10 +512,7 @@ const updateFinalReport = (req, res) => {
     );
   }
 
-
-  console.log("IMT" , parseInt(IMT),IMT)
   if(!IMT){
-    console.log(newPartsQuery,LabourQuery)
     db.query(newPartsQuery, (err, result2) => {
       if (err) {
         logMessage({
