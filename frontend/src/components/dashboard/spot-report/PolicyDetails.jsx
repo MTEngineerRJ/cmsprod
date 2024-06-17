@@ -1,28 +1,14 @@
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
-import RcDetails from "./RcDetails";
-import { BsTypeH3 } from "react-icons/bs";
-import DateComponent from "./dateComponent";
-// import MyDatePicker from "../../common/MyDatePicker";
-
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const PolicyDetails = ({
   setIsStatusModal,
   setPolicyType,
   policyType,
-  VehicleUpto,
-  setVehicleUpto,
-  TypeOfDate,
-  setTypeOfDate,
   isEditMode,
   setIsEditMode,
-  phoneNumber,
   setPhoneNumber,
-  applicantNumber,
   setApplicantNumber,
   disable,
   handleUpdateClick,
@@ -38,28 +24,16 @@ const PolicyDetails = ({
   setHPA,
   ClaimServicingOffice,
   setClaimServicingOffice,
-  OwnerSRST,
-  setOwnerSRST,
   VehicleMakeVariantModelColor,
   setVehicleMakeVariantModelColor,
   VehicleColor,
   setVehicleColor,
-  ValidUntilNtv,
-  setValidUntilNtv,
-  ValidFrom,
-  setValidFrom,
-  ValidUntilTv,
-  setValidUntilTv,
   DateOfBirth,
   setDateOfBirth,
 
   claim,
   ReferenceNo,
   setReferenceNo,
-  InsuredMailAddress,
-  setInsuredMailAddress,
-  requestType,
-  setRequestType,
   ClaimNumber,
   EngineType,
   setEngineType,
@@ -408,73 +382,6 @@ const PolicyDetails = ({
     setIsEditMode(true);
   };
 
-  // const handleUpdateClick = () => {
-  //   const payload = {
-  //     // Insured Details
-  //     InsuredMailAddress,
-  //     InsuredMobileNo1,
-  //     InsuredMobileNo2,
-  //     ClaimNumber,
-  //     EngineType,
-  //     DateRegistration,
-  //     TransferDate,
-  //     AddedBy,
-  //     Verification,
-  //     GarageNameAndAddress,
-  //     GarageContactNo2,
-  //     GarageAddedBy,
-  //     ClaimAddedDateTime,
-  //     ClaimIsActive,
-
-  //     // Policy Detail
-  //     ReferenceNo,
-  //     PolicyNumber,
-  //     PolicyIssuingOffice,
-  //     InsuranceCompanyNameAddress,
-  //     ClaimRegion,
-  //     InsuredName,
-  //     InsuredAddress,
-
-  //     // Drivers Details
-  //     DriverName,
-  //     DriverAddedDate,
-  //     IssuingAuthority,
-  //     LicenseNumber,
-  //     LicenseType,
-  //     BadgeNumber,
-
-  //     // Vehicle Details
-  //     VehicleRegisteredNumber,
-  //     RegisteredOwner,
-  //     VehicleChassisNumber,
-  //     EngineNumber,
-  //     VehicleModel,
-  //     VehicleTypeOfBody,
-  //     VehicleCubicCapacity,
-  //     VehicleClassOfVehicle,
-  //     VehicleFuelType,
-  //     VehicleOdometerReading,
-  //     VehiclePreAccidentCondition,
-  //     VehicleTaxParticulars,
-  //     PUCNumber,
-  //     VehicleSeatingCapacity,
-
-  //     LeadId,
-  //   };
-  //   console.log("payload", payload);
-  //   try {
-  //     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  //     axios.put(`/api/updateClaimDetails`, payload, {
-  //       headers: {
-  //         Authorization: `Bearer ${userInfo[0].Token}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     setIsEditMode(false);
-  //   } catch (error) {
-  //     console.log("Error in Updating Claim: ", error);
-  //   }
-  // };
   const [startDate, setStartDate] = useState("");
 
   const [hide,setHide] = useState(false)
@@ -550,23 +457,6 @@ const PolicyDetails = ({
                   id="propertyTitle"
                 />
               ) : (
-                // <MyDatePicker
-                //   disable={!isEditMode}
-                //   selectedDate={
-                //     MailRecieveDate ? new Date(MailRecieveDate) : ""
-                //   }
-                //   setSelectedDate={setMailRecieveDate}
-                // />
-                // <DatePicker
-                //   className="form-control"
-                //   id="propertyTitle"
-                //   selected={
-                //     MailRecieveDate !== null && MailRecieveDate // Example: YYYY-MM-DD format
-                //       ? new Date(MailRecieveDate)
-                //       : ""
-                //   }
-                //   onChange={(date) => setClaimAddedDateTime(date)}
-                // />
                 <input
                   type="date"
                   disabled={!isEditMode}
@@ -886,24 +776,6 @@ const PolicyDetails = ({
                           id="propertyTitle"
                         />
                       ) : (
-                        // <MyDatePicker
-                        //   disable={!isEditMode}
-                        //   selectedDate={
-                        //     PolicyPeriodStart ? new Date(PolicyPeriodStart) : ""
-                        //   }
-                        //   setSelectedDate={setPolicyPeriodStart}
-                        // />
-                        // <DatePicker
-                        //   className="form-control"
-                        //   id="propertyTitle"
-                        //   selected={
-                        //     PolicyPeriodStart !== null &&
-                        //    (PolicyPeriodStart) // Example: YYYY-MM-DD format
-                        //       ? new Date(PolicyPeriodStart)
-                        //       : ''
-                        //   }
-                        //   onChange={(date) => setPolicyPeriodStart(date)}
-                        // />
                         <input
                           type="date"
                           disabled={!isEditMode}
@@ -932,20 +804,6 @@ const PolicyDetails = ({
                         To
                       </label>
                     </div>
-
-                    {/* <div className="col-lg-8">
-                      <input
-                        readOnly={true}
-                        type={"text"}
-                        value={
-                          isEditMode
-                            ? formatDatenEXT(getNextYear())
-                            : formatDate(getNextYear())
-                        }
-                        className="form-control"
-                        id="propertyTitle"
-                      />
-                    </div> */}
                     <div className="col-lg-5">
                       {!isEditMode ? (
                         <input
@@ -960,25 +818,6 @@ const PolicyDetails = ({
                           id="propertyTitle"
                         />
                       ) : (
-                        // <MyDatePicker
-                        //   disable={!isEditMode}
-                        //   selectedDate={
-                        //     PolicyPeriodStart ? new Date(PolicyPeriodStart) : ""
-                        //   }
-                        //   setSelectedDate={setPolicyPeriodStart}
-                        // />
-                        // <DatePicker
-                        //   className="form-control"
-                        //   id="propertyTitle"
-                        //   selected={
-                        //     PolicyPeriodEnd !== null &&
-                        //  (PolicyPeriodEnd) // Example: YYYY-MM-DD format
-                        //   ? new Date(PolicyPeriodEnd)
-                        //   : ''
-                        //   }
-                        //   onChange={(date) => setPolicyPeriodEnd(date)}
-                        // />
-
                         <input
                           type="date"
                           disabled={!isEditMode}
@@ -987,10 +826,6 @@ const PolicyDetails = ({
                         />
                       )}
                     </div>
-                    {/* <span
-                      className="col-lg-1 flaticon-calendar text-dark fs-4"
-                      style={{ marginLeft: "-30px" }}
-                    ></span> */}
                   </div>
                 </div>
 
@@ -1024,36 +859,7 @@ const PolicyDetails = ({
                     </div>
                   </div>
                 </div>
-                {/* <div className="col-lg-6">
-                  <div className="row mt-1">
-                    <div className="col-lg-4 my_profile_setting_input form-group text-end">
-                      <label
-                        htmlFor=""
-                        className="text-color"
-                        style={{
-                          // paddingTop: "15px",
-                          color: "#2e008b",
-                          fontWeight: "",
-                          // marginTop: "-13px",
-                          fontSize:"15px"
-                        }}
-                      >
-                        Insurance 
-                      </label>
-                    </div>
-                    <div className="col-lg-7">
-                      <input
-                        type="number"
-                        className="form-control"
-                        id="mobile"
-                        value={InsuredMobileNo1}
-                        readOnly={!isEditMode}
-                        onChange={(e) => setInsuredMobileNo1(e.target.value)}
-                        // placeholder="Enter Registration No."
-                      />
-                    </div>
-                  </div>
-                </div> */}
+               
               </div>
               <div className="row">
                 <div className="col-lg-7">

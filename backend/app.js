@@ -21,6 +21,7 @@ const servicingOfficeRoutes = require("./Routes/servicingOfficeRoutes");
 const commentRoute = require("./Routes/commentsRoute");
 const preInspectionRoute = require("./Routes/PreInspectionImagesRoute");
 const partsRoute = require("./Routes/vehiclePartsRoutes");
+const spotRoute = require("./Routes/spotRoute");
 const multer = require("multer");
 
 
@@ -79,6 +80,8 @@ app.use("/fetch",servicingOfficeRoutes);
 app.use("/preInspection",preInspectionRoute);
 
 app.use("/parts",partsRoute);
+
+app.use("/spot",spotRoute);
 
 app.get('/', (req, res) => {
   res.send('Hello, this is your Express server!');

@@ -4,3 +4,6 @@
 2024-06-02T17:46:29.561Z FETCHING_ALL_CLAIMS[SSMUTNEJA,] : ERROR : {message : "Got Error while fetching all the Claims." , info : "{ERRMESSAGE : undefined,STATUS : undefined Incorrect number of arguments for PROCEDURE CMSDB.GetPolicyInfoByRegions; expected 6, got 7}"}
 2024-06-03T18:47:13.405Z FETCHING_ALL_CLAIMS[SSMUTNEJA,] : ERROR : {message : "Got Error while fetching all the Claims." , info : "{ERRMESSAGE : undefined,STATUS : undefined Incorrect number of arguments for PROCEDURE CMSDB.GetPolicyInfoByRegions; expected 6, got 7}"}
 2024-06-03T18:47:13.468Z FETCHING_ALL_CLAIMS[SSMUTNEJA,] : ERROR : {message : "Got Error while fetching all the Claims." , info : "{ERRMESSAGE : undefined,STATUS : undefined Incorrect number of arguments for PROCEDURE CMSDB.GetPolicyInfoByRegions; expected 6, got 7}"}
+2024-06-09T09:11:34.143Z LOGGING[SSMUTNEJA,] : ERROR : {message : "Got Error while logging to dashboard." , info : "{ERRMESSAGE : undefined,STATUS : undefined read ECONNRESET}"}
+2024-06-09T09:12:08.606Z LOGGING[SSMUTNEJA,] : ERROR : {message : "Got Error while logging to dashboard." , info : "{ERRMESSAGE : undefined,STATUS : undefined read ECONNRESET}"}
+2024-06-17T08:35:45.609Z LOGGING[SSMUTNEJA,] : ERROR : {message : "Got Error while logging to dashboard." , info : "{ERRMESSAGE : undefined,STATUS : undefined read ECONNRESET}"}

@@ -35,4 +35,20 @@ export const calculateDepreciationsPercenatge = (depreciations, type, time) => {
   return smaller ? smaller.DepreciationPercentage : 0;
 };
 
+export const focusInputs = ()=> {
+  document.getElementById("heading").focus();
+  document.getElementById("description").focus();
+}
+
+export const getDescriptionData = (row,field,value)=>{
+  if(String(field) === "description"){
+    return value;
+  }
+  else if (field === "dropdown"){
+    let defaultDescp = row.description;
+    defaultDescp = defaultDescp + " " + value;
+    return defaultDescp ;
+  }
+  return row.description;
+}
 

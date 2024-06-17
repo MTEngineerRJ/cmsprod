@@ -50,7 +50,7 @@ const GSTSummary = ({ totalIMTLabourValue, totalIMTNewPartValue, allInfo }) => {
     newParts?.map((part, index) => {
       let indexValue = -1;
       array?.map((temp, idx) => {
-        if (String(temp.field) === String(part.NewPartsGSTPct)) {
+        if (String(temp.field) === String(part.NewPartsGSTPct) && part.IsImt === 0) {
           indexValue = idx;
         }
       });
@@ -74,13 +74,13 @@ const GSTSummary = ({ totalIMTLabourValue, totalIMTNewPartValue, allInfo }) => {
       array2 = [];
     const labours = allInfo?.labourDetails;
     labours?.map((part, index) => {
-      if (Number(part.IsGSTIncluded) % 2 === 0) {
+      if (Number(part.IsGSTIncluded) % 2 === 0 && part.IsImt === 0) {
         const newRow = {
           ...part,
           pos: index + 1,
         };
         array.push(newRow);
-      } else {
+      } else if(part.IsImt === 0) {
         const newRow = {
           ...part,
           pos: index + 1,
@@ -638,7 +638,7 @@ const GSTSummary = ({ totalIMTLabourValue, totalIMTNewPartValue, allInfo }) => {
             )}{" "} */}
             <br /> (
             {numberToWords
-              .toWords(Math.round(getSummaryTotalWithLessSalvage(allInfo,lessExcess,lessSalvage)) + totalValue)
+              .toWords(Math.ceil(getSummaryTotalWithLessSalvage(allInfo,lessExcess,lessSalvage)) + totalValue)
               .toUpperCase()}
             {/* {numberToWords
               .toWords(

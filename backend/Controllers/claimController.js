@@ -309,6 +309,7 @@ const getSpecificClaim = async (req, res) => {
   const leadId = req.query.LeadId;
   const Username = req.query.Username;
 
+
   const executeQuery = (query, values) => {
     return new Promise((resolve, reject) => {
       db.query(query, values, (err, result) => {
@@ -326,6 +327,12 @@ const getSpecificClaim = async (req, res) => {
       "SELECT * FROM ClaimDetails WHERE LeadID=?",
       [leadId]
     );
+
+    const AccidentDetailsSpot = await executeQuery(
+      "SELECT * FROM AccidentDetailsSpot WHERE LeadID=?",
+      [leadId]
+    );
+
     const totalLoss = await executeQuery(
       "SELECT * FROM TotalLoss WHERE LeadID=?",
       [leadId]
@@ -511,6 +518,7 @@ const getSpecificClaim = async (req, res) => {
       driverOnlineDetails,
       commercialVehicleDetails,
       summaryDetails,
+      AccidentDetailsSpot
     };
     res.json(combinedResult);
   } catch (error) {

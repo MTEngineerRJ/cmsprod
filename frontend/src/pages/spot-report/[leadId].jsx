@@ -7,11 +7,11 @@ const Index = () => {
   const router = useRouter();
   // const { leadId } = router.query;
   const url = window.location.href;
-  const leadId = url.split("/final-report/")[1];
+  const leadId = url.split("/spot-report/")[1];
 
   return (
     <>
-      <Seo pageTitle="Final Report" />
+      <Seo pageTitle="Spot Report" />
       <Documents leadId={leadId} />
     </>
   );

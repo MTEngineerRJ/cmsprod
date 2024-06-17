@@ -24,7 +24,7 @@ const LabourRepairsDetails = ({ allInfo }) => {
       array2 = [];
     const labours = allInfo?.labourDetails;
     labours?.map((part, index) => {
-      if (Number(part.JobType) === 0) {
+      if (Number(part.JobType) === 0 && Number(part.IsImt) === 0) {
         const newRow = {
           ...part,
           pos: index + 1,
