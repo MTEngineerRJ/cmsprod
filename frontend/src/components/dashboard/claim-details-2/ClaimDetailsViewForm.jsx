@@ -415,7 +415,7 @@ const ClaimDetailsViewForm = ({
                   </div>
                 </td>
                 <td style={{ border: "1px solid grey", padding: "3px" }}>
-                <div className="row">
+                  <div className="row">
                     <div className="col-lg-6">
                       <label
                         htmlFor=""
@@ -440,6 +440,36 @@ const ClaimDetailsViewForm = ({
                         }}
                       >
                         {claim?.claimDetails?.InspectionTypeOfConduct}
+                      </label>
+                    </div>
+                  </div>
+                </td>
+                <td style={{ border: "1px solid grey", padding: "3px" }}>
+                  <div className="row">
+                    <div className="col-lg-6">
+                      <label
+                        htmlFor=""
+                        className="text-color"
+                        style={{
+                          color: "black",
+                          fontSize: "13px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Assigned To
+                      </label>
+                    </div>
+                    <div className="col-lg-6 text-end">
+                      <label
+                        htmlFor=""
+                        className="text-color"
+                        style={{
+                          color: "#1560bd",
+                          fontSize: "13px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {claim?.claimDetails?.AssignedTo}
                       </label>
                     </div>
                   </div>

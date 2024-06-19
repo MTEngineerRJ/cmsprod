@@ -28,6 +28,7 @@ const CreateView = () => {
 
   const router = useRouter();
   const todayDate = new Date();
+  const [AssignedTo, setAssignedTo] = useState("");
   const formattedTodayDate = todayDate.toISOString().split("T")[0];
   const regionType = JSON.parse(localStorage.getItem("regionType"));
 
@@ -59,6 +60,7 @@ const CreateView = () => {
 
   const [allServicingOffice, setAllServicingOffice] = useState([]);
   const [brokerMailId, setBrokerMailId] = useState("intimationmt@gmail.com");
+  const [allAvailableUsers, setallAvailableUsers] = useState([]);
 
   useEffect(() => {
     setPolicyStartEnd(getNextYear(policyStartDate));
@@ -72,6 +74,19 @@ const CreateView = () => {
     }
   }, [region]);
 
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    axios
+      .get("/api/getAllUsers", {
+        headers: {
+          Authorization: `Bearer ${userInfo[0].Token}`,
+        },
+      })
+      .then((res) => {
+        setallAvailableUsers(res.data.data.results);
+      })
+      .catch((Err) => {});
+  }, []);
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     if (userInfo[0].IsPreInspection) {
@@ -92,12 +107,12 @@ const CreateView = () => {
         console.log(err);
       });
   }, []);
-  
-  useEffect(()=>{
-    if(String(region).toLowerCase().includes("preinspection")){
+
+  useEffect(() => {
+    if (String(region).toLowerCase().includes("preinspection")) {
       setInspectionType("pre-inspection");
     }
-  },[region]);
+  }, [region]);
 
   const submitHandler = () => {
     setDisable(true);
@@ -132,6 +147,7 @@ const CreateView = () => {
       NatureOfLoss: natureOfLoss,
       InspectionTypeOfConduct: InspectionTypeOfConduct || "Digital",
       EstimatedLoss: estimatedLoss,
+      AssignedTo,
     };
     if (
       String(payload.Region).toLowerCase() === "preinspection" &&
@@ -158,6 +174,14 @@ const CreateView = () => {
       });
       setDisable(false);
     } else if (
+      !payload.AssignedTo &&
+      String(payload.InspectionType).toLowerCase() === "preinspection"
+    ) {
+      toast.error("Assigned To ", {
+        className: "toast-loading-message",
+      });
+      setDisable(false);
+    } else if (
       !payload.Region &&
       String(payload.Region).toLowerCase() !== "preinspection"
     ) {
@@ -165,17 +189,18 @@ const CreateView = () => {
         className: "toast-loading-message",
       });
       setDisable(false);
-    } 
-    else if (
+    } else if (
       !String(payload?.InspectionType).toLowerCase().includes("inspection") &&
       String(payload.Region).toLowerCase() === "preinspection"
     ) {
-      toast.error("Inspection Type should be *Preinspection* for the selected Region !", {
-        className: "toast-loading-message",
-      });
+      toast.error(
+        "Inspection Type should be *Preinspection* for the selected Region !",
+        {
+          className: "toast-loading-message",
+        }
+      );
       setDisable(false);
-    } 
-    else {
+    } else {
       toast.loading("Adding claim!!", {
         className: "toast-loading-message",
       });
@@ -800,42 +825,89 @@ const CreateView = () => {
               </div>
             )}
 
-        { preInspectionHide ? <div className="col-lg-4">
-          <div className="row mt-1">
-            <div className="col-lg-5 my_profile_setting_input form-group">
-              <label
-                className="text-color"
-                style={{
-                  color: "#2e008b",
-                  fontWeight: "",
-                }}
-              >
-                Type Of Conduct
-              </label>
-            </div>
-            <div className="col-lg-7">
-              <select
-                className="selectpicker form-select"
-                data-live-search="true"
-                data-width="100%"
-                value={InspectionTypeOfConduct}
-                onChange={(e) => setInspectionTypeOfConduct(e.target.value)}
-              >
-                {
-                  <option data-tokens="Status1" value={"Digital"}>
-                    Digital
-                  </option>
-                }
+        {preInspectionHide ? (
+          <div className="col-lg-4">
+            <div className="row mt-1">
+              <div className="col-lg-5 my_profile_setting_input form-group">
+                <label
+                  className="text-color"
+                  style={{
+                    color: "#2e008b",
+                    fontWeight: "",
+                  }}
+                >
+                  Type Of Conduct
+                </label>
+              </div>
+              <div className="col-lg-7">
+                <select
+                  className="selectpicker form-select"
+                  data-live-search="true"
+                  data-width="100%"
+                  value={InspectionTypeOfConduct}
+                  onChange={(e) => setInspectionTypeOfConduct(e.target.value)}
+                >
+                  {
+                    <option data-tokens="Status1" value={"Digital"}>
+                      Digital
+                    </option>
+                  }
 
-                {
-                  <option data-tokens="Status2" value={"Manual"}>
-                    Manual
-                  </option>
-                }
-              </select>
+                  {
+                    <option data-tokens="Status2" value={"Manual"}>
+                      Manual
+                    </option>
+                  }
+                </select>
+              </div>
             </div>
           </div>
-        </div> : ""}
+        ) : (
+          ""
+        )}
+
+        {preInspectionHide ? (
+          <div className="col-lg-4">
+            <div className="row mt-1">
+              <div className="col-lg-5 my_profile_setting_input form-group">
+                <label
+                  className="text-color"
+                  style={{
+                    color: "#2e008b",
+                    fontWeight: "",
+                  }}
+                >
+                  Assigned To
+                </label>
+              </div>
+              <div className="col-lg-7">
+                <select
+                  className="selectpicker form-select"
+                  data-live-search="true"
+                  data-width="100%"
+                  value={AssignedTo}
+                  onChange={(e) => setAssignedTo(e.target.value)}
+                >
+                  <option data-tokens="Status2" value={""}></option>
+
+                  {allAvailableUsers.map((user, index) => {
+                    return (
+                      <option
+                        key={index}
+                        data-tokens="Status2"
+                        value={user?.Username}
+                      >
+                        {user?.Username}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
 
         <div className="col-lg-12">
           <div className="my_profile_setting_input">
@@ -850,7 +922,7 @@ const CreateView = () => {
         </div>
       </div>
     </>
-  ); 
+  );
 };
 
 export default CreateView;

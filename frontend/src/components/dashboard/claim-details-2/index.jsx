@@ -45,6 +45,7 @@ const Index = ({}) => {
   const [policyIssuingOffice, setPolicyIssuingOffice] = useState("");
 
   const [claimRegion, setClaimRegion] = useState("");
+  const [AssignedTo, setAssignedTo] = useState("");
 
   const [claimServicingOffice, setClaimServicingOffice] = useState("");
 
@@ -118,6 +119,8 @@ const Index = ({}) => {
   const [TransferDate, setTransferDate] = useState("");
 
   const [VehicleInsuranceUpto, setVehicleInsuranceUpto] = useState("");
+
+  const [allAvailableUsers, setallAvailableUsers] = useState([]);
 
   const [EngineNumber, setEngineNumber] = useState("");
   const [AddedBy, setAddedBy] = useState("");
@@ -258,6 +261,12 @@ const Index = ({}) => {
       claim?.claimDetails?.PolicyPeriodEnd
         ? formatDateFinal(claim?.claimDetails?.PolicyPeriodEnd)
         : policyEndDate
+    );
+
+    setAssignedTo(
+      claim?.claimDetails?.AssignedTo
+        ? claim?.claimDetails?.AssignedTo
+        : AssignedTo
     );
 
     setInsuranceCompanyNameAddress(
@@ -605,9 +614,9 @@ const Index = ({}) => {
     );
 
     setInspectionTypeOfConduct(
-      claim?.claimDetails?.InspectionTypeOfConduct ?
-      claim?.claimDetails?.InspectionTypeOfConduct :
-      "Digital"
+      claim?.claimDetails?.InspectionTypeOfConduct
+        ? claim?.claimDetails?.InspectionTypeOfConduct
+        : "Digital"
     );
 
     setBrokerMailAddress(
@@ -663,7 +672,7 @@ const Index = ({}) => {
           },
           params: {
             LeadId: leadId,
-            Username : userInfo[0]?.Username
+            Username: userInfo[0]?.Username,
           },
         })
         .then((res) => {
@@ -673,14 +682,6 @@ const Index = ({}) => {
         .catch((err) => {
           toast.error(err);
         });
-
-      // axios
-      //   .get("/api/getAllRegions")
-      //   .then((res) => {
-      //     setAllListedRegions(res.data.data);
-      //   })
-      //   .catch((err) => {});
-
       axios
         .get("/api/getDocumentList", {
           headers: {
@@ -776,6 +777,20 @@ const Index = ({}) => {
     setDisable(false);
     setFinalDisable(false);
   }, [leadId]);
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    axios
+      .get("/api/getAllUsers", {
+        headers: {
+          Authorization: `Bearer ${userInfo[0].Token}`,
+        },
+      })
+      .then((res) => {
+        setallAvailableUsers(res.data.data.results);
+      })
+      .catch((Err) => {});
+  }, []);
 
   useEffect(() => {
     setIsLoading(false);
@@ -943,7 +958,8 @@ const Index = ({}) => {
       Pin,
       InspectionTypeOfConduct,
       token: userInfo[0].Token,
-      Username : userInfo[0]?.Username
+      AssignedTo,
+      Username: userInfo[0]?.Username,
     };
     setDisable(true);
 
@@ -999,7 +1015,7 @@ const Index = ({}) => {
         >
           <SidebarMenu
             leadId={leadId}
-            isInspectionType = {1}
+            isInspectionType={1}
             VehicleType={RcVehicleType}
             email={claim.insuredDetails?.InsuredMailAddress}
             policyNo={claim.claimDetails?.PolicyNumber}
@@ -1177,8 +1193,12 @@ const Index = ({}) => {
                           ) : (
                             <ClaimDetailsEditForm
                               claim={claim}
+                              AssignedTo={AssignedTo}
+                              setAssignedTo={setAssignedTo}
                               InspectionTypeOfConduct={InspectionTypeOfConduct}
-                              setInspectionTypeOfConduct={setInspectionTypeOfConduct}
+                              setInspectionTypeOfConduct={
+                                setInspectionTypeOfConduct
+                              }
                               allListedRegions={allListedRegions}
                               finalDisable={finalDisable}
                               disable={disable}
@@ -1228,6 +1248,7 @@ const Index = ({}) => {
                               setGarageMailAddress={setGarageMailAddress}
                               BrokerMailAddress={BrokerMailAddress}
                               GarageMailAddress={GarageMailAddress}
+                              allAvailableUsers={allAvailableUsers}
                             />
                           )}
                         </div>
@@ -1385,8 +1406,6 @@ const Index = ({}) => {
                             />
                           </div>
                         </div>
-
-                        
                       </div>
                     </div>
                     <div className="col-lg-3">
@@ -1435,8 +1454,6 @@ const Index = ({}) => {
                               leadId={leadId}
                             />
                           </div>
-
-                          
                         </div>
                       </div>
                     </div>
@@ -1456,9 +1473,7 @@ const Index = ({}) => {
                   </div>
                 </div>
               </div>
-              
             </div>
-           
           </div>
         </div>
       </section>

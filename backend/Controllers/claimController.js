@@ -34,7 +34,8 @@ const addClaim = (req, res) => {
     PlaceOfLoss,
     NatureOfLoss,
     EstimatedLoss,
-    InspectionTypeOfConduct
+    InspectionTypeOfConduct,
+    AssignedTo,
   } = req.body;
 
   const authorizationHeader = req.headers.authorization;
@@ -64,6 +65,7 @@ const addClaim = (req, res) => {
       PolicyIssuingOffice,
       PolicyType,
       InspectionTypeOfConduct,
+      AssignedTo,
       IsActive
     ) VALUES (
       '${SurveyType}',
@@ -82,6 +84,7 @@ const addClaim = (req, res) => {
       '${PolicyIssuingOffice}',
       'Regular',
       '${InspectionTypeOfConduct}',
+      '${AssignedTo}',
       ${parseInt(IsActive)}
     );
   `;
@@ -226,76 +229,19 @@ const addClaim = (req, res) => {
                 .json({ error: "Error calling InsertIntoIDTable." });
             }
 
-            // if (InsuredMailAddress !== "" && RegisteredNumber && addLeadId) {
-            //   axios
-            //     .post(
-            //       `${process.env.BACKEND_DOMAIN}/email/sendEmail/1`,
-            //       {
-            //         vehicleNo: RegisteredNumber,
-            //         PolicyNo: PolicyNumber,
-            //         Insured: InsuredName,
-            //         InspectionType: InspectionType,
-            //         toMail: InsuredMailAddress,
-            //         Date: new Date(),
-            //         leadId: addLeadId,
-            //         Region: Region,
-            //         BrokerMailAddress: BrokerMailAddress,
-            //         GarageMailAddress: GarageMailAddress,
-            //         type: 1,
-            //       },
-            //       {
-            //         headers: {
-            //           Authorization: `Bearer ${token}`,
-            //           "Content-Type": "application/json",
-            //         },
-            //       }
-            //     )
-            //     .then(() => {
-            //       logMessage({
-            //         type: "info",
-            //         Function: "SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL",
-            //         message: "Sent Successfully.",
-            //         username: AddedBy,
-            //         leadId: addLeadId,
-            //         consoleInfo: "200 OK",
-            //         info: "SENT SUCCESSFULLY",
-            //       });
+            logMessage({
+              type: "info",
+              Function: "SUCCESSFULLY_ADDED_CLAIM",
+              message: "Added Successfully.",
+              username: AddedBy,
+              leadId: addLeadId,
+              consoleInfo: "200 OK",
+              info: "FETCHED SUCCESSFULLY",
+            });
 
-            //       return res
-            //         .status(200)
-            //         .json({ message: "Data inserted successfully." });
-            //     })
-            //     .catch((error) => {
-            //       logMessage({
-            //         type: "error",
-            //         Function: "SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL",
-            //         message: "Got Error while sending the acknowledgment mail.",
-            //         username: AddedBy,
-            //         leadId: addLeadId,
-            //         consoleInfo: `${error.status} ${error.details}`,
-            //         info: `{ERRMESSAGE: ${
-            //           error.details
-            //         }, STATUS: ${`${error.status} ${error.message}`}}`,
-            //       });
-            //       console.error("Error sending email:", error);
-            //       return res
-            //         .status(500)
-            //         .json({ error: "Error sending acknowledgment email." });
-            //     });
-            // } else {
-              logMessage({
-                type: "info",
-                Function: "SUCCESSFULLY_ADDED_CLAIM",
-                message: "Added Successfully.",
-                username: AddedBy,
-                leadId: addLeadId,
-                consoleInfo: "200 OK",
-                info: "FETCHED SUCCESSFULLY",
-              });
-
-              return res
-                .status(200)
-                .json({ message: "Data inserted successfully." });
+            return res
+              .status(200)
+              .json({ message: "Data inserted successfully." });
             // }
           });
         });
@@ -304,16 +250,15 @@ const addClaim = (req, res) => {
   });
 };
 
-
 const getSpecificClaim = async (req, res) => {
   const leadId = req.query.LeadId;
   const Username = req.query.Username;
-
 
   const executeQuery = (query, values) => {
     return new Promise((resolve, reject) => {
       db.query(query, values, (err, result) => {
         if (err) {
+          console.log(err);
           reject(err);
         } else {
           resolve(result[0]);
@@ -518,7 +463,7 @@ const getSpecificClaim = async (req, res) => {
       driverOnlineDetails,
       commercialVehicleDetails,
       summaryDetails,
-      AccidentDetailsSpot
+      AccidentDetailsSpot,
     };
     res.json(combinedResult);
   } catch (error) {
@@ -824,22 +769,31 @@ const updateClaim = async (req, res) => {
 };
 
 const getAllClaims = (req, res) => {
-  const { Region1, Region2, Region3, Username, Region4, Region5,Region6, CalimStatus } =
-    req.query;
-  const sql = "CALL GetPolicyInfoByRegions(?, ?, ?, ?, ?,?)";
+  const {
+    Region1,
+    Region2,
+    Region3,
+    Username,
+    Region4,
+    Region5,
+    Region6,
+    CalimStatus,
+  } = req.query;
+  const sql = "CALL GetPolicyInfoByRegions(?, ?, ?, ?, ?,?,?,?)";
   const params = [
     Region1,
     Region2 || null,
     Region3 || null,
     Region4 || null,
     Region5 || null,
-    // Region6 || null,
+    Region6 || null,
     CalimStatus || null,
-
+    Username,
   ];
 
   db.query(sql, params, (err, result) => {
     if (err) {
+      console.log(err);
       logMessage({
         type: "error",
         Function: "FETCHING_ALL_CLAIMS",
@@ -986,6 +940,7 @@ const updateClaimDetails = (req, res) => {
     LeadId,
     InspectionTypeOfConduct,
     Username,
+    AssignedTo
   } = req.body;
 
   const formattedPolicyEnd = PolicyPeriodEnd;
@@ -1011,7 +966,10 @@ const updateClaimDetails = (req, res) => {
       IsDriverDetailsFetched ? IsDriverDetailsFetched : ""
     },
     IsRcDetailsFetched = ${IsRcDetailsFetched ? IsRcDetailsFetched : ""},
-    InspectionTypeOfConduct='${InspectionTypeOfConduct ? InspectionTypeOfConduct : "Digital"}',
+    InspectionTypeOfConduct='${
+      InspectionTypeOfConduct ? InspectionTypeOfConduct : "Digital"
+    }',
+    AssignedTo='${AssignedTo}',
     InsuranceCompanyNameAddress = '${
       InsuranceCompanyNameAddress ? `${InsuranceCompanyNameAddress}` : ""
     }'
