@@ -1158,7 +1158,7 @@ const PolicyDetails = ({
                     </div>
                   </div>
                 </div>
-                {/* <div className="col-lg-3 text-end">
+                <div className="col-lg-3 text-end">
                   <div className="form-group form-check custom-checkbox">
                     <label
                       className="form-check-label"
@@ -1183,7 +1183,7 @@ const PolicyDetails = ({
                       onChange={(e) => setTotalLoss(!TotalLoss)}
                     />
                   </div>
-                </div> */}
+                </div>
                 <div className="col-lg-2">
                   <div className="form-group form-check custom-checkbox">
                     <label

@@ -46,13 +46,19 @@ const getStringFromObject = (array) => {
   let finalArray = [];
   const result = Object.entries(array).map(([key, value]) => {
     const temp = `
-  <span> ${value.depPct} % depreciation on ${key} parts worth Rupees ${value.overAllValue} = ${value.Value} </span> <br/>`;
-    //    <td style={{ width: "40%" }} className="text-end">
-    //   <span className="fw-bold text-dark">
-    //     {" "}
-    //     ${value.Value}
-    //   </span>
-    // </td>
+  <td style={{ width: "60%" }} className="text-start">
+  <div>
+    ${value.depPct} % depreciation on ${key} parts worth Rupees ${value.overAllValue} = ${value.Value}
+  </div>
+</td>
+
+<td style={{ width: "40%" }} className="text-end">
+  <span className="fw-bold text-dark">
+    {" "}
+    ${value.Value}
+  </span>
+</td>
+  `;
     if (value?.Value > 0) {
       finalArray.push(temp);
     }
@@ -248,7 +254,6 @@ export const replaceFunction = (
     getDepreciationArray(allNewParts, allDepreciations, claim)
   );
 
-
   string = string?.replace("**lessExcess**", claim?.summaryDetails?.LessExcess);
 
   string = string?.replace(
@@ -271,6 +276,18 @@ export const replaceFunction = (
     )
   );
 
+  if(claim?.claimDetails?.PolicyType !== "Regular"){
+    string = string?.replace(
+      "**POLICYTYPE**",
+      'NIL DEPRECIATION'
+    );
+  }
+  else{
+    string = string?.replace(
+      "**POLICYTYPE**",
+      'REGULAR'
+    );
+  }
   string = string?.replace(
     "**ExpectedSalvage**",
     claim?.summaryDetails?.ExpectedSalvage
@@ -315,8 +332,6 @@ export const replaceFunction = (
     claim?.totalLoss?.WreckValueWith
   );
 
-
-  
   string = string?.replace(
     "**MissingItems**",
     claim?.totalLoss?.MissingItem

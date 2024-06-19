@@ -1,29 +1,19 @@
 import axios from "axios";
- async function handler (request,response) {
-
-    
+ async function handler (request,response) {    
   try {
     const token = request.headers.authorization;
-
     const domain = process.env.BACKEND_DOMAIN;
+    const leadId = request.query.LeadId;
 
-    const { Region1, Region2, Region3, Region4,Region6,Username, Region5, CalimStatus } = request.query;
-    const userResponse = await axios.get(`${domain}/claim/getAllClaims`,
+    const userResponse = await axios.get(`${domain}/report/getSpotReport`,
     {
         headers: {
           Authorization:token,
           "Content-Type":"application/json"
         },
-        params: {
-          Region1,
-          Region2,
-          Region3,
-          Region4,
-          Region5,
-          Region6,
-          CalimStatus,
-          Username
-        },
+        params:{
+            LeadId : leadId
+        }
         
       });
     const users = userResponse.data;
@@ -31,7 +21,7 @@ import axios from "axios";
 
     return response.status(200).json({msg:"OK",data : users});
   } catch (err) {
-    console.log(err)
+    
     if (err.response) {
       // If the error is from an axios request (e.g., HTTP 4xx or 5xx error)
       const axiosError = err.response.data;

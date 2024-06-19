@@ -3,7 +3,6 @@ const db = require("../Config/dbConfig");
 
 const getReportDocuments = (req, res) => {
   const LeadId = req.query.leadId;
-  console.log("DcoList",LeadId)
   const sql = "SELECT * FROM ReportDocuments WHERE LeadId = ?";
   db.query(sql, [LeadId],  (error, results) => {
     if (error) {

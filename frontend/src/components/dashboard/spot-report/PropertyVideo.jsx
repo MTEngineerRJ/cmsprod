@@ -17,16 +17,6 @@ import {
 import { AccidentContent, summaryNotes } from "./Content";
 import toast from "react-hot-toast";
 
-const materials = [
-  { qty: "12", desc: "12", price: "12" },
-  { qty: "", desc: "", price: "" },
-  { qty: "", desc: "", price: "" },
-  { qty: "", desc: "", price: "" },
-  { qty: "", desc: "", price: "" },
-  { qty: "", desc: "", price: "" },
-  { qty: "", desc: "", price: "" },
-  { qty: "", desc: "", price: "" },
-];
 
 const PropertyVideo = ({ SomeComponent, leadId }) => {
   const [isOpen, setOpen] = useState(false);
@@ -146,7 +136,6 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
         },
         params: {
           LeadId: leadId,
-          Username : userInfo[0]?.Username
         },
       })
       .then((res) => {
@@ -236,6 +225,14 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
 
   const [totalMetalRows,settotalMetalRows]=useState(0);
   const [DepreciationValue,setDepreciationValue]=useState(0);
+
+  const calculateDepreciation = ()=>{
+
+  }
+
+  // useEffect(()=>{
+  //   setExpectedSalvage(Number(totalMetalRows) * Number(MetalPercent)/100);
+  // },[totalMetalRows])
 
 
   const returnTotal = () => {
@@ -525,6 +522,24 @@ const [AccidentTime,setAccidentTime]=useState("");
   const [ThirdPartyLoss, setThirdPartyLoss] = useState("");
   const [Assessment, setAssessment] = useState("");
 
+  const [Vehicle_Shifted_To,setVehicle_Shifted_To] = useState("");
+  const [PersonArrestedOnSpot,setPersonArrestedOnSpot] = useState("");
+  const [SurveyInspectiononMedium,setSurveyInspectiononMedium] = useState("");
+  const [PolicStationName,setPolicStationName] = useState("");
+  const [StationDiaryNo,setStationDiaryNo] = useState("");
+  const [LoadChallan,setLoadChallan] = useState("");
+  const [NatureOfGoodsInLoad,setNatureOfGoodsInLoad] = useState("");
+  const [WeightOfGoodsInLoad,setWeightOfGoodsInLoad] = useState("");
+  const [OriginToDestination,setOriginToDestination] = useState("");
+  const [LRInvoiceNoInLoad,setLRInvoiceNoInLoad] = useState("");
+  const [TransporterNameInLoad,setTransporterNameInLoad] = useState("");
+  const [NoOfPassengerInLoad,setNoOfPassengerInLoad] = useState("");
+  const [NatureOfGoodsThirdParty,setNatureOfGoodsThirdParty] = useState("");
+  const [QuantityOfGoodsThirdParty,setQuantityOfGoodsThirdParty] = useState("");
+  const [OriginToDestThirdParty,setOriginToDestThirdParty] = useState("");
+  const [LRInvoiceNoThirdParty,setLRInvoiceNoThirdParty] = useState("");
+
+
   //RC
   const [RCOwner, setRCOwner] = useState("");
   const [RCSDW, setRCSDW] = useState("");
@@ -564,16 +579,6 @@ const [AccidentTime,setAccidentTime]=useState("");
     return '';
   }
 
-  const removeHtmlTags = (htmlString) => {
-    // Remove HTML tags
-    const plainText = htmlString.replace(/<[^>]*>/g, '');
-  
-    // Replace <br> with newline characters
-    const withLineBreaks = plainText.replace(/<br\s*\/?>/g, '\n');
-  
-    return withLineBreaks;
-  };
-
   const replaceSingleQuoteToDoubleQuotes = (string) => {
     string = string.replace(/'/g, '"'); // Use a regular expression with the 'g' flag to replace all occurrences
     return string;
@@ -584,22 +589,6 @@ const [AccidentTime,setAccidentTime]=useState("");
   },[totalLabrorAssessed,totalPartsAssessed,lessExcess,lessImposed,Other]);
 
   console.log(PolicyPeriodStart);
-
-  
-  const convertStringTime=(inputDateString)=>{
-    const parsedDate = new Date(inputDateString);
-
-  // Extract day, month, and year components
-  const day = parsedDate.getDate();
-  const month = parsedDate.getMonth() + 1; // Note: Months are zero-indexed
-  const year = parsedDate.getFullYear();
-  
-  // Format the components to dd/mm/yyyy format
-  const formattedDateString = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`;
-  
-  console.log("formatted",formattedDateString)
-  return formattedDateString;
-  }
 
   function getMonthNumber(monthName) {
     const months = {
@@ -866,18 +855,25 @@ const formatDateFinal = (inputDate2,type) => {
     setTotalLoss(claim?.claimDetails?.TotalLoss !==null ? claim?.claimDetails?.TotalLoss : "")
     setIMT(claim?.claimDetails?.IMT !==null ? claim?.claimDetails?.IMT : "")
     setphyCheck(claim?.vehicleDetails?.phyCheck !==null ? claim?.vehicleDetails?.phyCheck : "" )
-    setShowInReport(claim?.commercialVehicleDetails?.IsActive)
+    setShowInReport(claim?.commercialVehicleDetails?.IsActive);
+
+    setVehicle_Shifted_To(claim?.AccidentDetailsSpot?.Vehicle_Shifted_To || "");
+    setPersonArrestedOnSpot(claim?.AccidentDetailsSpot?.PersonArrestedOnSpot || "");
+    setPolicStationName(claim?.AccidentDetailsSpot?.PoliceStationName || "");
+    setStationDiaryNo(claim?.AccidentDetailsSpot?.StationDiaryNo || "");
+    setNatureOfGoodsInLoad(claim?.AccidentDetailsSpot?.NatureOfGoodsInLoad || "");
+    setWeightOfGoodsInLoad(claim?.AccidentDetailsSpot?.WeightOfGoodsInLoad || "");
+    setOriginToDestination(claim?.AccidentDetailsSpot?.OriginToDestInLoad || "");
+    setLRInvoiceNoInLoad(claim?.AccidentDetailsSpot?.LRInvoiceNoInLoad || "");
+    setTransporterNameInLoad(claim?.AccidentDetailsSpot?.TransporterNameInLoad || "");
+    setNoOfPassengerInLoad(claim?.AccidentDetailsSpot?.TransporterNameInLoad || "");
+    setNatureOfGoodsThirdParty(claim?.AccidentDetailsSpot?.NatureOfGoodsThirdParty|| "");
+    setQuantityOfGoodsThirdParty(claim?.AccidentDetailsSpot?.QuantityOfGoodsThirdParty || "");
+    setOriginToDestThirdParty(claim?.AccidentDetailsSpot?.OriginToDestThirdParty || "");
+    setLRInvoiceNoThirdParty(claim?.AccidentDetailsSpot?.LRInvoiceNoThirdParty || "");
+
   }, [claim]);
 
-  // console.log("PolicyPeriodStart-----------",PolicyPeriodStart,claim?.claimDetails?.PolicyPeriodStart);
-  // const calculateVehicleAge = () => {
-  //   if (
-  //     !claim.vehicleDetails?.DateOfRegistration  ||
-  //     claim?.vehicleDetails?.DateOfRegistration === "undefined" ||
-  //     !claim.claimDetails?.AddedDateTime
-  //   ) {
-  //     return "0";
-  //   }
     const calculateVehicleAge = () => {
       if (
         !claim.vehicleDetails?.DateOfRegistration  ||
@@ -1071,8 +1067,23 @@ const formatDateFinal = (inputDate2,type) => {
       IMT : IMT,
       phyCheck,
       ValidUpto,
+      OriginToDestThirdParty,
+      LRInvoiceNoThirdParty,
+      QuantityOfGoodsThirdParty,
+      NatureOfGoodsThirdParty,
+      NoOfPassengerInLoad,
+      TransporterNameInLoad,
+      LRInvoiceNoInLoad,
+      OriginToDestination,
+      WeightOfGoodsInLoad,
+      NatureOfGoodsInLoad,
+      StationDiaryNo,
+      PolicStationName,
+      SurveyInspectiononMedium,
+      PersonArrestedOnSpot,
+      Vehicle_Shifted_To,
+      InspectionType : claim?.claimDetails?.InspectionType,
       leadId,
-      Username : userInfo[0]?.Username
     };
     
     console.log('----1084',payload);
@@ -1160,17 +1171,7 @@ const formatDateFinal = (inputDate2,type) => {
             Damages
           </a>
         </li>
-        {/* <li className="nav-item">
-          <a
-            className="nav-link"
-            data-bs-toggle="tab"
-            href="#labour"
-            role="tab"
-            style={{ padding: "10px" }}
-          >
-            Labour
-          </a>
-        </li> */}
+        
         <li className="nav-item">
           <a
             className="nav-link"
@@ -1404,22 +1405,7 @@ const formatDateFinal = (inputDate2,type) => {
                 claim={claim}
               />
               
-              {/* <Image
-                width={692}
-                height={390}
-                className="pro_img  w100 w-100 cover"
-                src="/assets/images/background/7.jpg"
-                alt="7.jpg"
-              />
-              <div className="overlay_icon">
-                <div
-                  onClick={() => setOpen(true)}
-                  role="button"
-                  className="video_popup_btn red popup-youtube"
-                >
-                  <span className="flaticon-play"></span>
-                </div>
-              </div> */}
+              
             </div>
           </div>
         </div>
@@ -1548,7 +1534,40 @@ const formatDateFinal = (inputDate2,type) => {
                 setThirdPartyLoss={setThirdPartyLoss}
                 Assessment={Assessment}
                 setAssessment={setAssessment}
+                Vehicle_Shifted_To={Vehicle_Shifted_To}
+                setVehicle_Shifted_To={setVehicle_Shifted_To}
+                PersonArrestedOnSpot={PersonArrestedOnSpot}
+                setPersonArrestedOnSpot={setPersonArrestedOnSpot}
+                SurveyInspectiononMedium={SurveyInspectiononMedium}
+                setSurveyInspectiononMedium={setSurveyInspectiononMedium}
+                PolicStationName={PolicStationName}
+                setPolicStationName={setPolicStationName}
+                StationDiaryNo={StationDiaryNo}
+                setStationDiaryNo={setStationDiaryNo}
+                LoadChallan={LoadChallan}
+                setLoadChallan={setLoadChallan}
+                NatureOfGoodsInLoad={NatureOfGoodsInLoad}
+                setNatureOfGoodsInLoad={setNatureOfGoodsInLoad}
+                WeightOfGoodsInLoad={WeightOfGoodsInLoad}
+                setWeightOfGoodsInLoad={setWeightOfGoodsInLoad}
+                OriginToDestination={OriginToDestination}
+                setOriginToDestination={setOriginToDestination}
+                LRInvoiceNoInLoad={LRInvoiceNoInLoad}
+                setLRInvoiceNoInLoad={setLRInvoiceNoInLoad}
+                TransporterNameInLoad={TransporterNameInLoad}
+                setTransporterNameInLoad={setTransporterNameInLoad}
+                NoOfPassengerInLoad={NoOfPassengerInLoad}
+                setNoOfPassengerInLoad={setNoOfPassengerInLoad}
+                NatureOfGoodsThirdParty={NatureOfGoodsThirdParty}
+                setNatureOfGoodsThirdParty={setNatureOfGoodsThirdParty}
+                QuantityOfGoodsThirdParty={QuantityOfGoodsThirdParty}
+                setQuantityOfGoodsThirdParty={setQuantityOfGoodsThirdParty}
+                OriginToDestThirdParty={OriginToDestThirdParty}
+                setOriginToDestThirdParty={setOriginToDestThirdParty}
+                LRInvoiceNoThirdParty={LRInvoiceNoThirdParty}
+                setLRInvoiceNoThirdParty={setLRInvoiceNoThirdParty}
                 SaveHandler={saveHandler}
+                LeadId={leadId}
                 claim={claim}
               />
             </div>
@@ -1565,234 +1584,17 @@ const formatDateFinal = (inputDate2,type) => {
                 <Exemple
                   
                   disable={disable}
-                  allNewParts={allNewParts}
-                  setallNewParts={setallNewParts}
                   DateRegistration={DateRegistration}
                   AccidentAddedDateTime={AccidentAddedDateTime}
                   LeadId={leadId}
                   claim={claim}
-                  settotalMetalRows={settotalMetalRows}
-                  DateOfRegistration={DateRegistration}
-                  policyType={policyType}
-                  includeDepreciation={includeDepreciation}
-                  allDepreciations={allDepreciations}
-                  setAllDepreciations={setAllDepreciations}
-                  ClaimAddedDateTime={ClaimAddedDateTime}
-                  PolicyStartDate={claim.claimDetails?.PolicyPeriodStart}
-                  VehicleAddedDate={
-                    claim.vehicleDetails?.VehicleDateOfRegistration
-                  }
-                  setOverallMetailDep={setOverallMetailDep}
-                  setTotalAgeOfVehicle={setTotalAgeOfVehicle}
-                  ageOfVehicleTotal={ageOfVehicleTotal}
-                  metaldepPct={metaldepPct}
-                  totalPartsEstimate={totalPartsEstimate}
-                  totalLabrorEstimate={totalLabrorEstimate}
-                  totalPartsAssessed={totalPartsAssessed}
-                  totalLabrorAssessed={totalLabrorAssessed}
-                  setTotalPartsEstimate={setTotalPartsEstimate}
-                  setTotalLabrorEstimate={setTotalLabrorEstimate}
-                  setTotalPartsAssessed={setTotalPartsAssessed}
-                  setTotalLabrorAssessed={setTotalLabrorAssessed}
-                  setMetalSalvageValue={setMetalSalvageValue}
+                  
                 />
               </div>
             </div>
           </div>
         </div>
-        <div
-          className="tab-pane fade row pl15 pl0-1199 pr15 pr0-1199"
-          id="labour"
-          role="tabpanel"
-        >
-          <div className="property_video">
-            <div className="thumb">
-              {/* <LabourSection /> */}
-              <div className="row">
-                <div
-                  className="col-lg-9"
-                  style={{ borderRight: "1px solid black" }}
-                >
-                  <Exemple_01
-                   disable={disable}
-                    claim={claim}
-                    setAllLabour={setAllLabour}
-                    currentGst={currentGst}
-                    setTotalAssessed={setTotalAssessed}
-                    totalAssessed={totalAssessed}
-                    setTotalEstimate={setTotalEstimate}
-                    totalEstimate={totalEstimate}
-                    taxAmount={taxAmount}
-                    setTaxAmount={setTaxAmount}
-                    toggleEstimate={toggleEstimate}
-                    setToggleEstimate={setToggleEstimate}
-                    toggleLabor={toggleLabor}
-                    setToggleLabor={setToggleLabor}
-                    allRows={allRows}
-                    setAllRows={setAllRows}
-                    setReload={setReload}
-                    setCurrentGST={setCurrentGst}
-                    ageOfVehicleTotal={ageOfVehicleTotal}
-                    metaldepPct={metaldepPct}
-                    totalPartsEstimate={totalPartsEstimate}
-                    totalLabrorEstimate={totalLabrorEstimate}
-                    totalPartsAssessed={totalPartsAssessed}
-                    totalLabrorAssessed={totalLabrorAssessed}
-                    setTotalPartsEstimate={setTotalPartsEstimate}
-                    setTotalLabrorEstimate={setTotalLabrorEstimate}
-                    setTotalPartsAssessed={setTotalPartsAssessed}
-                    setTotalLabrorAssessed={setTotalLabrorAssessed}
-                  />
-                </div>
-                <div className="col-lg-3">
-                  <LabourForm
-                   disable={disable}
-                   leadId={leadId}
-                   allLabour = {allLabour}
-                  AccidentAddedDateTime={AccidentAddedDateTime}
-                  DateRegistration={DateRegistration}
-                    totalRemainingAssessed={totalRemainingAssessed}
-                    currentGst={currentGst}
-                    totalTaxableAMount={totalTaxableAMount}
-                    setCurrentGST={setCurrentGst}
-                    setTotalAssessed={setTotalAssessed}
-                    totalAssessed={totalAssessed}
-                    totalEstimate={totalEstimate}
-                    allDepreciations={allDepreciations}
-                    setAllDepreciations={setAllDepreciations}
-                    taxAmount={taxAmount}
-                    setTaxAmount={setTaxAmount}
-                    toggleEstimate={toggleEstimate}
-                    setToggleEstimate={setToggleEstimate}
-                    toggleLabor={toggleLabor}
-                    setToggleLabor={setToggleLabor}
-                    setReload={setReload}
-                    laborWOPaint={laborWOPaint}
-                    towingCharges={towingCharges}
-                    setTowingCharges={setTowingCharges}
-                    loadBody={loadBody}
-                    setLoadBody={setLoadBody}
-                    cabin={cabin}
-                    setCabin={setCabin}
-                    claim={claim}
-                    depMetal={depMetal}
-                    ageOfVehicle={ageOfVehicle}
-                    metaldepPct={metaldepPct}
-                    setmetaldepPct={setmetaldepPct}
-                    ageOfVehicleTotal={ageOfVehicleTotal}
-                    setAgeOfvehicleTotal={setAgeOfvehicleTotal}
-                  />
-                </div>
-                <div className="col-lg-12 mt-5">
-                  <div className="row mt-1">
-                    {/* <div className="col-lg-5">
-                      <button className="btn btn-color m-1">Cancel</button>
-                      {isEditMode ? (
-                        <button className="btn btn-color m-1">Update</button>
-                      ) : (
-                        <button className="btn btn-color m-1">Save</button>
-                      )}
-                    </div> */}
-                    <div className="col-lg-2">
-                      {/* <div className="row mt-1">
-                        <div className="col-lg-7 my_profile_setting_input form-group text-end">
-                          <label
-                            htmlFor=""
-                            className="text-color"
-                            style={{
-                              // paddingTop: "15px",
-                              color: "#2e008b",
-                              fontWeight: "",
-                              // marginTop: "-13px",
-                              fontSize: "12px",
-                            }}
-                          >
-                            Age of Vehicle
-                          </label>
-                        </div>
-                        <div className="col-lg-5">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="propertyTitle"
-                            value={calculateVehicleAge()}
-                            // readOnly={!isEditMode}
-                            // onChange={(e) => setLicenseType(e.target.value)}
-
-                            // placeholder="Enter Registration No."
-                          />
-                        </div>
-                          </div>*/}
-                    </div>
-                    <div className="col-lg-2">
-                      <div className="row mt-1">
-                        <div className="col-lg-7 my_profile_setting_input form-group text-end">
-                          <label
-                            htmlFor=""
-                            className="text-color"
-                            style={{
-                              // paddingTop: "15px",
-                              color: "#2e008b",
-                              fontWeight: "",
-                              // marginTop: "-13px",
-                              fontSize: "12px",
-                            }}
-                          >
-                            Age of Policy
-                          </label>
-                        </div>
-                        <div className="col-lg-5">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="propertyTitle"
-                            value={calculateVehicleAge()}
-                            // value={props.assessed}
-                            // readOnly={!isEditMode}
-                            // onChange={(e) => setLicenseType(e.target.value)}
-
-                            // placeholder="Enter Registration No."
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-3 ">
-                      <div className="row mt-1">
-                        <div className="col-lg-7 my_profile_setting_input form-group text-end">
-                          <label
-                            htmlFor=""
-                            className="text-color"
-                            style={{
-                              // paddingTop: "15px",
-                              color: "#2e008b",
-                              fontWeight: "",
-                              // marginTop: "-13px",
-                              fontSize: "12px",
-                            }}
-                          >
-                            Depreciation on metal(%)
-                          </label>
-                        </div>
-                        <div className="col-lg-4">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="propertyTitle"
-                            value={calculateDepreciationOnMetal()}
-                            // readOnly={!isEditMode}
-                            // onChange={(e) => setLicenseType(e.target.value)}
-
-                            // placeholder="Enter Registration No."
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
         <div
           className="tab-pane fade row pl15 pl0-1199 pr15 pr0-1199"
           id="summary"
@@ -1891,17 +1693,7 @@ const formatDateFinal = (inputDate2,type) => {
             </div>
           </div>
         </div>
-        {/* <div
-          className="tab-pane fade row pl15 pl0-1199 pr15 pr0-1199"
-          id="table"
-          role="tabpanel"
-        >
-          <div className="property_video">
-            <div className="thumb">
-              <Table data={materials} />
-            </div>
-          </div>
-        </div> */}
+       
       </div>
       {/* End .tab-conten */}
     </>

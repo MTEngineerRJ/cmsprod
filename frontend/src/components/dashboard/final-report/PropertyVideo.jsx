@@ -1690,7 +1690,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
           </a>
         </li>
        
-        {!claim?.claimDetails?.TotalLoss ? <li className="nav-item">
+         <li className="nav-item">
           <a
             className="nav-link "
             data-bs-toggle="tab"
@@ -1700,8 +1700,8 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
           >
             New Parts
           </a>
-        </li> : ""}
-        {!claim?.claimDetails?.TotalLoss ? <li className="nav-item">
+        </li> 
+         <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="tab"
@@ -1711,7 +1711,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
           >
             Labour
           </a>
-        </li> : ""}
+        </li>
         {!claim?.claimDetails?.TotalLoss ? <li className="nav-item">
           <a
             className="nav-link"
@@ -2275,10 +2275,6 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
                             className="form-control"
                             id="propertyTitle"
                             value={calculateDepreciationOnMetal()}
-                            // readOnly={!isEditMode}
-                            // onChange={(e) => setLicenseType(e.target.value)}
-
-                            // placeholder="Enter Registration No."
                           />
                         </div>
                       </div>

@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
-import MyDatePicker from "../../common/MyDatePicker";
-// import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-// import { Editor } from "draft-js";
-import { Editor } from "primereact/editor";
 import ReactEditor from "../../common/TextEditor";
 import { addVariables, getDocumentList, summaryNotes } from "./Content";
 import axios from "axios";
 
 const Summary = ({
-  isEditMode,
-  metaldepPct,
-  ageOfVehicleTotal,
   claim,
   disable,
   DepreciationValue,

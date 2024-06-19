@@ -8,7 +8,7 @@ import {
 export const getTotalLoss = (claim,allLabour,allNewParts,currentGst,allDepreciations) => {
   const string = `<div class="col-lg-6 offset-3">
       <h4 class="text-center text-dark mb-5">
-        Total Loss Calculation (Nil Depreciation)
+        Total Loss Calculation (**POLICYTYPE**)
       </h4>
 
       <table style=" width: 100% ">
@@ -74,7 +74,7 @@ export const getTotalLoss = (claim,allLabour,allNewParts,currentGst,allDepreciat
         <tr>
           
 
-        <td>$getDepreciationArray$</td>
+        $getDepreciationArray$
         </tr>
         <tr>
           <td style=" width: 30% " class="text-start">

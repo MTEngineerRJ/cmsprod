@@ -7,24 +7,12 @@ import axios from "axios";
 
     const domain = process.env.BACKEND_DOMAIN;
 
-    const { Region1, Region2, Region3, Region4,Region6,Username, Region5, CalimStatus } = request.query;
-    const userResponse = await axios.get(`${domain}/claim/getAllClaims`,
+    const userResponse = await axios.get(`${domain}/spot/getDamagePartsType`,
     {
         headers: {
           Authorization:token,
           "Content-Type":"application/json"
-        },
-        params: {
-          Region1,
-          Region2,
-          Region3,
-          Region4,
-          Region5,
-          Region6,
-          CalimStatus,
-          Username
-        },
-        
+        }
       });
     const users = userResponse.data;
 
