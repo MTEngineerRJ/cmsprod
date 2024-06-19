@@ -96,6 +96,7 @@ const ReactEditor = ({ editorContent, setEditorContent,index, finalValue,readOnl
       id={`editorDiv-${index}`}
         contentEditable={!readOnly} 
         style={{
+          backgroundColor:"white",
           border: "1px solid #ccc",
           minHeight: "200px",
           padding: "10px",

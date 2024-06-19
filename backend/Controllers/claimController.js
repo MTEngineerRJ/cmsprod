@@ -769,17 +769,9 @@ const updateClaim = async (req, res) => {
 };
 
 const getAllClaims = (req, res) => {
-  const {
-    Region1,
-    Region2,
-    Region3,
-    Username,
-    Region4,
-    Region5,
-    Region6,
-    CalimStatus,
-  } = req.query;
-  const sql = "CALL GetPolicyInfoByRegions(?, ?, ?, ?, ?,?,?,?)";
+  const { Region1, Region2, Region3, Username, Region4, Region5,Region6, CalimStatus } =
+    req.query;
+  const sql = "CALL GetPolicyInfoByRegionsNew(?, ?, ?, ?, ?,?, ?)";
   const params = [
     Region1,
     Region2 || null,
@@ -790,7 +782,7 @@ const getAllClaims = (req, res) => {
     CalimStatus || null,
     Username,
   ];
-
+  {console.log(sql, params);}
   db.query(sql, params, (err, result) => {
     if (err) {
       console.log(err);
