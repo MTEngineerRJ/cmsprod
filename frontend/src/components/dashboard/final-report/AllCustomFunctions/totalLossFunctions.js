@@ -46,19 +46,13 @@ const getStringFromObject = (array) => {
   let finalArray = [];
   const result = Object.entries(array).map(([key, value]) => {
     const temp = `
-  <td style={{ width: "60%" }} className="text-start">
-  <div>
-    ${value.depPct} % depreciation on ${key} parts worth Rupees ${value.overAllValue} = ${value.Value}
-  </div>
-</td>
-
-<td style={{ width: "40%" }} className="text-end">
-  <span className="fw-bold text-dark">
-    {" "}
-    ${value.Value}
-  </span>
-</td>
-  `;
+    <span> ${value.depPct} % depreciation on ${key} parts worth Rupees ${value.overAllValue} = ${value.Value} </span> <br/>`;
+    //    <td style={{ width: "40%" }} className="text-end">
+    //   <span className="fw-bold text-dark">
+    //     {" "}
+    //     ${value.Value}
+    //   </span>
+    // </td>
     if (value?.Value > 0) {
       finalArray.push(temp);
     }
@@ -227,7 +221,13 @@ export const replaceFunction = (
   claim,
   allDepreciations
 ) => {
-  let string = getTotalLoss(claim,allLabour,allNewParts,currentGst,allDepreciations);
+  let string = getTotalLoss(
+    claim,
+    allLabour,
+    allNewParts,
+    currentGst,
+    allDepreciations
+  );
   console.log("replaceFunction", string);
   string = string?.replace(
     "**getTotalLossTotalCostOfNewParts**",
@@ -276,37 +276,21 @@ export const replaceFunction = (
     )
   );
 
-  if(claim?.claimDetails?.PolicyType !== "Regular"){
-    string = string?.replace(
-      "**POLICYTYPE**",
-      'NIL DEPRECIATION'
-    );
-  }
-  else{
-    string = string?.replace(
-      "**POLICYTYPE**",
-      'REGULAR'
-    );
+  if (claim?.claimDetails?.PolicyType !== "Regular") {
+    string = string?.replace("**POLICYTYPE**", "NIL DEPRECIATION");
+  } else {
+    string = string?.replace("**POLICYTYPE**", "REGULAR");
   }
   string = string?.replace(
     "**ExpectedSalvage**",
     claim?.summaryDetails?.ExpectedSalvage
   );
 
-  string = string?.replace(
-    "**lessExcess**",
-    claim?.summaryDetails?.LessExcess
-  );
+  string = string?.replace("**lessExcess**", claim?.summaryDetails?.LessExcess);
 
-  string = string?.replace(
-    "**LessExcess**",
-    claim?.summaryDetails?.LessExcess
-  );
+  string = string?.replace("**LessExcess**", claim?.summaryDetails?.LessExcess);
 
-  string = string?.replace(
-    "**IDV**",
-    claim?.claimDetails?.IDV
-  );
+  string = string?.replace("**IDV**", claim?.claimDetails?.IDV);
 
   string = string?.replace(
     "**getTotalIMTValue**",
@@ -332,10 +316,7 @@ export const replaceFunction = (
     claim?.totalLoss?.WreckValueWith
   );
 
-  string = string?.replace(
-    "**MissingItems**",
-    claim?.totalLoss?.MissingItem
-  );
+  string = string?.replace("**MissingItems**", claim?.totalLoss?.MissingItem);
 
   string = string?.replace(
     "**IDV+Rti_Amount**",
