@@ -13,6 +13,7 @@ import {
   grandTotalWithGST
 } from "./functions";
 import LayoutView from "./LayoutView";
+import axios from "axios";
 const BaseLayout = ({ feeReport, allOffices }) => {
   const pdfRef = useRef();
 
@@ -20,6 +21,7 @@ const BaseLayout = ({ feeReport, allOffices }) => {
   const [Estimate, setEstimate] = useState(0);
 
   const [selectedServicingOffice, setSelectedServicingOffice] = useState([]);
+  const [selectedAssignedOffice, setSelectedAssignedOffice] = useState([]);
 
   useEffect(() => {
     const name =
@@ -41,6 +43,23 @@ const BaseLayout = ({ feeReport, allOffices }) => {
     setSelectedServicingOffice(requiredOffice);
   }, [allOffices, feeReport]);
 
+  useEffect(()=>{
+    if(feeReport?.claimDetails?.AssignedTo !== ''){
+    
+    axios
+        .get("/api/getAssignedOffice", {
+          params: {
+            name: feeReport?.claimDetails?.AssignedTo,
+          },
+        })
+        .then((res) => {
+          const requiredAAssignedInfo = res.data.data.results[0];
+          setSelectedAssignedOffice(requiredAAssignedInfo);
+        })
+        .catch((err) => {});
+      }
+  },[feeReport]);
+
   useEffect(() => {
     calculateTotalAssessed(feeReport, setAssessed, setEstimate);
   }, [feeReport]);
@@ -61,6 +80,8 @@ const BaseLayout = ({ feeReport, allOffices }) => {
       calculateIGST={calculateIGST}
       grandTotalWithGST={grandTotalWithGST}
       numberToWords={numberToWords}
+      selectedAssignedOffice={selectedAssignedOffice}
+      setSelectedAssignedOffice={setSelectedAssignedOffice}
     />
   );
 };

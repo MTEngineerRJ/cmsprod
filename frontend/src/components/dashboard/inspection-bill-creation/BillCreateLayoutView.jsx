@@ -86,20 +86,33 @@ const BillCreateLayoutView = ({
   disable,
   onSubmitHnadler,
 }) => {
-  useEffect(()=>{
-    console.log(allInfo)
-    if(String(BillTo).toLowerCase().includes('assigned')){
-      axios.get("/api/getAssignedOffice",{
-        params:{
-          name : allInfo?.otherInfo[0]?.AssignedTo
-        }
-      })
-      .then((res)=>{
-        console.log("getAssignedOffice",res);
-      })
-      .catch((err)=>{});
+  useEffect(() => {
+    if (String(BillTo).toLowerCase().includes("assigned")) {
+      axios
+        .get("/api/getAssignedOffice", {
+          params: {
+            name: allInfo?.otherInfo[0]?.AssignedTo,
+          },
+        })
+        .then((res) => {
+          const requiredAAssignedInfo = res.data.data.results[0];
+          if (String(requiredAAssignedInfo?.StateCode) === "8") {
+            setCGST(9);
+            setSGST(9);
+            setIGST(0);
+          } else {
+            setCGST(0);
+            setSGST(0);
+            setIGST(18);
+          }
+        })
+        .catch((err) => {});
+    } else {
+      setCGST(0);
+      setSGST(0);
+      setIGST(0);
     }
-  },[BillTo]);
+  }, [BillTo]);
   return (
     <>
       <div className="row">

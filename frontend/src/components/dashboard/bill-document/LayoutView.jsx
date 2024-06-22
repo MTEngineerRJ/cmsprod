@@ -14,7 +14,9 @@ const LayoutView = ({
     calculateIGST,
     calculateSGST,
     grandTotalWithGST,
-    numberToWords
+    numberToWords,
+    selectedAssignedOffice,
+    setSelectedAssignedOffice
 })=>{
     return (<div
       className=""
@@ -91,7 +93,40 @@ const LayoutView = ({
                             </span>
                           </div>
                         </>
-                      ) : (
+                      ) 
+                      : feeReport?.feeDetails?.BillTo === "Assigned Office" ? (
+                        <>
+                          <span style={{ marginLeft: "25px" }}>
+                            {
+                             selectedAssignedOffice?.OfficeAddress
+                            }
+                            ,
+                          </span>
+                          <br />
+                          <span style={{ marginLeft: "25px" }}>
+                            {`${ selectedAssignedOffice?.OfficeName ? selectedAssignedOffice?.OfficeName : '-'} ${selectedAssignedOffice?.OfficeCode ? selectedAssignedOffice?.OfficeCode : '-'}`}
+                          </span>
+                          <br />
+                          <span style={{ marginLeft: "25px" }}>
+                            {selectedAssignedOffice?.State}
+                          </span>
+                          <br />
+                          <div
+                            className="d-flex gap-5"
+                            style={{ marginLeft: "25px" }}
+                          >
+                            <span style={{ marginLeft: "" }}>
+                              GSTIN : {selectedAssignedOffice?.GST_No}
+                            </span>
+                            <br />
+                            <span style={{ marginLeft: "" }}>
+                              State Code : {selectedAssignedOffice?.StateCode}
+                            </span>
+                          </div>
+                        </>
+                      ):
+                      
+                      (
                         <>
                           <span style={{ marginLeft: "25px" }}>
                             {
