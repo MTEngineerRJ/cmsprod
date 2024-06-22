@@ -23,7 +23,7 @@ const preInspectionRoute = require("./Routes/PreInspectionImagesRoute");
 const partsRoute = require("./Routes/vehiclePartsRoutes");
 const spotRoute = require("./Routes/spotRoute");
 const userRoutes = require("./Routes/userRoutes");
-const assignedRoutes = require("./Routes/assignedOfficeController");
+const assignedRoutes = require("./Routes/assignedOfficeRoutes");
 const multer = require("multer");
 
 

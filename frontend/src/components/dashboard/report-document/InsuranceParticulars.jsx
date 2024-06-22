@@ -95,12 +95,6 @@ const InsuranceParticulars = ({ allInfo }) => {
             <span>
               {" "}
               {allInfo?.otherInfo[0]?.InsuredName}
-              {allInfo?.driverOnlineDetails?.FatherName
-                ? String(allInfo?.otherInfo[0]?.Gender) === "Female"
-                  ? ` D/o ${allInfo?.otherInfo[0]?.FatherName}`
-                  : ` S/o ${allInfo?.otherInfo[0]?.FatherName}`
-                : "-"}
-              ,{" "}
               {allInfo?.otherInfo[0]?.InsuredMobileNo1 === null
                 ? allInfo?.otherInfo[0]?.InsuredMobileNo1
                 : allInfo?.otherInfo[0]?.InsuredMobileNo1}{" "}
