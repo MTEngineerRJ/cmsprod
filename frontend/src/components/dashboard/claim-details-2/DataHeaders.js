@@ -5,46 +5,26 @@ const statusOptions = [
   },
   {
     id: 2,
-    value: "Estimate Approval Pending",
-  },
-  {
-    id: 3,
-    value: "Vehicle Under repair",
-  },
-  {
-    id: 4,
-    value: "Invoice Approval Pending",
-  },
-  {
-    id: 5,
-    value: "Surveyor Report Pending",
-  },
-  {
-    id: 6,
-    value: "Hard Copies Pending",
-  },
-  {
-    id: 7,
     value: "Soft Copy Completed",
   },
   {
-    id: 8,
+    id: 3,
     value: "Payment Pending",
   },
   {
-    id: 9,
+    id: 4,
     value: "Settled Cases",
   },
   {
-    id: 10,
+    id: 5,
     value: "Withdrawl/Rejected",
   },
   {
-    id: 11,
+    id: 6,
     value: "More Info Required",
   },
   {
-    id: 12,
+    id: 7,
     value: "My Claims",
   },
 ];

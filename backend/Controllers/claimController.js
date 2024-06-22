@@ -771,7 +771,7 @@ const updateClaim = async (req, res) => {
 const getAllClaims = (req, res) => {
   const { Region1, Region2, Region3, Username, Region4, Region5,Region6, CalimStatus } =
     req.query;
-  const sql = "CALL GetPolicyInfoByRegions(?, ?, ?, ?, ?,?, ?)";
+  const sql = "CALL GetPolicyInfoByRegions(?, ?, ?, ?, ?,?, ?,?)";
   const params = [
     Region1,
     Region2 || null,

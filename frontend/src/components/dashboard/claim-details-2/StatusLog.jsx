@@ -219,20 +219,13 @@ const StatusLog = ({
       return true;
     } else if (
       stat.id === currentStatus ||
-      stat.id === 10 ||
-      stat.id === 11 ||
+      stat.id === 5 ||
+      stat.id === 6 ||
       stat.id === currentStatus + 1 ||
       stat.id === currentStatus - 1
     ) {
       return true;
     }
-  };
-  const getCurrentStatus = () => {
-    let status = "";
-    statusOptions.map((stat, index) => {
-      if (stat.id === currentStatus) status = stat;
-    });
-    return status;
   };
   return (
     <>
