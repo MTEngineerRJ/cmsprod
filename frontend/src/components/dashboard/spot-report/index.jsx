@@ -91,14 +91,7 @@ const Index = ({ SomeComponent, leadId }) => {
                     </div>
                   </div>
                 </div>
-                {/* End Dashboard Navigation */}
-
-                {/* <div className="col-lg-12 mb10">
-                  <div className="breadcrumb_content style2">
-                    <h2 className="breadcrumb_title">Message</h2>
-                    <p>We are glad to see you again!</p>
-                  </div>
-                </div> */}
+                
               </div>
               {/* End .row */}
               <div className="shop_single_tab_content style2">

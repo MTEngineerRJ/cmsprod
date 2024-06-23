@@ -1690,7 +1690,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
           </a>
         </li>
        
-        <li className="nav-item">
+         <li className="nav-item">
           <a
             className="nav-link "
             data-bs-toggle="tab"
@@ -1700,8 +1700,8 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
           >
             New Parts
           </a>
-        </li>
-        <li className="nav-item">
+        </li> 
+         <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="tab"
@@ -1712,7 +1712,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
             Labour
           </a>
         </li>
-        <li className="nav-item">
+        {!claim?.claimDetails?.TotalLoss ? <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="tab"
@@ -1722,7 +1722,18 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
           >
             Summary & Notes
           </a>
-        </li>
+        </li> : ""}
+        {claim?.claimDetails?.TotalLoss ?  <li className="nav-item">
+          <a
+            className="nav-link"
+            data-bs-toggle="tab"
+            href="#totalLoss"
+            role="tab"
+            style={{ padding: "10px" }}
+          >
+            Total Loss
+          </a>
+        </li> : ""}
 
         <li className="nav-item" style={{ marginLeft: "360px" }}>
           <a href={`/claim-details?leadId=${claim.LeadID}`}>{claim.PolicyNo}</a>
@@ -2264,10 +2275,6 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
                             className="form-control"
                             id="propertyTitle"
                             value={calculateDepreciationOnMetal()}
-                            // readOnly={!isEditMode}
-                            // onChange={(e) => setLicenseType(e.target.value)}
-
-                            // placeholder="Enter Registration No."
                           />
                         </div>
                       </div>
@@ -2375,7 +2382,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
             </div>
           </div>
         </div>
-        {/* <div
+        <div
           className="tab-pane fade row pl15 pl0-1199 pr15 pr0-1199"
           id="totalLoss"
           role="tabpanel"
@@ -2408,7 +2415,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
                />
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </>
   );

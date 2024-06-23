@@ -14,7 +14,9 @@ const LayoutView = ({
     calculateIGST,
     calculateSGST,
     grandTotalWithGST,
-    numberToWords
+    numberToWords,
+    selectedAssignedOffice,
+    setSelectedAssignedOffice
 })=>{
     return (<div
       className=""
@@ -91,7 +93,40 @@ const LayoutView = ({
                             </span>
                           </div>
                         </>
-                      ) : (
+                      ) 
+                      : feeReport?.feeDetails?.BillTo === "Assigned Office" ? (
+                        <>
+                          <span style={{ marginLeft: "25px" }}>
+                            {
+                             selectedAssignedOffice?.OfficeAddress
+                            }
+                            ,
+                          </span>
+                          <br />
+                          <span style={{ marginLeft: "25px" }}>
+                            {`${ selectedAssignedOffice?.OfficeName ? selectedAssignedOffice?.OfficeName : '-'} ${selectedAssignedOffice?.OfficeCode ? selectedAssignedOffice?.OfficeCode : '-'}`}
+                          </span>
+                          <br />
+                          <span style={{ marginLeft: "25px" }}>
+                            {selectedAssignedOffice?.State}
+                          </span>
+                          <br />
+                          <div
+                            className="d-flex gap-5"
+                            style={{ marginLeft: "25px" }}
+                          >
+                            <span style={{ marginLeft: "" }}>
+                              GSTIN : {selectedAssignedOffice?.GST_No}
+                            </span>
+                            <br />
+                            <span style={{ marginLeft: "" }}>
+                              State Code : {selectedAssignedOffice?.StateCode}
+                            </span>
+                          </div>
+                        </>
+                      ):
+                      
+                      (
                         <>
                           <span style={{ marginLeft: "25px" }}>
                             {
@@ -221,7 +256,7 @@ const LayoutView = ({
                   <td></td>
                   <td></td>
                 </tr>
-                { !String(feeReport?.claimDetails?.Region).toLowerCase().includes("preinspection") && <tr>
+                <tr>
                   <td>
                     <span>Date Of Accident</span>
                   </td>
@@ -242,8 +277,8 @@ const LayoutView = ({
                       ₹ {addCommasToNumber(roundOff(Number(Assessed)))}
                     </span>
                   </td>
-                </tr>}
-                { !String(feeReport?.claimDetails?.Region).toLowerCase().includes("preinspection") && <tr>
+                </tr>
+                <tr>
                   <td>
                     <span>Policy/cover note no</span>
                   </td>
@@ -260,8 +295,8 @@ const LayoutView = ({
                       ₹ {addCommasToNumber(roundOff(Number(Estimate)))}
                     </span>
                   </td>
-                </tr>}
-                { !String(feeReport?.claimDetails?.Region).toLowerCase().includes("preinspection") && <tr>
+                </tr>
+                <tr>
                   <td>
                     <span>Claim No</span>
                   </td>
@@ -281,7 +316,7 @@ const LayoutView = ({
                       )}
                     </span>
                   </td>
-                </tr>}
+                </tr>
               </table>
             </div>
           </div>
@@ -388,7 +423,7 @@ const LayoutView = ({
               <span>
                 C GST @{" "}
                 {addCommasToNumber(
-                  roundOff((feeReport?.feeDetails?.Cgst))
+                  roundOff(Number(feeReport?.feeDetails?.Cgst))
                 )}{" "}
                 %
               </span>
@@ -396,7 +431,7 @@ const LayoutView = ({
               <span>
                 S GST @{" "}
                 {addCommasToNumber(
-                  roundOff((feeReport?.feeDetails?.Sgst))
+                  roundOff(Number(feeReport?.feeDetails?.Sgst))
                 )}{" "}
                 %{" "}
               </span>
@@ -404,7 +439,7 @@ const LayoutView = ({
               <span>
                 I GST @{" "}
                 {addCommasToNumber(
-                  roundOff((feeReport?.feeDetails?.Igst))
+                  roundOff(Number(feeReport?.feeDetails?.Igst))
                 )}{" "}
                 %
               </span>
@@ -425,15 +460,15 @@ const LayoutView = ({
               <br />
               <br />
               <span>
-                ₹ {addCommasToNumber((calculateCGST(feeReport)))}
+                ₹ {addCommasToNumber(roundOff(calculateCGST(feeReport)))}
               </span>
               <br />
               <span>
-                ₹ {addCommasToNumber((calculateSGST(feeReport)))}
+                ₹ {addCommasToNumber(roundOff(calculateSGST(feeReport)))}
               </span>
               <br />
               <span>
-                ₹ {addCommasToNumber((calculateIGST(feeReport)))}
+                ₹ {addCommasToNumber(roundOff(calculateIGST(feeReport)))}
               </span>
             </td>
           </tr>
@@ -461,7 +496,7 @@ const LayoutView = ({
               }}
             >
               <span>
-                ₹ {addCommasToNumber((grandTotalWithGST(feeReport)))}
+                ₹ {addCommasToNumber(roundOff(grandTotalWithGST(feeReport)))}
               </span>
             </td>
           </tr>
@@ -487,7 +522,7 @@ const LayoutView = ({
               }}
             >
               <span>
-                ₹ {addCommasToNumber((grandTotalWithGST(feeReport)))}
+                ₹ {addCommasToNumber(roundOff(grandTotalWithGST(feeReport)))}
               </span>
             </td>
           </tr>

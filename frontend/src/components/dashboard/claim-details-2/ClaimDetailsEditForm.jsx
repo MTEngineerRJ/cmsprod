@@ -16,6 +16,8 @@ const ClaimDetailsEditForm = ({
   claim,
   disable,
   finalDisable,
+  AssignedTo,
+  setAssignedTo,
   InspectionTypeOfConduct,
   setInspectionTypeOfConduct,
   InsuredName,
@@ -53,6 +55,7 @@ const ClaimDetailsEditForm = ({
   setGarageMailAddress,
   BrokerMailAddress,
   GarageMailAddress,
+  allAvailableUsers
 }) => {
   const [allServicingOffice, setAllServicingOffice] = useState([]);
 
@@ -659,6 +662,46 @@ const ClaimDetailsEditForm = ({
                     Manual
                   </option>
                 }
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-lg-4">
+          <div className="row mt-1">
+          <div className="col-lg-4 my_profile_setting_input form-group">
+              <label
+                htmlFor=""
+                className="text-color"
+                style={{
+                  // paddingTop: "15px",
+                  color: "#1560bd",
+                  fontSize: "14px",
+                  // marginTop: "-13px",
+                }}
+              >
+                Assigned To
+              </label>
+            </div>
+            <div className="col-lg-7">
+              <select
+                className="selectpicker form-select"
+                data-live-search="true"
+                data-width="100%"
+                value={AssignedTo}
+                onChange={(e) => setAssignedTo(e.target.value)}
+              >
+                <option data-tokens="Status2" value={""}>
+                      
+                      </option>
+                    
+                    {allAvailableUsers.map((user, index) => {
+                      return (
+                        <option key={index} data-tokens="Status2" value={user?.Username}>
+                          {user?.Username}
+                        </option>
+                      );
+                    })}
               </select>
             </div>
           </div>

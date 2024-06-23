@@ -17,7 +17,6 @@ const formatDate = (dateString) => {
     const roundedValue = parseFloat(value).toFixed();
     return roundedValue;
   };
-
   function numberToWords(number) {
     const units = [
       "",
@@ -272,7 +271,7 @@ const formatDate = (dateString) => {
   const calculateCGST = (feeReport) => {
     const total = calculateTheTotalBillWithoutGST(feeReport);
 
-    const CGST = parseFloat(parseFloat(Number(feeReport?.feeDetails?.Cgst) * Number(total)) / 100);
+    const CGST = (Number(feeReport?.feeDetails?.Cgst) * Number(total)) / 100;
 
     return CGST;
   };

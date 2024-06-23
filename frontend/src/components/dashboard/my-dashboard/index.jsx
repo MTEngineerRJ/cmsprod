@@ -295,7 +295,7 @@ const Index = () => {
               </div>
               <div
                 className="row mt-2"
-                style={{ justifyContent: "space-between" }}
+                
               >
                 <ClaimsHeadingCards
                   allClaims={

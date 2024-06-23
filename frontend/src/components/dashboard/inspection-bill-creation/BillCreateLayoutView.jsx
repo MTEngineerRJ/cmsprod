@@ -1,5 +1,7 @@
 import DatePicker from "react-datepicker";
 import { addCommasToNumber, roundOff } from "./functions";
+import { useEffect } from "react";
+import axios from "axios";
 
 const BillCreateLayoutView = ({
   allInfo,
@@ -84,6 +86,33 @@ const BillCreateLayoutView = ({
   disable,
   onSubmitHnadler,
 }) => {
+  useEffect(() => {
+    if (String(BillTo).toLowerCase().includes("assigned")) {
+      axios
+        .get("/api/getAssignedOffice", {
+          params: {
+            name: allInfo?.otherInfo[0]?.AssignedTo,
+          },
+        })
+        .then((res) => {
+          const requiredAAssignedInfo = res.data.data.results[0];
+          if (String(requiredAAssignedInfo?.StateCode) === "8") {
+            setCGST(9);
+            setSGST(9);
+            setIGST(0);
+          } else {
+            setCGST(0);
+            setSGST(0);
+            setIGST(18);
+          }
+        })
+        .catch((err) => {});
+    } else {
+      setCGST(0);
+      setSGST(0);
+      setIGST(0);
+    }
+  }, [BillTo]);
   return (
     <>
       <div className="row">
@@ -230,8 +259,8 @@ const BillCreateLayoutView = ({
                   <option data-tokens="Status1" value={"Insured"}>
                     Insured
                   </option>
-                  <option data-tokens="Status2" value={"Appointing Office"}>
-                    Appointing office
+                  <option data-tokens="Status2" value={"Assigned Office"}>
+                    Assigned Office
                   </option>
                   <option data-tokens="Status3" value={"Insurer"}>
                     Insurer

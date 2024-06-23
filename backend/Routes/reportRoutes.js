@@ -9,5 +9,6 @@ router.get("/", reportController.getAllInfo);
 
 router.get("/getBillInfo", reportController.getBillInfo);
 
+router.get("/getSpotReport", reportController.getSpotReportInfo);
 
 module.exports = router;

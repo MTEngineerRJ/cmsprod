@@ -4,7 +4,7 @@ const db = require("../Config/dbConfig");
 
 const getSpecificLabourer = (req,res)=>{
     const leadId = req.params.leadId;
-    db.query("SELECT * FROM LabourReport", (err, result2) => {
+    db.query("SELECT * FROM LabourReport WHERE LeadID = ?",[leadId] ,(err, result2) => {
       if (err) {
         console.error(err);
         res.status(500).send("Internal Server Error");
@@ -18,7 +18,6 @@ const updateLabrorer = async (req, res) => {
     try {
       const leadId = req.params.leadId;
       const data = JSON.parse(req.body.allRows);
-   
       const gstPct = (req.body.gstPct);
       const promises = data.map((row) => {
         return new Promise((resolve, reject) => {
@@ -34,6 +33,7 @@ const updateLabrorer = async (req, res) => {
               GSTPercentage,
               IsActive,
               JobType,
+              IsImt,
               LeadID
             ) VALUES (
               '${row.description}',
@@ -46,6 +46,7 @@ const updateLabrorer = async (req, res) => {
               '${gstPct}',
               '${row.isActive}',
                ${row.type},
+               ${row.imt},
               '${parseInt(leadId)}'
             );
           `;
@@ -61,7 +62,8 @@ const updateLabrorer = async (req, res) => {
               IsGSTIncluded='${row.gst}',
               GSTPercentage='${gstPct}',
               IsActive='${row.isActive}',
-              JobType=${row.type}
+              JobType=${row.type},
+              IsImt=${row.imt}
             WHERE SNO = '${row.sno}' AND
             LeadID = '${leadId}';
           `;

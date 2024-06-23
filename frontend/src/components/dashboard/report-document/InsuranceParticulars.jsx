@@ -95,7 +95,6 @@ const InsuranceParticulars = ({ allInfo }) => {
             <span>
               {" "}
               {allInfo?.otherInfo[0]?.InsuredName}
-             
               {allInfo?.otherInfo[0]?.InsuredMobileNo1 === null
                 ? allInfo?.otherInfo[0]?.InsuredMobileNo1
                 : allInfo?.otherInfo[0]?.InsuredMobileNo1}{" "}

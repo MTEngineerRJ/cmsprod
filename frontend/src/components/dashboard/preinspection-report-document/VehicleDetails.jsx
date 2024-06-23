@@ -104,8 +104,8 @@ const VehicleDetails = ({ allInfo }) => {
                         <tr>
                           <td>
                             <img
-                              width={20}
-                              height={20}
+                              width={25}
+                              height={25}
                               priority
                               // className="w100"
                               // src={getCurrentImage().src}
@@ -213,8 +213,8 @@ const VehicleDetails = ({ allInfo }) => {
                         <tr>
                           <td>
                             <img
-                              width={20}
-                              height={20}
+                              width={25}
+                              height={25}
                               priority
                               // className="w100"
                               // src={getCurrentImage().src}
@@ -332,8 +332,8 @@ const VehicleDetails = ({ allInfo }) => {
                         <tr>
                           <td>
                             <img
-                              width={20}
-                              height={20}
+                              width={25}
+                              height={25}
                               priority
                               // className="w100"
                               // src={getCurrentImage().src}
