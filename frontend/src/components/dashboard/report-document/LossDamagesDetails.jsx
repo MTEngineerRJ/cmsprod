@@ -65,10 +65,10 @@ const LossDamagesDetails = ({ allInfo }) => {
             {allInfo?.otherInfo[0]?.InsuranceCompanyNameAddress}{" "}
             {allInfo?.otherInfo[0]?.ClaimServicingOffice}
           </b>{" "}
-          dated <b>{formatDate(allInfo?.otherInfo[0]?.AddedDateTime)}</b> I
-          visited <b>{allInfo?.otherInfo[0]?.GarageNameAndAddress}</b> and
+          dated <b>{formatDate(allInfo?.otherInfo[0]?.DateOfAccident)}</b> I
+          visited <b>{allInfo?.otherInfo[0]?.PlaceOfSurvey}</b> and
           inspected the subject vehicle, reported to have met with an accident
-          on <b>{formatDate(allInfo?.otherInfo[0]?.AddedDateTime)}</b> Between{" "}
+          on <b>{formatDate(allInfo?.otherInfo[0]?.DateOfAccident)}</b> Between{" "}
           {allInfo?.otherInfo[0]?.PlaceOfLoss} and snapped the vehicle from
           different angles before and after dismantling. <br />
           <br />
