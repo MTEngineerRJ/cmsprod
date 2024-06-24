@@ -1134,7 +1134,7 @@ const BillCreateLayoutView = ({
                   type="text"
                   className="form-control"
                   id="broker_mail_id"
-                  value={addCommasToNumber(roundOff(CGSTValue))}
+                  value={addCommasToNumber((CGSTValue))}
                 />
               </div>
             </div>
@@ -1178,7 +1178,7 @@ const BillCreateLayoutView = ({
                   type="text"
                   className="form-control"
                   id="broker_mail_id"
-                  value={addCommasToNumber(roundOff(SGSTValue))}
+                  value={addCommasToNumber((SGSTValue))}
                 />
               </div>
             </div>
@@ -1222,7 +1222,7 @@ const BillCreateLayoutView = ({
                   type="text"
                   className="form-control"
                   id="broker_mail_id"
-                  value={addCommasToNumber(roundOff(IGSTValue))}
+                  value={addCommasToNumber((IGSTValue))}
                 />
               </div>
             </div>
