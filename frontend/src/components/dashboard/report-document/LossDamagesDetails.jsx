@@ -65,7 +65,7 @@ const LossDamagesDetails = ({ allInfo }) => {
             {allInfo?.otherInfo[0]?.InsuranceCompanyNameAddress}{" "}
             {allInfo?.otherInfo[0]?.ClaimServicingOffice}
           </b>{" "}
-          dated <b>{formatDate(allInfo?.otherInfo[0]?.DateOfAccident)}</b> I
+          dated <b>{formatDate(allInfo?.otherInfo[0]?.AddedDateTime)}</b> I
           visited <b>{allInfo?.otherInfo[0]?.PlaceOfSurvey}</b> and
           inspected the subject vehicle, reported to have met with an accident
           on <b>{formatDate(allInfo?.otherInfo[0]?.DateOfAccident)}</b> Between{" "}
