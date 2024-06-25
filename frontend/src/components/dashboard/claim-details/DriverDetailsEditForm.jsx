@@ -86,6 +86,8 @@ const DriverDetailsEditForm = ({
       setVov(details?.Vov);
       setPht(details?.Pht);
       setPhoto(details?.Photo);
+      setIssuingAuthority(details?.IssuingAuthority);
+      setLicenseType(details?.LicenseType);
 
       alert("Successfully fetched!!");
     } else {
