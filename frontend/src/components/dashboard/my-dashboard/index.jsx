@@ -137,7 +137,7 @@ const Index = () => {
       const CalimStatus = userInfo[0]["CalimStatus"];
       const Region6 = userInfo[0].IsPreInspection ? "Preinspection" : "";
       const Username = userInfo[0].Username;
-      
+
       toast.loading("Loading the claims!!", {
         className: "toast-loading-message",
       });
@@ -151,7 +151,7 @@ const Index = () => {
             Region5,
             Region6,
             CalimStatus,
-            Username
+            Username,
           },
           headers: {
             Authorization: `Bearer ${userInfo[0]?.Token}`,
@@ -217,6 +217,7 @@ const Index = () => {
         const isAccordingToStatus = String(claim?.Region)
           .toLowerCase()
           .includes(String(regionSearchValue).toLowerCase());
+
         if (
           String(claim?.CurrentStatus) === String(selectedCard) &&
           isAccordingToStatus
@@ -295,11 +296,13 @@ const Index = () => {
               </div>
               <div
                 className="row mt-2"
-                
+                style={{ justifyContent: "space-between" }}
               >
                 <ClaimsHeadingCards
                   allClaims={
-                    selectedCard === 12 || majorSearch !== ""? filterClaims : filterCardClaim
+                    selectedCard === 12 || majorSearch !== ""
+                      ? filterClaims
+                      : filterCardClaim
                   }
                   majorSearch={majorSearch}
                   selectedCard={selectedCard}
@@ -307,7 +310,7 @@ const Index = () => {
                   setSelectedCard={setSelectedCard}
                 />
               </div>
-{/*               <div
+              {/*               <div
                 className=" bg-dark"
                 style={{
                   width: "101%",

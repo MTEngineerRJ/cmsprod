@@ -67,7 +67,7 @@ const ClaimsHeadingCards = ({allClaims,regionSearchValue,setSelectedCard}) => {
           className="col-xs-4 col-sm-2 col-md-6 col-lg-4 col-xl-1"
           key={item.id}
           style={{ padding: "0px" }}
-          onClick={()=>setSelectedCard(index+1)}
+          onClick={()=>setSelectedCard(item.id)}
         >
           <div
             className={`ff_one ${item.blockStyle}`}
