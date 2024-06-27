@@ -229,11 +229,6 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
   const [totalMetalRows, settotalMetalRows] = useState(0);
   const [DepreciationValue, setDepreciationValue] = useState(0);
 
-  const calculateDepreciation = () => {};
-
-  // useEffect(()=>{
-  //   setExpectedSalvage(Number(totalMetalRows) * Number(MetalPercent)/100);
-  // },[totalMetalRows])
 
   const returnTotal = () => {
     const a =
@@ -1712,7 +1707,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
             Labour
           </a>
         </li>
-        {!claim?.claimDetails?.TotalLoss ? <li className="nav-item">
+         <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="tab"
@@ -1722,7 +1717,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
           >
             Summary & Notes
           </a>
-        </li> : ""}
+        </li> 
         {claim?.claimDetails?.TotalLoss ?  <li className="nav-item">
           <a
             className="nav-link"
