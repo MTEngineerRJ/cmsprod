@@ -10,7 +10,7 @@ import { getTotalLoss } from "../final-report/getEditorContent/totalLoss";
 import { string } from "prop-types";
 import axios from "axios";
 
-const TotalLossCalculation = ({ allInfo }) => {
+const TotalLossCalculation = ({ allInfo ,claim}) => {
  
   const [allLabour,setallLabour] =useState([]);
   const [allNewParts,setallNewParts] = useState([]);
@@ -42,17 +42,62 @@ const TotalLossCalculation = ({ allInfo }) => {
         }
       })
       const defaultNewParts = allInfo?.newPartsDetails;
-
-      setallLabour(defaultLabour);
-      setallNewParts(defaultNewParts);
+      setallLabour(getFormattedLabour(defaultLabour));
+      setallNewParts(getFormattedNewParts(defaultNewParts));
       setcurrentGst(requiredGST);
   },[]);
 
 
   useEffect(()=>{
-    const value =totalLossData(allInfo,allLabour,allNewParts,allDepreciations,currentGst);
+    const value =totalLossData(claim,allLabour,allNewParts,allDepreciations,currentGst);
     setrequiredData(value);
   },[allInfo,allDepreciations,allNewParts,allLabour])
+  
+  const getFormattedNewParts=(data)=>{
+    let formattedData = [];
+    data.map((part,index)=>{
+      const temp = {
+        assessed : part.NewPartsAssessed,
+        bill_sr : part?.NewPartsBillSr,
+        dep : part?.NewPartsDepreciationPct,
+        description : part?.NewPartsItemName,
+        estimate : part?.NewPartsEstimate,
+        gst : part?.NewPartsGSTPct,
+        imt : part?.IsImt,
+        isActive : part?.NewPartsIsActive,
+        qa : part?.QA,
+        qe : part?.QE,
+        remark : part?.NewPartsRemark,
+        sac : part?.NewPartsHSNCode,
+        sno : part?.SNO,
+        total : part?.NewPartsTotal,
+        type : part?.NewPartsTypeOfMaterial
+      };
+      formattedData.push(temp);
+    })
+    return formattedData;
+  }
+
+  const getFormattedLabour=(data)=>{
+    let formattedData = [];
+    data.map((labour,index)=>{
+      const temp = {
+        assessed : labour.Assessed,
+        bill_sr : labour?.BillSr,
+        description : labour?.Description,
+        estimate : labour?.Estimate,
+        gst : labour?.IsGSTIncluded,
+        imt : labour?.IsImt,
+        isActive : labour?.LabourIsActive,
+        sac : labour?.SAC,
+        sno : labour?.Id,
+        type : labour?.JobType
+      };
+      formattedData.push(temp);
+    })
+    return formattedData;
+  }
+
   return (
     requiredData
   );

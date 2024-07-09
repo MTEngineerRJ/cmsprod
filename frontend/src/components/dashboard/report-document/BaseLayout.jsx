@@ -17,7 +17,7 @@ import LiabilityUnderImt from "./LiabilityUnderImt";
 import TotalLossCalculation from "./TotalLossCalculation";
 import LiabilityUnderImtLabour from "./LiabilityUnderImtLabour";
 
-const BaseLayout = ({ allInfo }) => {
+const BaseLayout = ({ allInfo,claim }) => {
   const pdfRef = useRef();
   const [totalIMTLabourValue,setTotalIMTLabourValue] = useState(0);
   const [totalIMTNewPartValue,setTotalIMTNewPartValue] = useState(0);
@@ -184,7 +184,7 @@ const BaseLayout = ({ allInfo }) => {
         <SummaryOfAssessment  totalIMTLabourValue={totalIMTLabourValue} totalIMTNewPartValue={totalIMTNewPartValue} allInfo={allInfo} />
 
         <GSTSummary allInfo={allInfo} totalIMTLabourValue={totalIMTLabourValue} totalIMTNewPartValue={totalIMTNewPartValue}/>
-        {allInfo?.otherInfo[0]?.TotalLoss && <TotalLossCalculation allInfo={allInfo}/>}
+        {allInfo?.otherInfo[0]?.TotalLoss && <TotalLossCalculation allInfo={allInfo} claim={claim}/>}
       </div>
     </>
   );
