@@ -5,6 +5,7 @@ import {
   getCostOfSuspectedDamagedParts,
   getDeprciationValueForNewParts,
   getDepreciationArray,
+  getDepreciationArrayWithoutGST,
   getDepreciationOnPartsSum,
   getDepreciationOnSuspectedPartsSum,
   getFirstFiltering,
@@ -121,7 +122,12 @@ export const totalLossData = (
           <td style={{ width: "45%" }} className="text-end">
             <span>
               Rs.{" "}
-              {getDeprciationValueForNewParts(allLabour,currentGst,claim,allNewParts)}
+              {getDeprciationValueForNewParts(
+                allLabour,
+                currentGst,
+                claim,
+                allNewParts
+              )}
             </span>
           </td>
         </tr>
@@ -535,7 +541,7 @@ export const totalLossData = (
 
           <td style={{ width: "40%" }} className="text-end">
             <span className="fw-bold text-dark">
-              Rs. {getTotalCostOfParts(allNewParts, claim)}
+              Rs. {getTotalLossTotalCostOfNewParts(allNewParts, claim)}
             </span>
           </td>
         </tr>
@@ -578,15 +584,35 @@ export const totalLossData = (
           <td style={{ width: "40%" }} className="text-end">
             <span className="fw-bold text-dark">
               Rs.{" "}
-              {getDepreciationOnPartsSum(allNewParts, allDepreciations, claim)}
+              {
+                getDepreciationArrayWithoutGST(
+                  allNewParts,
+                  allDepreciations,
+                  claim
+                ).totalDepreciationValue
+              }
             </span>
           </td>
         </tr>
         <tr>
+          {
+            getDepreciationArrayWithoutGST(allNewParts, allDepreciations, claim)
+              .string
+          }
+        </tr>
+        <tr>
           <td style={{ width: "60%" }} className="text-start">
             <span>
-              F. Less: Suspected parts Depreciation @Metal_Dep_Per On parts
-              worth Rs. Suspected_Parts
+              F. Less: Suspected parts Depreciation{" "}
+              {
+                getDepreciationArrayWithoutGST(
+                  allNewParts,
+                  allDepreciations,
+                  claim
+                ).depPct
+              }{" "}
+              On parts worth Rs.{" "}
+              {getCostOfSuspectedDamagedParts(allNewParts, claim)}
             </span>
           </td>
 
@@ -633,7 +659,15 @@ export const totalLossData = (
         <tr>
           <td style={{ width: "60%" }} className="text-start">
             <span>
-              I. Less: Indeminity_Rate% for Cash Loss Indemnity on Rs.
+              I. Less: {claim?.totalLoss?.CashLoss}% for Cash Loss Indemnity on
+              Rs.{" "}
+              {getSecondFiltering(
+                allNewParts,
+                allLabour,
+                allDepreciations,
+                currentGst,
+                claim
+              )}
             </span>
           </td>
 
@@ -644,6 +678,7 @@ export const totalLossData = (
                 allNewParts,
                 allLabour,
                 allDepreciations,
+                currentGst,
                 claim
               )}
             </span>

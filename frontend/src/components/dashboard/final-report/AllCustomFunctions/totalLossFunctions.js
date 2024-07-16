@@ -2,6 +2,10 @@ import { Value } from "sass";
 import { getTotalLoss } from "../getEditorContent/totalLoss";
 import { calculateDepreciationsPercenatge } from "../functions";
 
+const roundOff = (number) => {
+  return Math.round(number * 100) / 100;
+};
+
 //--------------------REPAIR BASIS--------------------------------------
 export const getTotalLossTotalCostOfNewParts = (allNewParts, claim) => {
   let total = 0;
@@ -89,24 +93,70 @@ export const getDepreciationJustArray = (
       claim.vehicleDetails?.DateOfRegistration
     );
 
-    const assessedValue = Number(part.assessed) * Number(part.qa);
-    const depreciationValue = (Number(assessedValue) * Number(dep)) / 100;
-    if (arrayObject.hasOwnProperty(part.type)) {
-      arrayObject[part.type] = {
-        ...arrayObject[part.type],
-        overAllValue: arrayObject[part.type].overAllValue + assessedValue,
-        Value: arrayObject[part.type].Value + depreciationValue,
-      };
-    } else {
-      arrayObject[part.type] = {
-        depPct: dep,
-        overAllValue: assessedValue,
-        Value: depreciationValue,
-      };
+    if (dep > 0) {
+      const assessedValue = Number(part.assessed) * Number(part.qa);
+      const gst = (Number(assessedValue) * Number(part.gst)) / 100;
+      const depreciationValue =
+        (Number(assessedValue + gst) * Number(dep)) / 100;
+      if (arrayObject.hasOwnProperty(part.type)) {
+        arrayObject[part.type] = {
+          depPct: dep,
+          overAllValue:
+            arrayObject[part.type].overAllValue + assessedValue + gst,
+          Value: arrayObject[part.type].Value + depreciationValue,
+        };
+      } else {
+        arrayObject[part.type] = {
+          depPct: dep,
+          overAllValue: assessedValue + gst,
+          Value: depreciationValue,
+        };
+      }
     }
   });
 
   return arrayObject;
+};
+
+export const getDepreciationArrayWithoutGST = (
+  allNewParts,
+  allDepreciations,
+  claim
+) => {
+  let arrayObject = {};
+  let totalDepreciationValue = 0;
+  let depPct = 0;
+  allNewParts.map((part, index) => {
+    const dep = calculateDepreciationsPercenatge(
+      allDepreciations,
+      part.type,
+      claim.vehicleDetails?.DateOfRegistration
+    );
+
+    if (dep > 0) {
+      depPct = dep;
+      const assessedValue = Number(part.assessed) * Number(part.qa);
+      const depreciationValue = (Number(assessedValue) * Number(dep)) / 100;
+      if (claim?.claimDetails?.PolicyType === "Regular") {
+        totalDepreciationValue += depreciationValue;
+      }
+      if (arrayObject.hasOwnProperty(part.type)) {
+        arrayObject[part.type] = {
+          depPct: dep,
+          overAllValue: arrayObject[part.type].overAllValue + assessedValue,
+          Value: arrayObject[part.type].Value + depreciationValue,
+        };
+      } else {
+        arrayObject[part.type] = {
+          depPct: dep,
+          overAllValue: assessedValue,
+          Value: depreciationValue,
+        };
+      }
+    }
+  });
+  const string = getStringFromObject(arrayObject);
+  return { string, totalDepreciationValue,depPct };
 };
 
 export const getDepreciationArray = (allNewParts, allDepreciations, claim) => {
@@ -121,11 +171,13 @@ export const getDepreciationArray = (allNewParts, allDepreciations, claim) => {
     if (dep > 0) {
       const assessedValue = Number(part.assessed) * Number(part.qa);
       const gst = (Number(assessedValue) * Number(part.gst)) / 100;
-      const depreciationValue = (Number(assessedValue + gst) * Number(dep)) / 100;
+      const depreciationValue =
+        (Number(assessedValue + gst) * Number(dep)) / 100;
       if (arrayObject.hasOwnProperty(part.type)) {
         arrayObject[part.type] = {
-          depPct : dep,
-          overAllValue: arrayObject[part.type].overAllValue + assessedValue + gst,
+          depPct: dep,
+          overAllValue:
+            arrayObject[part.type].overAllValue + assessedValue + gst,
           Value: arrayObject[part.type].Value + depreciationValue,
         };
       } else {
@@ -151,7 +203,7 @@ export const getTotalIMTValue = (allNewParts, allLabour, currentGst, claim) => {
     const evaluatedAssessed = assessedValue - dep;
     const gst = (Number(evaluatedAssessed) * Number(part.gst)) / 100;
     NewPartstotal =
-      Number(NewPartstotal) + part.isActive && labour.imt
+      Number(NewPartstotal) + part.isActive && part.imt
         ? assessedValue + gst
         : 0;
   });
@@ -171,7 +223,12 @@ export const getTotalIMTValue = (allNewParts, allLabour, currentGst, claim) => {
   return NewPartstotal + labourtotal;
 };
 
-export const getDeprciationValueForNewParts = (allLabour,currentGst,claim, allNewParts) => {
+export const getDeprciationValueForNewParts = (
+  allLabour,
+  currentGst,
+  claim,
+  allNewParts
+) => {
   let totalDepValue = 0;
   allNewParts.map((part, index) => {
     const assessedVal = Number(part.assessed) * Number(part.qa);
@@ -179,10 +236,18 @@ export const getDeprciationValueForNewParts = (allLabour,currentGst,claim, allNe
     totalDepValue += depValue;
   });
 
-  const totalLabourAnNewPartsValue = subTotalOfNewpartsAndLabour(allLabour,currentGst,allNewParts,claim);
+  const totalLabourAnNewPartsValue = subTotalOfNewpartsAndLabour(
+    allLabour,
+    currentGst,
+    allNewParts,
+    claim
+  );
 
-
-  return totalLabourAnNewPartsValue + (claim?.claimDetails?.PolicyType === "Regular" ? totalDepValue : 0) - Number(claim?.summaryDetails?.LessExcess);
+  return (
+    totalLabourAnNewPartsValue +
+    (claim?.claimDetails?.PolicyType === "Regular" ? totalDepValue : 0) -
+    Number(claim?.summaryDetails?.LessExcess)
+  );
 };
 
 export const getNetAssessedWithLessExcessDeduction = (
@@ -211,14 +276,17 @@ export const finalNetAssessedAmountWithIMTAndSalvage = (
   //   allNewParts,
   //   claim
   // );
-  const Total = getDeprciationValueForNewParts(allLabour,currentGst,claim, allNewParts);
+  const Total = getDeprciationValueForNewParts(
+    allLabour,
+    currentGst,
+    claim,
+    allNewParts
+  );
   const ExpectedSalvage = Number(claim?.summaryDetails?.ExpectedSalvage);
 
   const totalIMT = getTotalIMTValue(allNewParts, allLabour, currentGst, claim);
 
-  return (
-    Total - (ExpectedSalvage + totalIMT)
-  );
+  return Total - (ExpectedSalvage + totalIMT);
 };
 
 //-------------------------TOTAL LOSS BASIS -----------------------------------
@@ -291,32 +359,19 @@ export const getTotalCostOfParts = (allNewParts, claim) => {
 
 //(B) Cost of Suspected Damaged Parts
 export const getCostOfSuspectedDamagedParts = (allNewParts, claim) => {
-  let total = 0;
-  allNewParts?.map((part, index) => {
-    const assessedValue = Number(part.assessed) * Number(part.qa);
-    total +=
-      part.isActive &&
-      String(claim?.claimDetails?.PolicyType) === "Regular" &&
-      Number(part.dep) > 0
-        ? assessedValue
-        : 0;
-  });
-  return total;
+  return Number(claim?.totalLoss?.SuspectedParts);
 };
 
 //(C) Cost of Parts Without Taxes
 export const getCostOfPartsWithoutTaxes = (allNewParts, claim) => {
-  let total = 0;
-  allNewParts?.map((part, index) => {
-    const assessedValue = Number(part.assessed) * Number(part.qa);
-    total += part.isActive && Number(part.gst) === 0 ? assessedValue : 0;
-  });
-  return total;
+  const a = getTotalCostOfParts(allNewParts, claim);
+  const b = getTotalLossTotalCostOfNewParts(allNewParts, claim);
+  return b - a;
 };
 
 //(D) A + B -c
 export const getFirstFiltering = (allNewParts, claim) => {
-  const A = getTotalCostOfParts(allNewParts, claim);
+  const A = getTotalLossTotalCostOfNewParts(allNewParts, claim);
   const B = getCostOfSuspectedDamagedParts(allNewParts, claim);
   const C = getCostOfPartsWithoutTaxes(allNewParts, claim);
 
@@ -348,7 +403,12 @@ export const getDepreciationOnSuspectedPartsSum = (
   allDepreciations,
   claim
 ) => {
-  return 0;
+  const SuspectedParts = getCostOfSuspectedDamagedParts(allNewParts, claim);
+  const depValue = getDepreciationArrayWithoutGST(allNewParts, allDepreciations, claim)
+  .depPct;
+
+
+  return claim?.claimDetails?.PolicyType === 'Regular' ? (Number(SuspectedParts) * Number(depValue))/100 : 0;
 };
 
 //(G) Add Labour Charges (without Taxes)
@@ -358,7 +418,7 @@ export const getLabourChargesWithoutTax = (allLabour, currentGst) => {
     const assessedValue = Number(labour.assessed);
     const dep = Number(labour.type) ? (Number(assessedValue) * 12.5) / 100 : 0;
     const evaluatedAssessed = assessedValue - dep;
-    total += labour.isActive ? evaluatedAssessed : 0;
+    total += labour.isActive ? assessedValue : 0;
   });
   return total;
 };
@@ -372,7 +432,11 @@ export const getSecondFiltering = (
   claim
 ) => {
   const D = getFirstFiltering(allNewParts, claim);
-  const E = getDepreciationOnPartsSum(allNewParts, allDepreciations, claim);
+  const E = getDepreciationArrayWithoutGST(
+    allNewParts,
+    allDepreciations,
+    claim
+  ).totalDepreciationValue;
   const F = getDepreciationOnSuspectedPartsSum(
     allNewParts,
     allDepreciations,
@@ -388,9 +452,21 @@ export const LessCashOnIndemnity = (
   allNewParts,
   allLabour,
   allDepreciations,
+  currentGst,
   claim
 ) => {
-  return 0;
+  const totalVal = getSecondFiltering(
+    allNewParts,
+    allLabour,
+    allDepreciations,
+    currentGst,
+    claim
+  );
+
+  const cashLoss = Number(claim?.totalLoss?.CashLoss);
+  const reducedValue = (Number(totalVal) * Number(cashLoss)) / 100;
+
+  return reducedValue;
 };
 
 //(M) H - I -J - K + L
@@ -412,6 +488,7 @@ export const getLastFiltering = (
     allNewParts,
     allLabour,
     allDepreciations,
+    currentGst,
     claim
   );
   const J = claim?.summaryDetails?.ExpectedSalvage;
@@ -440,31 +517,66 @@ export const replaceFunction = (
   );
   string = string?.replace(
     "**getTotalLossTotalCostOfNewParts**",
-    getTotalLossTotalCostOfNewParts(allNewParts, claim)
+    roundOff(getTotalLossTotalCostOfNewParts(allNewParts, claim))
   );
 
   string = string?.replace(
     "$getTotalLossTotalCostOfNewParts$",
-    getTotalLossTotalCostOfNewParts(allNewParts, claim)
+    roundOff(getTotalLossTotalCostOfNewParts(allNewParts, claim))
   );
 
   string = string?.replace(
     "**getTotalLossTotalCostOfNewPartsWithExcludingDep**",
-    getTotalLossTotalCostOfNewPartsWithExcludingDep(allNewParts, claim)
+    roundOff(getTotalLossTotalCostOfNewPartsWithExcludingDep(allNewParts, claim))
   );
 
   string = string?.replace(
     "**getTotalLossTotalCostOfLabour**",
-    getTotalLossTotalCostOfLabour(allLabour, currentGst)
+    roundOff(getTotalLossTotalCostOfLabour(allLabour, currentGst))
   );
 
   string = string?.replace(
     "**subTotalOfNewpartsAndLabour**",
-    subTotalOfNewpartsAndLabour(allLabour, currentGst, allNewParts, claim)
+    roundOff(subTotalOfNewpartsAndLabour(allLabour, currentGst, allNewParts, claim))
   );
   string = string?.replace(
     "**getDepreciationArray**",
     getDepreciationArray(allNewParts, allDepreciations, claim)
+  );
+
+  string = string?.replace(
+    "**getDepreciationArrayWithoutGST**",
+    getDepreciationArrayWithoutGST(allNewParts, allDepreciations, claim).string
+  );
+
+
+  string = string?.replace(
+    "$getDepreciationArrayWithoutGST$",
+    getDepreciationArrayWithoutGST(allNewParts, allDepreciations, claim).string
+  );
+
+  string = string?.replace(
+    "**getDepreciationArrayValueWithoutGST**",
+    roundOff(getDepreciationArrayWithoutGST(allNewParts, allDepreciations, claim)
+      .totalDepreciationValue)
+  );
+
+  string = string?.replace(
+    "$getDepreciationArrayValueWithoutGST$",
+    roundOff(getDepreciationArrayWithoutGST(allNewParts, allDepreciations, claim)
+      .totalDepreciationValue)
+  );
+
+  string = string?.replace(
+    "**getDepreciationFinalValue**",
+    roundOff(getDepreciationArrayWithoutGST(allNewParts, allDepreciations, claim)
+      .depPct)
+  );
+
+  string = string?.replace(
+    "$getDepreciationFinalValue$",
+    roundOff(getDepreciationArrayWithoutGST(allNewParts, allDepreciations, claim)
+      .depPct)
   );
 
   string = string?.replace(
@@ -476,32 +588,32 @@ export const replaceFunction = (
 
   string = string?.replace(
     "**getNetAssessedWithLessExcessDeduction**",
-    getNetAssessedWithLessExcessDeduction(
+    roundOff(getNetAssessedWithLessExcessDeduction(
       claim,
       allLabour,
       allNewParts,
       currentGst
-    )
+    ))
   );
 
   string = string?.replace(
     "$getNetAssessedWithLessExcessDeduction$",
-    getNetAssessedWithLessExcessDeduction(
+    roundOff(getNetAssessedWithLessExcessDeduction(
       claim,
       allLabour,
       allNewParts,
       currentGst
-    )
+    ))
   );
 
   string = string?.replace(
     "**getDeprciationValueForNewParts**",
-    getDeprciationValueForNewParts(allLabour,currentGst,claim, allNewParts)
+    roundOff(getDeprciationValueForNewParts(allLabour, currentGst, claim, allNewParts))
   );
 
   string = string?.replace(
     "$getDeprciationValueForNewParts$",
-    getDeprciationValueForNewParts(allLabour,currentGst,claim, allNewParts)
+    roundOff(getDeprciationValueForNewParts(allLabour, currentGst, claim, allNewParts))
   );
 
   if (claim?.claimDetails?.PolicyType !== "Regular") {
@@ -527,27 +639,29 @@ export const replaceFunction = (
 
   string = string?.replace(
     "**getTotalIMTValue**",
-    getTotalIMTValue(allNewParts, allLabour, currentGst, claim)
+    roundOff(getTotalIMTValue(allNewParts, allLabour, currentGst, claim))
   );
 
   string = string?.replace(
     "$getTotalIMTValue$",
-    getTotalIMTValue(allNewParts, allLabour, currentGst, claim)
+    roundOff(getTotalIMTValue(allNewParts, allLabour, currentGst, claim))
   );
 
   string = string?.replace(
     "**finalNetAssessedAmountWithIMTAndSalvage**",
-    finalNetAssessedAmountWithIMTAndSalvage(
+    roundOff(finalNetAssessedAmountWithIMTAndSalvage(
       claim,
       allLabour,
       allNewParts,
       currentGst
-    )
+    ))
   );
 
   string = string?.replace("**IDV**", claim?.claimDetails?.IDV);
 
   string = string?.replace("**MissingItems**", claim?.totalLoss?.MissingItem);
+
+  string = string?.replace("**CashLoss**", claim?.totalLoss?.CashLoss);
 
   string = string?.replace(
     "**WreckValueWith**",
@@ -573,142 +687,158 @@ export const replaceFunction = (
 
   string = string?.replace(
     "**getTotalLossBasisAssessement**",
-    getTotalLossBasisAssessement(claim)
+    roundOff(getTotalLossBasisAssessement(claim))
   );
 
   string = string?.replace(
     "$getTotalLossBasisAssessement$",
-    getTotalLossBasisAssessement(claim)
+    roundOff(getTotalLossBasisAssessement(claim))
   );
 
   string = string?.replace(
     "**getTotalSalvageLossBasisAssessementWithRC**",
-    getTotalSalvageLossBasisAssessementWithRC(claim)
+    roundOff(getTotalSalvageLossBasisAssessementWithRC(claim))
   );
 
   string = string?.replace(
     "$getTotalSalvageLossBasisAssessementWithRC$",
-    getTotalSalvageLossBasisAssessementWithRC(claim)
+    roundOff(getTotalSalvageLossBasisAssessementWithRC(claim))
   );
 
   string = string?.replace(
     "$getTotalSalvageLossBasisAssessementWithRCWithRTI$",
-    getTotalSalvageLossBasisAssessementWithRCWithRTI(claim)
+    roundOff(getTotalSalvageLossBasisAssessementWithRCWithRTI(claim))
   );
 
   string = string?.replace(
     "##getTotalSalvageLossBasisAssessementWithRCWithRTI##",
-    getTotalSalvageLossBasisAssessementWithRCWithRTI(claim)
+    roundOff(getTotalSalvageLossBasisAssessementWithRCWithRTI(claim))
   );
 
   string = string?.replace(
     "**getTotalSalvageLossBasisAssessementWithRCWithRTI**",
-    getTotalSalvageLossBasisAssessementWithRCWithRTI(claim)
+    roundOff(getTotalSalvageLossBasisAssessementWithRCWithRTI(claim))
   );
 
   string = string?.replace(
     "**getTotalSalvageLossBasisAssessementWithoutRCWithRTI**",
-    getTotalSalvageLossBasisAssessementWORCWithRTI(claim)
+    roundOff(getTotalSalvageLossBasisAssessementWORCWithRTI(claim))
   );
 
   string = string?.replace(
     "$getTotalSalvageLossBasisAssessementWithoutRCWithRTI$",
-    getTotalSalvageLossBasisAssessementWORCWithRTI(claim)
+    roundOff(getTotalSalvageLossBasisAssessementWORCWithRTI(claim))
   );
 
   string = string?.replace(
     "$getTotalSalvageLossBasisAssessementWithoutRC$",
-    getTotalSalvageLossBasisAssessementWithoutRC(claim)
+    roundOff(getTotalSalvageLossBasisAssessementWithoutRC(claim))
   );
 
   string = string?.replace(
     "**getTotalSalvageLossBasisAssessementWithoutRC**",
-    getTotalSalvageLossBasisAssessementWithoutRC(claim)
+    roundOff(getTotalSalvageLossBasisAssessementWithoutRC(claim))
   );
 
   //7 Sections
   string = string?.replace(
     "**getTotalCostOfParts**",
-    getTotalCostOfParts(allNewParts, claim)
+    roundOff(getTotalCostOfParts(allNewParts, claim))
+  );
+
+  string = string?.replace(
+    "$getCostOfSuspectedDamagedParts$",
+    roundOff(getCostOfSuspectedDamagedParts(allNewParts, claim))
   );
 
   string = string?.replace(
     "**getCostOfSuspectedDamagedParts**",
-    getCostOfSuspectedDamagedParts(allNewParts, claim)
+    roundOff(getCostOfSuspectedDamagedParts(allNewParts, claim))
   );
 
   string = string?.replace(
     "**getCostOfPartsWithoutTaxes**",
-    getCostOfPartsWithoutTaxes(allNewParts, claim)
+    roundOff(getCostOfPartsWithoutTaxes(allNewParts, claim))
   );
 
   string = string?.replace(
     "**getFirstFiltering**",
-    getFirstFiltering(allNewParts, claim)
+    roundOff(getFirstFiltering(allNewParts, claim))
   );
 
   string = string?.replace(
     "**getDepreciationOnPartsSum**",
-    getDepreciationOnPartsSum(allNewParts, allDepreciations, claim)
+    roundOff(getDepreciationOnPartsSum(allNewParts, allDepreciations, claim))
   );
 
   string = string?.replace(
     "**getDepreciationOnSuspectedPartsSum**",
-    getDepreciationOnSuspectedPartsSum(allNewParts, allDepreciations, claim)
+    roundOff(getDepreciationOnSuspectedPartsSum(allNewParts, allDepreciations, claim))
   );
 
   string = string?.replace(
     "**getLabourChargesWithoutTax**",
-    getLabourChargesWithoutTax(allLabour, currentGst)
+    roundOff(getLabourChargesWithoutTax(allLabour, currentGst))
   );
 
   string = string?.replace(
     "**getSecondFiltering**",
-    getSecondFiltering(
+    roundOff(getSecondFiltering(
       allNewParts,
       allLabour,
       allDepreciations,
       currentGst,
       claim
-    )
+    ))
+  );
+
+  string = string?.replace(
+    "$getSecondFiltering$",
+    roundOff(getSecondFiltering(
+      allNewParts,
+      allLabour,
+      allDepreciations,
+      currentGst,
+      claim
+    ))
   );
 
   string = string?.replace(
     "**LessCashOnIndemnity**",
-    LessCashOnIndemnity(allNewParts, allLabour, allDepreciations, claim)
+    roundOff(LessCashOnIndemnity(allNewParts, allLabour, allDepreciations,currentGst, claim))
   );
 
   string = string?.replace(
     "**getLastFiltering**",
-    getLastFiltering(
+    roundOff(getLastFiltering(
       allNewParts,
       allLabour,
       allDepreciations,
       claim,
       currentGst
-    )
+    ))
   );
 
   string = string?.replace(
     "##getLastFiltering##",
-    getLastFiltering(
+    roundOff(getLastFiltering(
       allNewParts,
       allLabour,
       allDepreciations,
       claim,
       currentGst
-    )
+    ))
   );
 
   string = string?.replace(
     "$getLastFiltering$",
-    getLastFiltering(
+    roundOff(getLastFiltering(
       allNewParts,
       allLabour,
       allDepreciations,
       claim,
       currentGst
-    )
+    ))
   );
 
   return string;

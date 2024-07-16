@@ -544,7 +544,7 @@ export const getTotalLoss = (
           <td style=" width: 40% " class="text-end">
             <span class="fw-bold text-dark">
               
-            Rs.  **getTotalCostOfParts**
+            Rs.  $getTotalLossTotalCostOfNewParts$
             </span>
           </td>
         </tr>
@@ -559,7 +559,7 @@ export const getTotalLoss = (
         </tr>
         <tr>
           <td style=" width: 60% " class="text-start">
-            <span>C. Less: Taxes on</span>
+            <span>C. Less: Taxes on Rs. <span  class="fw-bold text-dark">**getTotalCostOfParts**</span>  </span>
           </td>
 
           <td style=" width: 40% " class="text-end">
@@ -590,14 +590,20 @@ export const getTotalLoss = (
           <td style=" width: 40% " class="text-end">
             <span class="fw-bold text-dark">
              
-            Rs.  **getDepreciationOnPartsSum**
+             $getDepreciationArrayValueWithoutGST$
             </span>
           </td>
         </tr>
+         <tr>
+          
+
+        $getDepreciationArrayWithoutGST$
+        </tr>
+        <tr>
         <tr>
           <td style=" width: 60% " class="text-start">
-            <span>F. Less: Suspected parts Depreciation @<Metal_Dep_Per> 
-              On parts worth Rs. <Suspected_Parts>
+            <span>F. Less: Suspected parts Depreciation @ $getDepreciationFinalValue$ %
+              On parts worth Rs. $getCostOfSuspectedDamagedParts$
             </span>
           </td>
 
@@ -634,7 +640,7 @@ export const getTotalLoss = (
         </tr>
         <tr>
           <td style=" width: 60% " class="text-start">
-            <span>I. Less: <Indeminity_Rate>% for Cash Loss Indemnity on Rs.</span>
+            <span>I. Less: **CashLoss** % for Cash Loss Indemnity on Rs. $getSecondFiltering$ </span>
           </td>
 
           <td style=" width: 40% " class="text-end">
