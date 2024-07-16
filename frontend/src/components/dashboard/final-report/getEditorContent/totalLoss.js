@@ -102,7 +102,7 @@ export const getTotalLoss = (
           <td style=" width: 45% " class="text-end">
             <span>
               
-            Rs.  **getNetAssessedWithLessExcessDeduction**
+            Rs.  **getDeprciationValueForNewParts**
             </span>
           </td>
         </tr>
@@ -701,7 +701,7 @@ export const getTotalLoss = (
               class="text-dark text-decoration-underline"
               style={{ color: "black" }}
             >
-              6. Summary of ASSESSMENT
+              8. Summary of ASSESSMENT
             </h5>
           </td>
 
