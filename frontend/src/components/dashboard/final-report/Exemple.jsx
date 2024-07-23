@@ -585,8 +585,8 @@ export default function Exemple_01({
 
     let tempRows = [];
     allRows.map((row, index) => {
-      totalAssessed += (Number(row.assessed) * Number(row.qa));
-      totalEstimate += (Number(row.estimate) * Number(row.qe));
+      totalAssessed += row.isActive ?  (Number(row.assessed) * Number(row.qa)) : 0;
+      totalEstimate += row.isActive ? (Number(row.estimate) * Number(row.qe)) : 0;
       const r = {
         sno: row.sno,
         dep: row.dep, // Add default values or lea ve empty as needed

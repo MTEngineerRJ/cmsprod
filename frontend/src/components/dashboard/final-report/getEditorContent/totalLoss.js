@@ -78,9 +78,9 @@ export const getTotalLoss = (
           </td>
         </tr>
         <tr>
-          
-
-        **getDepreciationArray**
+          <td>
+           <h5>**getDepreciationArray**</h5>
+          <td/>
         </tr>
         <tr>
           <td style=" width: 30% " class="text-start">
@@ -467,7 +467,10 @@ export const getTotalLoss = (
           <td style=" width: 40% " class="text-end">
             <span class="fw-bold text-dark">
               
-            Rs. ${Number(claim?.totalLoss?.RtiAmount) + Number(claim?.claimDetails?.IDV)}
+            Rs. ${
+              Number(claim?.totalLoss?.RtiAmount) +
+              Number(claim?.claimDetails?.IDV)
+            }
             </span>
           </td>
         </tr>
@@ -594,10 +597,18 @@ export const getTotalLoss = (
             </span>
           </td>
         </tr>
+
+         <tr>
+          <td>
+           <h5>
+        $getDepreciationArrayWithoutGST$
+
+           </h5>
+          <td/>
+        </tr>
          <tr>
           
 
-        $getDepreciationArrayWithoutGST$
         </tr>
         <tr>
         <tr>
@@ -853,7 +864,9 @@ export const getTotalLoss = (
 
            <p class="text-dark">
             (D) The Net assessed Amount for insurers on NET OF SALVAGE LOSS 
-            BASIS WITHOUT RC worked out to Rs. ${getTotalSalvageLossBasisAssessementWithoutRC(claim)}
+            BASIS WITHOUT RC worked out to Rs. ${getTotalSalvageLossBasisAssessementWithoutRC(
+              claim
+            )}
             is the most economical mode of settlement for the insurers, 
             if the decision to disposal of salvage is taken within stipulated
              time limit.  Also there will not be any further expenses.
@@ -861,7 +874,10 @@ export const getTotalLoss = (
 
            <p class="text-dark">
             (E) The Net assessed Amount for insurers on NET OF SALVAGE LOSS BASIS 
-            WITH RC WITH RIT worked out to ${getTotalSalvageLossBasisAssessementWithRC(claim) + claim?.totalLoss?.RtiAmount} is the 
+            WITH RC WITH RIT worked out to ${
+              getTotalSalvageLossBasisAssessementWithRC(claim) +
+              claim?.totalLoss?.RtiAmount
+            } is the 
             most economical mode of settlement for the insurers, if the decision 
             to disposal of salvage is taken within stipulated time limit. 
             Also there will not be any further expenses.
@@ -869,7 +885,10 @@ export const getTotalLoss = (
 
            <p class="text-dark">
             (F) The Net assessed Amount for insurers on NET OF SALVAGE LOSS 
-            BASIS WITHOUT RC WITH RTI worked out to ${getTotalSalvageLossBasisAssessementWithRC(claim)  + claim?.totalLoss?.RtiAmount}
+            BASIS WITHOUT RC WITH RTI worked out to ${
+              getTotalSalvageLossBasisAssessementWithRC(claim) +
+              claim?.totalLoss?.RtiAmount
+            }
              is another mode of settlement for the insurers if RC is cancelled 
              and decision to disposal of salvage is taken within stipulated 
              time limit. Also there will not be any further expenses.

@@ -103,7 +103,9 @@ export const totalLossData = (
           </td>
         </tr>
         <tr>
-          Rs. {getDepreciationArray(allNewParts, allDepreciations, claim)}
+          <td>
+            Rs. {getDepreciationArray(allNewParts, allDepreciations, claim)}
+          </td>
         </tr>
         <tr>
           <td style={{ width: "30%" }} className="text-start">
