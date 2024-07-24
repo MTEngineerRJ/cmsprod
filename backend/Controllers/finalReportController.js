@@ -502,7 +502,6 @@ const updateFinalReport = (req, res) => {
       LeadID = '${leadId}';
 `;
 
-
   const newPartsQuery = `
     UPDATE NewPartsReport
           SET
@@ -843,4 +842,551 @@ const updateFinalReport = (req, res) => {
   res.status(200).send("Successfully Updated!!");
 };
 
-module.exports = { updateFinalReport };
+const exportToFinal = (req, res) => {
+  const {
+    PolicyType,
+    TypeOfDate,
+    IDV,
+    PolicyPeriodStart,
+    PolicyPeriodEnd,
+    HPA,
+    ClaimServicingOffice,
+    OwnerSRST,
+    VehicleMakeVariantModelColor,
+    DateOfIssue,
+    MailRecieveDate,
+    ValidFrom,
+    VehicleType,
+    ValidUntilNtv,
+    ValidUntilTv,
+    phoneNumber,
+    AntiTheft,
+    RegLadenWt,
+    RemarkIfRLW,
+    Pin,
+    DateOfRegistration,
+    PlaceOfSurvey,
+    UnladenWT,
+    RemarkIfULW,
+    VehicleRemark,
+    InsuranceCompanyNameAddress,
+    InsuredAddress,
+    InsuredMailAddress,
+    InsuredMobileNo1,
+    InsuredMobileNo2,
+    InsuredName,
+    requestType,
+    ClaimNumber,
+    EngineType,
+    DateRegistration,
+    PUCNumber,
+    TransferDate,
+    AddedBy,
+    Verification,
+    GarageAddedBy,
+    InspectionDate,
+    GarageContactNo1,
+    GarageContactNo2,
+    GarageNameAndAddress,
+    ClaimAddedDateTime,
+    PolicyIssuingOffice,
+    PolicyNumber,
+    DriverName,
+    DriverAddedDate,
+    IssuingAuthority,
+    LicenseNumber,
+    LicenseType,
+    BadgeNumber,
+    driverRemark,
+    VehicleRegisteredNumber,
+    RegisteredOwner,
+    VehicleChassisNumber,
+    EngineNumber,
+    VehicleTypeOfBody,
+    VehicleCubicCapacity,
+    VehicleClassOfVehicle,
+    VehicleFuelType,
+    VehicleOdometerReading,
+    VehiclePreAccidentCondition,
+    VehicleModel,
+    VehicleTaxParticulars,
+    VehicleSeatingCapacity,
+    AccidentAddedDateTime,
+    AccidentTime,
+    PlaceOfLoss,
+    SurveyAllotmentDate,
+    SurveyConductedDate,
+    FitnessCertificate,
+    FitnessFrom,
+    FitnessTo,
+    PermitTo,
+    PermitNo,
+    PermitFrom,
+    TypeOfPermit,
+    Authorization,
+    AreasOfoperation,
+    commercialRemark,
+    FinalReportNotes,
+    DetailsOfLoads,
+    CauseOfAccident,
+    PoliceAction,
+    ThirdPartyLoss,
+    Assessment,
+    leadId,
+    TotalLabor,
+    TotalEstimate,
+    LessExcess,
+    ExpectedSalvage,
+    MetalPercent,
+    RemarkOnSalvage,
+    TotalCostOfParts,
+    Other,
+    GrandTotal,
+    DepreciationOnParts,
+    NetAssessedAmount,
+    SavageDepreciationDetails,
+    CashLess,
+    NoteOfSelf,
+    RepairAutoDate,
+    RepairCompletionDate,
+    PartyAgreed,
+    ReasonThereofDelay,
+    AnyFurtherConversation,
+    RepairingPhotoDate,
+    ReinspectionDate,
+    isActive,
+    SalveDestroy,
+    BillNo,
+    BillDate,
+    BillAmount,
+    AddedDateTime,
+    Endurance,
+    OtherRemark,
+    TotalLoss,
+    DateOfBirth,
+    OriginToDestThirdParty,
+    LRInvoiceNoThirdParty,
+    QuantityOfGoodsThirdParty,
+    NatureOfGoodsThirdParty,
+    NoOfPassengerInLoad,
+    TransporterNameInLoad,
+    LRInvoiceNoInLoad,
+    OriginToDestination,
+    WeightOfGoodsInLoad,
+    NatureOfGoodsInLoad,
+    StationDiaryNo,
+    PolicStationName,
+    SurveyInspectiononMedium,
+    PersonArrestedOnSpot,
+    Vehicle_Shifted_To,
+    IMT,
+    ValidUpto,
+    Username,
+    InspectionType,
+    CommTaxRatePct,
+    CashLoss,
+    SuspectedParts,
+    WreckValueWith,
+    WreckValueWithout,
+    RtiAmount,
+    MissingItem,
+    TotalLossEditor,
+  } = req.body;
+
+  //Claim Dates
+  const formattedPolicyEnd = formatDate(PolicyPeriodEnd);
+  const formattedPolicyStart = formatDate(PolicyPeriodStart);
+  const formattedMailRecevingDate = formatDate(MailRecieveDate);
+
+  //Vehicle Dates
+  const formattedDateOfRegistration = formatDate(DateOfRegistration);
+  const formattedTransferDate = formatDate(TransferDate);
+  const formattedTaxParticulars = formatDate(VehicleTaxParticulars);
+
+  //Driver Dates
+  const formattedDateOfbirth = formatDate(DateOfBirth);
+  const formattedDateOfIssue = formatDate(DateOfIssue);
+  const formattedValidUntilNtv = formatDate(ValidUntilNtv);
+  const formattedValidUntilTv = formatDate(ValidUntilTv);
+  const formattedValidupto = formatDate(ValidUpto);
+  const formattedDriverAddedDate = formatDate(DriverAddedDate);
+
+  //Accident Dates
+  const formattedDateOfAccident = formatDate(AccidentAddedDateTime);
+  const formattedSurveyConductedDate = formatDate(SurveyConductedDate);
+  const formattedInspectionDate = formatDate(InspectionDate);
+
+  //Commercial Vehicle Details
+  const formattedFitnessFrom = formatDate(FitnessFrom);
+  const formattedFittnessTo = formatDate(FitnessTo);
+  const formattedPermitTo = formatDate(PermitTo);
+  const formattedPermitFrom = formatDate(PermitFrom);
+
+  //summary Dates
+  const formattedRepairAutoDate = formatDate(RepairAutoDate);
+  const formattedRepairCompletionDate = formatDate(RepairCompletionDate);
+  const formattedReparingPhotoDate = formatDate(RepairingPhotoDate);
+  const formattedReInspectionDate = formatDate(ReinspectionDate);
+  const formattedBillDate = formatDate(BillDate);
+
+  const insertDriverDetails = `
+  INSERT INTO DriverDetails (
+    AddedDate, DriverName, LicenseNumber, LicenseType, IssuingAuthority,
+    DateOfIssue, ValidFrom, ValidUntilNtv, ValidUntilTv, BadgeNumber,
+    Remark, DateOfBirth, ValidUpto
+  ) VALUES (
+    '${formattedDriverAddedDate}', '${DriverName}', '${LicenseNumber}', '${LicenseType}', '${IssuingAuthority}',
+    '${formattedDateOfIssue}', '${ValidFrom}', '${formattedValidUntilNtv}', '${formattedValidUntilTv}', '${BadgeNumber}',
+    '${driverRemark}', '${formattedDateOfbirth}', '${formattedValidupto}'
+  );
+`;
+
+  const insertClaimDetails = `
+  INSERT INTO ClaimDetails (
+    InsuranceCompanyNameAddress, SurveyType, PolicyIssuingOffice, PolicyNumber,
+    PolicyPeriodStart, PolicyPeriodEnd, ClaimNumber, ClaimServicingOffice, InspectionType,
+    PolicyType, IDV, MailRecieveDate, HPA, TotalLoss, IMT
+  ) VALUES (
+    '${InsuranceCompanyNameAddress}', '${""}', '${PolicyIssuingOffice}', '${PolicyNumber}',
+    '${formattedPolicyStart}', '${formattedPolicyEnd}', '${ClaimNumber}', '${ClaimServicingOffice}', '${"Final"}',
+    '${PolicyType}', '${IDV}', '${formattedMailRecevingDate}', '${HPA}', ${
+    TotalLoss ? 1 : 0
+  }, ${IMT ? 1 : 0}
+  );
+`;
+
+  const insertVehicleDetails = `
+  INSERT INTO VehicleDetails (
+    TypeOfVerification, RegisteredNumber, RegisteredOwner, TransferDate, DateOfRegistration,
+    MakeVariantModelColor, EngineNumber, ChassisNumber, TypeOfBody, ClassOfVehicle,
+    PreAccidentCondition, SeatingCapacity, CubicCapacity, FuelType, TaxParticulars,
+    OdometerReading, PucNumber, OwnerSrDate, RegLadenWt, RemarkIfRLW,
+    UnladenWT, RemarkIfULW, Remark, VehicleType, AntiTheft
+  ) VALUES (
+    '${Verification}', '${VehicleRegisteredNumber}', '${RegisteredOwner}', '${formattedTransferDate}', '${formattedDateOfRegistration}',
+    '${VehicleMakeVariantModelColor}', '${EngineNumber}', '${VehicleChassisNumber}', '${VehicleTypeOfBody}', '${VehicleClassOfVehicle}',
+    '${VehiclePreAccidentCondition}', '${VehicleSeatingCapacity}', '${VehicleCubicCapacity}', '${VehicleFuelType}', '${formattedTaxParticulars}',
+    '${VehicleOdometerReading}', '${PUCNumber}', '${OwnerSRST}', '${RegLadenWt}', '${RemarkIfRLW}',
+    '${UnladenWT}', '${RemarkIfULW}', '${VehicleRemark}', '${VehicleType}', '${AntiTheft}'
+  );
+`;
+
+  const insertGarageDetails = `
+  INSERT INTO GarageDetails (
+    GarageNameAndAddress, GarageContactNo1, AddedBy
+  ) VALUES (
+    '${GarageNameAndAddress}', '${GarageContactNo1}', '${GarageAddedBy}'
+  );
+`;
+
+  const insertInsuredDetails = `
+  INSERT INTO InsuredDetails (
+    InsuredName, InsuredMobileNo1, InsuredMobileNo2, InsuredMailAddress, InsuredAddress
+  ) VALUES (
+    '${InsuredName}', '${InsuredMobileNo1}', '${InsuredMobileNo2}', '${InsuredMailAddress}', '${InsuredAddress}'
+  );
+`;
+
+  const insertAccidentDetails = `
+  INSERT INTO AccidentDetails (
+    PlaceOfLoss, SurveyConductedDate, Pin, InspectionDate, PlaceOfSurvey,
+    DetailsOfLoads, CauseOfAccident, PoliceAction, ThirdPartyLoss, Assessment,
+    DateOfAccident, TimeOfAccident
+  ) VALUES (
+    '${PlaceOfLoss}', '${formattedSurveyConductedDate}', '${Pin}', '${formattedInspectionDate}', '${PlaceOfSurvey}',
+    '${DetailsOfLoads}', '${CauseOfAccident}', '${PoliceAction}', '${ThirdPartyLoss}', '${Assessment}',
+    '${formattedDateOfAccident}', '${AccidentTime}'
+  );
+`;
+
+  const insertCommercialVehicleDetails = `
+  INSERT INTO CommercialVehicleDetails (
+    FitnessCertificate, FitnessFrom, FitnessTo, PermitTo, PermitNo,
+    PermitFrom, TypeOfPermit, Authorization, AreasOfoperation, Remark,
+    IsActive
+  ) VALUES (
+    '${FitnessCertificate}', '${formattedFitnessFrom}', '${formattedFittnessTo}', '${formattedPermitTo}', '${PermitNo}',
+    '${formattedPermitFrom}', '${TypeOfPermit}', '${Authorization}', '${AreasOfoperation}', '${commercialRemark}',
+    ${isActive}
+  );
+`;
+
+  const insertIntoAccidentSpotDetails = `
+  INSERT INTO AccidentDetailsSpot (
+    OriginToDestThirdParty, LRInvoiceNoThirdParty, QuantityOfGoodsThirdParty,
+    NatureOfGoodsThirdParty, NoOfPassengersInLoad, TransporterNameInLoad,
+    LRInvoiceNoInLoad, OriginToDestInLoad, WeightOfGoodsInLoad,
+    NatureOfGoodsInLoad, StationDiaryNo, PoliceStationName,
+    SurveyInspectionMedium, PersonArrestedOnSpot, Vehicle_Shifted_To
+  ) VALUES (
+    '${OriginToDestThirdParty}', '${LRInvoiceNoThirdParty}', '${QuantityOfGoodsThirdParty}',
+    '${NatureOfGoodsThirdParty}', '${NoOfPassengerInLoad}', '${TransporterNameInLoad}',
+    '${LRInvoiceNoInLoad}', '${OriginToDestination}', '${WeightOfGoodsInLoad}',
+    '${NatureOfGoodsInLoad}', '${StationDiaryNo}', '${PolicStationName}',
+    '${SurveyInspectiononMedium}', '${PersonArrestedOnSpot}', '${Vehicle_Shifted_To}'
+  );
+`;
+
+  const insertSummaryDetails = `
+  INSERT INTO SummaryReport (
+    TotalLabour, TotalEstimate, TotalCostOfParts, LessExcess,
+    ExpectedSalvage, MetalPercent, RemarkOnSalvage, Other, GrandTotal,
+    DepreciationOnParts, NetAssessedAmount, SavageDepreciationDetails, CashLess,
+    NoteOfSelf, RepairAutoDate, RepairCompletionDate, PartyAgreed,
+    ReasonThereofDelay, AnyFurtherConversation, RepairingPhotoDate,
+    ReinspectionDate, SalveDestroy, BillNo, BillDate, BillAmount,
+    Endurance, OtherRemark, SummaryNotes
+  ) VALUES (
+    ${TotalLabor}, ${TotalEstimate}, ${TotalCostOfParts}, '${LessExcess}',
+    '${ExpectedSalvage}', ${MetalPercent}, '${RemarkOnSalvage}', '${Other}', ${GrandTotal},
+    ${DepreciationOnParts}, ${NetAssessedAmount}, '${SavageDepreciationDetails}', '${CashLess}',
+    '${NoteOfSelf}', '${formattedRepairAutoDate}', '${formattedRepairCompletionDate}', '${PartyAgreed}',
+    '${ReasonThereofDelay}', '${AnyFurtherConversation}', '${formattedReparingPhotoDate}',
+    '${formattedReInspectionDate}', '${SalveDestroy}', '${BillNo}', '${formattedBillDate}', '${BillAmount}',
+    '${Endurance}', '${OtherRemark}', '${FinalReportNotes.replace(
+    /'/g,
+    "''"
+  ).replace(/\n/g, "<br>")}'
+  );
+`;
+
+  const insertTotalLossQuery = `
+  INSERT INTO TotalLoss (
+    CommTaxRatePct, CashLoss, SuspectedParts, WreckValueWith,
+    WreckValueWithout, MissingItem, RtiAmount, totalLossEditorContent
+  ) VALUES (
+    '${CommTaxRatePct}', '${CashLoss}', '${SuspectedParts}', '${WreckValueWith}',
+    '${WreckValueWithout}', '${MissingItem}', '${RtiAmount}', '${TotalLossEditor}'
+  );
+`;
+
+  const newPartsQuery = `
+  INSERT INTO NewPartsReport (IsImt)
+  VALUES (${0});
+`;
+
+  const LabourQuery = `
+  INSERT INTO LabourReport (IsImt)
+  VALUES (${0});
+`;
+
+  if (!IMT) {
+    db.query(newPartsQuery, (err, result2) => {
+      if (err) {
+        logMessage({
+          type: "error",
+          Function: `UPDATING_NEW_PART_WHEN_IMT_ZERO_FINAL_REPORT`,
+          message: `Got error while inserting the ACCIDENT DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+          username: Username,
+          leadId: leadId,
+          consoleInfo: `Got error while inserting the New parts when IMT is 0 for the ${InspectionType}_report for leadId --> ${leadId}`,
+          info: `{ERRMESSAGE : ${
+            err.details
+          }, STATUS : ${`${err.status} ${err.message}`},query:${newPartsQuery}, error : ${err}}}`,
+        });
+        console.error(err);
+        res.status(500).send("Internal Server Error", err);
+        return;
+      }
+    });
+    db.query(LabourQuery, (err, result2) => {
+      if (err) {
+        logMessage({
+          type: "error",
+          Function: `UPDATING_LABOUR_WHEN_IMT_ZERO_FINAL_REPORT`,
+          message: `Got error while inserting the ACCIDENT DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+          username: Username,
+          leadId: leadId,
+          consoleInfo: `Got error while inserting the Labour when IMT is 0 for the ${InspectionType}_report for leadId --> ${leadId}`,
+          info: `{ERRMESSAGE : ${
+            err.details
+          }, STATUS : ${`${err.status} ${err.message}`},query:${LabourQuery}, error : ${err}}}`,
+        });
+        console.error(err);
+        res.status(500).send("Internal Server Error", err);
+        return;
+      }
+    });
+  }
+
+  db.query(insertClaimDetails, (err, result2) => {
+    if (err) {
+      logMessage({
+        type: "error",
+        Function: `UPDATING_FINAL_REPORT`,
+        message: `Got error while inserting the CLAIM DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        username: Username,
+        leadId: leadId,
+        consoleInfo: `Got error while inserting the CLAIM DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${insertClaimDetails}, error : ${err}}}`,
+      });
+      console.error(err);
+      res.status(500).send("Internal Server Error", err);
+      return;
+    }
+  });
+
+  db.query(insertAccidentDetails, (err, result2) => {
+    if (err) {
+      logMessage({
+        type: "error",
+        Function: `UPDATING_FINAL_REPORT`,
+        message: `Got error while inserting the ACCIDENT DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        username: Username,
+        leadId: leadId,
+        consoleInfo: `Got error while inserting the ACCIDENT DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${insertAccidentDetails}, error : ${err}}}`,
+      });
+      console.error(err);
+      res.status(500).send("Internal Server Error", err);
+      return;
+    }
+  });
+  db.query(insertDriverDetails, (err, result2) => {
+    if (err) {
+      logMessage({
+        type: "error",
+        Function: `UPDATING_FINAL_REPORT`,
+        message: `Got error while inserting the DRIVER DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        username: Username,
+        leadId: leadId,
+        consoleInfo: `Got error while inserting the DRIVER DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${insertDriverDetails}, error : ${err}}}`,
+      });
+      console.error(err);
+      res.status(500).send("Internal Server Error", err);
+      return;
+    }
+  });
+  db.query(insertGarageDetails, (err, result2) => {
+    if (err) {
+      logMessage({
+        type: "error",
+        Function: `UPDATING_FINAL_REPORT`,
+        message: `Got error while inserting the GARAGE DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        username: Username,
+        leadId: leadId,
+        consoleInfo: `Got error while inserting the GARAGE DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${insertGarageDetails}, error : ${err}}}`,
+      });
+      console.error(err);
+      res.status(500).send("Internal Server Error", err);
+      return;
+    }
+  });
+
+  db.query(insertInsuredDetails, (err, result2) => {
+    if (err) {
+      logMessage({
+        type: "error",
+        Function: `UPDATING_FINAL_REPORT`,
+        message: `Got error while inserting the INSURED DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        username: Username,
+        leadId: leadId,
+        consoleInfo: `Got error while inserting the INSURED DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${insertInsuredDetails}, error : ${err}}}`,
+      });
+      console.error(err);
+      res.status(500).send("Internal Server Error", err);
+      return;
+    }
+  });
+  db.query(insertVehicleDetails, (err, result2) => {
+    if (err) {
+      logMessage({
+        type: "error",
+        Function: `UPDATING_FINAL_REPORT`,
+        message: `Got error while inserting the VEHICLE DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        username: Username,
+        leadId: leadId,
+        consoleInfo: `Got error while inserting the VEHICLE DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${insertVehicleDetails}, error : ${err}}}`,
+      });
+      console.error(err);
+      res.status(500).send("Internal Server Error", err);
+      return;
+    }
+  });
+
+  db.query(insertSummaryDetails, (err, result2) => {
+    if (err) {
+      logMessage({
+        type: "error",
+        Function: `UPDATING_FINAL_REPORT`,
+        message: `Got error while inserting the SUMMARY DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        username: Username,
+        leadId: leadId,
+        consoleInfo: `Got error while inserting the SUMMARY DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${insertSummaryDetails}, error : ${err}}}`,
+      });
+      console.error(err);
+      res.status(500).send("Internal Server Error", err);
+      return;
+    }
+  });
+
+  db.query(insertTotalLossQuery, (err, result2) => {
+    if (err) {
+      logMessage({
+        type: "error",
+        Function: `UPDATING_FINAL_REPORT`,
+        message: `Got error while inserting the Total Loss DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        username: Username,
+        leadId: leadId,
+        consoleInfo: `Got error while inserting the Total Loss for the ${InspectionType}_report for leadId --> ${leadId}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${insertTotalLossQuery}, error : ${err}}}`,
+      });
+      console.error(err);
+      res.status(500).send("Internal Server Error", err);
+      return;
+    }
+  });
+
+  db.query(insertCommercialVehicleDetails, (err, result2) => {
+    if (err) {
+      logMessage({
+        type: "error",
+        Function: `UPDATING_FINAL_REPORT`,
+        message: `Got error while inserting the COMMERCIAL DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        username: Username,
+        leadId: leadId,
+        consoleInfo: `Got error while inserting the COMMERCIAL DETAILS for the ${InspectionType}_report for leadId --> ${leadId}`,
+        info: `{ERRMESSAGE : ${
+          err.details
+        }, STATUS : ${`${err.status} ${err.message}`},query:${insertCommercialVehicleDetails}, error : ${err}}}`,
+      });
+      console.error(err);
+      res.status(500).send("Internal Server Error", err);
+      return;
+    }
+  });
+
+  logMessage({
+    type: "info",
+    Function: `INSERT_FINAL_REPORT`,
+    message: `Inserted successfully the final report for leadId ---> ${leadId}`,
+    username: Username,
+    leadId: leadId,
+    consoleInfo: `Inserted successfully the final report for leadId ---> ${leadId}`,
+    info: `{message : 200 SUCCESS }`,
+  });
+  res.status(200).send("Successfully Inserted!!");
+};
+
+module.exports = { updateFinalReport, exportToFinal };

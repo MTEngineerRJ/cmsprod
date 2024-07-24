@@ -79,3 +79,9 @@
 2024-06-19T19:19:33.958Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,3087] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
 2024-06-19T19:19:47.825Z UPDATING_CLAIM_STATUS[SSMUTNEJA,3087] : INFO : {message : "This last update of status was from Claim Appointment ---> Withdrawl/Rejected for LeadId 3087" , info : "Status Updated to Withdrawl/Rejected from Claim Appointment, LeadID -- 3087 (PLEASE CHECK THIS UPDATION)."}
 2024-06-19T19:27:29.228Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,3087] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-07-24T17:38:40.569Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-07-24T18:06:28.460Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-07-24T18:08:00.375Z INSERT_FINAL_REPORT[N/A,661] : INFO : {message : "Inserted successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-07-24T18:11:25.526Z INSERT_FINAL_REPORT[N/A,661] : INFO : {message : "Inserted successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-07-24T18:31:27.760Z INSERT_FINAL_REPORT[N/A,661] : INFO : {message : "Inserted successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-07-24T18:33:45.681Z INSERT_FINAL_REPORT[N/A,661] : INFO : {message : "Inserted successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}

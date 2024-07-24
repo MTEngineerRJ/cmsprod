@@ -52,3 +52,7 @@ export const getDescriptionData = (row,field,value)=>{
   return row.description;
 }
 
+export const exportLeadToFinal = (finalData)=>{
+
+}
+

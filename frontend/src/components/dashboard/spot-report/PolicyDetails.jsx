@@ -59,8 +59,6 @@ const PolicyDetails = ({
 
   ClaimAddedDateTime,
   setClaimAddedDateTime,
-  ClaimIsActive,
-  setClaimIsActive,
   PolicyIssuingOffice,
   setPolicyIssuingOffice,
 
@@ -72,18 +70,10 @@ const PolicyDetails = ({
   setInsuredAddress,
   InsuredName,
   setInsuredName,
-  InsuredMobileNo1,
-  setInsuredMobileNo1,
-  InsuredMobileNo2,
-  setInsuredMobileNo2,
-  ClaimRegion,
-  setClaimRegion,
   setClaimNumber,
 
   DriverName,
   setDriverName,
-  DriverAddedDate,
-  setDriverAddedDate,
   IssuingAuthority,
   setIssuingAuthority,
   LicenseNumber,
@@ -115,8 +105,6 @@ const PolicyDetails = ({
   setVehiclePreAccidentCondition,
   DateOfIssue,
   setDateOfIssue,
-  VehicleModel,
-  setVehicleModel,
   VehicleTaxParticulars,
   setVehicleTaxParticulars,
   VehicleSeatingCapacity,
@@ -145,8 +133,6 @@ const PolicyDetails = ({
   setFitnessTo,
   FitnessTo,
   PermitNo,
-  MailRecieveDate,
-  setMailRecieveDate,
   setPermitNo,
   PermitFrom,
   setPermitFrom,
@@ -160,47 +146,20 @@ const PolicyDetails = ({
   setAreasOfoperation,
   commercialRemark,
   setcommercialRemark,
-
-  RCOwner,
-  setRCOwner,
-  RCSDW,
-  setRCSDW,
-  RCMakerName,
-  setRCMakerName,
-  RCModelName,
-  setRCModelName,
-  RCTaxValidUpto,
-  setRCTaxValidUpto,
-  RCVehicleDescription,
-  setRCVehicleDescription,
-  EmissionNorm,
-  setEmissionNorm,
-  StandingCapacity,
-  setStandingCapacity,
-  Financier,
-  setFinancier,
-  InsuranceValidUpto,
-  setInsuranceValidUpto,
-  PUCCNumber,
-  setPUCCNumber,
-  PUCCValidUpto,
-  setPUCCValidUpto,
-  RegisteringAuthority,
-  setRegisteringAuthority,
   setValidUpto,
   ValidUpto,
   TotalLoss,
   setTotalLoss,
+  exportHandler,
   IMT,
   setIMT,
   phyCheck,
   setphyCheck,
 }) => {
- 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
 
-    console.log("hidehide",hide)
+    console.log("hidehide", hide);
 
     // Allow only numeric input
     const numericValue = inputValue.replace(/\D/g, "");
@@ -257,58 +216,71 @@ const PolicyDetails = ({
         date !== "undefined"
       );
     };
-  
+
     if (!isValidDate(dateString)) {
       console.error("Invalid date:", dateString);
       return null;
     }
-  
+
     const separator = dateString.includes("/") ? "/" : "-";
     const parts = dateString.split(separator);
     let formattedDate;
-  
+
     if (parts.length === 3 && parts[0].length === 4) {
       // YYYY-MM-DD format
       const [year, month, day] = parts;
-      formattedDate = `${day?.padStart(2, "0")}-${month?.padStart(2, "0")}-${year}`;
+      formattedDate = `${day?.padStart(2, "0")}-${month?.padStart(
+        2,
+        "0"
+      )}-${year}`;
     } else {
       // MM-DD-YYYY format
       const [day, month, year] = parts;
-      formattedDate = `${day?.padStart(2, "0")}-${month?.padStart(2, "0")}-${year}`;
+      formattedDate = `${day?.padStart(2, "0")}-${month?.padStart(
+        2,
+        "0"
+      )}-${year}`;
     }
-  
+
     return formattedDate;
   };
-  
-  function removeTrailingSpaces(date){
+
+  function removeTrailingSpaces(date) {
     return date.trim();
   }
 
   function localDate(dateString) {
     if (dateString && dateString !== "null") {
       const date = new Date(dateString);
-      const options = { 
-        day: '2-digit', 
-        month: '2-digit', 
-        year: 'numeric', 
-        timeZone: 'Asia/Kolkata' 
+      const options = {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        timeZone: "Asia/Kolkata",
       };
-      return date.toLocaleDateString("fr-CA", options).replace(/\//g, '-').trim();
+      return date
+        .toLocaleDateString("fr-CA", options)
+        .replace(/\//g, "-")
+        .trim();
     } else {
       return "";
     }
   }
 
   const convertDateFormatToDDMMYYYY = (dateString) => {
-    if(!dateString || dateString === undefined || dateString === null ||
-    dateString === "null" || dateString === "undefined"){
-      return dateString ;
+    if (
+      !dateString ||
+      dateString === undefined ||
+      dateString === null ||
+      dateString === "null" ||
+      dateString === "undefined"
+    ) {
+      return dateString;
     }
-    const [year, month, day] = dateString.split('-');
+    const [year, month, day] = dateString.split("-");
     return `${day}-${month}-${year}`;
   };
 
-  
   const formatDate = (dateString) => {
     if (!isvaliddate(dateString)) {
       console.error("Invalid date:", dateString);
@@ -322,10 +294,10 @@ const PolicyDetails = ({
     return formattedDate;
   };
   function formatDateToISO(dateString) {
-    const [day, month, year] = dateString.split('/');
+    const [day, month, year] = dateString.split("/");
     return `${year}-${month}-${day}`;
   }
-  
+
   const formatDatenEXT = (dateString) => {
     const options = {
       year: "numeric",
@@ -361,18 +333,15 @@ const PolicyDetails = ({
   function convertDateFormat(inputDate) {
     // Split the input date string based on "-" or "/"
     const parts = inputDate.split(/[-/]/);
-    
+
     // Rearrange the parts to form the "yyyy-mm-dd" format
     const yyyy = parts[2];
     const mm = parts[1];
     const dd = parts[0];
-    
+
     // Return the rearranged date parts joined with "-"
     return `${yyyy}-${mm}-${dd}`;
-}
-
-
-
+  }
 
   useEffect(() => {
     setPolicyPeriodEnd(getNextYear(PolicyPeriodStart));
@@ -384,11 +353,9 @@ const PolicyDetails = ({
 
   const [startDate, setStartDate] = useState("");
 
-  const [hide,setHide] = useState(false)
+  const [hide, setHide] = useState(false);
 
-
-
-  console.log("hidehide",hide)
+  console.log("hidehide", hide);
 
   const handleCancelHnadler = () => {
     setIsEditMode(false);
@@ -465,10 +432,7 @@ const PolicyDetails = ({
                   onChange={(e) => setClaimAddedDateTime(e.target.value)}
                 />
               )}
-
-             
             </div>
-            
           </div>
         </div>
 
@@ -518,7 +482,10 @@ const PolicyDetails = ({
           </div>
         </div>
         <div className="col-lg-4 text-end">
-          {isEditMode  ? (
+          <button className="btn btn-color m-1 " onClick={exportHandler}>
+            <span className="ma-1">Export To Final</span>
+          </button>
+          {isEditMode ? (
             <>
               <button
                 className="btn btn-color m-1"
@@ -526,18 +493,26 @@ const PolicyDetails = ({
               >
                 Cancel
               </button>
-              { <button disabled={disable} className="btn btn-color m-1" 
-              onClick={()=>{
-                setHide(true)
-                handleUpdateClick(setIsEditMode)
-              }}>
-                Update
-              </button>}
+              {
+                <button
+                  disabled={disable}
+                  className="btn btn-color m-1"
+                  onClick={() => {
+                    setHide(true);
+                    handleUpdateClick(setIsEditMode);
+                  }}
+                >
+                  Update
+                </button>
+              }
             </>
           ) : (
-            !hide && claim?.claimDetails && <button className="btn btn-color m-1" onClick={handleEditClick}>
-              Edit
-            </button>
+            !hide &&
+            claim?.claimDetails && (
+              <button className="btn btn-color m-1" onClick={handleEditClick}>
+                Edit
+              </button>
+            )
           )}
         </div>
         <hr />
@@ -592,10 +567,7 @@ const PolicyDetails = ({
                       />
                     </div>
                   </div>
-                  {/* <div className="my_profile_setting_input form-group">
-          <label htmlFor="propertyTitle">Property Title</label>
-          <input type="text" className="form-control" id="propertyTitle" />
-        </div> */}
+                 
                 </div>
 
                 <div className="col-lg-5">
@@ -859,7 +831,6 @@ const PolicyDetails = ({
                     </div>
                   </div>
                 </div>
-               
               </div>
               <div className="row">
                 <div className="col-lg-7">
@@ -1244,20 +1215,15 @@ const PolicyDetails = ({
                               id="propertyTitle"
                             />
                           ) : (
-                            
                             <input
                               type="date"
                               disabled={!isEditMode}
-                              value={
-                                localDate(DateRegistration) 
-                              }
+                              value={localDate(DateRegistration)}
                               onChange={(e) =>
                                 setDateRegistration(e.target.value)
                               }
                             />
                           )}
-
-                          
                         </div>
                       </div>
                     </div>
@@ -1577,7 +1543,6 @@ const PolicyDetails = ({
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
                 <div className="col-lg-5">
@@ -1762,7 +1727,6 @@ const PolicyDetails = ({
                   </div>
 
                   <div className="col-lg-12">
-                   
                     <div className="row mt-1">
                       <div className="col-lg-7 my_profile_setting_input form-group text-end">
                         <label
@@ -1938,9 +1902,7 @@ const PolicyDetails = ({
                           className="form-control"
                           id="propertyTitle"
                           readOnly={!isEditMode}
-                          value={
-                            formatDateUpdated(VehicleTaxParticulars) 
-                          }
+                          value={formatDateUpdated(VehicleTaxParticulars)}
                           onChange={(e) =>
                             setVehicleTaxParticulars(e.target.value)
                           }
@@ -2030,11 +1992,10 @@ const PolicyDetails = ({
                     readOnly={!isEditMode}
                     value={
                       DriverName && DriverName !== "null"
-                        ? 
-                        claim?.driverDetails?.FatherName === null || claim?.driverDetails?.FatherName === "null" ?
-                        DriverName
-                        : 
-                        (claim?.driverDetails?.Gender === "Male"
+                        ? claim?.driverDetails?.FatherName === null ||
+                          claim?.driverDetails?.FatherName === "null"
+                          ? DriverName
+                          : claim?.driverDetails?.Gender === "Male"
                           ? removeMultipleSpaces(DriverName) +
                             " " +
                             "S/o" +
@@ -2048,7 +2009,7 @@ const PolicyDetails = ({
                             " " +
                             removeMultipleSpaces(
                               claim?.driverDetails?.FatherName
-                            ))
+                            )
                         : ""
                     }
                     onChange={(e) => setDriverName(e.target.value)}
@@ -2115,21 +2076,23 @@ const PolicyDetails = ({
                     <input
                       readOnly={!isEditMode}
                       type={"text"}
-                      value={DateOfBirth ? convertDateFormatToDDMMYYYY(DateOfBirth) : ""}
+                      value={
+                        DateOfBirth
+                          ? convertDateFormatToDDMMYYYY(DateOfBirth)
+                          : ""
+                      }
                       className="form-control"
                       id="propertyTitle"
                     />
                   ) : (
-                    
                     <input
-                    type="date"
-                    disabled={!isEditMode}
-                    value={localDate(DateOfBirth)}
-                    onChange={(e) => setDateOfBirth(e.target.value)}
-                  />
+                      type="date"
+                      disabled={!isEditMode}
+                      value={localDate(DateOfBirth)}
+                      onChange={(e) => setDateOfBirth(e.target.value)}
+                    />
                   )}
                 </div>
-                
               </div>
             </div>
             <div className="col-lg-8">
@@ -2170,15 +2133,13 @@ const PolicyDetails = ({
                       id="propertyTitle"
                     />
                   ) : (
-                    
                     <input
                       type="date"
                       disabled={!isEditMode}
-                      value={localDate((DateOfIssue))}
+                      value={localDate(DateOfIssue)}
                       onChange={(e) => setDateOfIssue(e.target.value)}
                     />
                   )}
-                 
                 </div>
               </div>
             </div>
@@ -2201,28 +2162,25 @@ const PolicyDetails = ({
                   </label>
                 </div>
                 <div className="col-lg-10">
-               
                   {!isEditMode ? (
                     <input
                       readOnly={!isEditMode}
                       type={"text"}
                       value={
-                        ValidUpto ? convertDateFormatToDDMMYYYY(ValidUpto): ''
+                        ValidUpto ? convertDateFormatToDDMMYYYY(ValidUpto) : ""
                       }
                       className="form-control"
                       id="propertyTitle"
                       // // disable={!isEdi
                     />
                   ) : (
-                   
                     <input
-                    type="date"
-                    disabled={!isEditMode}
-                    value={localDate(ValidUpto)}
-                    onChange={(e) => setValidUpto(e.target.value)}
-                  />
+                      type="date"
+                      disabled={!isEditMode}
+                      value={localDate(ValidUpto)}
+                      onChange={(e) => setValidUpto(e.target.value)}
+                    />
                   )}
-                  
                 </div>
               </div>
             </div>
@@ -2378,14 +2336,22 @@ const PolicyDetails = ({
                 Commercial Vehicle Details :
               </h4>
               <hr />
-              <div style={{display:"flex",justifyContent:"flex-end",padding:"6px"}}>
-              <input type="checkbox"
-                disabled={!isEditMode}
-               checked={showInreport}
-               onChange={(e)=>setShowInReport(!showInreport)}/>
-              <label>{"  "} Show In Print</label>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  padding: "6px",
+                }}
+              >
+                <input
+                  type="checkbox"
+                  disabled={!isEditMode}
+                  checked={showInreport}
+                  onChange={(e) => setShowInReport(!showInreport)}
+                />
+                <label>{"  "} Show In Print</label>
               </div>
-              
+
               <div className="row">
                 <div className="col-lg-12">
                   <div className="row mt-1">
@@ -2894,65 +2860,8 @@ const PolicyDetails = ({
             </div>
           </div>
         </div>
-        {/*<div className="row">
-          <RcDetails
-            RCOwner={RCOwner}
-            setRCOwner={setRCOwner}
-            RCSDW={RCSDW}
-            setRCSDW={setRCSDW}
-            RCMakerName={RCMakerName}
-            setRCMakerName={setRCMakerName}
-            RCModelName={RCModelName}
-            setRCModelName={setRCModelName}
-            RCTaxValidUpto={RCTaxValidUpto}
-            setRCTaxValidUpto={setRCTaxValidUpto}
-            RCVehicleDescription={RCVehicleDescription}
-            setRCVehicleDescription={setRCVehicleDescription}
-            EmissionNorm={EmissionNorm}
-            setEmissionNorm={setEmissionNorm}
-            StandingCapacity={StandingCapacity}
-            setStandingCapacity={setStandingCapacity}
-            Financier={Financier}
-            setFinancier={setFinancier}
-            InsuranceValidUpto={InsuranceValidUpto}
-            setInsuranceValidUpto={setInsuranceValidUpto}
-            PUCCNumber={PUCCNumber}
-            setPUCCNumber={setPUCCNumber}
-            PUCCValidUpto={PUCCValidUpto}
-            setPUCCValidUpto={setPUCCValidUpto}
-            RegisteringAuthority={RegisteringAuthority}
-            setRegisteringAuthority={setRegisteringAuthority}
-            VehicleRegisteredNumber={VehicleRegisteredNumber}
-            setVehicleRegisteredNumber={setVehicleRegisteredNumber}
-            RegisteredOwner={RegisteredOwner}
-            setRegisteredOwner={setRegisteredOwner}
-            PolicyNumber={PolicyNumber}
-            setPolicyNumber={setPolicyNumber}
-            formatDate={formatDate}
-            FitnessTo={FitnessTo}
-            setFitnessTo={setFitnessTo}
-            isEditMode={isEditMode}
-            VehicleChassisNumber={VehicleChassisNumber}
-            setVehicleChassisNumber={setVehicleChassisNumber}
-            EngineNumber={EngineNumber}
-            setEngineNumber={setEngineNumber}
-            DateRegistration={DateRegistration}
-            setDateRegistration={setDateRegistration}
-            VehicleClassOfVehicle={VehicleClassOfVehicle}
-            setVehicleClassOfVehicle={setVehicleClassOfVehicle}
-            VehicleFuelType={VehicleFuelType}
-            setVehicleFuelType={setVehicleFuelType}
-            setVehicleColor={setVehicleColor}
-            VehicleColor={VehicleColor}
-            VehicleSeatingCapacity={VehicleSeatingCapacity}
-            setVehicleSeatingCapacity={setVehicleSeatingCapacity}
-            InsuranceCompanyNameAddress={InsuranceCompanyNameAddress}
-            setInsuranceCompanyNameAddress={setInsuranceCompanyNameAddress}
-                      />
-        </div>*/}
+     
       </div>
-
-      {/* <hr style={{ color: "#2e008b", height: "1px" }} /> */}
     </>
   );
 };

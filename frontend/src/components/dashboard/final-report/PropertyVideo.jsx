@@ -384,9 +384,22 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
     console.log(
       "total_labour_assessed",
       total_taxable_amount,
-      totalFinalLabourGST
+      totalFinalLabourGST,
+      allRows
     );
-    setTotalLabrorAssessed(total_taxable_amount + totalFinalLabourGST);
+
+    let allNonGSTValues = 0;
+    allRows.map((row,index)=>{
+      if(row.isActive && row.gst % 2 === 0){
+        const tempValue = Number(row.assessed);
+        const dep = row.type === 1 ? (tempValue * 12.5) : 0;
+        const depValue = tempValue - dep;
+        allNonGSTValues += depValue;
+      }
+    })
+
+    
+    setTotalLabrorAssessed(total_taxable_amount + totalFinalLabourGST + allNonGSTValues);
     setTotalLabrorEstimate(total_estimate);
     console.log("setTotalTaxbleAmount", total_taxable_amount);
     setTotalTaxbleAmount(total_taxable_amount);
