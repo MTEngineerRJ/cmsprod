@@ -23,7 +23,7 @@ const Index = ({ SomeComponent }) => {
     const mainUrl = url.split("/inspection-report?vehicleType=")[1];
     const tempLead = mainUrl?.split("&leadId=")[1];
     const tempType = mainUrl?.split('&leadId=')[0];
-    setVehicleType(tempType);
+    setVehicleType(getSpecificFormattedType(tempType));
     setLeadId(tempLead);
   },[]);
 
@@ -62,6 +62,16 @@ const Index = ({ SomeComponent }) => {
     }, 30000);
     return () => clearInterval(inactivityCheckInterval);
   }, [lastActivityTimestamp]);
+
+  const getSpecificFormattedType = (type)=>{
+    if(String(type).toLowerCase().includes('2w'))
+      return '2W';
+    else if(String(type).toLowerCase().includes('4w'))
+      return '4W';
+    else
+     return 'Commercial'
+    
+  }
 
   return (
     <>
