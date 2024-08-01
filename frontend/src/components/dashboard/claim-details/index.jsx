@@ -1,6 +1,7 @@
 import Header from "../../common/header/dashboard/Header_01";
 import { useEffect, useState } from "react";
 import SidebarMenu from "../../common/header/dashboard/SidebarMenu";
+import SidebarMenuSpot from '../../common/header/dashboard/SidebarMenu_Spot';
 import MobileMenu from "../../common/header/MobileMenu";
 import ChatboxContent from "./ChatboxContent";
 import VehicleDetailsEditForm from "./VehicleDetailsEditForm";
@@ -990,6 +991,8 @@ const Index = ({}) => {
           id="DashboardOffcanvasMenu"
           data-bs-scroll="true"
         >
+        {
+         !String(claim?.claimDetails?.InspectionType).toLowerCase().includes('spot')  ?
           <SidebarMenu
             leadId={leadId}
             email={claim.insuredDetails?.InsuredMailAddress}
@@ -1000,6 +1003,18 @@ const Index = ({}) => {
             BrokerMailAddress={BrokerMailAddress}
             GarageMailAddress={GarageMailAddress}
           />
+          :
+          <SidebarMenuSpot
+            leadId={leadId}
+            email={claim.insuredDetails?.InsuredMailAddress}
+            policyNo={claim.claimDetails?.PolicyNumber}
+            vehicleNo={claim.vehicleDetails?.RegisteredNumber}
+            Insured={claim.insuredDetails?.InsuredName}
+            Region={claim?.claimDetails?.Region}
+            BrokerMailAddress={BrokerMailAddress}
+            GarageMailAddress={GarageMailAddress}
+          />
+        }
         </div>
       </div>
       <section
