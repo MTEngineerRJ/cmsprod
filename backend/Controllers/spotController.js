@@ -8,29 +8,27 @@ const getDamageParts = (req, res) => {
     [leadId],
     (err, result2) => {
       if (err) {
-        console.log(err);
         console.error(err);
-        res.status(500).send("Internal Server Error ");
+        res.status(500).send("Internal Server Error");
         return;
       }
+      console.log("Number of rows returned:", result2.length); // Check the number of rows
+      console.log("result2--", result2);
       res.status(200).send(result2);
     }
   );
 };
 
 const getDamagePartsTypes = (req, res) => {
-  db.query(
-    "SELECT * FROM SpotReportType ",
-    (err, result2) => {
-      if (err) {
-        console.log(err);
-        console.error(err);
-        res.status(500).send("Internal Server Error ");
-        return;
-      }
-      res.status(200).send(result2);
+  db.query("SELECT * FROM spot_parts_name ", (err, result2) => {
+    if (err) {
+      console.log(err);
+      console.error(err);
+      res.status(500).send("Internal Server Error ");
+      return;
     }
-  );
+    res.status(200).send(result2);
+  });
 };
 
 const updateDamageParts = async (req, res) => {
@@ -47,10 +45,12 @@ const updateDamageParts = async (req, res) => {
                 INSERT INTO SpotReport (
                   Headings,
                   PartDescription,
+                  dropdown,
                   LeadID
                 ) VALUES (
                   '${row.heading}',
                   '${row.description}',
+                  '${row.dropdown}',
                   '${parseInt(leadId)}'
                 );
               `;
@@ -59,11 +59,14 @@ const updateDamageParts = async (req, res) => {
               SET
                 Headings = '${row.heading}',
                 PartDescription = '${row.description}',
+                dropdown = '${row.dropdown}'
               WHERE
-                ReportID = ${parseInt(row.sno)} AND 
+                ReportID = '${row.sno}' AND
                 LeadID = ${parseInt(leadId)};
             `;
-        const requiredQuery = parseInt(row?.sno) > 0 ? updateQuery : insertQuery;
+        const requiredQuery =
+          parseInt(row?.sno) > 0 ? updateQuery : insertQuery;
+
         db.query(requiredQuery, (err, result) => {
           if (err) {
             logMessage({
@@ -89,11 +92,11 @@ const updateDamageParts = async (req, res) => {
               );
             return;
           }
+          updateCount += requiredQuery === updateQuery ? 1 : 0;
         });
       } else {
         if (parseInt(row.sno) > 0) {
-          const deleteQuery =
-            "DELETE FROM SpotReport WHERE LeadID = ? AND ReportID = ?";
+          const deleteQuery = "DELETE FROM SpotReport WHERE LeadID = ?";
           db.query(deleteQuery, [leadId, parseInt(row.sno)], (err, result) => {
             if (err) {
               logMessage({
@@ -117,6 +120,8 @@ const updateDamageParts = async (req, res) => {
         }
       }
     });
+
+    console.log("updateCount", updateCount);
 
     logMessage({
       type: "info",
