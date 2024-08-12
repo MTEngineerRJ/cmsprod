@@ -128,9 +128,9 @@ const BillCreateView = ({ allInfo, leadID }) => {
       setDetailsRemark(allInfo?.feesDetails?.Remrk);
 
       setcurrentSelectedInsprectiontype(
-        String(allInfo?.feesDetails?.Type) === "Final"
+        String(allInfo?.otherInfo[0]?.InspectionType).toLowerCase().includes("final")
           ? 1
-          : String(allInfo?.feesDetails?.Type) === "Spot"
+          : String(allInfo?.otherInfo[0]?.InspectionType).toLowerCase().includes("spot")
           ? 3
           : 2
       );
@@ -184,7 +184,6 @@ const BillCreateView = ({ allInfo, leadID }) => {
           requiredStateCode = office.StateCode;
         }
       });
-      console.log("requiredStateCode", requiredStateCode, searchCode);
       if (String(requiredStateCode) === "8") {
         setCGST(9);
         setSGST(9);

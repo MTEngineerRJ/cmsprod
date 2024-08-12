@@ -845,7 +845,7 @@ const Servey = ({
                         fontSize: "14px",
                       }}
                     >
-                      Nature of Goods :
+                      Details of TP Vehicle :
                     </label>
                   </div>
                   <div className="col-lg-12">
@@ -876,7 +876,7 @@ const Servey = ({
                         fontSize: "14px",
                       }}
                     >
-                      Weight of Goods Carried :
+                      Death /Injury details of Insured Vehicle:
                     </label>
                   </div>
                   <div className="col-lg-12">
@@ -907,7 +907,7 @@ const Servey = ({
                         fontSize: "14px",
                       }}
                     >
-                      Origin - Destination :
+                      Death / Injuries Details of Insured Vehicle :
                     </label>
                   </div>
                   <div className="col-lg-12">
@@ -938,7 +938,7 @@ const Servey = ({
                         fontSize: "14px",
                       }}
                     >
-                      L/R Invoice No & Date :
+                      Third Party Property Damages :
                     </label>
                   </div>
                   <div className="col-lg-12">

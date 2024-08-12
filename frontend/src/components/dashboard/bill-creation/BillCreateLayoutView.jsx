@@ -84,6 +84,8 @@ const BillCreateLayoutView = ({
   disable,
   onSubmitHnadler,
 }) => {
+
+  console.log("currentSelectedInsprectiontype",currentSelectedInsprectiontype);
   const convertDateFormat = (dateString) => {
     if (!dateString) return "";
   

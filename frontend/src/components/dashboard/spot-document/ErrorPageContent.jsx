@@ -181,7 +181,7 @@ const ErrorPageContent = ({ allInfo ,spotInfo}) => {
           }}
         ></div>
         {/* <br /> */}
-        <Remarks />
+        <Remarks allInfo={allInfo}/>
 
         <VisibleDamage allInfo={allInfo} spotInfo={spotInfo} />
       </div>

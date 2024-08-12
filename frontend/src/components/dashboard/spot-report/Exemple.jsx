@@ -53,6 +53,7 @@ export default function Exemple_01({
   const [edit, setEdit] = useState(false);
   const [damagesType, setDamagesType] = useState([]);
 
+  const [defaultStoredInfo, setDefaultStoredInfo] = useState(false);
   const handleAddRow = () => {
     const newRow = {
       _id: allRows.length,
@@ -144,15 +145,19 @@ export default function Exemple_01({
     });
     setAllRows(updatedRows);
   };
+
+  const convertToCSV = (array) => {};
+
   const saveHandler = () => {
-    
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     let updatedRows = [];
 
-    allRows?.map((row,index)=>{
+    allRows?.map((row, index) => {
+      let dropdownArray = row.dropdown;
       let updatedRow = {
         ...row,
-        Username : userInfo[0]?.Username
+        dropdown: dropdownArray.join(","),
+        Username: userInfo[0]?.Username,
       };
       updatedRows.push(updatedRow);
     });
@@ -187,43 +192,65 @@ export default function Exemple_01({
     const leadID = mainUrl.split("/spot-report/")[1];
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     axios
+      .get("/api/getAllDamageParts", {
+        headers: {
+          Authorization: `Bearer ${userInfo[0].Token}`,
+        },
+        params: {
+          LeadId: leadID,
+        },
+      })
+      .then((res) => {
+        const tempData = res?.data?.userData;
+        let updatedRows = [];
+        tempData?.map((data, index) => {
+          let row = {
+            id: index + 1,
+            sno: data?.ReportID,
+            heading: data?.Headings,
+            description: data?.PartDescription,
+            dropdown: String(data.dropdown).split(","),
+            isActive: true,
+            isSelected: false,
+          };
+          updatedRows.push(row);
+        });
+        setAllRows([...updatedRows]);
+        setDefaultStoredInfo(true);
+      })
+      .catch((err) => {});
+  }, []);
+
+  useEffect(() => {
+    setDefaultStoredInfo(false);
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    axios
       .get("/api/getAllDamagePartsType", {
         headers: {
           Authorization: `Bearer ${userInfo[0].Token}`,
         },
       })
       .then((res) => {
-        setDamagesType(res.data.data);
-      })
-      .catch((err) => {});
-    
-      axios
-      .get("/api/getAllDamageParts", {
-        headers: {
-          Authorization: `Bearer ${userInfo[0].Token}`,
-        },
-        params:{
-          LeadId : leadID
+        const tempData = res.data.data;
+        let updatedData = [];
+        tempData.map((data, index) => {
+          const newRow = {
+            id: index + 1,
+            sno: "",
+            heading: data.category,
+            description: "",
+            isActive: true,
+            isSelected: false,
+            dropdown: String(data.parts_details).split(","),
+          };
+          updatedData.push(newRow);
+        });
+        if (allRows.length === 0) {
+          setAllRows(updatedData);
         }
       })
-      .then((res) => {
-       const tempData = res?.data?.userData;
-       let updatedRows = [];
-       tempData?.map((data,index)=>{
-        let row = {
-          id : index+1,
-          sno : data?.ReportID,
-          heading : data?.Headings,
-          description : data?.PartDescription,
-          isActive : true,
-          isSelected : false
-        };
-        updatedRows.push(row);
-       });
-       setAllRows([...updatedRows])
-      })
       .catch((err) => {});
-  }, []);
+  }, [defaultStoredInfo]);
 
   useEffect(() => {
     let temp = [];
@@ -233,7 +260,7 @@ export default function Exemple_01({
         const customStyle = row.isSelected ? { height: "60px" } : {};
         if (Number(row.isActive) === 1) {
           const newRow = {
-            _id: index + 1,
+            _id: row.id,
             row: (
               <button
                 disabled={edit}
@@ -241,7 +268,7 @@ export default function Exemple_01({
                 onClick={() => handleRemoveRow(row.id)}
               ></button>
             ),
-            sno: count,
+            sno: row.sno,
             heading: (
               <input
                 disabled={!edit}
@@ -292,14 +319,10 @@ export default function Exemple_01({
                 }
               >
                 <option data-tokens="Status2" value={""}></option>
-                {damagesType?.map((type, index) => {
+                {row.dropdown?.map((type, index) => {
                   return (
-                    <option
-                      key={index}
-                      data-tokens="Status2"
-                      value={type.PartName}
-                    >
-                      {type.PartName}
+                    <option key={index} data-tokens="Status2" value={type}>
+                      {type}
                     </option>
                   );
                 })}
@@ -318,7 +341,7 @@ export default function Exemple_01({
     setUpdatedCode(temp);
 
     setChange(false);
-  }, [change,edit, allRows]);
+  }, [change, edit, allRows]);
 
   return (
     <SmartTable
