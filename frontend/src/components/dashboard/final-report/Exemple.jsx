@@ -452,10 +452,11 @@ export default function Exemple_01({
   };
 
   const calculateDepreciationOnMetal = () => {
+    const age = calculateVehicleAge();
     const a = calculateDepreciationsPercenatge(
       allDepreciations,
       "Metal",
-      claim.vehicleDetails?.DateOfRegistration
+      age
     );
     setOverallMetailDep(a);
     return a;
