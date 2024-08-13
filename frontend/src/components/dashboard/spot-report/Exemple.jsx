@@ -268,7 +268,7 @@ export default function Exemple_01({
                 onClick={() => handleRemoveRow(row.id)}
               ></button>
             ),
-            sno: row.sno,
+            sno: index + 1,
             heading: (
               <input
                 disabled={!edit}

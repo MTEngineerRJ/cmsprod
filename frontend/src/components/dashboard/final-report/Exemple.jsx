@@ -788,6 +788,7 @@ export default function Exemple_01({
     let oldRow = allRows;
     const currentField = allRows[index];
     const len = val.length;
+    const age = calculateVehicleAge();
 
     const dep =
       claim?.vehicleDetails?.DateOfRegistration ||
@@ -795,10 +796,10 @@ export default function Exemple_01({
         ? calculateDepreciationsPercenatge(
             allDepreciations,
             val,
-            DateOfRegistration
+            age
           )
         : 0;
-
+    console.log("dep%%",dep);
     setMetalDep(dep);
 
     //calculate totlRows
