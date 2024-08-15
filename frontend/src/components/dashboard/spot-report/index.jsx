@@ -65,7 +65,7 @@ const Index = ({ SomeComponent, leadId }) => {
           id="DashboardOffcanvasMenu"
           data-bs-scroll="true"
         >
-          <SidebarMenu leadId={leadId}/>
+          <SidebarMenu leadId={leadId} />
         </div>
       </div>
       {/* End sidebar_menu */}
