@@ -168,7 +168,7 @@ const SidebarMenu = ({ isInspectionType,leadId, email, policyNo, vehicleNo, Insu
                   {isprint && <li
                     className={`treeview ${
                       isSinglePageActive(
-                        `/print-document/${leadId}`,
+                        `/spot-print-document/${leadId}`,
                         route.pathname
                       )
                         ? "active"
@@ -176,7 +176,7 @@ const SidebarMenu = ({ isInspectionType,leadId, email, policyNo, vehicleNo, Insu
                     }`}
                   >
                     <Link
-                      href={`/print-document/${leadId}`}
+                      href={`/spot-print-document/${leadId}`}
                       title="Print Document"
                     >
                       <i className="flaticon-pdf"></i>
