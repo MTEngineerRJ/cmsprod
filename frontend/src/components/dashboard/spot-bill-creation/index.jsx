@@ -1,14 +1,19 @@
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import Header from "../../common/header/dashboard/Header";
 import SidebarMenu from "../../common/header/dashboard/SidebarMenu_Spot";
 import MobileMenu from "../../common/header/MobileMenu";
-import PrintLayoutView from "./PrintLayoutView";
-import { useEffect, useState } from "react";
+import BillCreateView from "./BillCreateView";
+import axios from "axios";
+import { useRouter } from "next/router";
+import toast, { Toaster } from "react-hot-toast";
 
 const Index = () => {
+  const [allInfo, setAllInfo] = useState(null);
+  const [leadID, setLeadID] = useState(0);
   const [lastActivityTimestamp, setLastActivityTimestamp] = useState(
     Date.now()
   );
+  const [currentLeadType,setCurrentLeadType] = useState('final');
 
   const router = useRouter();
 
@@ -19,6 +24,7 @@ const Index = () => {
     window.addEventListener("mousemove", activityHandler);
     window.addEventListener("keydown", activityHandler);
     window.addEventListener("click", activityHandler);
+
     return () => {
       window.removeEventListener("mousemove", activityHandler);
       window.removeEventListener("keydown", activityHandler);
@@ -43,11 +49,42 @@ const Index = () => {
     return () => clearInterval(inactivityCheckInterval);
   }, [lastActivityTimestamp]);
 
-  const url = window.location.pathname;
-  const leadId = url.split("/spot-print-document/")[1];
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userInfo"));
+    const url = window.location.pathname;
+    const leadId = url.split("/spot-bill-creation/")[1];
+    setLeadID(leadId);
+
+    toast.loading("Fetching bill creation!!", {
+      className: "toast-loading-message",
+    });
+    axios
+      .get("/api/getBillInfo", {
+        headers: {
+          Authorization: `Bearer ${userData[0].Token}`,
+        },
+        params: {
+          LeadId: leadId,
+        },
+      })
+      .then((res) => {
+        toast.dismiss();
+        toast.success("Successfully fetched !", {
+          className: "toast-loading-message",
+        });
+        setAllInfo(res.data.data);
+      })
+      .catch((err) => {
+        toast.dismiss();
+        toast.error("Got error while fetching details!");
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <Header />
+      <Toaster />
       <MobileMenu />
 
       <div className="dashboard_sidebar_menu">
@@ -57,9 +94,10 @@ const Index = () => {
           id="DashboardOffcanvasMenu"
           data-bs-scroll="true"
         >
-          <SidebarMenu leadId={leadId} />
+        <SidebarMenu leadId={leadID} />
         </div>
       </div>
+
       <section className="our-dashbord dashbord bgc-f7 pb50">
         <div className="container-fluid ovh">
           <div className="row">
@@ -85,10 +123,10 @@ const Index = () => {
                 </div>
                 <div className="row">
                   <div className="col-lg-12">
-                    <div className="my_dashboard_review">
+                    <div className="my_dashboard_review bgc-f6">
                       <div className="row">
                         <div className="col-lg-12">
-                          <h4 className="mb10">Send Mails</h4>
+                          <h4 className="mb10">Bill Creation</h4>
                         </div>
                         <div
                           className=" bg-dark"
@@ -100,7 +138,7 @@ const Index = () => {
                             marginBottom: "5px",
                           }}
                         ></div>
-                        <PrintLayoutView />
+                        <BillCreateView allInfo={allInfo} leadID={leadID} setCurrentLeadType={setCurrentLeadType} />
                       </div>
                     </div>
                   </div>

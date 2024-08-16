@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../../common/header/dashboard/Header";
-import SidebarMenu from "../../common/header/dashboard/SidebarMenu";
+import SidebarMenu from "../../common/header/dashboard/SidebarMenu_Spot";
 import MobileMenu from "../../common/header/MobileMenu";
 import PropertyVideo from "./PropertyVideo";
 import { useRouter } from "next/router";

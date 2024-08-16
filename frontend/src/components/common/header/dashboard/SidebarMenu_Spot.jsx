@@ -150,13 +150,13 @@ const SidebarMenu = ({ isInspectionType,leadId, email, policyNo, vehicleNo, Insu
                  
                  {isBill && <li
                     className={`treeview ${
-                      checkIsActive("/bill-creation")
+                      checkIsActive("/spot-bill-creation")
                         ? "active"
                         : ""
                     }`}
                   >
                     <Link
-                      href={`/bill-creation/${leadId}`}
+                      href={`/spot-bill-creation/${leadId}`}
                       title="Bill Creation"
                     >
                       <i className="flaticon-document"></i>
