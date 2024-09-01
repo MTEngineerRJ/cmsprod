@@ -482,9 +482,9 @@ const PolicyDetails = ({
           </div>
         </div>
         <div className="col-lg-4 text-end">
-{/*           <button className="btn btn-color m-1 " onClick={exportHandler}>
+          <button className="btn btn-color m-1 " onClick={exportHandler}>
             <span className="ma-1">Export To Final</span>
-          </button> */}
+          </button>
           {isEditMode ? (
             <>
               <button
@@ -776,7 +776,7 @@ const PolicyDetails = ({
                         To
                       </label>
                     </div>
-                    <div className="col-lg-9">
+                    <div className="col-lg-5">
                       {!isEditMode ? (
                         <input
                           readOnly={!isEditMode}
