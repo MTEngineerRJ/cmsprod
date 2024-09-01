@@ -11,8 +11,8 @@ const CreateList = () => {
     if (selectedValue === "rc") {
       router.push(`/rc-document/${leadId}`);
     }
-    if (selectedValue === "finalreport") {
-      router.push(`/report-document/${leadId}`);
+    if (selectedValue === "spotReport") {
+      router.push(`/spot-document/${leadId}`);
     }
     if (selectedValue === "dl") {
       router.push(`/dl-document/${leadId}`);
@@ -37,7 +37,7 @@ const CreateList = () => {
             onChange={handleSelectChange}
           >
             <option value="-">Select Documents</option>
-            <option value="finalreport">Final Report</option>
+            <option value="spotReport">Spot Report</option>
             <option value="rc">RC</option>
             <option value="dl">DL</option>
             <option value="billcreation">Bill Creation</option>

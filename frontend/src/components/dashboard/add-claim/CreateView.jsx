@@ -112,6 +112,9 @@ const CreateView = () => {
     if (String(region).toLowerCase().includes("preinspection")) {
       setInspectionType("pre-inspection");
     }
+    if (String(region).toLowerCase().includes("spot")) {
+      setInspectionType("Spot");
+    }
   }, [region]);
 
   const submitHandler = () => {
@@ -315,7 +318,7 @@ const CreateView = () => {
                   </option>
                 )}
                 {showSpot && (
-                  <option data-tokens="Status1" value={"spot"}>
+                  <option data-tokens="Status1" value={"Spot"}>
                     Spot
                   </option>
                 )}
@@ -323,6 +326,12 @@ const CreateView = () => {
                 {showPreInspection && (
                   <option data-tokens="Status3" value={"pre-inspection"}>
                     Pre-inspection
+                  </option>
+                )}
+
+                {showPreInspection && (
+                  <option data-tokens="Status3" value={"re-inspection"}>
+                    Re-Inspection
                   </option>
                 )}
               </select>

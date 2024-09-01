@@ -769,9 +769,9 @@ const updateClaim = async (req, res) => {
 };
 
 const getAllClaims = (req, res) => {
-  const { Region1, Region2, Region3, Username, Region4, Region5,Region6, CalimStatus } =
+  const { Region1, Region2, Region3, Username, Region4, Region5,Region6,Region7, CalimStatus } =
     req.query;
-  const sql = "CALL GetPolicyInfoByRegions(?, ?, ?, ?, ?,?, ?,?)";
+  const sql = "CALL GetPolicyInfoByRegionsUpdated(?, ?, ?, ?, ?,?, ?,?,?)";
   const params = [
     Region1,
     Region2 || null,
@@ -779,6 +779,7 @@ const getAllClaims = (req, res) => {
     Region4 || null,
     Region5 || null,
     Region6 || null,
+    'Spot',
     CalimStatus || null,
     Username,
   ];
@@ -934,7 +935,7 @@ const updateClaimDetails = (req, res) => {
     Username,
     AssignedTo
   } = req.body;
-
+  
   const formattedPolicyEnd = PolicyPeriodEnd;
   const formattedPolicyStart = PolicyPeriodStart;
   const updateClaimDetails = `

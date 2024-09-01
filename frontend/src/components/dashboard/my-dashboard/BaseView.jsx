@@ -32,7 +32,7 @@ export default function BaseView({
           <div
             style={{ textDecorationLine: "underline", color: "lightskyblue" }}
           >
-            <a href={String(claim?.Region).toLowerCase().includes("preinspection") ? `/preInspection-claim-details?leadId=${claim.LeadID}` : `/claim-details?leadId=${claim.LeadID}`}>
+            <a href={String(claim?.Region).toLowerCase().includes("preinspection") ? `/preInspection-claim-details?leadId=${claim.LeadID}` : String(claim?.Region).toLowerCase().includes("spot") ? `/spot-claim-details?leadId=${claim.LeadID}` : `/claim-details?leadId=${claim.LeadID}`}>
               {String(claim?.Region).toLowerCase().includes("preinspection") ? claim.VehicleNo : claim?.PolicyNo}
             </a>
           </div>

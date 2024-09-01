@@ -2,6 +2,7 @@ import Header from "../../common/header/dashboard/Header_01";
 import { useEffect, useState } from "react";
 import SidebarMenu from "../../common/header/dashboard/SidebarMenu";
 import SidebarMenuSpot from '../../common/header/dashboard/SidebarMenu_Spot';
+import SidebarMenuReinspection from '../../common/header/dashboard/SidebarMenu_Reinspection';
 import MobileMenu from "../../common/header/MobileMenu";
 import ChatboxContent from "./ChatboxContent";
 import VehicleDetailsEditForm from "./VehicleDetailsEditForm";
@@ -992,8 +993,8 @@ const Index = ({}) => {
           data-bs-scroll="true"
         >
         {
-         !String(claim?.claimDetails?.InspectionType).toLowerCase().includes('spot')  ?
-          <SidebarMenu
+          String(claim?.claimDetails?.InspectionType).toLowerCase() === 're-inspection'  ?
+          <SidebarMenuReinspection
             leadId={leadId}
             email={claim.insuredDetails?.InsuredMailAddress}
             policyNo={claim.claimDetails?.PolicyNumber}
@@ -1004,7 +1005,7 @@ const Index = ({}) => {
             GarageMailAddress={GarageMailAddress}
           />
           :
-          <SidebarMenuSpot
+          <SidebarMenu
             leadId={leadId}
             email={claim.insuredDetails?.InsuredMailAddress}
             policyNo={claim.claimDetails?.PolicyNumber}

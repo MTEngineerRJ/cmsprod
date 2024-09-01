@@ -105,13 +105,13 @@ const SidebarMenu = ({ isInspectionType,leadId, email, policyNo, vehicleNo, Insu
                   <li
                     className={`treeview ${
                       checkIsActive(
-                        `/claim-details`
+                        `/spot-claim-details`
                       )
                         ? "active"
                         : ""
                     }`}
                   >
-                    <Link href={`/claim-details?leadId=${leadId}`} title="Claim Details">
+                    <Link href={`/spot-claim-details?leadId=${leadId}`} title="Spot Claim Details">
                       <i className="flaticon-building"></i>
                       {/* <span> Message</span> */}
                     </Link>

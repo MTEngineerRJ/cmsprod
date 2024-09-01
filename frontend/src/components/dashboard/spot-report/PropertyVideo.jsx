@@ -1358,32 +1358,32 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
     setPolicStationName(claim?.AccidentDetailsSpot?.PoliceStationName || "");
     setStationDiaryNo(claim?.AccidentDetailsSpot?.StationDiaryNo || "");
     setNatureOfGoodsInLoad(
-      claim?.AccidentDetailsSpot?.NatureOfGoodsInLoad || ""
+      claim?.AccidentDetailsSpot?.NatureOfGoodsInLoad || "No, As stated by Insured."
     );
     setWeightOfGoodsInLoad(
-      claim?.AccidentDetailsSpot?.WeightOfGoodsInLoad || ""
+      claim?.AccidentDetailsSpot?.WeightOfGoodsInLoad || "No, As stated by Insured."
     );
     setOriginToDestination(
-      claim?.AccidentDetailsSpot?.OriginToDestInLoad || ""
+      claim?.AccidentDetailsSpot?.OriginToDestInLoad || "No, As stated by Insured."
     );
-    setLRInvoiceNoInLoad(claim?.AccidentDetailsSpot?.LRInvoiceNoInLoad || "");
+    setLRInvoiceNoInLoad(claim?.AccidentDetailsSpot?.LRInvoiceNoInLoad || "No, As stated by Insured.");
     setTransporterNameInLoad(
-      claim?.AccidentDetailsSpot?.TransporterNameInLoad || ""
+      claim?.AccidentDetailsSpot?.TransporterNameInLoad || "No, As stated by Insured."
     );
     setNoOfPassengerInLoad(
-      claim?.AccidentDetailsSpot?.TransporterNameInLoad || ""
+      claim?.AccidentDetailsSpot?.TransporterNameInLoad || "No, As stated by Insured."
     );
     setNatureOfGoodsThirdParty(
-      claim?.AccidentDetailsSpot?.NatureOfGoodsThirdParty || ""
+      claim?.AccidentDetailsSpot?.NatureOfGoodsThirdParty || "No, As stated by Insured."
     );
     setQuantityOfGoodsThirdParty(
-      claim?.AccidentDetailsSpot?.QuantityOfGoodsThirdParty || ""
+      claim?.AccidentDetailsSpot?.QuantityOfGoodsThirdParty || "No, As stated by Insured."
     );
     setOriginToDestThirdParty(
-      claim?.AccidentDetailsSpot?.OriginToDestThirdParty || ""
+      claim?.AccidentDetailsSpot?.OriginToDestThirdParty || "No, As stated by Insured."
     );
     setLRInvoiceNoThirdParty(
-      claim?.AccidentDetailsSpot?.LRInvoiceNoThirdParty || ""
+      claim?.AccidentDetailsSpot?.LRInvoiceNoThirdParty || "No, As stated by Insured."
     );
   }, [claim]);
 

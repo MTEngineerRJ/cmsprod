@@ -187,6 +187,10 @@ export default function Exemple_01({
       });
   };
 
+  const sortArray = (array) => {
+    return array.sort()
+  }
+
   useEffect(() => {
     const mainUrl = window.location.href;
     const leadID = mainUrl.split("/spot-report/")[1];
@@ -319,7 +323,7 @@ export default function Exemple_01({
                 }
               >
                 <option data-tokens="Status2" value={""}></option>
-                {row.dropdown?.map((type, index) => {
+                {sortArray(row.dropdown)?.map((type, index) => {
                   return (
                     <option key={index} data-tokens="Status2" value={type}>
                       {type}

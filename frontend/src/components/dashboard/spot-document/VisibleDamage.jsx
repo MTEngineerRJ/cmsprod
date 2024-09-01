@@ -130,18 +130,7 @@ const VisibleDamage = ({ allInfo , spotInfo}) => {
       </div>
 
       <div>
-        <h5 className="text-dark" style={{ color: "black" }}>
-          Notes :
-        </h5>
-        <ul>
-          <div>
-            {splitText.map((part, index) => (
-              <li key={index}>{part.replace(/\n/g, "")}</li>
-            ))}
-          </div>
-
-         
-        </ul>
+        
 
         <span className="text-dark">
           Every care been taken in noting the damages,however if damages found
