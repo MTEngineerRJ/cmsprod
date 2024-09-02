@@ -269,7 +269,7 @@ const LayoutView = ({
                         : "--"}
                     </span>
                   </td>
-                  {!String(feeReport.claimDetails.InspectionType).toLowerCase().includes("spot") && 
+                  {!String(feeReport?.claimDetails?.InspectionType).toLowerCase().includes("spot") && 
                   <td><td>
                     <span>Assessed</span>
                   </td>
@@ -288,7 +288,7 @@ const LayoutView = ({
                   <td>
                     <span>{feeReport?.claimDetails?.PolicyNumber}</span>
                   </td>
-                  {!String(feeReport.claimDetails.InspectionType).toLowerCase().includes("spot") && 
+                  {!String(feeReport?.claimDetails?.InspectionType).toLowerCase().includes("spot") && 
                   <td><td>
                     <span>Estimate</span>
                   </td>
@@ -307,7 +307,7 @@ const LayoutView = ({
                   <td>
                     <span> {feeReport?.claimDetails?.ClaimNumber}</span>
                   </td>
-                  {!String(feeReport.claimDetails.InspectionType).toLowerCase().includes("spot") && 
+                  {!String(feeReport?.claimDetails?.InspectionType).toLowerCase().includes("spot") && 
                   <td>
                   <td style={{ width: "10%" }}>
                     <span>IDV</span>
