@@ -31,14 +31,14 @@ const Header = () => {
             width={40}
             height={45}
             className="logo1 img-fluid"
-            src="/assets/images/white_bg.jpg"
+            src="/assets/images/Claim_Logo.jpg"
             alt="Claim_Logo.jpg"
           />
           <Image
             width={40}
             height={45}
             className="logo2 img-fluid"
-            src="/assets/images/white_bg.jpg"
+            src="/assets/images/Claim_Logo.jpg"
             alt="Claim_Logo.jpg"
           />
           <span>Claim Management</span>
