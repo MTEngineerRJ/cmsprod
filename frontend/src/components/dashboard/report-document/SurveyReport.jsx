@@ -14,7 +14,7 @@ const SurveyReport = ({ allInfo }) => {
         }}
       ></div>
       <div>
-{/*         <div style={{ marginTop: "px" }}>
+        <div style={{ marginTop: "px" }}>
           <img
             width={421}
             height={139}
@@ -31,7 +31,7 @@ const SurveyReport = ({ allInfo }) => {
             marginTop: "5px",
           }}
         ></div>
- */}
+
         <div className="d-flex justify-content-between">
           <div>
             <label htmlFor="" className="fw-bold text-dark">
