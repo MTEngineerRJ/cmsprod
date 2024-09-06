@@ -687,14 +687,14 @@ const GSTSummary = ({ totalIMTLabourValue, totalIMTNewPartValue, allInfo }) => {
             </span>
           </div>
           <div className="text-end">
-{/*             <Image
+            <Image
               width={261}
               height={89}
               priority
               className="w50"
               src="/assets/images/stamp.jpg"
               alt="1.jpg"
-            /> */}
+            />
           </div>
         </div>
       </div>
