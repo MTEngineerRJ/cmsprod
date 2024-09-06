@@ -43,16 +43,16 @@ const PrintComponent = ({ children, allInfo }) => {
                   className=""
                   style={{ display: "flex", alignItems: "center" }}
                 >
-                  <h5
+{/*                   <h5
                     className="text-dark"
                     style={{ fontSize: "12px", paddingLeft: "10px" }}
                   >
                     69 Model Town (1st) Behind UIT Office Sri Ganganagar
                     Rajasthan 335001
-                  </h5>
+                  </h5> */}
                 </div>
                 <div className="" style={{ marginTop: "" }}>
-                  <div className="text-end">
+{/*                   <div className="text-end">
                     <Image
                       width={201}
                       height={54}
@@ -61,7 +61,7 @@ const PrintComponent = ({ children, allInfo }) => {
                       src="/assets/images/stamp.jpg"
                       alt="1.jpg"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
