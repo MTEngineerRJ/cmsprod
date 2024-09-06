@@ -54,13 +54,13 @@ const Index = () => {
           <div className="row p-3" style={{ backgroundColor: "light" }}>
             <div className="col-sm-12 col-lg-6">
               <div className="login_form  inner_page">
-{/*                 <Image
+                <Image
                   width={364}
                   height={278}
                   className="img-circle-rounded w100"
                   src="/assets/images/Claim_Logo.jpg"
                   alt="fp1.jpg"
-                /> */}
+                />
                 {/* <Form /> */}
               </div>
             </div>
