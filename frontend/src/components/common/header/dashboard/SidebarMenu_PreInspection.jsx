@@ -108,13 +108,13 @@ const SidebarMenu = ({ VehicleType,leadId, email, policyNo, vehicleNo, Insured ,
             <ul className="sidebar-menu">
               <li className="sidebar_header header">
                 <Link href="/">
-                  <Image
+{/*                   <Image
                     width={40}
                     height={45}
                     src="/assets/images/Claim_Logo.jpg"
                     alt="header-logo2.png"
                   />
-                  <span style={{ fontSize: "21px" }}>Claim Management</span>
+                  <span style={{ fontSize: "21px" }}>Claim Management</span> */}
                 </Link>
               </li>
               {/* End header */}
