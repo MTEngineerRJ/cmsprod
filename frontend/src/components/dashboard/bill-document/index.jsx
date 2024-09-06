@@ -96,20 +96,20 @@ const Index = () => {
           </div>
         </main>
         <footer className="bg-gray-800 text-white">
-{/*           <div
+          <div
             style={{
               border: "1px solid black",
               marginBottom: "5px",
               marginTop: "5px",
             }}
-          ></div> */}
+          ></div>
           <div className="">
-{/*             <div className="d-flex align-item-center justify-content-center">
+            <div className="d-flex align-item-center justify-content-center">
               <h5 className="text-dark" style={{ fontSize: "12px" }}>
                 69 Model Town (1st) Behind UIT Office Sri Ganganagar Rajasthan
                 335001
               </h5>
-            </div> */}
+            </div>
           </div>
         </footer>
         <style>
