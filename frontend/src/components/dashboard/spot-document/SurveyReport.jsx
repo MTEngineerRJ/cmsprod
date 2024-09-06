@@ -623,14 +623,14 @@ const SurveyReport = ({ allInfo }) => {
         {/* Header Content */}
         <div style={{ marginTop: "px" }}>
           {/* Replace Image component with your actual Image component */}
-{/*           <img
+          <img
             width={421}
             height={139}
             priority
             className="w50"
             src="/assets/images/header.jpg"
             alt="1.jpg"
-          /> */}
+          />
         </div>
         <div
           style={{
