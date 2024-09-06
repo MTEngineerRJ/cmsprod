@@ -86,13 +86,13 @@ const SidebarMenu = () => {
             <ul className="sidebar-menu">
               <li className="sidebar_header header">
                 <Link href="/">
-{/*                   <Image
+                  <Image
                     width={50}
                     height={50}
                     src="/assets/images/Claim_Logo.jpg"
                     alt="header-logo2.png"
                   />
-                  <span>FindHouse</span> */}
+                  <span>FindHouse</span>
                 </Link>
               </li>
 
