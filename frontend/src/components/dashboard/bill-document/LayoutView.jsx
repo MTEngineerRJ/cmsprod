@@ -25,14 +25,14 @@ const LayoutView = ({
       style={{ fontSize: "12px", fontFamily: "arial" }}
     >
       <div>
-        <img
+{/*         <img
           width={421}
           height={139}
           priority
           className="w50"
           src="/assets/images/header.jpg"
           alt="1.jpg"
-        />
+        /> */}
       </div>
       <div
         style={{
