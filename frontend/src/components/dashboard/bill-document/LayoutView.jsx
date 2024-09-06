@@ -25,14 +25,14 @@ const LayoutView = ({
       style={{ fontSize: "12px", fontFamily: "arial" }}
     >
       <div>
-{/*         <img
+        <img
           width={421}
           height={139}
           priority
           className="w50"
           src="/assets/images/header.jpg"
           alt="1.jpg"
-        /> */}
+        />
       </div>
       <div
         style={{
@@ -612,14 +612,14 @@ const LayoutView = ({
 
               <div className="" style={{}}>
                 <div className="text-end">
-{/*                   <Image
+                  <Image
                     width={201}
                     height={54}
                     priority
                     className="w50"
                     src="/assets/images/stamp.jpg"
                     alt="1.jpg"
-                  /> */}
+                  />
                 </div>
               </div>
             </td>
