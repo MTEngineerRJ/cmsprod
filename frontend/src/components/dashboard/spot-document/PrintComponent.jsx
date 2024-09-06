@@ -48,7 +48,7 @@ const PrintComponent = ({ children , allInfo}) => {
           ></div>
           <div className="">
             <div className="d-flex gap-3 align-item-center">
-{/*               <div
+              <div
                 className=""
                 style={{ display: "flex", alignItems: "center" }}
               >
@@ -60,9 +60,9 @@ const PrintComponent = ({ children , allInfo}) => {
                   335001
                 </h5>
                 
-              </div> */}
+              </div>
               <div className="" style={{ marginTop: "" }}>
-{/*                 <div className="text-end">
+                <div className="text-end">
                   <Image
                     width={201}
                     height={54}
@@ -71,7 +71,7 @@ const PrintComponent = ({ children , allInfo}) => {
                     src="/assets/images/stamp.jpg"
                     alt="1.jpg"
                   />
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
