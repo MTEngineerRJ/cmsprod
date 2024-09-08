@@ -22,13 +22,13 @@ const headCells = [
     id: "heading",
     numeric: false,
     label: "Headings",
-    width: 250,
+    width: 120,
   },
   {
     id: "description",
     numeric: false,
     label: "Description",
-    width: 120,
+    width: 250,
   },
   {
     id: "dropdown",
@@ -314,7 +314,7 @@ export default function Exemple_01({
             dropdown: row.isSelected ? (
               <select
                 disabled={!edit}
-                style={{ marginTop: "-5px" }}
+                style={{ marginTop: "", border:"1px solid black" }}
                 className="selectpicker form-select"
                 data-live-search="true"
                 data-width="100%"
