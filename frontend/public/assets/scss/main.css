@@ -7178,7 +7178,8 @@ form.home5_advanced_search_form
 }
 
 .focused{
-  height: 70px !important;
+  height: 100px !important;
+  /* overflow: scroll !important; */
 }
 
 .properti_city.style2 .details {
