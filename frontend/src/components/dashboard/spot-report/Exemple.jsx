@@ -278,7 +278,7 @@ export default function Exemple_01({
                 disabled={!edit}
                 className={
                   row.isSelected
-                    ? "form-control form-control-table p-1 focused"
+                    ? "form-control form-control-table p-1"
                     : "form-control form-control-table p-1"
                 }
                 type="text"
@@ -293,7 +293,7 @@ export default function Exemple_01({
               />
             ),
             description: (
-              <input
+              <textarea
                 disabled={!edit}
                 className={
                   row.isSelected
@@ -309,7 +309,7 @@ export default function Exemple_01({
                 required
                 id="terms"
                 style={{ border: "1px solid black", ...customStyle }}
-              />
+              ></textarea>
             ),
             dropdown: row.isSelected ? (
               <select
