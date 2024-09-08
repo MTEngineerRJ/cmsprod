@@ -14,12 +14,13 @@ const VehicleDetails = ({ allInfo }) => {
 
   const getCurrentImage = () => {
     const tempData = allInfo?.reportImagesDetails;
-    tempData?.sort((a, b) => a.SeqNo - b.SeqNo);
+    let updatedImagesArray = tempData.filter((image)=> image.SeqNo !== 0);
+    updatedImagesArray?.sort((a, b) => a.SeqNo - b.SeqNo);
     let src = "";
     let name = "";
-    if (tempData?.length > 0) {
-      src = tempData[0]?.FileUrl;
-      name = tempData[0]?.FileName;
+    if (updatedImagesArray?.length > 0) {
+      src = updatedImagesArray[0]?.FileUrl;
+      name = updatedImagesArray[0]?.FileName;
     }
     return { src, name };
   };

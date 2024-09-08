@@ -776,7 +776,7 @@ const PolicyDetails = ({
                         To
                       </label>
                     </div>
-                    <div className="col-lg-10">
+                    <div className="col-lg-5">
                       {!isEditMode ? (
                         <input
                           readOnly={!isEditMode}

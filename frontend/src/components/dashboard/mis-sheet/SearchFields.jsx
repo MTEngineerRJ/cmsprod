@@ -113,6 +113,10 @@ const SearchFields = ({
                   <option value={"Delhi"}>Delhi</option>
                   <option value={"Chandigarh"}>Chandigarh</option>
                   <option value={"Jodhpur"}>Jodhpur</option>
+                  <option value={"Spot"}>Spot</option>
+                  <option value={"Jaipur"}>Jaipur</option>
+                  <option value={"preInspection"}>preInspection</option>
+                  <option value={"Hero"}>Hero</option>
                 </select>
               </div>
             </div>

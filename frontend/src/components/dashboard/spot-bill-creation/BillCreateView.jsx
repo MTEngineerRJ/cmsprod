@@ -209,7 +209,7 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
       : 500;
     setFinalProfFees(fees);
     setReInsprectionProfFees(fees);
-    setSpotProfFees(fees);
+    setSpotProfFees(850);
   }, [allInfo]);
 
   const getTotalValue = () => {
@@ -531,6 +531,7 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
    currentSelectedInsprectiontype={currentSelectedInsprectiontype}
    setcurrentSelectedInsprectiontype={setcurrentSelectedInsprectiontype}
    FinalProfFees={FinalProfFees}
+   setFinalProfFees={setFinalProfFees}
    FinalTotalKM={FinalTotalKM}
    setFinalTotalKM={setFinalTotalKM}
    FinalVisit={FinalVisit}
@@ -545,6 +546,8 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
    setFinalPhotoCD={setFinalPhotoCD}
    FinalRemark={FinalRemark}
    setFinalRemark={setFinalRemark}
+   ReInsprectionProfFees={ReInsprectionProfFees}
+   setReInsprectionProfFees={setReInsprectionProfFees}
    ReInsprectionTotalKM={ReInsprectionTotalKM}
    setReInsprectionTotalKM={setReInsprectionTotalKM}
    ReInsprectionVisit={ReInsprectionVisit}
@@ -573,6 +576,8 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
    setSpotPhotoCD={setSpotPhotoCD}
    SpotRemark={SpotRemark}
    setSpotRemark={setSpotRemark}
+   SpotProfFees={SpotProfFees}
+   setSpotProfFees={setSpotProfFees}
    OtherTotal={OtherTotal}
    CGST={CGST}
    setCGST={setCGST}

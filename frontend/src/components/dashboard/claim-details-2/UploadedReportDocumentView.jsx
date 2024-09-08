@@ -351,14 +351,10 @@ export default function UploadReportDocumentView({ leadId, documents ,uploadedFi
     setCanUndo(false);
   }
 
-
   const saveHandler = () => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     let updateData = [],
       newData = [];
-    
-    let notSelectedSequence = false;
-    let notOptedTheValue = false;
 
     alluploadedDocs.map((doc, index) => {
       if (Number(doc.fileId) > 0 && Number(doc?.selected) === 1) {
@@ -375,7 +371,7 @@ export default function UploadReportDocumentView({ leadId, documents ,uploadedFi
         toast.error("Please select the desired Opt first to decide the sequence Number for the Image. ")
       }
     });
-
+    
     const payload = {
       updateData,
       newData,

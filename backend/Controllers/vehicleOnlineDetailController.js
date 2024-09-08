@@ -54,6 +54,7 @@ const getOnlineVehicleData = (req, res) => {
     })
     .then((result) => {
       const details = result?.data?.data;
+      console.log("Get Online Data details:",details);
 
       if (!details) {
         logMessage({

@@ -3,11 +3,12 @@ import React from "react";
 const Remarks = ({allInfo}) => {
   const getCurrentImage = () => {
     const tempData = allInfo?.reportImagesDetails;
+    let updatedImagesArray = tempData.filter((image)=> image.SeqNo !== 0);
     let src =  "";
     let name = "";
-    if (tempData?.length > 0) {
-      src = tempData[1]?.FileUrl;
-      name = tempData[1]?.FileName;
+    if (updatedImagesArray?.length > 0) {
+      src = updatedImagesArray[1]?.FileUrl;
+      name = updatedImagesArray[1]?.FileName;
       
     }
     return { src, name };

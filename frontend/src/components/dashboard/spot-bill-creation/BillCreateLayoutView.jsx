@@ -27,6 +27,7 @@ const BillCreateLayoutView = ({
   currentSelectedInsprectiontype,
   setcurrentSelectedInsprectiontype,
   FinalProfFees,
+  setFinalProfFees,
   FinalTotalKM,
   setFinalTotalKM,
   FinalVisit,
@@ -41,6 +42,8 @@ const BillCreateLayoutView = ({
   setFinalPhotoCD,
   FinalRemark,
   setFinalRemark,
+  ReInsprectionProfFees,
+  setReInsprectionProfFees,
   ReInsprectionTotalKM,
   setReInsprectionTotalKM,
   ReInsprectionVisit,
@@ -69,6 +72,8 @@ const BillCreateLayoutView = ({
   setSpotPhotoCD,
   SpotRemark,
   setSpotRemark,
+  SpotProfFees,
+  setSpotProfFees,
   OtherTotal,
   setOtherTotal,
   CGST,
@@ -85,7 +90,6 @@ const BillCreateLayoutView = ({
   onSubmitHnadler,
 }) => {
 
-  console.log("currentSelectedInsprectiontype",currentSelectedInsprectiontype);
   const convertDateFormat = (dateString) => {
     if (!dateString) return "";
   
@@ -498,6 +502,7 @@ const BillCreateLayoutView = ({
                   className="form-control"
                   id="broker_mail_id"
                   value={FinalProfFees}
+                  onChange={(e)=>setFinalProfFees(e.target.value)}
                 />
               </div>
             </div>
@@ -695,7 +700,8 @@ const BillCreateLayoutView = ({
                   type="text"
                   className="form-control"
                   id="broker_mail_id"
-                  value={FinalProfFees}
+                  value={ReInsprectionProfFees}
+                  onChange={(e)=>setReInsprectionProfFees(e.target.value)}
                 />
               </div>
             </div>
@@ -893,7 +899,8 @@ const BillCreateLayoutView = ({
                   type="text"
                   className="form-control"
                   id="broker_mail_id"
-                  value={FinalProfFees}
+                  value={SpotProfFees}
+                  onChange={(e)=>setSpotProfFees(e.target.value)}
                 />
               </div>
             </div>

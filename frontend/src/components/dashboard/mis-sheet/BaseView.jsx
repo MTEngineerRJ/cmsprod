@@ -108,6 +108,14 @@ export default function BaseView({
       return true;
     if (String(defaultRegion) === "JDH" && String(Region) === "Jodhpur")
       return true;
+    if (String(defaultRegion) === "Spot" && String(Region) === "Spot")
+      return true;
+    if (String(defaultRegion) === "Jaipur" && String(Region) === "Jaipur")
+      return true;
+    if (String(defaultRegion) === "preInspection" && String(Region) === "preInspection")
+      return true;
+    if (String(defaultRegion) === "Hero" && String(Region) === "Hero")
+      return true;
     return false;
   };
 
