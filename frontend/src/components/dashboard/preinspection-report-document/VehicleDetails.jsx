@@ -14,7 +14,7 @@ const VehicleDetails = ({ allInfo }) => {
 
   const getCurrentImage = () => {
     const tempData = allInfo?.reportImagesDetails;
-    let updatedImagesArray = tempData.filter((image)=> image.SeqNo !== 0);
+    let updatedImagesArray = tempData?.filter((image)=> image.SeqNo !== 0);
     updatedImagesArray?.sort((a, b) => a.SeqNo - b.SeqNo);
     let src = "";
     let name = "";

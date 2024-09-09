@@ -3,7 +3,7 @@ import React from "react";
 const Remarks = ({allInfo}) => {
   const getCurrentImage = () => {
     const tempData = allInfo?.reportImagesDetails;
-    let updatedImagesArray = tempData.filter((image)=> image.SeqNo !== 0);
+    let updatedImagesArray = tempData?.filter((image)=> image.SeqNo !== 0);
     let src =  "";
     let name = "";
     if (updatedImagesArray?.length > 0) {

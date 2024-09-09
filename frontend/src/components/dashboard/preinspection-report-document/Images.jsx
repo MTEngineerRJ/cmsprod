@@ -3,7 +3,7 @@ import React from "react";
 const Images = ({ allInfo }) => {
   const getAllImages = () => {
     let AllImages = allInfo?.reportImagesDetails;
-    let updatedImagesArray = AllImages.filter((image)=> image.SeqNo !== 0);
+    let updatedImagesArray = AllImages?.filter((image)=> image.SeqNo !== 0);
     updatedImagesArray?.sort((a, b) => a.SeqNo - b.SeqNo);
     let refactoredArray = updatedImagesArray?.slice(2);
     return refactoredArray;
