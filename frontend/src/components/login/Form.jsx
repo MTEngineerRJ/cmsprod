@@ -154,7 +154,7 @@ const Form = ({ setModalIsOpen, setModalIsOpenError, setErrorMessage }) => {
 
          <div className="text-center text-dark">
           <span>
-            <Link href="/register">
+            <Link href="/privacy-policy">
               Privacy Policy
             </Link>
           </span>
