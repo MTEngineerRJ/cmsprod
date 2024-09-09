@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Link from "next/link";
 import { Toaster, toast } from "react-hot-toast";
 import Captcha from "../common/Captcha";
 
@@ -150,6 +151,14 @@ const Form = ({ setModalIsOpen, setModalIsOpenError, setErrorMessage }) => {
           Log In
         </button>
         {/* login button */}
+
+         <div className="text-center text-dark">
+          <span>
+            <Link href="https://blueprinteducation.co.in/privacy-policy.html">
+              Privacy Policy
+            </Link>
+          </span>
+        </div>
 
         {/* <div className="divide">
         <span className="lf_divider">Or</span>
