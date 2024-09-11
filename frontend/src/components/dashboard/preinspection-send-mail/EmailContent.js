@@ -31,8 +31,7 @@ const formatDate = (dateString) => {
     }
 }
   
-export const defaultContent = (type,vehicleNo,PolicyNo,Insured,date)=>{
-    console.log("type",type)
+export const defaultContent = (type,vehicleNo,PolicyNo,Insured,date,)=>{
     if(String(type) === '2'){
         return `
         Dear Sir/Madam,<br/>

@@ -22,13 +22,13 @@ const headCells = [
     id: "heading",
     numeric: false,
     label: "Headings",
-    width: 120,
+    width: 250,
   },
   {
     id: "description",
     numeric: false,
     label: "Description",
-    width: 250,
+    width: 120,
   },
   {
     id: "dropdown",
@@ -278,7 +278,7 @@ export default function Exemple_01({
                 disabled={!edit}
                 className={
                   row.isSelected
-                    ? "form-control form-control-table p-1"
+                    ? "form-control form-control-table p-1 focused"
                     : "form-control form-control-table p-1"
                 }
                 type="text"
@@ -293,7 +293,7 @@ export default function Exemple_01({
               />
             ),
             description: (
-              <textarea
+              <input
                 disabled={!edit}
                 className={
                   row.isSelected
@@ -309,12 +309,12 @@ export default function Exemple_01({
                 required
                 id="terms"
                 style={{ border: "1px solid black", ...customStyle }}
-              ></textarea>
+              />
             ),
             dropdown: row.isSelected ? (
               <select
                 disabled={!edit}
-                style={{ marginTop: "", border:"1px solid black" }}
+                style={{ marginTop: "-5px" }}
                 className="selectpicker form-select"
                 data-live-search="true"
                 data-width="100%"

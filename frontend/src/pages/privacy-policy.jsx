@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import Seo from "../components/common/seo";
-import PrivacyPolicy from "../components/privacy-policy";
+import PrivacyPolicy from "../components/dashboard/privacy-policy";
 
 const index = () => {
   return (
