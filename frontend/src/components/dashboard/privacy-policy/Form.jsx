@@ -10,9 +10,9 @@ const Form = () => {
       <div>
         <h4>Privacy Policy</h4>
         <p>
-          Blueprint Education India Pvt. Ltd. built the Blueprint Digital + app
-          as a Free app. This SERVICE is provided by Blueprint Education India
-          Pvt. Ltd. at no cost and is intended for use as is. <br />
+          MT Engineer built the Blueprint Digital + app as a Free app. This
+          SERVICE is provided by MT Engineer at no cost and is intended for use
+          as is. <br />
           <br /> This page is used to inform visitors regarding our policies
           with the collection, use, and disclosure of Personal Information if
           anyone decided to use our Service.
@@ -27,7 +27,7 @@ const Form = () => {
           in our Terms and Conditions, which are accessible at Blueprint Digital
           + unless otherwise defined in this Privacy Policy.
         </p>
-        <h4>Information Collection and Use</h4>
+        <h4 className="mt-3">Information Collection and Use</h4>
         <p>
           For a better experience, while using our Service, we may require you
           to provide us with certain personally identifiable information. The
@@ -38,18 +38,24 @@ const Form = () => {
           <br /> Link to the privacy policy of third-party service providers
           used by the app
         </p>
-        <ul>
+      <ul>
           <li>
-            <Link href="#">Google Play Services</Link>
+            <Link href="https://policies.google.com/privacy">
+              Google Play Services
+            </Link>
           </li>
           <li>
-            <Link href="#">Google Analytics for Firebase</Link>
+            <Link href="https://firebase.google.com/support/privacy">
+              Google Analytics for Firebase
+            </Link>
           </li>
           <li>
-            <Link href="#">Firebase Crashlytics</Link>
+            <Link href="https://firebase.google.com/support/privacy/">
+              Firebase Crashlytics
+            </Link>
           </li>
         </ul>
-        <h4>Log Data</h4>
+        <h4 className="mt-3">Log Data</h4>
         <p>
           We want to inform you that whenever you use our Service, in a case of
           an error in the app we collect data and information (through
@@ -59,7 +65,7 @@ const Form = () => {
           the app when utilizing our Service, the time and date of your use of
           the Service, and other statistics.
         </p>
-        <h4>Cookies</h4>
+        <h4 className="mt-3">Cookies</h4>
         <p>
           Cookies are files with a small amount of data that are commonly used
           as anonymous unique identifiers. These are sent to your browser from
@@ -72,7 +78,7 @@ const Form = () => {
           sent to your device. If you choose to refuse our cookies, you may not
           be able to use some portions of this Service.
         </p>
-        <h4>Service Providers</h4>
+        <h4 className="mt-3">Service Providers</h4>
         <p>
           We may employ third-party companies and individuals due to the
           following reasons:
@@ -87,7 +93,7 @@ const Form = () => {
           tasks assigned to them on our behalf. However, they are obligated not
           to disclose or use the information for any other purpose.
         </p>
-        <h4>Security</h4>
+        <h4 className="mt-3">Security</h4>
         <p>
           We value your trust in providing us your Personal Information, thus we
           are striving to use commercially acceptable means of protecting it.
@@ -95,7 +101,7 @@ const Form = () => {
           method of electronic storage is 100% secure and reliable, and we
           cannot guarantee its absolute security.
         </p>
-        <h4>Links to Other Sites</h4>
+        <h4 className="mt-3">Links to Other Sites</h4>
         <p>
           This Service may contain links to other sites. If you click on a
           third-party link, you will be directed to that site. Note that these
@@ -104,7 +110,7 @@ const Form = () => {
           over and assume no responsibility for the content, privacy policies,
           or practices of any third-party sites or services.
         </p>
-        <h4>Children’s Privacy</h4>
+        <h4 className="mt-3">Children’s Privacy</h4>
         <p>
           These Services do not address anyone under the age of 13. We do not
           knowingly collect personally identifiable information from children
@@ -122,7 +128,7 @@ const Form = () => {
           page. <br />
           <br /> This policy is effective as of 2023-12-01
         </p>
-        <h4>Contact Us</h4>
+        <h4 className="mt-3">Contact Us</h4>
         <p>
           If you have any questions or suggestions about our Privacy Policy, do
           not hesitate to contact us at A-37, Suite 407, Sector-63, Noida-201301
