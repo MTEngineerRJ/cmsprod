@@ -54,7 +54,6 @@ export const getDocumentList = (data, leadId) => {
 
 export const summaryNotes = () => {
 
-  console.log()
   return 
   (`
   <ul>

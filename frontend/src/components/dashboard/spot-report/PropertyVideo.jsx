@@ -1135,8 +1135,8 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
       : "Purchase";
     setTypeOfDate(temp);
     setVehicleTypeOfBody(
-      claim?.vehicleDetails?.BancsBodyType != null
-        ? claim?.vehicleDetails?.BancsBodyType
+      claim?.vehicleDetails?.TypeOfBody != null
+        ? claim?.vehicleDetails?.TypeOfBody
         : ""
     );
     setVehicleCubicCapacity(
@@ -1145,8 +1145,8 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
         : ""
     );
     setVehicleClassOfVehicle(
-      claim?.vehicleDetails?.VehicleClassDescription != null
-        ? claim?.vehicleDetails?.VehicleClassDescription
+      claim?.vehicleDetails?.ClassOfVehicle != null
+        ? claim?.vehicleDetails?.ClassOfVehicle
         : ""
     );
     setVehicleFuelType(

@@ -12,7 +12,7 @@ import {
 } from "./functions";
 import BillCreateLayoutView from "./BillCreateLayoutView";
 
-const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
+const BillCreateView = ({ allInfo, leadID, setCurrentLeadType }) => {
   const router = useRouter();
   const [inspectionType, setInspectionType] = useState("");
 
@@ -33,12 +33,12 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
   const [DetailsFee, setDetailsFee] = useState("");
   const [DetailsRemark, setDetailsRemark] = useState("");
   const [show, setShow] = useState(false);
-  const [defaultProfFees, setDefaultProfFees] = useState(0);
+  const [defaultProfFees, setDefaultProfFees] = useState(850);
 
   const [BillTo, setBillTo] = useState("");
 
   const [currentSelectedInsprectiontype, setcurrentSelectedInsprectiontype] =
-    useState(1);
+    useState(3);
 
   const [FinalProfFees, setFinalProfFees] = useState(0);
   const [FinalTotalKM, setFinalTotalKM] = useState("");
@@ -132,8 +132,8 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
         String(allInfo?.otherInfo[0]?.InspectionType).toLowerCase().includes("final")
           ? 1
           : String(allInfo?.otherInfo[0]?.InspectionType).toLowerCase().includes("spot")
-          ? 3
-          : 2
+            ? 3
+            : 2
       );
 
       setCGST(allInfo?.feesDetails?.Cgst);
@@ -178,8 +178,8 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
         String(BillTo) === "Appointing Office"
           ? allInfo?.otherInfo[0]?.ClaimServicingOffice
           : String(BillTo) === "Insurer"
-          ? allInfo?.otherInfo[0]?.PolicyIssuingOffice
-          : "";
+            ? allInfo?.otherInfo[0]?.PolicyIssuingOffice
+            : "";
       allServicingOffice.map((office, index) => {
         if (String(office.OfficeNameWithCode) === String(searchCode)) {
           requiredStateCode = office.StateCode;
@@ -219,43 +219,43 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
       String(currentSelectedInsprectiontype) === "1"
         ? FinalTotalKM
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionTotalKM
-        : SpotTotalKM;
+          ? ReInsprectionTotalKM
+          : SpotTotalKM;
 
     const Visits =
       String(currentSelectedInsprectiontype) === "1"
         ? FinalVisit
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionVisit
-        : SpotVisit;
+          ? ReInsprectionVisit
+          : SpotVisit;
 
     const Conveyance =
       String(currentSelectedInsprectiontype) === "1"
         ? FinalConveyance
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionConveyance
-        : SpotConveyance;
+          ? ReInsprectionConveyance
+          : SpotConveyance;
 
     const Photos =
       String(currentSelectedInsprectiontype) === "1"
         ? FinalPhotos
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionPhotos
-        : SpotPhotos;
+          ? ReInsprectionPhotos
+          : SpotPhotos;
 
     const charges =
       String(currentSelectedInsprectiontype) === "1"
         ? FinalCharges
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionCharges
-        : SpotCharges;
+          ? ReInsprectionCharges
+          : SpotCharges;
 
     const PhotoCD =
       String(currentSelectedInsprectiontype) === "1"
         ? FinalPhotosCD
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionPhotosCD
-        : SpotPhotosCD;
+          ? ReInsprectionPhotosCD
+          : SpotPhotosCD;
 
     const total =
       Number(professionalFees) + Number(Conveyance) + Number(PhotoCD);
@@ -271,10 +271,10 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
 
     setNetPay(
       total +
-        calculate_cgst +
-        calculate_igst +
-        calculate_sgst +
-        Number(OtherTotal)
+      calculate_cgst +
+      calculate_igst +
+      calculate_sgst +
+      Number(OtherTotal)
     );
     return (
       total +
@@ -290,15 +290,15 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
 
     const Conveyance =
       allInfo?.feesDetails?.Conveyance !== undefined &&
-      allInfo?.feesDetails?.Conveyance !== null &&
-      allInfo?.feesDetails?.Conveyance !== ""
+        allInfo?.feesDetails?.Conveyance !== null &&
+        allInfo?.feesDetails?.Conveyance !== ""
         ? allInfo?.feesDetails?.Conveyance
         : 0;
 
     const PhotoCD =
       allInfo?.feesDetails?.Photos_cd !== undefined &&
-      allInfo?.feesDetails?.Photos_cd !== null &&
-      allInfo?.feesDetails?.Photos_cd !== ""
+        allInfo?.feesDetails?.Photos_cd !== null &&
+        allInfo?.feesDetails?.Photos_cd !== ""
         ? allInfo?.feesDetails?.Photos_cd
         : 0;
 
@@ -325,45 +325,45 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
         String(currentSelectedInsprectiontype) === "1"
           ? "Final"
           : String(currentSelectedInsprectiontype) === "2"
-          ? "ReInspection"
-          : "Spot",
+            ? "ReInspection"
+            : "Spot",
       ProfessionalFees: calculateProfessionalFees(),
       TotalKM:
         String(currentSelectedInsprectiontype) === "1"
           ? FinalTotalKM
           : String(currentSelectedInsprectiontype) === "2"
-          ? ReInsprectionTotalKM
-          : SpotTotalKM,
+            ? ReInsprectionTotalKM
+            : SpotTotalKM,
       Visits:
         String(currentSelectedInsprectiontype) === "1"
           ? FinalVisit
           : String(currentSelectedInsprectiontype) === "2"
-          ? ReInsprectionVisit
-          : SpotVisit,
+            ? ReInsprectionVisit
+            : SpotVisit,
       Conveyance:
         String(currentSelectedInsprectiontype) === "1"
           ? FinalConveyance
           : String(currentSelectedInsprectiontype) === "2"
-          ? ReInsprectionConveyance
-          : SpotConveyance,
+            ? ReInsprectionConveyance
+            : SpotConveyance,
       Photos:
         String(currentSelectedInsprectiontype) === "1"
           ? FinalPhotos
           : String(currentSelectedInsprectiontype) === "2"
-          ? ReInsprectionPhotos
-          : SpotPhotos,
+            ? ReInsprectionPhotos
+            : SpotPhotos,
       Charge:
         String(currentSelectedInsprectiontype) === "1"
           ? FinalCharges
           : String(currentSelectedInsprectiontype) === "2"
-          ? ReInsprectionCharges
-          : SpotCharges,
+            ? ReInsprectionCharges
+            : SpotCharges,
       Photos_cd:
         String(currentSelectedInsprectiontype) === "1"
           ? FinalPhotosCD
           : String(currentSelectedInsprectiontype) === "2"
-          ? ReInsprectionPhotosCD
-          : SpotPhotosCD,
+            ? ReInsprectionPhotosCD
+            : SpotPhotosCD,
       Cgst: CGST,
       Igst: IGST,
       Sgst: SGST,
@@ -382,10 +382,10 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
       Others: Others,
       BillDate: BillDate,
       BillId: allInfo?.feesDetails ? allInfo?.feesDetails?.BillSno : null,
-      Username : userInfo[0]?.Username
+      Username: userInfo[0]?.Username
     };
 
-    
+
     toast.loading(
       allInfo?.feesDetails?.BillID
         ? "Updating the bill !!"
@@ -405,8 +405,7 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
       .then((res) => {
         toast.dismiss();
         toast.success(
-          `Successfully ${
-            allInfo?.feesDetails?.BillID ? "updated" : "added"
+          `Successfully ${allInfo?.feesDetails?.BillID ? "updated" : "added"
           } !`,
           {
             className: "toast-loading-message",
@@ -425,56 +424,56 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
   useEffect(() => {
     setInsurer(allInfo?.otherInfo[0]?.InsuranceCompanyNameAddress);
     setBranch(allInfo?.otherInfo[0]?.Region);
-    calculateTotalAssessed(allInfo,setAssessed,setEstimate);
+    calculateTotalAssessed(allInfo, setAssessed, setEstimate);
 
     const professionalFees =
       String(currentSelectedInsprectiontype) === "1"
         ? FinalProfFees
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionProfFees
-        : SpotProfFees;
+          ? ReInsprectionProfFees
+          : SpotProfFees;
 
     const totalKM =
       String(currentSelectedInsprectiontype) === "1"
         ? FinalTotalKM
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionTotalKM
-        : SpotTotalKM;
+          ? ReInsprectionTotalKM
+          : SpotTotalKM;
 
     const Visits =
       String(currentSelectedInsprectiontype) === "1"
         ? FinalVisit
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionVisit
-        : SpotVisit;
+          ? ReInsprectionVisit
+          : SpotVisit;
 
     const Conveyance =
       String(currentSelectedInsprectiontype) === "1"
         ? FinalConveyance
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionConveyance
-        : SpotConveyance;
+          ? ReInsprectionConveyance
+          : SpotConveyance;
 
     const Photos =
       String(currentSelectedInsprectiontype) === "1"
         ? FinalPhotos
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionPhotos
-        : SpotPhotos;
+          ? ReInsprectionPhotos
+          : SpotPhotos;
 
     const charges =
       String(currentSelectedInsprectiontype) === "1"
         ? FinalCharges
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionCharges
-        : SpotCharges;
+          ? ReInsprectionCharges
+          : SpotCharges;
 
     const PhotoCD =
       String(currentSelectedInsprectiontype) === "1"
         ? FinalPhotosCD
         : String(currentSelectedInsprectiontype) === "2"
-        ? ReInsprectionPhotosCD
-        : SpotPhotosCD;
+          ? ReInsprectionPhotosCD
+          : SpotPhotosCD;
 
     console.log(defaultProfFees, PhotoCD, Conveyance);
     const total =
@@ -505,95 +504,95 @@ const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
   ]);
 
   return (
-   <>
-   <BillCreateLayoutView
-   allInfo={allInfo}
-   BillDate={BillDate}
-   setBillDate={setBillDate}
-   Insurer={Insurer}
-   setInsurer={setInsurer}
-   allInsurer={allInsurer}
-   Branch={Branch}
-   BillTo={BillTo}
-   setBillTo={setBillTo}
-   Others={Others}
-   setOthers={setOthers}
-   DetailsKM={DetailsKM}
-   setDetailsKM={setDetailsKM}
-   Estimate={Estimate}
-   Assessed={Assessed}
-   DetailsPhotoRate={DetailsPhotoRate}
-   setDetailsPhotoRate={setDetailsPhotoRate}
-   DetailsFee={DetailsFee}
-   setDetailsFee={setDetailsFee}
-   DetailsRemark={DetailsRemark}
-   setDetailsRemark={setDetailsRemark}
-   currentSelectedInsprectiontype={currentSelectedInsprectiontype}
-   setcurrentSelectedInsprectiontype={setcurrentSelectedInsprectiontype}
-   FinalProfFees={FinalProfFees}
-   setFinalProfFees={setFinalProfFees}
-   FinalTotalKM={FinalTotalKM}
-   setFinalTotalKM={setFinalTotalKM}
-   FinalVisit={FinalVisit}
-   setFinalVisit={setFinalVisit}
-   FinalConveyance={FinalConveyance}
-   setFinalConveyance={setFinalConveyance}
-   FinalPhotos={FinalPhotos}
-   setFinalPhotos={setFinalPhotos}
-   FinalCharges={FinalCharges}
-   setFinalCharges={setFinalCharges}
-   FinalPhotosCD={FinalPhotosCD}
-   setFinalPhotoCD={setFinalPhotoCD}
-   FinalRemark={FinalRemark}
-   setFinalRemark={setFinalRemark}
-   ReInsprectionProfFees={ReInsprectionProfFees}
-   setReInsprectionProfFees={setReInsprectionProfFees}
-   ReInsprectionTotalKM={ReInsprectionTotalKM}
-   setReInsprectionTotalKM={setReInsprectionTotalKM}
-   ReInsprectionVisit={ReInsprectionVisit}
-   setReInsprectionVisit={setReInsprectionVisit}
-   ReInsprectionConveyance={ReInsprectionConveyance}
-   setReInsprectionConveyance={setReInsprectionConveyance}
-   ReInsprectionPhotos={ReInsprectionPhotos}
-   setReInsprectionPhotos={setReInsprectionPhotos}
-   ReInsprectionCharges={ReInsprectionCharges}
-   setReInsprectionCharges={setReInsprectionCharges}
-   ReInsprectionPhotosCD={ReInsprectionPhotosCD}
-   setReInsprectionPhotoCD={setReInsprectionPhotoCD}
-   ReInsprectionRemark={ReInsprectionRemark}
-   setReInsprectionRemark={setReInsprectionRemark}
-   SpotTotalKM={SpotTotalKM}
-   setSpotTotalKM={setSpotTotalKM}
-   SpotVisit={SpotVisit}
-   setSpotVisit={setSpotVisit}
-   SpotConveyance={SpotConveyance}
-   setSpotConveyance={setSpotConveyance}
-   SpotPhotos={SpotPhotos}
-   setSpotPhotos={setSpotPhotos}
-   SpotCharges={SpotCharges}
-   setSpotCharges={setSpotCharges}
-   SpotPhotosCD={SpotPhotosCD}
-   setSpotPhotoCD={setSpotPhotoCD}
-   SpotRemark={SpotRemark}
-   setSpotRemark={setSpotRemark}
-   SpotProfFees={SpotProfFees}
-   setSpotProfFees={setSpotProfFees}
-   OtherTotal={OtherTotal}
-   CGST={CGST}
-   setCGST={setCGST}
-   CGSTValue={CGSTValue}
-   SGST={SGST}
-   setSGST={setSGST}
-   SGSTValue={SGSTValue}
-   IGST={IGST}
-   setIGST={setIGST}
-   IGSTValue={IGSTValue}
-   NetPay={NetPay}
-   disable={disable}
-   onSubmitHnadler={onSubmitHnadler}
-   />
+    <>
+      <BillCreateLayoutView
+        allInfo={allInfo}
+        BillDate={BillDate}
+        setBillDate={setBillDate}
+        Insurer={Insurer}
+        setInsurer={setInsurer}
+        allInsurer={allInsurer}
+        Branch={Branch}
+        BillTo={BillTo}
+        setBillTo={setBillTo}
+        Others={Others}
+        setOthers={setOthers}
+        DetailsKM={DetailsKM}
+        setDetailsKM={setDetailsKM}
+        Estimate={Estimate}
+        Assessed={Assessed}
+        DetailsPhotoRate={DetailsPhotoRate}
+        setDetailsPhotoRate={setDetailsPhotoRate}
+        DetailsFee={DetailsFee}
+        setDetailsFee={setDetailsFee}
+        DetailsRemark={DetailsRemark}
+        setDetailsRemark={setDetailsRemark}
+        currentSelectedInsprectiontype={currentSelectedInsprectiontype}
+        setcurrentSelectedInsprectiontype={setcurrentSelectedInsprectiontype}
+        FinalProfFees={FinalProfFees}
+        setFinalProfFees={setFinalProfFees}
+        FinalTotalKM={FinalTotalKM}
+        setFinalTotalKM={setFinalTotalKM}
+        FinalVisit={FinalVisit}
+        setFinalVisit={setFinalVisit}
+        FinalConveyance={FinalConveyance}
+        setFinalConveyance={setFinalConveyance}
+        FinalPhotos={FinalPhotos}
+        setFinalPhotos={setFinalPhotos}
+        FinalCharges={FinalCharges}
+        setFinalCharges={setFinalCharges}
+        FinalPhotosCD={FinalPhotosCD}
+        setFinalPhotoCD={setFinalPhotoCD}
+        FinalRemark={FinalRemark}
+        setFinalRemark={setFinalRemark}
+        ReInsprectionProfFees={ReInsprectionProfFees}
+        setReInsprectionProfFees={setReInsprectionProfFees}
+        ReInsprectionTotalKM={ReInsprectionTotalKM}
+        setReInsprectionTotalKM={setReInsprectionTotalKM}
+        ReInsprectionVisit={ReInsprectionVisit}
+        setReInsprectionVisit={setReInsprectionVisit}
+        ReInsprectionConveyance={ReInsprectionConveyance}
+        setReInsprectionConveyance={setReInsprectionConveyance}
+        ReInsprectionPhotos={ReInsprectionPhotos}
+        setReInsprectionPhotos={setReInsprectionPhotos}
+        ReInsprectionCharges={ReInsprectionCharges}
+        setReInsprectionCharges={setReInsprectionCharges}
+        ReInsprectionPhotosCD={ReInsprectionPhotosCD}
+        setReInsprectionPhotoCD={setReInsprectionPhotoCD}
+        ReInsprectionRemark={ReInsprectionRemark}
+        setReInsprectionRemark={setReInsprectionRemark}
+        SpotTotalKM={SpotTotalKM}
+        setSpotTotalKM={setSpotTotalKM}
+        SpotVisit={SpotVisit}
+        setSpotVisit={setSpotVisit}
+        SpotConveyance={SpotConveyance}
+        setSpotConveyance={setSpotConveyance}
+        SpotPhotos={SpotPhotos}
+        setSpotPhotos={setSpotPhotos}
+        SpotCharges={SpotCharges}
+        setSpotCharges={setSpotCharges}
+        SpotPhotosCD={SpotPhotosCD}
+        setSpotPhotoCD={setSpotPhotoCD}
+        SpotRemark={SpotRemark}
+        setSpotRemark={setSpotRemark}
+        SpotProfFees={SpotProfFees}
+        setSpotProfFees={setSpotProfFees}
+        OtherTotal={OtherTotal}
+        CGST={CGST}
+        setCGST={setCGST}
+        CGSTValue={CGSTValue}
+        SGST={SGST}
+        setSGST={setSGST}
+        SGSTValue={SGSTValue}
+        IGST={IGST}
+        setIGST={setIGST}
+        IGSTValue={IGSTValue}
+        NetPay={NetPay}
+        disable={disable}
+        onSubmitHnadler={onSubmitHnadler}
+      />
 
-   </>
+    </>
   );
 };
 
