@@ -72,15 +72,14 @@ const sendEmail1 = (req, res) => {
         username: "",
         leadId: leadId,
         consoleInfo: `${err.status} ${err.details}`,
-        info: `{ERRMESSAGE : ${
-          err.details
-        }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+        info: `{ERRMESSAGE : ${err.details
+          }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
       });
       console.error(err);
       res.status(500).send("Internal Server Error");
       return;
     }
-    const content = emailHandler(result[0]?.Status,InspectionType);
+    const content = emailHandler(result[0]?.Status, InspectionType);
 
     const InsuredToken = generateUniqueToken();
     const ImageToken = generateUniqueToken();
@@ -104,9 +103,8 @@ const sendEmail1 = (req, res) => {
           username: "",
           leadId: leadId,
           consoleInfo: `Got error while updating the tokens for the specific claim  of leadId --> ${leadId}`,
-          info: `{ERRMESSAGE : ${
-            err.details
-          }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+          info: `{ERRMESSAGE : ${err.details
+            }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
         });
         console.error(err);
         res.status(500).send("Internal Server Error");
@@ -118,8 +116,7 @@ const sendEmail1 = (req, res) => {
   
       Greeting from the MT Engineers Legal Investigator Pvt. Ltd., <br/>
   
-      ${
-        !String(InspectionType).toLowerCase().includes("pre-inspection")
+      ${!String(InspectionType).toLowerCase().includes("pre-inspection")
           ? `We are Appointed for the survey of vehicle no.${vehicleNo}, <br/>
       Insured:${Insured} & Policy No.-${PolicyNo} on ${convertToDDMMYYYY(Date)} <br/>
       from the United India Insurance co. Ltd. So we request <br/>
@@ -130,66 +127,67 @@ const sendEmail1 = (req, res) => {
        on ${convertToDDMMYYYY(Date)} .So please provide the document mentioned 
       below and photographs of said vehicle So that we can 
       proceed further in your case as follows:-`
-      }
+        }
       <br/>
       <strong> ${content} </strong>
 
       Please provide the clear copy of all the documents so that  <br/>
       the claim processing can be fast or <br/>
-      <p><a href=https://cmsprod.vercel.app/${
-        String(InspectionType).toLowerCase().includes("pre-inspection")
+      <p><a href=https://cmsprod.vercel.app/${String(InspectionType).toLowerCase().includes("pre-inspection")
           ? "inspection-documents"
           : "documents"
-      }/${leadId}?token=${InsuredToken}&type=${1}&content=${
-    String(InspectionType).toLowerCase().includes("pre-inspection")
-      ? "Certificate%20of%20registration%2CAadhar%20card%2CInsurance%20policy%2CVehicle%20photographs%2Fvideo%2CSignature"
-      : ""
-  } target="_blank">Click Here</a> to fill the documents information .</p> <br/>
+        }/${leadId}?token=${InsuredToken}&type=${1}&content=${String(InspectionType).toLowerCase().includes("pre-inspection")
+          ? "Certificate%20of%20registration%2CAadhar%20card%2CInsurance%20policy%2CVehicle%20photographs%2Fvideo%2CSignature"
+          : ""
+        } target="_blank">Click Here</a> to fill the documents information .</p> <br/>
 
-  ${
-    String(InspectionType).toLowerCase().includes("pre-inspection")
-      ? ""
-      : `Please provide the clear Vahicle Videos so that the claim <br/>
+  ${String(InspectionType).toLowerCase().includes("pre-inspection")
+          ? ""
+          : `Please provide the clear Vahicle Videos so that the claim <br/>
       processing can be fast or <br/>
       <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${ImageToken}&type=${2}&content=${"Images"} target="_blank">Click Here</a> to fill the documents information .</p> <br/>`
-  }
+        }
 
       Please provide the  all the clear Images of the Vehicle so  <br/>
       that the claim processing can be fast or <br/>
       <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${VideoToken}&type=${3}&content=${"Videos"} target="_blank">Click Here</a> to fill the documents information .</p> <br/>
 
     ${String(InspectionType).toLowerCase().includes("pre-inspection")
-    ? "" :`Note:- <strong> If We Cannot get the response with in 02 days we will inform the insurer that the insured <br/>
+          ? "" : `Note:- <strong> If We Cannot get the response with in 02 days we will inform the insurer that the insured <br/>
     is not interseted in the claim. So close the file as"No Claim" in non copperation & non submission of the documents. </strong> <br/>`}
 
   `;
 
-  const currentMailAddress = String(InspectionType)
-  .toLowerCase()
-  .includes("pre-inspection")
-  ? process.env.NODEMAILER_PI_EMAIL
-  : Region === "Delhi"
-  ? process.env.NODEMAILER_DELHI_EMAIL
-  : Region === "Jodhpur"
-  ? process.env.NODEMAILER_JODHPUR_EMAIL
-  : Region === "Jaipur"
-  ? process.env.NODEMAILER_JAIPUR_EMAIL
-  : Region === "Hero"
-  ? process.env.NODEMAILER_HERO_EMAIL
-  : process.env.NODEMAILER_CHANDIGARH_EMAIL;
-const currentMailAddressPass = String(InspectionType)
-  .toLowerCase()
-  .includes("pre-inspection")
-  ? process.env.NODEMAILER_PI_EMAIL_PASSWORD
-  : Region === "Delhi"
-  ? process.env.NODEMAILER_DELHI_EMAIL_PASSWORD
-  : Region === "Jodhpur"
-  ? process.env.NODEMAILER_JODHPUR_EMAIL_PASSWORD
-  : Region === "Jaipur"
-  ? process.env.NODEMAILER_JAIPUR_EMAIL_PASSWORD
-  : Region === "Hero"
-  ? process.env.NODEMAILER_HERO_EMAIL_PASSWORD
-  : process.env.NODEMAILER_CHANDIGARH_EMAIL_PASSWORD;
+      const currentMailAddress = String(InspectionType)
+        .toLowerCase()
+        .includes("pre-inspection")
+        ? process.env.NODEMAILER_PI_EMAIL
+        : Region === "Delhi"
+          ? process.env.NODEMAILER_DELHI_EMAIL
+          : Region === "Jodhpur"
+            ? process.env.NODEMAILER_JODHPUR_EMAIL
+            : Region === "Jaipur"
+              ? process.env.NODEMAILER_JAIPUR_EMAIL
+              : Region === "Hero"
+                ? process.env.NODEMAILER_HERO_EMAIL
+                : Region === "Spot"
+                  ? process.env.NODEMAILER_SPOT_EMAIL
+                  : process.env.NODEMAILER_CHANDIGARH_EMAIL;
+      const currentMailAddressPass = String(InspectionType)
+        .toLowerCase()
+        .includes("pre-inspection")
+        ? process.env.NODEMAILER_PI_EMAIL_PASSWORD
+        : Region === "Delhi"
+          ? process.env.NODEMAILER_DELHI_EMAIL_PASSWORD
+          : Region === "Jodhpur"
+            ? process.env.NODEMAILER_JODHPUR_EMAIL_PASSWORD
+            : Region === "Jaipur"
+              ? process.env.NODEMAILER_JAIPUR_EMAIL_PASSWORD
+              : Region === "Hero"
+                ? process.env.NODEMAILER_HERO_EMAIL_PASSWORD
+                : Region === "Spot"
+                  ? process.env.NODEMAILER_SPOT_EMAIL_PASSWORD
+                  : process.env.NODEMAILER_CHANDIGARH_EMAIL_PASSWORD;
 
 
       const transporter2 = nodemailer.createTransport({
@@ -207,17 +205,16 @@ const currentMailAddressPass = String(InspectionType)
         GarageMailAddress && BrokerMailAddress
           ? `${GarageMailAddress},${BrokerMailAddress}`
           : GarageMailAddress
-          ? GarageMailAddress
-          : BrokerMailAddress;
+            ? GarageMailAddress
+            : BrokerMailAddress;
 
       const mailOptions = {
         from: currentMailAddress,
         to: toMail,
         cc: ccContent,
-        subject:  String(InspectionType)
-        .toLowerCase()
-        .includes("pre-inspection") ?  `Pre Inspection Request of Vehicle Number - ${vehicleNo ? vehicleNo : "A/c"} ` : `Survey Request for Claim of Vehicle Number - ${vehicleNo} A/c ${
-          Insured ? Insured : "N.A."
+        subject: String(InspectionType)
+          .toLowerCase()
+          .includes("pre-inspection") ? `Pre Inspection Request of Vehicle Number - ${vehicleNo ? vehicleNo : "A/c"} ` : `Survey Request for Claim of Vehicle Number - ${vehicleNo} A/c ${Insured ? Insured : "N.A."
         }  policy Number - ${PolicyNo}`,
         html: emailContent,
       };
@@ -230,9 +227,8 @@ const currentMailAddressPass = String(InspectionType)
             username: "",
             leadId: leadId,
             consoleInfo: `Got error while sending the MAIL from : ${currentMailAddress} , to : ${toMail} , cc : ${ccContent} for LeadId --> ${leadId}`,
-            info: `{ERRMESSAGE : ${
-              err.details
-            }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+            info: `{ERRMESSAGE : ${err.details
+              }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
           });
           console.error(error);
           res.status(500).send("Internal Server Error");
@@ -294,9 +290,8 @@ const acknowledgmentMail = (req, res) => {
         username: Username,
         leadId: leadId,
         consoleInfo: `${err.status} ${err.details}`,
-        info: `{ERRMESSAGE : ${
-          err.details
-        }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+        info: `{ERRMESSAGE : ${err.details
+          }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
       });
       console.error(err);
       res.status(500).send("Internal Server Error");
@@ -311,9 +306,8 @@ const acknowledgmentMail = (req, res) => {
           username: Username,
           leadId: leadId,
           consoleInfo: `${err.status} ${err.details}`,
-          info: `{ERRMESSAGE : ${
-            err.details
-          }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+          info: `{ERRMESSAGE : ${err.details
+            }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
         });
         console.error(err);
         res.status(500).send("Internal Server Error");
@@ -344,9 +338,8 @@ const acknowledgmentMail = (req, res) => {
             username: Username,
             leadId: leadId,
             consoleInfo: `Got error while updating the tokens for the specific claim  of leadId --> ${leadId}`,
-            info: `{ERRMESSAGE : ${
-              err.details
-            }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+            info: `{ERRMESSAGE : ${err.details
+              }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
           });
           console.error(err);
           res.status(500).send("Internal Server Error");
@@ -358,19 +351,18 @@ const acknowledgmentMail = (req, res) => {
       
             Greeting from the MT Engineers Legal Investigator Pvt. Ltd., <br/>
       
-            ${
-              !String(inspectionType).toLowerCase().includes("pre-inspection")
-                ? `We are Appointed for the survey of vehicle no.${vehicleNo}, <br/>
+            ${!String(inspectionType).toLowerCase().includes("pre-inspection")
+            ? `We are Appointed for the survey of vehicle no.${vehicleNo}, <br/>
             Insured:${Insured} & Policy No.-${PolicyNo} on ${Date} <br/>
             from the United India Insurance co. Ltd. So we request <br/>
             you please provide the complete contact deatils & mails of Repairer/insured.<br/>
             So that we  can procedd further in your case and we also request <br/>
             you to provide the following details as follows:-`
-                : ` We have request for the Pre Inspection of vehicle no:- ${vehicleNo ? vehicleNo : "A/c"}
+            : ` We have request for the Pre Inspection of vehicle no:- ${vehicleNo ? vehicleNo : "A/c"}
              on ${convertToDDMMYYYY(Date)} .So please provide the document mentioned 
             below and photographs of said vehicle So that we can 
             proceed further in your case as follows:-`
-            }
+          }
             <br/>
 
       
@@ -378,31 +370,28 @@ const acknowledgmentMail = (req, res) => {
       
             Please provide the clear copy of all the documents so that  <br/>
             the claim processing can be fast or <br/>
-            <p><a href=https://cmsprod.vercel.app/${
-              String(inspectionType).toLowerCase().includes("pre-inspection")
-                ? "inspection-documents"
-                : "documents"
-            }/${leadId}?token=${InsuredToken}&type=${1}&content=${
-          String(inspectionType).toLowerCase().includes("pre-inspection")
+            <p><a href=https://cmsprod.vercel.app/${String(inspectionType).toLowerCase().includes("pre-inspection")
+            ? "inspection-documents"
+            : "documents"
+          }/${leadId}?token=${InsuredToken}&type=${1}&content=${String(inspectionType).toLowerCase().includes("pre-inspection")
             ? "Certificate%20of%20registration%2CAadhar%20card%2CInsurance%20policy%2CDamage%20vehicle%20photographs%2Fvideo%2CSignature"
             : ""
-        } target="_blank">Click Here</a> to fill the documents information .</p> <br/>
+          } target="_blank">Click Here</a> to fill the documents information .</p> <br/>
       
-        ${
-          String(inspectionType).toLowerCase().includes("pre-inspection")
+        ${String(inspectionType).toLowerCase().includes("pre-inspection")
             ? ""
             : `Please provide the clear Vahicle Videos so that the claim <br/>
             processing can be fast or <br/>
             <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${ImageToken}&type=${2}&content=${"Images"} target="_blank">Click Here</a> to fill the documents information .</p> <br/>`
-        }
+          }
       
             Please provide the  all the clear Images of the Vehicle so  <br/>
             that the claim processing can be fast or <br/>
             <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${VideoToken}&type=${3}&content=${"Videos"} target="_blank">Click Here</a> to fill the documents information .</p> <br/>
       
           ${String(inspectionType).toLowerCase().includes("pre-inspection")
-          ? ""
-          :`Note:- <strong> If We Cannot get the response with in 02 days we will inform the insurer that the insured <br/>
+            ? ""
+            : `Note:- <strong> If We Cannot get the response with in 02 days we will inform the insurer that the insured <br/>
           is not interseted in the claim. So close the file as"No Claim" in non copperation & non submission of the documents. </strong> <br/>`}
       
     `;
@@ -412,27 +401,31 @@ const acknowledgmentMail = (req, res) => {
           .includes("pre-inspection")
           ? process.env.NODEMAILER_PI_EMAIL
           : Region === "Delhi"
-          ? process.env.NODEMAILER_DELHI_EMAIL
-          : Region === "Jodhpur"
-          ? process.env.NODEMAILER_JODHPUR_EMAIL
-          : Region === "Jaipur"
-          ? process.env.NODEMAILER_JAIPUR_EMAIL
-          : Region === "Hero"
-          ? process.env.NODEMAILER_HERO_EMAIL
-          : process.env.NODEMAILER_CHANDIGARH_EMAIL;
+            ? process.env.NODEMAILER_DELHI_EMAIL
+            : Region === "Jodhpur"
+              ? process.env.NODEMAILER_JODHPUR_EMAIL
+              : Region === "Jaipur"
+                ? process.env.NODEMAILER_JAIPUR_EMAIL
+                : Region === "Hero"
+                  ? process.env.NODEMAILER_HERO_EMAIL
+                  : Region === "Spot"
+                    ? process.env.NODEMAILER_SPOT_EMAIL
+                    : process.env.NODEMAILER_CHANDIGARH_EMAIL;
         const currentMailAddressPass = String(inspectionType)
           .toLowerCase()
           .includes("pre-inspection")
           ? process.env.NODEMAILER_PI_EMAIL_PASSWORD
           : Region === "Delhi"
-          ? process.env.NODEMAILER_DELHI_EMAIL_PASSWORD
-          : Region === "Jodhpur"
-          ? process.env.NODEMAILER_JODHPUR_EMAIL_PASSWORD
-          : Region === "Jaipur"
-          ? process.env.NODEMAILER_JAIPUR_EMAIL_PASSWORD
-          : Region === "Hero"
-          ? process.env.NODEMAILER_HERO_EMAIL_PASSWORD
-          : process.env.NODEMAILER_CHANDIGARH_EMAIL_PASSWORD;
+            ? process.env.NODEMAILER_DELHI_EMAIL_PASSWORD
+            : Region === "Jodhpur"
+              ? process.env.NODEMAILER_JODHPUR_EMAIL_PASSWORD
+              : Region === "Jaipur"
+                ? process.env.NODEMAILER_JAIPUR_EMAIL_PASSWORD
+                : Region === "Hero"
+                  ? process.env.NODEMAILER_HERO_EMAIL_PASSWORD
+                  : Region === "Spot"
+                    ? process.env.NODEMAILER_SPOT_EMAIL_PASSWORD
+                    : process.env.NODEMAILER_CHANDIGARH_EMAIL_PASSWORD;
 
         const transporter2 = nodemailer.createTransport({
           service: "gmail",
@@ -450,9 +443,8 @@ const acknowledgmentMail = (req, res) => {
           to: toMail,
           cc: `${GarageMailAddress},${BrokerMailAddress}`,
           subject: String(inspectionType)
-          .toLowerCase()
-          .includes("pre-inspection") ?  `Pre Inspection Request of Vehicle Number - ${vehicleNo?vehicleNo: "A/c"}` : `Survey Request for Claim of Vehicle Number - ${vehicleNo} A/c ${
-            Insured ? Insured : "N.A."
+            .toLowerCase()
+            .includes("pre-inspection") ? `Pre Inspection Request of Vehicle Number - ${vehicleNo ? vehicleNo : "A/c"}` : `Survey Request for Claim of Vehicle Number - ${vehicleNo} A/c ${Insured ? Insured : "N.A."
           }  policy Number - ${PolicyNo}`,
           html: emailContent,
         };
@@ -466,9 +458,8 @@ const acknowledgmentMail = (req, res) => {
               username: Username,
               leadId: leadId,
               consoleInfo: `Got error while sending the MAIL from : ${currentMailAddress} , to : ${toMail} , cc : ${`${GarageMailAddress},${BrokerMailAddress}`} for LeadId --> ${leadId}`,
-              info: `{ERRMESSAGE : ${
-                error.details
-              }, STATUS : ${`${error.status} ${error.message}`}, error : ${error}}}`,
+              info: `{ERRMESSAGE : ${error.details
+                }, STATUS : ${`${error.status} ${error.message}`}, error : ${error}}}`,
             });
             console.error(error);
             res.status(500).send("Internal Server Error");
@@ -547,9 +538,8 @@ const sendCustomEmail = (req, res) => {
         username: Username,
         leadId: leadId,
         consoleInfo: `${err.status} ${err.details}`,
-        info: `{ERRMESSAGE : ${
-          err.details
-        }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+        info: `{ERRMESSAGE : ${err.details
+          }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
       });
       console.error(err);
       res.status(500).send("Internal Server Error");
@@ -573,9 +563,8 @@ const sendCustomEmail = (req, res) => {
             username: Username,
             leadId: leadId,
             consoleInfo: `Got error while updating the tokens for the specific claim  of leadId --> ${leadId}`,
-            info: `{ERRMESSAGE : ${
-              err.details
-            }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+            info: `{ERRMESSAGE : ${err.details
+              }, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
           });
           console.error(err);
           res.status(500).send("Internal Server Error");
@@ -610,44 +599,48 @@ const sendCustomEmail = (req, res) => {
           emailArray.length > 2
             ? `${emailArray[1]},${emailArray[2]}`
             : emailArray.length > 1
-            ? `${emailArray[1]}`
-            : "";
+              ? `${emailArray[1]}`
+              : "";
 
         if (mainEmail) {
           const mailOptions = {
             from: fromEmail,
             to: mainEmail,
             cc: ccArray,
-            subject: isPreInspection ? `Pre Inspection Request of Vehicle Number - ${vehicleNo?vehicleNo : "A/c"} ` : subject,
+            subject: isPreInspection ? `Pre Inspection Request of Vehicle Number - ${vehicleNo ? vehicleNo : "A/c"} ` : subject,
             html: emailContent,
           };
 
           const currentMailAddress =
-          isPreInspection
-          ? process.env.NODEMAILER_PI_EMAIL
-          :
-            Region === "Delhi"
-              ? process.env.NODEMAILER_DELHI_EMAIL
-              : Region === "Jodhpur"
-              ? process.env.NODEMAILER_JODHPUR_EMAIL
-              : Region === "Jaipur"
-              ? process.env.NODEMAILER_JAIPUR_EMAIL
-              : Region === "Hero"
-              ? process.env.NODEMAILER_HERO_EMAIL
-              : process.env.NODEMAILER_CHANDIGARH_EMAIL;
+            isPreInspection
+              ? process.env.NODEMAILER_PI_EMAIL
+              :
+              Region === "Delhi"
+                ? process.env.NODEMAILER_DELHI_EMAIL
+                : Region === "Jodhpur"
+                  ? process.env.NODEMAILER_JODHPUR_EMAIL
+                  : Region === "Jaipur"
+                    ? process.env.NODEMAILER_JAIPUR_EMAIL
+                    : Region === "Hero"
+                      ? process.env.NODEMAILER_HERO_EMAIL
+                      : Region === "Spot"
+                        ? process.env.NODEMAILER_SPOT_EMAIL
+                        : process.env.NODEMAILER_CHANDIGARH_EMAIL;
           const currentMailAddressPass =
-          isPreInspection
-          ? process.env.NODEMAILER_PI_EMAIL_PASSWORD
-          :
-            Region === "Delhi"
-              ? process.env.NODEMAILER_DELHI_EMAIL_PASSWORD
-              : Region === "Jodhpur"
-              ? process.env.NODEMAILER_JODHPUR_EMAIL_PASSWORD
-              : Region === "Jaipur"
-              ? process.env.NODEMAILER_JAIPUR_EMAIL_PASSWORD
-              : Region === "Hero"
-              ? process.env.NODEMAILER_HERO_EMAIL_PASSWORD
-              : process.env.NODEMAILER_CHANDIGARH_EMAIL_PASSWORD;
+            isPreInspection
+              ? process.env.NODEMAILER_PI_EMAIL_PASSWORD
+              :
+              Region === "Delhi"
+                ? process.env.NODEMAILER_DELHI_EMAIL_PASSWORD
+                : Region === "Jodhpur"
+                  ? process.env.NODEMAILER_JODHPUR_EMAIL_PASSWORD
+                  : Region === "Jaipur"
+                    ? process.env.NODEMAILER_JAIPUR_EMAIL_PASSWORD
+                    : Region === "Hero"
+                      ? process.env.NODEMAILER_HERO_EMAIL_PASSWORD
+                      : Region === "Spot"
+                        ? process.env.NODEMAILER_SPOT_EMAIL_PASSWORD
+                        : process.env.NODEMAILER_CHANDIGARH_EMAIL_PASSWORD;
 
           const transporter2 = nodemailer.createTransport({
             service: "gmail",
@@ -669,9 +662,8 @@ const sendCustomEmail = (req, res) => {
                 username: Username,
                 leadId: leadId,
                 consoleInfo: `Got error while sending the MAIL from : ${fromEmail} , to : ${mainEmail} , cc : ${ccArray} for LeadId --> ${leadId}`,
-                info: `{ERRMESSAGE : ${
-                  error.details
-                }, STATUS : ${`${error.status} ${error.message}`}, error : ${error}}}`,
+                info: `{ERRMESSAGE : ${error.details
+                  }, STATUS : ${`${error.status} ${error.message}`}, error : ${error}}}`,
               });
               console.error(error);
               res.status(500).send("Internal Server Error");
@@ -703,11 +695,10 @@ const sendCustomEmail = (req, res) => {
          the claim processing can be fast or
         <br/>
 
-        <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${
-        result2[0].Token
-      }&type=${1}&content=${encodeURIComponent(
-        content2
-      )} target="_blank">Click Here</a> to fill the documents information .</p>
+        <p><a href=https://cmsprod.vercel.app/documents/${leadId}?token=${result2[0].Token
+        }&type=${1}&content=${encodeURIComponent(
+          content2
+        )} target="_blank">Click Here</a> to fill the documents information .</p>
   
         <br/>
 
@@ -723,36 +714,40 @@ const sendCustomEmail = (req, res) => {
         const mailOptions = {
           from: fromEmail,
           to: email,
-          subject: isPreInspection ? `Pre Inspection Request of Vehicle Number - ${vehicleNo?vehicleNo:"A/c"}` : subject,
+          subject: isPreInspection ? `Pre Inspection Request of Vehicle Number - ${vehicleNo ? vehicleNo : "A/c"}` : subject,
           html: emailContent,
         };
 
         const currentMailAddress =
-        isPreInspection
-          ? process.env.NODEMAILER_PI_EMAIL
-          :
-          Region === "Delhi"
-            ? process.env.NODEMAILER_DELHI_EMAIL
-            : Region === "Jodhpur"
-            ? process.env.NODEMAILER_JODHPUR_EMAIL
-            : Region === "Jaipur"
-            ? process.env.NODEMAILER_JAIPUR_EMAIL
-            : Region === "Hero"
-            ? process.env.NODEMAILER_HERO_EMAIL
-            : process.env.NODEMAILER_CHANDIGARH_EMAIL;
+          isPreInspection
+            ? process.env.NODEMAILER_PI_EMAIL
+            :
+            Region === "Delhi"
+              ? process.env.NODEMAILER_DELHI_EMAIL
+              : Region === "Jodhpur"
+                ? process.env.NODEMAILER_JODHPUR_EMAIL
+                : Region === "Jaipur"
+                  ? process.env.NODEMAILER_JAIPUR_EMAIL
+                  : Region === "Hero"
+                    ? process.env.NODEMAILER_HERO_EMAIL
+                    : Region === "Spot"
+                      ? process.env.NODEMAILER_SPOT_EMAIL
+                      : process.env.NODEMAILER_CHANDIGARH_EMAIL;
         const currentMailAddressPass =
-        isPreInspection
-          ? process.env.NODEMAILER_PI_EMAIL_PASSWORD
-          :
-          Region === "Delhi"
-            ? process.env.NODEMAILER_DELHI_EMAIL_PASSWORD
-            : Region === "Jodhpur"
-            ? process.env.NODEMAILER_JODHPUR_EMAIL_PASSWORD
-            : Region === "Jaipur"
-            ? process.env.NODEMAILER_JAIPUR_EMAIL_PASSWORD
-            : Region === "Hero"
-            ? process.env.NODEMAILER_HERO_EMAIL_PASSWORD
-            : process.env.NODEMAILER_CHANDIGARH_EMAIL_PASSWORD;
+          isPreInspection
+            ? process.env.NODEMAILER_PI_EMAIL_PASSWORD
+            :
+            Region === "Delhi"
+              ? process.env.NODEMAILER_DELHI_EMAIL_PASSWORD
+              : Region === "Jodhpur"
+                ? process.env.NODEMAILER_JODHPUR_EMAIL_PASSWORD
+                : Region === "Jaipur"
+                  ? process.env.NODEMAILER_JAIPUR_EMAIL_PASSWORD
+                  : Region === "Hero"
+                    ? process.env.NODEMAILER_HERO_EMAIL_PASSWORD
+                    : Region === "Spot"
+                      ? process.env.NODEMAILER_SPOT_EMAIL_PASSWORD
+                      : process.env.NODEMAILER_CHANDIGARH_EMAIL_PASSWORD;
 
         const transporter2 = nodemailer.createTransport({
           service: "gmail",

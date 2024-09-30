@@ -33,13 +33,13 @@
         "id": 5,
         "Region": "Preinspection",
         "RegionShortName": "Preinspection",
-        "MailAddress": "mthero893@gmail.com"
+        "MailAddress": "legalmtpi04@gmail.com"
     },
     {
         "id": 6,
         "Region": "Spot",
         "RegionShortName": "Spot",
-        "MailAddress": "mthero893@gmail.com"
+        "MailAddress": "legalmt04@gmail.com"
     }
 ];
 

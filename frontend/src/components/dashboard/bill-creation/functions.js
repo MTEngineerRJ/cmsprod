@@ -79,6 +79,7 @@ const calculateTotalAssessed = (allInfo, setAssessed, setEstimate) => {
 };
 
 const calculateProfessionalFees = (allInfo) => {
+  if(allInfo?.otherInfo[0]?.InspectionType === "Spot") return 850;
   return String(allInfo?.otherInfo[0]?.VehicleType)
     .toLowerCase()
     .includes("4W".toLowerCase())

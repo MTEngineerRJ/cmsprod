@@ -1,5 +1,6 @@
 import DatePicker from "react-datepicker";
 import { addCommasToNumber, roundOff } from "./functions";
+import { useEffect } from "react";
 
 const BillCreateLayoutView = ({
   allInfo,
@@ -85,20 +86,50 @@ const BillCreateLayoutView = ({
   onSubmitHnadler,
 }) => {
 
-  console.log("currentSelectedInsprectiontype",currentSelectedInsprectiontype);
+  useEffect(() => {
+    if (Number(currentSelectedInsprectiontype) === 1) {
+
+      const total = FinalTotalKM * FinalVisit * DetailsKM;
+      setFinalConveyance(total)
+    }
+    else if (Number(currentSelectedInsprectiontype) === 3) {
+      const total = Number(SpotTotalKM) * Number(SpotVisit) * Number(DetailsKM);
+      setSpotConveyance(total)
+    }
+  },
+    [FinalTotalKM, FinalVisit, DetailsKM, currentSelectedInsprectiontype, SpotTotalKM, SpotVisit]);
+
+  useEffect(() => {
+    if (Number(currentSelectedInsprectiontype) === 1) {
+      const total = FinalPhotos * FinalCharges;
+      setFinalPhotoCD(total)
+    }
+    else if (Number(currentSelectedInsprectiontype) === 3) {
+      const total = Number(SpotPhotos) * Number(SpotCharges);
+      setSpotPhotoCD(total)
+    }
+  },
+    [FinalPhotos, FinalCharges, currentSelectedInsprectiontype, SpotPhotos, SpotCharges]);
+
+    useEffect(() => {
+      if (Number(currentSelectedInsprectiontype) === 3) {
+
+      }
+    },[currentSelectedInsprectiontype]);
+
   const convertDateFormat = (dateString) => {
     if (!dateString) return "";
-  
+
     const date = new Date(dateString);
     if (isNaN(date.getTime())) return "";
-  
+
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
     const year = date.getFullYear();
-  
+
     return `${day}-${month}-${year}`;
   };
-  
+
   return (
     <>
       <div className="row">
@@ -139,16 +170,16 @@ const BillCreateLayoutView = ({
               </div>
               <div className="col-lg-4">
                 {BillDate ?
-                <input
-                type="text"
-                value={convertDateFormat(BillDate)}
-                />
-                :  <input
-                type="date"
-                onChange={(e) => setBillDate(e.target.value)}
-                value={BillDate}
-                />}
-                
+                  <input
+                    type="text"
+                    value={convertDateFormat(BillDate)}
+                  />
+                  : <input
+                    type="date"
+                    onChange={(e) => setBillDate(e.target.value)}
+                    value={BillDate}
+                  />}
+
               </div>
             </div>
           </div>

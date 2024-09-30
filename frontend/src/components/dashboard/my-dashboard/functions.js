@@ -1,3 +1,5 @@
+const { PrenispectionHeadingCardsContent } = require("./DataHeader");
+
 function convertToIST(utcTimestamp) {
   const utcDate = new Date(utcTimestamp);
   const istDate = new Date(
@@ -59,9 +61,23 @@ const getAccordingToRegion = (allClaims,region)=>{
   return updatedClaims;
 }
 
+const formatTheDataToHeaders = (selectedRegion, allClaims) => {
+  if(selectedRegion !== 'Preinspection')
+    return allClaims;
+  else{
+    let getHeaders = [];
+    PrenispectionHeadingCardsContent.map((header,index) => {
+      getHeaders.push(header.id)
+    })
+    console.log({selectedRegion, allClaims})
+    return allClaims.filter((claim) => getHeaders.includes(claim.CurrentStatus))
+    
+  }
+}
 module.exports = {
   updatedFormatDate,
   sortObjectsByOrderIdDescending,
   convertToIST,
-  getAccordingToRegion
+  getAccordingToRegion,
+  formatTheDataToHeaders
 };

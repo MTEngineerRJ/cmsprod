@@ -85,3 +85,57 @@
 2024-07-24T18:11:25.526Z INSERT_FINAL_REPORT[N/A,661] : INFO : {message : "Inserted successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
 2024-07-24T18:31:27.760Z INSERT_FINAL_REPORT[N/A,661] : INFO : {message : "Inserted successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
 2024-07-24T18:33:45.681Z INSERT_FINAL_REPORT[N/A,661] : INFO : {message : "Inserted successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-08-01T15:16:13.518Z INSERT_FINAL_REPORT[N/A,5391] : INFO : {message : "Inserted successfully the final report for leadId ---> 5391" , info : "{message : 200 SUCCESS }"}
+2024-08-11T08:15:40.622Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T08:15:41.117Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T09:26:29.782Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T09:47:49.005Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T10:40:02.926Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T14:30:48.726Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T14:47:08.411Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T14:51:35.965Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T14:55:22.095Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:00:01.140Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:35:33.293Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T15:38:18.907Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:39:31.809Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:41:32.241Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:45:08.727Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:50:18.130Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:52:19.519Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,5860] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-08-11T16:00:20.750Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T16:00:58.533Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T16:10:59.268Z UPDATING_FINAL_REPORT[N/A,5852] : INFO : {message : "Updated successfully the final report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T16:19:26.021Z FETCHING_ONLINE_VEHICLE_DETAILS[SSMUTNEJA,5852] : INFO : {message : "Transaction for updating and fetching vehicle details online has started :" , info : "Transaction for updating and fetching vehicle details online has started :"}
+2024-08-11T16:19:26.258Z FETCHING_ONLINE_VEHICLE_DETAILS[SSMUTNEJA,5852] : INFO : {message : "Transaction for updating and fetching vehicle details online has been successfully committed :" , info : "Transaction for updating and fetching vehicle details online has been successfully committed :"}
+2024-08-11T16:38:28.471Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,5852] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE SPOT" , info : "{message : "SUCCESS"}"}
+2024-08-24T14:24:00.935Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,6781] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-08-24T15:17:50.158Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-24T17:02:19.727Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-24T17:07:19.514Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,6783] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-08-24T17:32:38.154Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,6784] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-08-25T07:09:53.853Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-25T07:12:05.650Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,6784] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE re-inspection" , info : "{message : "SUCCESS"}"}
+2024-08-25T07:18:33.960Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,6784] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE re-inspection" , info : "{message : "SUCCESS"}"}
+2024-08-25T09:06:36.823Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-31T05:02:30.402Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-31T06:05:48.037Z UPDATING_CLAIM_STATUS[SSMUTNEJA,6781] : INFO : {message : "This last update of status was from Claim Appointment --->  for LeadId 6781" , info : "Status Updated to  from Claim Appointment, LeadID -- 6781 (PLEASE CHECK THIS UPDATION)."}
+2024-08-31T06:09:33.762Z UPDATING_CLAIM_STATUS[SSMUTNEJA,6781] : INFO : {message : "This last update of status was from Claim Appointment ---> Settled Cases for LeadId 6781" , info : "Status Updated to Settled Cases from Claim Appointment, LeadID -- 6781 (PLEASE CHECK THIS UPDATION)."}
+2024-09-07T11:14:42.014Z UPLOADING_INSPECTION_REPORT_DOCUMENT[SSMUTNEJA,7616] : INFO : {message : "Successfully updated the INSPECTION report documents for leadId --> 7616" , info : "{message : 200 SUCCESS }"}
+2024-09-07T11:17:13.815Z UPLOADING_INSPECTION_REPORT_DOCUMENT[SSMUTNEJA,7616] : INFO : {message : "Successfully updated the INSPECTION report documents for leadId --> 7616" , info : "{message : 200 SUCCESS }"}
+2024-09-07T11:19:31.932Z UPLOADING_INSPECTION_REPORT_DOCUMENT[SSMUTNEJA,7616] : INFO : {message : "Successfully updated the INSPECTION report documents for leadId --> 7616" , info : "{message : 200 SUCCESS }"}
+2024-09-07T11:21:25.495Z UPLOADING_INSPECTION_REPORT_DOCUMENT[SSMUTNEJA,7616] : INFO : {message : "Successfully updated the INSPECTION report documents for leadId --> 7616" , info : "{message : 200 SUCCESS }"}
+2024-09-07T11:55:51.968Z FETCHING_ONLINE_VEHICLE_DETAILS[SSMUTNEJA,6781] : INFO : {message : "Transaction for updating and fetching vehicle details online has started :" , info : "Transaction for updating and fetching vehicle details online has started :"}
+2024-09-07T11:55:52.224Z FETCHING_ONLINE_VEHICLE_DETAILS[SSMUTNEJA,6781] : INFO : {message : "Transaction for updating and fetching vehicle details online has been successfully committed :" , info : "Transaction for updating and fetching vehicle details online has been successfully committed :"}
+2024-09-07T11:59:27.375Z FETCHING_MIS_SHEET[SSMUTNEJA,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-09-07T11:59:27.377Z FETCHING_MIS_SHEET[SSMUTNEJA,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-09-14T09:20:29.995Z FETCHING_ONLINE_VEHICLE_DETAILS[SSMUTNEJA,7360] : INFO : {message : "Transaction for updating and fetching vehicle details online has started :" , info : "Transaction for updating and fetching vehicle details online has started :"}
+2024-09-14T09:20:30.227Z FETCHING_ONLINE_VEHICLE_DETAILS[SSMUTNEJA,7360] : INFO : {message : "Transaction for updating and fetching vehicle details online has been successfully committed :" , info : "Transaction for updating and fetching vehicle details online has been successfully committed :"}
+2024-09-14T13:22:42.464Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-09-30T08:35:54.729Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,8948] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-09-30T08:36:25.325Z UPDATING_CLAIM_STATUS[SSMUTNEJA,8948] : INFO : {message : "This last update of status was from Claim Appointment ---> Estimate Approval Pending for LeadId 8948" , info : "Status Updated to Estimate Approval Pending from Claim Appointment, LeadID -- 8948 (PLEASE CHECK THIS UPDATION)."}
+2024-09-30T09:04:40.119Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}

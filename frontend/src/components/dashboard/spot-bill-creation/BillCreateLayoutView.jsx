@@ -1,5 +1,6 @@
 import DatePicker from "react-datepicker";
 import { addCommasToNumber, roundOff } from "./functions";
+import { useEffect } from "react";
 
 const BillCreateLayoutView = ({
   allInfo,
@@ -90,6 +91,21 @@ const BillCreateLayoutView = ({
   onSubmitHnadler,
 }) => {
 
+  
+  
+  useEffect(() => {
+    const total = Number(SpotTotalKM) * Number(SpotVisit) * Number(DetailsKM);
+    setSpotConveyance(total)
+},
+[SpotTotalKM, SpotVisit]);
+
+useEffect(() => {
+    const total = Number(SpotPhotos) * Number(SpotCharges);
+    setSpotPhotoCD(total)
+},
+[SpotPhotos, SpotCharges]);
+
+
   const convertDateFormat = (dateString) => {
     if (!dateString) return "";
   
@@ -103,6 +119,7 @@ const BillCreateLayoutView = ({
     return `${day}-${month}-${year}`;
   };
   
+
   return (
     <>
       <div className="row">

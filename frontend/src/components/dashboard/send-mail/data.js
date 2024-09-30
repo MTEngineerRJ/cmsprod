@@ -91,3 +91,66 @@ export const data = [
     },
   ];
   
+
+  export const spotData = [
+    {
+      _id: "6144145976c7fe",
+      serial_num: "1",
+      doc_name: "Driving licence",
+    },
+    {
+      _id: "6144145976c7fe",
+      serial_num: "2",
+      doc_name: "Certificate of registration",
+    },
+    {
+      _id: "6144145976css7fe",
+      serial_num: "3",
+      doc_name: "Insurance policy",
+    },
+    {
+      _id: "6144145976c7fe",
+      serial_num: "4",
+      doc_name: "Claim form/written statement",
+    },
+    {
+      _id: "6144145976c7fe",
+      serial_num: "5",
+      doc_name: "Damages Vehicle photographs",
+    },
+    {
+      _id: "6144145976c7fe",
+      serial_num: "6",
+      doc_name: "Aadhar card",
+    },
+    {
+      _id: "6144145976c7fe",
+      serial_num: "7",
+      doc_name: "Pan card",
+    },
+    {
+      _id: "6144145976c7fe",
+      serial_num: "8",
+      doc_name: "Fitness",
+    },
+    {
+      _id: "6144145976c7fe",
+      serial_num: "9",
+      doc_name: "Permit",
+    },
+    {
+      _id: "6144145976c7fe",
+      serial_num: "10",
+      doc_name: "Road tax",
+    },
+    {
+      _id: "6144145976c7fe",
+      serial_num: "11",
+      doc_name: "Load challan",
+    },
+    {
+      _id: "6144145976c7fe",
+      serial_num: "12",
+      doc_name: "FIR/Ploice report",
+    }
+  ];;

@@ -40,7 +40,7 @@ const { getStatusMapped } = require("../utils/getStatusName");
         SubStatus = '${1}'
         WHERE LeadId = ${LeadId};
       `;
-  
+      
       db.query(statusDetails, (err, result) => {
         if (err) {
           logMessage({

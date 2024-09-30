@@ -113,6 +113,19 @@ const BillCreateLayoutView = ({
       setIGST(0);
     }
   }, [BillTo]);
+
+  
+  useEffect(() => {
+      const total = ReInsprectionTotalKM * ReInsprectionVisit * DetailsKM;
+      setReInsprectionConveyance(total)
+  },
+  [ReInsprectionTotalKM, ReInsprectionVisit]);
+
+  useEffect(() => {
+      const total = ReInsprectionPhotos * ReInsprectionCharges;
+      setReInsprectionPhotoCD(total)
+  },
+  [ReInsprectionPhotos, ReInsprectionCharges]);
   return (
     <>
       <div className="row">

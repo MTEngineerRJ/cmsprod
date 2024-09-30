@@ -465,6 +465,7 @@ const getSpecificClaim = async (req, res) => {
       summaryDetails,
       AccidentDetailsSpot,
     };
+    console.log({combinedResult})
     res.json(combinedResult);
   } catch (error) {
     logMessage({

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios, { all } from "axios";
 import Pagination from "./Pagination";
 import { useRouter } from "next/router";
+import { formatTheDataToHeaders } from "./functions";
 
 const Index = () => {
   const [start, setStart] = useState(0);
@@ -76,7 +77,8 @@ const Index = () => {
         claim?.ReferenceID?.toLowerCase().includes(searchInput.toLowerCase())
       );
     }
-    setFilterClaims(filterClaim);
+    
+    setFilterClaims(formatTheDataToHeaders(regionSearchValue, filterClaim));
   }, [searchInput]);
 
   const [filterAccordingClaim, setFilterAccordingClaim] = useState([]);
@@ -92,7 +94,8 @@ const Index = () => {
           return false;
         }
       });
-      setFilterClaims(filterAccordingToRegion);
+      
+      setFilterClaims(formatTheDataToHeaders(regionSearchValue, filterAccordingClaim));
       setFilterAccordingClaim(filterAccordingToRegion);
       setFilterCardClaim(filterAccordingToRegion);
     } else {
@@ -120,8 +123,8 @@ const Index = () => {
         ) ||
         claim?.Region?.toLowerCase().includes(majorSearch.toLowerCase())
     );
-
-    setFilterClaims(filterClaim);
+    
+    setFilterClaims(formatTheDataToHeaders(regionSearchValue, filterClaim));
   }, [majorSearch]);
 
   const fetchData = () => {
@@ -237,21 +240,7 @@ const Index = () => {
     setFilterCardClaim(cardsDetails);
   }, [selectedCard, regionSearchValue, allClaims]);
 
-  const getRequiredClaimsForPagination = () => {
-    let requiredClaims = [];
-    allClaims.map((claim, index) => {
-      const isAccordingToStatus = String(claim?.Region)
-        .toLowerCase()
-        .includes(String(regionSearchValue).toLowerCase());
-      if (
-        String(claim?.CurrentStatus) === String(selectedCard) &&
-        isAccordingToStatus
-      ) {
-        requiredClaims.push(claim);
-      }
-    });
-    return requiredClaims;
-  };
+
 
   return (
     <>
