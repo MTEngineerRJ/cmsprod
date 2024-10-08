@@ -217,12 +217,16 @@ const StatusLog = ({
   const getShowOption = (stat) => {
     if (currentStatus === 10 || currentStatus === 11) {
       return true;
-    } else if (
-      stat.id === currentStatus ||
-      stat.id === 5 ||
-      stat.id === 6 ||
-      stat.id === currentStatus + 1 ||
-      stat.id === currentStatus - 1
+    }
+    else if (currentStatus === 1 && (stat.id === 1 || stat.id === currentStatus || stat.id === 7)){
+      return true;
+    }
+    else if(currentStatus === 7 && (stat.id === 1 || stat.id === currentStatus || stat.id === currentStatus +1)){
+      return true;
+    }
+     else if (
+      currentStatus >7 &&
+      (stat.id === currentStatus -1 || stat.id === currentStatus || stat.id === currentStatus +1)
     ) {
       return true;
     }

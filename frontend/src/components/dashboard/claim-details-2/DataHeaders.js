@@ -4,27 +4,27 @@ const statusOptions = [
     value: "Claim Appointment",
   },
   {
-    id: 2,
+    id: 7,
     value: "Soft Copy Completed",
   },
   {
-    id: 3,
+    id: 8,
     value: "Payment Pending",
   },
   {
-    id: 4,
+    id: 9,
     value: "Settled Cases",
   },
   {
-    id: 5,
+    id: 10,
     value: "Withdrawl/Rejected",
   },
   {
-    id: 6,
+    id: 11,
     value: "More Info Required",
   },
   {
-    id: 7,
+    id: 12,
     value: "My Claims",
   },
 ];
