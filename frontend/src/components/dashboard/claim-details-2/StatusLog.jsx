@@ -215,7 +215,7 @@ const StatusLog = ({
   };
 
   const getShowOption = (stat) => {
-    if (currentStatus === 10 || currentStatus === 11) {
+    if (currentStatus === 10 || currentStatus === 11 || stat.id === 10 || stat.id === 11 ) {
       return true;
     }
     else if (currentStatus === 1 && (stat.id === 1 || stat.id === currentStatus || stat.id === 7)){

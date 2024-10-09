@@ -98,9 +98,15 @@ const PropertyVideo = ({ vehicleType,leadId }) => {
             role="tab"
             style={{ padding: "10px" }}
           >
-            {vehicleType === "2W"
+            {
+            vehicleType.toLowerCase() === "2w"
               ? "Two Wheeler Inspection Report"
-              : "Four Wheeler Inspection Report"}
+              : vehicleType.toLowerCase() === "4w" || vehicleType.toLowerCase() === "lmv"
+              ? "Four Wheeler Inspection Report"
+              : "Commercial Vehicle Inspection Report"
+          }
+          {console.log}
+
           </a>
         </li>
       </ul>
