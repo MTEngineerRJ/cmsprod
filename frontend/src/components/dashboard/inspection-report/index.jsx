@@ -7,28 +7,25 @@ import { useRouter } from "next/router";
 import { Toaster } from "react-hot-toast";
 
 const Index = ({ SomeComponent }) => {
-  const [leadId,setLeadId] = useState(0);
-  const [vehicleType,setVehicleType] = useState("2W");
-  
-  
-  
+  const [leadId, setLeadId] = useState(0);
+  const [vehicleType, setVehicleType] = useState("2W");
+
   const [lastActivityTimestamp, setLastActivityTimestamp] = useState(
     Date.now()
   );
 
   const router = useRouter();
 
-  useEffect(()=>{
+  useEffect(() => {
     const url = window.location.href;
     const mainUrl = url.split("/inspection-report?vehicleType=")[1];
     const tempLead = mainUrl?.split("&leadId=")[1];
-    const tempType = mainUrl?.split('&leadId=')[0];
+    const tempType = mainUrl?.split("&leadId=")[0];
     setVehicleType(getSpecificFormattedType(tempType));
     setLeadId(tempLead);
-  },[]);
+  }, []);
 
   useEffect(() => {
-    
     const activityHandler = () => {
       setLastActivityTimestamp(Date.now());
     };
@@ -63,21 +60,17 @@ const Index = ({ SomeComponent }) => {
     return () => clearInterval(inactivityCheckInterval);
   }, [lastActivityTimestamp]);
 
-  const getSpecificFormattedType = (type)=>{
-    if(String(type).toLowerCase().includes('2w'))
-      return '2W';
-    else if(String(type).toLowerCase().includes('4w'))
-      return '4W';
-    else
-     return 'Commercial'
-    
-  }
+  const getSpecificFormattedType = (type) => {
+    if (String(type).toLowerCase().includes("2w")) return "2W";
+    else if (String(type).toLowerCase().includes("4w")) return "4W";
+    else return "Commercial";
+  };
 
   return (
     <>
       {/* <!-- Main Header Nav --> */}
       <Header />
-      <Toaster/>
+      <Toaster />
 
       {/* <!--  Mobile Menu --> */}
       <MobileMenu />
@@ -89,7 +82,7 @@ const Index = ({ SomeComponent }) => {
           id="DashboardOffcanvasMenu"
           data-bs-scroll="true"
         >
-          <SidebarMenu leadId={leadId}  />
+          <SidebarMenu leadId={leadId} />
         </div>
       </div>
       {/* End sidebar_menu */}
@@ -115,11 +108,15 @@ const Index = ({ SomeComponent }) => {
                     </div>
                   </div>
                 </div>
-                
               </div>
               {/* End .row */}
               <div className="shop_single_tab_content style2">
-                <PropertyVideo SomeComponent={SomeComponent} leadId={leadId} vehicleType={vehicleType} />
+                <PropertyVideo
+                  SomeComponent={SomeComponent}
+                  leadId={leadId}
+                  vehicleType={vehicleType}
+                  setVehicleType={setVehicleType}
+                />
               </div>
 
               {/* <ChatBox /> */}

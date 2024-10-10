@@ -5,13 +5,13 @@ import axios, { all } from "axios";
 import toast from "react-hot-toast";
 
 const headCells = [
+  ,
   // {
   //   id: "row",
   //   numeric: false,
   //   label: "",
   //   width: 10,
   // },
-  ,
   {
     id: "sno",
     numeric: false,
@@ -43,11 +43,10 @@ export default function Exemple_01({
   const [allRows, setAllRows] = useState(partsData);
   const [updatedCode, setUpdatedCode] = useState([]);
   const [edit, setEdit] = useState(false);
-  const [isEmpty,setIsEmpty] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
   const [allFaultyRows, setAllFaultyRows] = useState({});
-  const [firstPartData,setFirstPartData] = useState([]);
-  const [secondPartData,setSecondPartData] = useState([]);
-
+  const [firstPartData, setFirstPartData] = useState([]);
+  const [secondPartData, setSecondPartData] = useState([]);
   useEffect(() => {
     if (specificVehicleParts?.length > 0) {
       setAllRows([...specificVehicleParts]);
@@ -62,7 +61,9 @@ export default function Exemple_01({
 
     const getData = () => {
       allRows.map((row, index) => {
-        const isFaulty = allFaultyRows?.hasOwnProperty(row.part) === true && allFaultyRows[row.part] > 0;
+        const isFaulty =
+          allFaultyRows?.hasOwnProperty(row.part) === true &&
+          allFaultyRows[row.part] > 0;
         const conditionalStyles = isFaulty
           ? { borderWidth: "2px", borderColor: "red", borderStyle: "solid" }
           : {};
@@ -127,9 +128,9 @@ export default function Exemple_01({
     edit,
   ]);
 
-  useEffect(()=>{
+  useEffect(() => {
     getSeparatedData(updatedCode);
-  },[updatedCode]);
+  }, [updatedCode]);
 
   const editHandler = () => {
     setEdit(true);
@@ -224,8 +225,8 @@ export default function Exemple_01({
     let updatedRows = [];
     allRows.map((row, index) => {
       let updatedRow = {};
-      if(field === "state" && value !== "" && row.id === id){
-        if(allFaultyRows[row.part] >= 1){
+      if (field === "state" && value !== "" && row.id === id) {
+        if (allFaultyRows[row.part] >= 1) {
           allFaultyRows[row.part] = 0;
         }
       }
@@ -260,7 +261,7 @@ export default function Exemple_01({
 
     setFirstPartData(data1);
     setSecondPartData(data2);
-}
+  };
 
   return (
     <SmartTable

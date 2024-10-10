@@ -2,8 +2,18 @@ const db = require("../Config/dbConfig");
 const { logMessage } = require("../utils/LoggerFile");
 
 const getVehicleParts = (req, res) => {
-  const vehicleType = req.params.vehicleType;
-  const sql = "SELECT * FROM VehicleParts WHERE VehicleType = ?";
+  let vehicleType = req.params.vehicleType.toLowerCase();
+  // {console.log("vehicleType-----",req.params)};
+
+  if (vehicleType === "2w") {
+    vehicleType = "2w";
+  } else if (vehicleType === "4w" || vehicleType === "lmv") {
+    vehicleType = "4w";
+  } else {
+    vehicleType = "commercial";
+  }
+
+  const sql = "SELECT * FROM VehicleParts WHERE LOWER(VehicleType) = ?";
   db.query(sql, [vehicleType], (err, result) => {
     if (err) {
       res.status(500).send("Internal Server Error");

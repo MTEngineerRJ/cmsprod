@@ -5,12 +5,12 @@ import ModalVideo from "react-modal-video";
 import Exemple from "./Exemple";
 import axios from "axios";
 
-const PropertyVideo = ({ vehicleType,leadId }) => {
+const PropertyVideo = ({ vehicleType, leadId, setVehicleType }) => {
   const [isOpen, setOpen] = useState(false);
   const [partsData, setPartsData] = useState([]);
   const [partsState, setPartState] = useState([]);
   const [specificVehicleParts, setspecificVehicleParts] = useState([]);
-
+  // console.log("This is the data =============>", vehicleType, partsData);
   useEffect(() => {
     const url = window.location.href;
     const leadId = url.split("&leadId=")[1];
@@ -32,8 +32,8 @@ const PropertyVideo = ({ vehicleType,leadId }) => {
             id: index + 1,
             part: part?.PartName,
             state: "Safe",
-            isActive : true ,
-            partId : Number(part?.PartID)
+            isActive: true,
+            partId: Number(part?.PartID),
           };
           updatedData.push(newRow);
         });
@@ -52,7 +52,7 @@ const PropertyVideo = ({ vehicleType,leadId }) => {
         setPartState(tempState);
       })
       .catch((err) => {});
-      axios
+    axios
       .get("/api/getAllSpecificVehicleParts", {
         headers: {
           Authorization: `Bearer ${userInfo[0].Token}`,
@@ -69,15 +69,15 @@ const PropertyVideo = ({ vehicleType,leadId }) => {
             id: index + 1,
             part: part?.PartName,
             state: part?.PartState,
-            isActive : true ,
-            partId : Number(part?.PartID)
+            isActive: true,
+            partId: Number(part?.PartID),
           };
           updatedData.push(newRow);
         });
         setspecificVehicleParts(updatedData);
       })
       .catch((err) => {});
-  }, [vehicleType,leadId]);
+  }, [vehicleType, leadId]);
 
   return (
     <>
@@ -89,28 +89,41 @@ const PropertyVideo = ({ vehicleType,leadId }) => {
         onClose={() => setOpen(false)}
         allow="picture-in-picture"
       />
-      <ul className="nav nav-tabs bgc-f6" id="myTab" role="tablist">
-        <li className="nav-item">
-          <a
-            className="nav-link active"
-            data-bs-toggle="tab"
-            href="#newparts"
-            role="tab"
-            style={{ padding: "10px" }}
-          >
-            {
-            vehicleType.toLowerCase() === "2w"
+      <div className="mb-3">
+        <ul className="nav nav-tabs bgc-f6" id="myTab" role="tablist">
+          <li className="nav-item">
+            <a
+              className="nav-link active"
+              data-bs-toggle="tab"
+              href="#newparts"
+              role="tab"
+              style={{ padding: "10px" }}
+            >
+              {["2w", "motorcycle"].includes(vehicleType.toLowerCase())
               ? "Two Wheeler Inspection Report"
-              : vehicleType.toLowerCase() === "4w" || vehicleType.toLowerCase() === "lmv"
+              : ["4w", "lmv", "car"].includes(vehicleType.toLowerCase())
               ? "Four Wheeler Inspection Report"
-              : "Commercial Vehicle Inspection Report"
-          }
-          {console.log}
+              : "Commercial Vehicle Inspection Report"}
 
-          </a>
-        </li>
-      </ul>
-
+            </a>
+          </li>
+        </ul>
+        <div className="mb-3 d-flex justify-content-end align-items-center">
+          <label htmlFor="vehicleType" className="me-2">Select Type:</label>
+          <select
+            id="vehicleType"
+            className="form-select"
+            style={{ width: "auto", marginLeft: "3px" }}
+            value={vehicleType}
+            onChange={(e) => setVehicleType(e.target.value)}
+          >
+            <option value="">Select Vehicle Type</option>
+            <option value="2W">2W</option>
+            <option value="4W">4W</option>
+            <option value="Commercial">Commercial</option>
+          </select>
+        </div>
+      </div>
       <div className="tab-content bgc-f6" id="myTabContent2">
         <div
           className="tab-pane fade row pl15 pl0-1199 pr15 pr0-1199 active show"
