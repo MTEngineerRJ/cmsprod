@@ -258,3 +258,4 @@
 2024-12-11T12:37:14.648Z SUCCESSFULLY_ADDED_CLAIM[7,10754] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
 2024-12-11T12:40:34.975Z UPDATED_DRIVER_DETAILS[ANKIT,10754] : INFO : {message : "Successfully updated the Driver Details of INSPECTION_TYPE Final" , info : "{message : "SUCCESS"}"}
 2024-12-11T12:41:03.662Z UPDATED_GARAGE_DETAILS[ANKIT,10754] : INFO : {message : "Successfully updated the Garage Details of INSPECTION_TYPE Final" , info : "{message : "SUCCESS"}"}
+2024-12-18T17:22:30.303Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}

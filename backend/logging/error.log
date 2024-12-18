@@ -104,3 +104,5 @@
 2024-12-09T09:38:24.474Z LOGGING[ANKIT,] : ERROR : {message : "Got Error while logging to dashboard." , info : "{ERRMESSAGE : undefined,STATUS : undefined read ECONNRESET}"}
 2024-12-10T11:23:01.597Z LOGGING[ANKIT,] : ERROR : {message : "Got Error while logging to dashboard." , info : "{ERRMESSAGE : undefined,STATUS : undefined read ECONNRESET}"}
 2024-12-10T11:23:30.533Z LOGGING[ANKIT,] : ERROR : {message : "Got Error while logging to dashboard." , info : "{ERRMESSAGE : undefined,STATUS : undefined read ECONNRESET}"}
+2024-12-18T17:18:53.103Z LOGIN[SSMUTNEJA,] : ERROR : {message : "User attempted to Login But user is not Authenticated." , info : "{ERRMESSAGE : "Entered Invalid Credentials.", STATUS : "400 BAD REQUEST"}"}
+2024-12-18T17:21:43.469Z LOGIN[SSMUTNEJA,] : ERROR : {message : "User attempted to Login But user is not Authenticated." , info : "{ERRMESSAGE : "Entered Invalid Credentials.", STATUS : "400 BAD REQUEST"}"}
