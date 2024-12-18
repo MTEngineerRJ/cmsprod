@@ -452,10 +452,11 @@ export default function Exemple_01({
   };
 
   const calculateDepreciationOnMetal = () => {
+    const age = calculateVehicleAge();
     const a = calculateDepreciationsPercenatge(
       allDepreciations,
       "Metal",
-      claim.vehicleDetails?.DateOfRegistration
+      age
     );
     setOverallMetailDep(a);
     return a;
@@ -585,8 +586,8 @@ export default function Exemple_01({
 
     let tempRows = [];
     allRows.map((row, index) => {
-      totalAssessed += (Number(row.assessed) * Number(row.qa));
-      totalEstimate += (Number(row.estimate) * Number(row.qe));
+      totalAssessed += row.isActive ?  (Number(row.assessed) * Number(row.qa)) : 0;
+      totalEstimate += row.isActive ? (Number(row.estimate) * Number(row.qe)) : 0;
       const r = {
         sno: row.sno,
         dep: row.dep, // Add default values or lea ve empty as needed
@@ -787,6 +788,7 @@ export default function Exemple_01({
     let oldRow = allRows;
     const currentField = allRows[index];
     const len = val.length;
+    const age = calculateVehicleAge();
 
     const dep =
       claim?.vehicleDetails?.DateOfRegistration ||
@@ -794,10 +796,10 @@ export default function Exemple_01({
         ? calculateDepreciationsPercenatge(
             allDepreciations,
             val,
-            DateOfRegistration
+            age
           )
         : 0;
-
+    console.log("dep%%",dep);
     setMetalDep(dep);
 
     //calculate totlRows

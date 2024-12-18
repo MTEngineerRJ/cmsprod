@@ -23,24 +23,78 @@ export default function BaseView({
   endDate,
 }) {
   const [updatedData, setUpdatedData] = useState([]);
-  let tempData = [];
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [finalRegion, setFinalRegion] = useState("");
   const [changeInRegion, setChangeInRegion] = useState(false);
-
   const [InsurerType, setInsurerType] = useState("United India Insurance");
+
+  // Predefined insurer-to-region mapping
+  const insurerRegionMapping = {
+    "United India Insurance Company Limited": [
+      "Delhi",
+      "Chandigarh",
+      "Jaipur",
+      "Jodhpur",
+      "Hero",
+      "Preinspection",
+      "Spot",
+    ],
+    "National Insurance Company Limited": [
+      "Bhopal",
+      "Lucknow",
+      "Dehradun",
+      "Ludhiana",
+      "Ahmedabad",
+      "Vadodara",
+      "Jaipur",
+      "Ahmedabad",
+      "Indore",
+      "Ludhiana",
+      "Nagpur",
+      "Preinspection",
+      "Spot",
+    ],
+    "The New India Assurance Company Limited": [
+      "Bhopal",
+      "Lucknow",
+      "Dehradun",
+      "Ludhiana",
+      "Ahmedabad",
+      "Vadodara",
+      "Jaipur",
+      "Preinspection",
+      "Spot",
+    ],
+    "The Oriental Insurance Company Limited": [
+      "Ahmedabad",
+      "Indore",
+      "Vadodara",
+      "Nagpur",
+      "Delhi RO1",
+      "Lucknow",
+      "Chandigarh",
+      "Jaipur",
+      "Dehradun",
+      "Ambala",
+      "Delhi RO2",
+      "Guwahati",
+      "Preinspection",
+      "Spot",
+    ],
+  };
 
   useEffect(() => {
     toast.loading("Fetching the information!!", {
       className: "toast-loading-message",
     });
+    let tempData = [];
     allRows?.map((row, index) => {
       const today = new Date();
       const addedDate = new Date(row.DateOfIntimation);
       const tatInDays = Math.floor((today - addedDate) / (1000 * 60 * 60 * 24));
 
-      const insurerTypeLowerCase = (InsurerType || "").toLowerCase(); // Lowercase insurer type
+      const insurerTypeLowerCase = (InsurerType || "").toLowerCase();
       const insuranceCompanyNameAddressLowerCase = (
         row.InsuranceCompanyNameAddress || ""
       ).toLowerCase();
@@ -53,6 +107,7 @@ export default function BaseView({
         insuranceCompanyNameAddressLowerCase.includes(
           firstTwoWordsOfInsurerType
         ) && getRegionByReferenceNo(row.ReferenceNo, finalRegion);
+
       if (isShow) {
         const updatedRow = {
           sno: index + 1,
@@ -77,8 +132,9 @@ export default function BaseView({
       }
     });
     setUpdatedData(tempData);
+    console.log("tempData: ", tempData);
     toast.dismiss();
-    toast.success("Fetched  Successfully !", {
+    toast.success("Fetched Successfully!", {
       className: "toast-loading-message",
     });
   }, [allRows, InsurerType, finalRegion]);
@@ -101,14 +157,40 @@ export default function BaseView({
     if (RegionType === "" || RegionType === "All") {
       return true;
     }
-    const defaultRegion = referenceNo?.split("/")[0];
-    if (String(defaultRegion) === "DLH" && String(Region) === "Delhi")
-      return true;
-    if (String(defaultRegion) === "CHD" && String(Region) === "Chandigarh")
-      return true;
-    if (String(defaultRegion) === "JDH" && String(Region) === "Jodhpur")
-      return true;
-    return false;
+
+    // Regular expression to match the region code (e.g., DLH, CHD, etc.)
+    const regionCodeRegex = /([A-Z]{3})\/?\d+/;
+
+    const match = referenceNo?.match(regionCodeRegex);
+    if (!match) return false;
+
+    const regionCode = match[1]; // Extract region code (e.g., DLH, CHD, JPR, etc.)
+
+    // Mapping region codes to region names
+    const regionMapping = {
+      DLH: "Delhi",
+      CHD: "Chandigarh",
+      JDH: "Jodhpur",
+      JPR: "Jaipur",
+      LDN: "Ludhiana",
+      BHP: "Bhopal",
+      DHD: "Dehradun",
+      LKW: "Lucknow",
+      AHB: "Ahmadabad",
+      VDD: "Vadodara",
+      HH: "Hero",
+      PI: "Preinspection",
+      SPOT: "Spot",
+    };
+
+    return regionMapping[regionCode] === Region;
+  };
+
+  // Show only Preinspection and Spot if the selected insurer is not predefined
+  const getRegionsForInsurer = (insurerType) => {
+    return insurerRegionMapping[insurerType]
+      ? insurerRegionMapping[insurerType]
+      : ["Preinspection", "Spot"];
   };
 
   return (
@@ -131,6 +213,7 @@ export default function BaseView({
       setChangeInRegion={setChangeInRegion}
       allInsurer={allInsurer}
       headCells={headCells}
+      regions={getRegionsForInsurer(InsurerType)} // Pass the filtered regions based on insurer
     />
   );
 }

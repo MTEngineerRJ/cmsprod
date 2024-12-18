@@ -2,39 +2,208 @@ import { useRouter } from "next/router";
 import MyAccount from "./MyAccount";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Calendar } from "primereact/calendar";
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 import axios from "axios";
 import { regionList } from "../../../../utils/regionsList";
+import { Dropdown } from "primereact/dropdown";
+import { toast } from "react-toastify"; // Assuming you're using react-toastify for notifications
+
+const insurerRegionMapping = {
+  "United India Insurance Company Limited": [
+    "Delhi",
+    "Chandigarh",
+    "Jaipur",
+    "Jodhpur",
+    "Hero",
+    "Preinspection",
+    "Spot",
+  ],
+  "National Insurance Company Limited": [
+    "Bhopal",
+    "Lucknow",
+    "Dehradun",
+    "Ludhiana",
+    "Ahmedabad",
+    "Vadodara",
+    "Jaipur",
+    "Ahmedabad",
+    "Indore",
+    "Ludhiana",
+    "Nagpur",
+    "Preinspection",
+    "Spot",
+  ],
+  "The New India Assurance Company Limited": [
+    "Bhopal",
+    "Lucknow",
+    "Dehradun",
+    "Ludhiana",
+    "Ahmedabad",
+    "Vadodara",
+    "Jaipur",
+    "Preinspection",
+    "Spot",
+  ],
+  "The Oriental Insurance Company Limited": [
+    "Ahmedabad",
+    "Indore",
+    "Vadodara",
+    "Nagpur",
+    "Delhi RO1",
+    "Lucknow",
+    "Chandigarh",
+    "Jaipur",
+    "Dehradun",
+    "Ambala",
+    "Delhi RO2",
+    "Guwahati",
+    "Preinspection",
+    "Spot",
+  ],
+};
 
 const HeaderMenuContent = ({
   setIsRegionChange,
   isDashboard,
   setSelectedCard,
   setRegionSearchValue,
+  setFromDate,
+  setToDate,
+  setInsurerChange,
+  setInsurerSearchValue,
 }) => {
   const route = useRouter();
   const [regionValue, setRegionValue] = useState("");
-  const [allListedRegions,setAllListedRegions] = useState(regionList);
-
+  const [allListedRegions, setAllListedRegions] = useState([]);
   const [name, setName] = useState("");
-  const handlerChangeRegion = (val) => {
+  const [localFromDate, setLocalFromDate] = useState(null);
+  const [localToDate, setLocalToDate] = useState(null);
+  const [selectedInsurer, setSelectedInsurer] = useState(null);
+  const [selectedRegion, setSelectedRegion] = useState(null);
+  const [allInsurers, setAllInsurers] = useState([]);
+
+  // Convert UTC date to local time
+  const convertToLocalTime = (utcDate) => {
+    if (!utcDate) return null;
+    const date = new Date(utcDate);
+    date.setHours(date.getHours() + 5); // Adjust from UTC to local time
+    return date;
+  };
+
+  // Handle From Date Change
+  const handleFromDateChange = (e) => {
+    const date = e.value instanceof Date ? e.value : new Date(e.value);
+    if (!isNaN(date)) {
+      // Add 5 hours to the selected date to adjust for UTC-5
+      date.setHours(date.getHours() + 5);
+      const formattedDate = date.toISOString(); // Format in ISO format (UTC)
+
+      setLocalFromDate(date);
+      setFromDate(formattedDate); // Send adjusted date to parent
+    } else {
+      console.error("Invalid From Date:", e.value);
+    }
+  };
+
+  // Handle To Date Change
+  const handleToDateChange = (e) => {
+    const date = e.value instanceof Date ? e.value : new Date(e.value);
+    if (!isNaN(date)) {
+      // Add 5 hours to the selected date to adjust for UTC-5
+      date.setHours(date.getHours() + 20);
+      const formattedDate = date.toISOString(); // Format in ISO format (UTC)
+
+      setLocalToDate(date);
+      setToDate(formattedDate); // Send adjusted date to parent
+    } else {
+      console.error("Invalid To Date:", e.value);
+    }
+  };
+
+  // Fetch insurers on component mount
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+    axios
+      .get("/api/getAllInsurers", {
+        headers: {
+          Authorization: `Bearer ${userInfo[0].Token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        setAllInsurers(res.data.InsurerData.result);
+      })
+      .catch((err) => {
+        toast.dismiss();
+        toast.error("Got error while fetching Insurer Info!");
+      });
+
+    // Fetch initial dates from backend
+    axios
+      .get("/api/getDates")
+      .then((response) => {
+        const fromDate = convertToLocalTime(response.data.fromDate);
+        const toDate = convertToLocalTime(response.data.toDate);
+        setLocalFromDate(fromDate);
+        setLocalToDate(toDate);
+      })
+      .catch((error) => {});
+  }, []);
+
+  // Handle insurer selection
+  const handleInsurerChange = (e) => {
+    const insurer = e.value;
+    setSelectedInsurer(insurer);
+    setSelectedRegion(null); // Reset region when insurer changes
+    setRegionSearchValue(""); // Reset region search value
+
+    // Update the parent state with the selected insurer
+    if (setInsurerSearchValue) {
+      setInsurerSearchValue(insurer); // Pass the insurer value to the parent component
+    }
+
+    // Optionally, if you want to trigger any insurer change action
+    if (setInsurerChange) {
+      setInsurerChange(true);
+    }
+
+    // Filter regions based on selected insurer, ensuring uniqueness
+    if (insurer) {
+      const regionsForInsurer = [
+        ...new Set(
+          regionList
+            .filter(
+              (region) =>
+                insurerRegionMapping[insurer]?.includes(region.Region) ||
+                region.Region === "Preinspection" ||
+                region.Region === "Spot"
+            )
+            .map((region) => region.Region) // Extract only the region names
+        ),
+      ].map((uniqueRegion) => ({
+        Region: uniqueRegion, // Re-map to the original structure if needed
+      }));
+
+      setAllListedRegions(regionsForInsurer);
+    } else {
+      setAllListedRegions([]);
+    }
+  };
+
+  // Handle region change
+  const handleRegionChange = (e) => {
+    const region = e.value;
+    setSelectedRegion(region);
     if (isDashboard) {
       setIsRegionChange(true);
     }
-    localStorage.setItem("regionType", JSON.stringify(val));
-    setRegionValue(val);
+    setRegionSearchValue(region);
     setSelectedCard(1);
-    setRegionSearchValue(val);
   };
-  useEffect(() => {
-    const tempName = JSON.parse(localStorage.getItem("userInfo"));
-    setName("");
-    console.log(name);
-      // axios.get("/api/getAllRegions")
-      // .then((res)=>{
-      //   setAllListedRegions(res.data.data);
-      // })
-      // .catch((err)=>{})
-  }, []);
 
   return (
     <ul
@@ -42,29 +211,70 @@ const HeaderMenuContent = ({
       className="ace-responsive-menu text-end d-lg-block d-none"
       data-menu-style="horizontal"
     >
+      {/* Insurer Dropdown */}
       <li className="last">
         <div className="my_profile_setting_input ui_kit_select_search form-group">
-          <select
-            style={{ height: "40px" }}
-            className="selectpicker form-select"
-            data-live-search="true"
-            data-width="100%"
-            value={regionValue}
-            disabled={!isDashboard}
-            onChange={(e) => handlerChangeRegion(e.target.value)}
-          >
-            <option data-tokens="type1" value={""}>
-              Select Region
-            </option>
-            {allListedRegions.map((region,idx)=>{
-              return  <option  key={idx} data-tokens="type1" value={region.Region}>
-              {region.Region}
-            </option>
-            })}
-          </select>
+          <Dropdown
+            value={selectedInsurer}
+            options={[
+              { label: "Select Insurer", value: null },
+              ...allInsurers.map((insurer) => ({
+                label: insurer.name,
+                value: insurer.name,
+              })),
+            ]}
+            onChange={handleInsurerChange}
+            placeholder="Select Insurer"
+            style={{ width: "200px" }}
+          />
         </div>
       </li>
 
+      {/* Region Dropdown */}
+      <li className="last">
+        <div className="my_profile_setting_input ui_kit_select_search form-group">
+          <Dropdown
+            value={selectedRegion}
+            options={allListedRegions.map((region) => ({
+              label: region.Region,
+              value: region.Region,
+            }))}
+            onChange={handleRegionChange}
+            placeholder="Select Region"
+            disabled={!selectedInsurer}
+            style={{ width: "200px" }}
+          />
+        </div>
+      </li>
+
+      {/* From Date Calendar */}
+      <li className="calendar-item mt-2">
+        <div className="flex-auto">
+          <Calendar
+            id="fromDateCalendar"
+            value={localFromDate || null}
+            onChange={handleFromDateChange}
+            placeholder="From Date"
+            style={{ width: "100px" }}
+          />
+        </div>
+      </li>
+
+      {/* To Date Calendar */}
+      <li className="calendar-item mt-2">
+        <div className="flex-auto">
+          <Calendar
+            id="toDateCalendar"
+            value={localToDate || null}
+            onChange={handleToDateChange}
+            placeholder="To Date"
+            style={{ width: "100px" }}
+          />
+        </div>
+      </li>
+
+
+      {/* User Profile Section */}
       <li className="user_setting mt-2">
         <div className="dropdown">
           <a className="btn dropdown-toggle" href="#" data-bs-toggle="dropdown">

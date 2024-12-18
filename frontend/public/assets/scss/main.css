@@ -143,6 +143,19 @@ body.body_overlay {
   width: 100%;
 }
 
+.striped-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.striped-table th, .striped-table td {
+  padding: 8px;
+  text-align: left;
+  border: 2px solid #2e008b;
+}
+.striped-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
 body.body_overlay:before {
   background-color: rgba(0, 108, 112, 0.5);
   bottom: 0;
@@ -7164,6 +7177,11 @@ form.home5_advanced_search_form
   box-shadow: 0px 0px 50px 0px rgba(19, 19, 28, 0.12);
 }
 
+.focused{
+  height: 100px !important;
+  /* overflow: scroll !important; */
+}
+
 .properti_city.style2 .details {
   padding: 20px 20px 10px;
   text-align: center;
@@ -11991,6 +12009,10 @@ a.btn.btn_error {
   font-family: "Nunito";
   height: 52px;
   line-height: 1.2;
+}
+
+.error-class{
+  border: 2px solid red !important;
 }
 
 .login_form .form-control,

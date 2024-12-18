@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
-import MyDatePicker from "../../common/MyDatePicker";
-// import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-// import { Editor } from "draft-js";
-import { Editor } from "primereact/editor";
 import ReactEditor from "../../common/TextEditor";
 import { addVariables, getDocumentList, summaryNotes } from "./Content";
 import axios from "axios";
 
 const Summary = ({
-  isEditMode,
-  metaldepPct,
-  ageOfVehicleTotal,
   claim,
   disable,
   DepreciationValue,
@@ -310,17 +303,10 @@ const Summary = ({
       FinalReportNotes === "undefined"
     ) {
       setFinalReportNotes(`
-     01. The rates allowed above combination 
-      of authorized dealer prices.<br>
-      02. The cause, nature, and circumstances 
-            leading to the accident appear genuine, 
-            believable, and losses recommended/assessed 
-            are corroborating with this accident.<br>
-      03. The loss or damage or liability has arisen  proximately caused by the insured perils.<br> 
-      04. The prices are recommended exclusive of all taxes, duties, octroi etc.<br>
-      05. The used abbreviation as R.C. = Registration Certificate, D.L. = Driving License, N.A. = Not Allowed, R.A. = Repair Allowed, W&T = Wear & Tear, O.D. = Own Damaged, M.P. = Manipulated i.e. replaced by old material.<br>
-      06. The above said vehicle was reinspected by us after repair. Now the vehicle is ready for roadworthy condition, and all the parts replaced and all repair work done as per the final survey report. <br>
-      `);
+     Notes<br>
+     Every care been taken in noting the damages,however if damages found any at the time of final survey
+     can be considered if concurrent with cause of accident.<br>
+     Thanking you and assuring you of my best services at all times.`);
     }
   }, [documents, Endurance, FinalReportNotes]);
 

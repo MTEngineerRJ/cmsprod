@@ -12,7 +12,7 @@ import {
 } from "./functions";
 import BillCreateLayoutView from "./BillCreateLayoutView";
 
-const BillCreateView = ({ allInfo, leadID }) => {
+const BillCreateView = ({ allInfo, leadID, setCurrentLeadType}) => {
   const router = useRouter();
   const [inspectionType, setInspectionType] = useState("");
 
@@ -21,9 +21,7 @@ const BillCreateView = ({ allInfo, leadID }) => {
   const [disable, setDisable] = useState(false);
   const formattedDate = currentDate.toLocaleDateString("en-GB");
   const [BillDate, setBillDate] = useState("");
-  const [Insurer, setInsurer] = useState(
-    "United India Insurance Company Limited"
-  );
+  const [Insurer, setInsurer] = useState("");
   const [Branch, setBranch] = useState("");
   const [Others, setOthers] = useState("");
   const [Estimate, setEstimate] = useState("");
@@ -114,6 +112,7 @@ const BillCreateView = ({ allInfo, leadID }) => {
   }, []);
 
   useEffect(() => {
+    setCurrentLeadType(allInfo?.otherInfo[0]?.InspectionType);
     if (!allInfo?.feesDetails) {
     } else {
       setBill(allInfo?.feesDetails?.BillSno);
@@ -128,9 +127,9 @@ const BillCreateView = ({ allInfo, leadID }) => {
       setDetailsRemark(allInfo?.feesDetails?.Remrk);
 
       setcurrentSelectedInsprectiontype(
-        String(allInfo?.feesDetails?.Type) === "Final"
+        String(allInfo?.otherInfo[0]?.InspectionType).toLowerCase().includes("final")
           ? 1
-          : String(allInfo?.feesDetails?.Type) === "Spot"
+          : String(allInfo?.otherInfo[0]?.InspectionType).toLowerCase().includes("spot")
           ? 3
           : 2
       );
@@ -184,7 +183,6 @@ const BillCreateView = ({ allInfo, leadID }) => {
           requiredStateCode = office.StateCode;
         }
       });
-      console.log("requiredStateCode", requiredStateCode, searchCode);
       if (String(requiredStateCode) === "8") {
         setCGST(9);
         setSGST(9);
@@ -318,6 +316,7 @@ const BillCreateView = ({ allInfo, leadID }) => {
 
   const onSubmitHnadler = () => {
     setDisable(true);
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const payload = {
       LeadId: leadID,
       Type:
@@ -381,9 +380,10 @@ const BillCreateView = ({ allInfo, leadID }) => {
       Others: Others,
       BillDate: BillDate,
       BillId: allInfo?.feesDetails ? allInfo?.feesDetails?.BillSno : null,
+      Username : userInfo[0]?.Username
     };
 
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    
     toast.loading(
       allInfo?.feesDetails?.BillID
         ? "Updating the bill !!"

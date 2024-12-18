@@ -15,16 +15,11 @@ import {
   calculateDepreciationsPercenatge,
   getMonthsDifference,
 } from "./functions";
-import MyDatePicker from "../../common/MyDatePicker";
-import getTime from "date-fns/getTime";
-import MyDatePickerTime from "../../common/MyDatePickerTime";
 import TimePicker from "../../common/TimePicker";
 import ReactEditor from "../../common/TextEditor";
 
 const Servey = ({
-  phoneNumber,
   setPhoneNumber,
-  applicantNumber,
   disable,
   setApplicantNumber,
   DetailsOfLoads,
@@ -50,103 +45,44 @@ const Servey = ({
   setPlaceOfLoss,
   PlaceOfLoss,
   SurveyAllotmentDate,
-  setSurveyAllotmentDate,
-  setSurveyConductedDate,
-  SurveyConductedDate,
   setThirdPartyLoss,
-
-  ReferenceNo,
-  setReferenceNo,
-  InsuredMailAddress,
-  setInsuredMailAddress,
-  requestType,
-  setRequestType,
-  ClaimNumber,
-  EngineType,
-  setEngineType,
   DateRegistration,
-  setDateRegistration,
-  PUCNumber,
-  setPUCNumber,
-  TransferDate,
-  setTransferDate,
-  AddedBy,
-  setAddedBy,
-  Verification,
-  setVerification,
-
-  GarageNameAndAddress,
-  setGarageNameAndAddress,
-  GarageContactNo,
-  setGarageContactNo1,
-  GarageContactNo2,
-  setGarageContactNo2,
-  GarageAddedBy,
-  setGarageAddedBy,
-
-  ClaimAddedDateTime,
-  setClaimAddedDateTime,
-  ClaimIsActive,
-  setClaimIsActive,
-  PolicyIssuingOffice,
-  setPolicyIssuingOffice,
-
   PolicyNumber,
-  setPolicyNumber,
-  InsuranceCompanyNameAddress,
-  setInsuranceCompanyNameAddress,
-  InsuredAddress,
-  setInsuredAddress,
   allDepreciations,
-  InsuredName,
-  setInsuredName,
-  InsuredMobileNo1,
-  setInsuredMobileNo1,
-  InsuredMobileNo2,
-  setInsuredMobileNo2,
-  ClaimRegion,
-  setClaimRegion,
-
   DriverName,
-  setDriverName,
-  DriverAddedDate,
-  setDriverAddedDate,
-  IssuingAuthority,
-  setIssuingAuthority,
-  LicenseNumber,
-  setLicenseNumber,
-  LicenseType,
-  setLicenseType,
-  BadgeNumber,
-
-  VehicleRegisteredNumber,
-  setVehicleRegisteredNumber,
-  RegisteredOwner,
-  setRegisteredOwner,
   VehicleChassisNumber,
-  setVehicleChassisNumber,
-  EngineNumber,
-  setEngineNumber,
-  VehicleTypeOfBody,
-  setVehicleTypeOfBody,
-  VehicleCubicCapacity,
-  setVehicleCubicCapacity,
-  VehicleClassOfVehicle,
-  setVehicleClassOfVehicle,
-  VehicleFuelType,
-  setVehicleFuelType,
-  VehicleOdometerReading,
-  setVehicleOdometerReading,
-  VehiclePreAccidentCondition,
-  setVehiclePreAccidentCondition,
-
-  VehicleModel,
-  setVehicleModel,
-  VehicleTaxParticulars,
-  setVehicleTaxParticulars,
-  VehicleSeatingCapacity,
-  setVehicleSeatingCapacity,
-
+  Vehicle_Shifted_To,
+  setVehicle_Shifted_To,
+  PersonArrestedOnSpot,
+  setPersonArrestedOnSpot,
+  SurveyInspectiononMedium,
+  setSurveyInspectiononMedium,
+  PolicStationName,
+  setPolicStationName,
+  StationDiaryNo,
+  setStationDiaryNo,
+  LoadChallan,
+  setLoadChallan,
+  NatureOfGoodsInLoad,
+  setNatureOfGoodsInLoad,
+  WeightOfGoodsInLoad,
+  setWeightOfGoodsInLoad,
+  OriginToDestination,
+  setOriginToDestination,
+  LRInvoiceNoInLoad,
+  setLRInvoiceNoInLoad,
+  TransporterNameInLoad,
+  setTransporterNameInLoad,
+  NoOfPassengerInLoad,
+  setNoOfPassengerInLoad,
+  NatureOfGoodsThirdParty,
+  setNatureOfGoodsThirdParty,
+  QuantityOfGoodsThirdParty,
+  setQuantityOfGoodsThirdParty,
+  OriginToDestThirdParty,
+  setOriginToDestThirdParty,
+  LRInvoiceNoThirdParty,
+  setLRInvoiceNoThirdParty,
   SaveHandler,
   claim,
 }) => {
@@ -286,42 +222,6 @@ const Servey = ({
   // const Editor = SomeComponent.Editor;
   const [editorContent, setEditorContent] = useState("");
 
-  const formatText = (command) => {
-    if (typeof window !== "undefined") {
-      const selectedText = window.getSelection().toString();
-
-      const selection = window.getSelection();
-      if (selection.rangeCount === 0) return;
-
-      const range = selection.getRangeAt(0);
-
-      // Create a span element
-      const span = document.createElement("span");
-
-      switch (command) {
-        case "bold":
-          span.style.fontWeight = "bold";
-          break;
-        case "italic":
-          span.style.fontStyle = "italic";
-          break;
-        case "justifyCenter":
-          span.style.textAlign = "center";
-          break;
-        case "justifyRight":
-          span.style.textAlign = "right";
-          break;
-        case "justifyLeft":
-          span.style.textAlign = "left";
-          break;
-        default:
-          break;
-      }
-
-      // Surround the selected content with the created span element
-      range.surroundContents(span);
-    }
-  };
   const [text, setText] = useState("");
 
   const [isEditMode, setIsEditMode] = useState(false);
@@ -357,7 +257,6 @@ const Servey = ({
   const editHandler = () => {
     setIsEditMode(true);
   };
-  console.log("AccidentAddedDateTime", AccidentAddedDateTime);
   return (
     <>
       <div className="row">
@@ -400,7 +299,7 @@ const Servey = ({
                       onChange={(e) => setAccidentAddedDateTime(e.target.value)}
                     />
                   )}
-                 
+                  
                 </div>
               </div>
             </div>
@@ -459,7 +358,10 @@ const Servey = ({
                   />
                 </div>
               </div>
-             
+              {/* <div className="my_profile_setting_input form-group">
+          <label htmlFor="propertyTitle">Property Title</label>
+          <input type="text" className="form-control" id="propertyTitle" />
+        </div> */}
             </div>
             <div className="col-lg-12">
               <div className="row">
@@ -482,14 +384,13 @@ const Servey = ({
                     type="text"
                     className="form-control"
                     id="propertyTitle"
-                    value={Pin ? Pin : ""}
+                    value={Vehicle_Shifted_To}
                     readOnly={!isEditMode}
-                    onChange={(e) => setPin(e.target.value)}
-                    // placeholder="Enter Registration No."
+                    onChange={(e) => setVehicle_Shifted_To(e.target.value)}
+                   
                   />
                 </div>
               </div>
-              
             </div>
             <div className="col-lg-12">
               <div className="row">
@@ -512,14 +413,14 @@ const Servey = ({
                     type="text"
                     className="form-control"
                     id="propertyTitle"
-                    value={PlaceOfSurvey ? PlaceOfSurvey : ""}
+                    value={PersonArrestedOnSpot}
                     readOnly={!isEditMode}
-                    onChange={(e) => setPlaceOfSurvey(e.target.value)}
+                    onChange={(e) => setPersonArrestedOnSpot(e.target.value)}
                     // placeholder="Enter Registration No."
                   />
                 </div>
               </div>
-            
+             
             </div>
           </div>
           <hr />
@@ -536,17 +437,15 @@ const Servey = ({
                     htmlFor=""
                     className="text-color"
                     style={{
-                      // paddingTop: "15px",
                       color: "#2e008b",
                       fontSize: "14px",
-                      // marginTop: "-13px",
                     }}
                   >
                     Allotment Date :
                   </label>
                 </div>
                 <div className="col-lg-5">
-               
+                 
                   <input
                     readOnly={!isEditMode}
                     type={"text"}
@@ -609,7 +508,7 @@ const Servey = ({
                     marginRight: "13px",
                   }}
                 >
-                  CD&apos;s :
+                  CD :
                 </label>
                 <input
                   type="radio"
@@ -641,22 +540,11 @@ const Servey = ({
               </div>
               <div className="col-lg-8">
                 <input
-                  // readOnly={!isEditMode}
                   type="text"
                   placeholder=""
-                  // value={
-                  //   SurveyConductedDate && SurveyConductedDate !== "null"
-                  //     ? SurveyConductedDate
-                  //     : ""
-                  // }
-                  // onChange={(e) => setSurveyConductedDate(e.target.value)}
                 />
               </div>
             </div>
-            {/* <div className="my_profile_setting_input form-group">
-          <label htmlFor="propertyTitle">Property Title</label>
-          <input type="text" className="form-control" id="propertyTitle" />
-        </div> */}
           </div>
           <div className="col-lg-12 mt-3">
             <h4>Cause & Nature of Accident :</h4>
@@ -685,9 +573,7 @@ const Servey = ({
               </div>
              
               <br />
-             
             </div>
-            
           </div>
           <div className="col-lg-12 mb-3">
             <h4>Police Action :</h4>
@@ -729,7 +615,9 @@ const Servey = ({
                 </label>
               </div>
               <div className="col-lg-3">
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" 
+                value={PolicStationName}
+                onChange={(e)=>setPolicStationName(e.target.value)}/>
               </div>
               <div className="col-lg-3 my_profile_setting_input form-group text-end">
                 <label
@@ -746,7 +634,9 @@ const Servey = ({
                 </label>
               </div>
               <div className="col-lg-3">
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" 
+                value={StationDiaryNo}
+                    onChange={(e)=>setStationDiaryNo(e.target.value)}/>
               </div>
             </div>
           </div>
@@ -807,6 +697,8 @@ const Servey = ({
                     type="text"
                     className="form-control"
                     id="propertyTitle"
+                    value={NatureOfGoodsInLoad}
+                    onChange={(e)=>setNatureOfGoodsInLoad(e.target.value)}
                   />
                 </div>
               </div>
@@ -830,6 +722,8 @@ const Servey = ({
                     type="text"
                     className="form-control"
                     id="propertyTitle"
+                    value={WeightOfGoodsInLoad}
+                    onChange={(e)=>setWeightOfGoodsInLoad(e.target.value)}
                   />
                 </div>
               </div>
@@ -853,6 +747,8 @@ const Servey = ({
                     type="text"
                     className="form-control"
                     id="propertyTitle"
+                    value={OriginToDestination}
+                    onChange={(e)=>setOriginToDestination(e.target.value)}
                   />
                 </div>
               </div>
@@ -876,6 +772,8 @@ const Servey = ({
                     type="text"
                     className="form-control"
                     id="propertyTitle"
+                    value={LRInvoiceNoInLoad}
+                    onChange={(e)=>setLRInvoiceNoInLoad(e.target.value)}
                   />
                 </div>
               </div>
@@ -891,7 +789,7 @@ const Servey = ({
                       fontSize: "14px",
                     }}
                   >
-                    Transporter&apos;s Name :
+                    Transporter Name :
                   </label>
                 </div>
                 <div className="col-lg-12">
@@ -899,6 +797,8 @@ const Servey = ({
                     type="text"
                     className="form-control"
                     id="propertyTitle"
+                    value={TransporterNameInLoad}
+                    onChange={(e)=>setTransporterNameInLoad(e.target.value)}
                   />
                 </div>
               </div>
@@ -922,6 +822,8 @@ const Servey = ({
                     type="text"
                     className="form-control"
                     id="propertyTitle"
+                    value={NoOfPassengerInLoad}
+                    onChange={(e)=>setNoOfPassengerInLoad(e.target.value)}
                   />
                 </div>
               </div>
@@ -943,7 +845,7 @@ const Servey = ({
                         fontSize: "14px",
                       }}
                     >
-                      Nature of Goods :
+                      Details of TP Vehicle :
                     </label>
                   </div>
                   <div className="col-lg-12">
@@ -955,12 +857,10 @@ const Servey = ({
                       maxLength={2000}
                       style={
                         {
-                          // paddingTop: "15px",
-                          // paddingBottom: "15px",
-                          // backgroundColor: "#E8F0FE",
-                          // //color: "white",
                         }
                       }
+                      value={NatureOfGoodsThirdParty}
+                      onChange={(e)=>setNatureOfGoodsThirdParty(e.target.value)}
                     ></textarea>
                   </div>
                 </div>
@@ -976,7 +876,7 @@ const Servey = ({
                         fontSize: "14px",
                       }}
                     >
-                      Weight of Goods Carried :
+                      Death /Injury details of Insured Vehicle:
                     </label>
                   </div>
                   <div className="col-lg-12">
@@ -988,12 +888,10 @@ const Servey = ({
                       maxLength={2000}
                       style={
                         {
-                          // paddingTop: "15px",
-                          // paddingBottom: "15px",
-                          // backgroundColor: "#E8F0FE",
-                          // //color: "white",
                         }
                       }
+                      value={QuantityOfGoodsThirdParty}
+                      onChange={(e)=>setQuantityOfGoodsThirdParty(e.target.value)}
                     ></textarea>
                   </div>
                 </div>
@@ -1009,7 +907,7 @@ const Servey = ({
                         fontSize: "14px",
                       }}
                     >
-                      Origin - Destination :
+                      Death / Injuries Details of Insured Vehicle :
                     </label>
                   </div>
                   <div className="col-lg-12">
@@ -1021,12 +919,10 @@ const Servey = ({
                       maxLength={2000}
                       style={
                         {
-                          // paddingTop: "15px",
-                          // paddingBottom: "15px",
-                          // backgroundColor: "#E8F0FE",
-                          // //color: "white",
                         }
                       }
+                      value={OriginToDestThirdParty}
+                      onChange={(e)=>setOriginToDestThirdParty(e.target.value)}
                     ></textarea>
                   </div>
                 </div>
@@ -1042,7 +938,7 @@ const Servey = ({
                         fontSize: "14px",
                       }}
                     >
-                      L/R Invoice No & Date :
+                      Third Party Property Damages :
                     </label>
                   </div>
                   <div className="col-lg-12">
@@ -1054,12 +950,10 @@ const Servey = ({
                       maxLength={2000}
                       style={
                         {
-                          // paddingTop: "15px",
-                          // paddingBottom: "15px",
-                          // backgroundColor: "#E8F0FE",
-                          // //color: "white",
                         }
                       }
+                      value={LRInvoiceNoThirdParty}
+                      onChange={(e)=>setLRInvoiceNoThirdParty(e.target.value)}
                     ></textarea>
                   </div>
                 </div>
@@ -1072,9 +966,7 @@ const Servey = ({
       <div className="col-lg-12 mt-3">
         <div className="row mt-1">
           <div className="col-lg-3"></div>
-          <div className="col-lg-2">
-           
-          </div>
+         
           <div className="col-lg-2">
             <div className="row mt-1">
               <div className="col-lg-7 my_profile_setting_input form-group text-end">

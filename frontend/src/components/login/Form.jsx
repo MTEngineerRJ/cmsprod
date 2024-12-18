@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import Captcha from "../common/Captcha";
+import Link from "next/link";
 
 const Form = ({ setModalIsOpen, setModalIsOpenError, setErrorMessage }) => {
   const [username, setUsername] = useState("");
@@ -141,7 +142,7 @@ const Form = ({ setModalIsOpen, setModalIsOpenError, setErrorMessage }) => {
         </a> */}
         </div>
         {/* End .form-group */}
-
+        
         <button
           type="submit"
           className="btn btn-log w-100 btn-thm"
@@ -149,34 +150,14 @@ const Form = ({ setModalIsOpen, setModalIsOpenError, setErrorMessage }) => {
         >
           Log In
         </button>
-        {/* login button */}
+        <div className="text-center text-dark">
+        <span>
+            <Link href="/privacy-policy" >
+              Privacy Policy
+            </Link>
+          </span>
 
-        {/* <div className="divide">
-        <span className="lf_divider">Or</span>
-        <hr />
-      </div> */}
-        {/* devider */}
-
-        {/* <div className="row mt25">
-        <div className="col-lg-6">
-          <button
-            type="submit"
-            className="btn btn-block color-white bgc-fb mb0 w-100"
-          >
-            <i className="fa fa-facebook float-start mt5"></i> Facebook
-          </button>
         </div>
-
-        <div className="col-lg-6">
-          <button
-            type="submit"
-            className="btn btn2 btn-block color-white bgc-gogle mb0 w-100"
-          >
-            <i className="fa fa-google float-start mt5"></i> Google
-          </button>
-        </div>
-      </div> */}
-        {/* more signin options */}
       </form>
     </>
   );

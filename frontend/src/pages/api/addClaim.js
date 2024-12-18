@@ -6,10 +6,11 @@ async function handler(request, response) {
     const token = request.headers.authorization;
     const domain = process.env.BACKEND_DOMAIN;
     const payload = request.body;
-    console.log(payload);
+    console.log("dom",domain);
+    console.log('payload: ', payload);
 
     const userResponse = await axios.post(`${domain}/claim/addClaim`, payload,{
-        headers:{
+      headers:{
             Authorization:token,
             "Content-Type":"application/json"
         }

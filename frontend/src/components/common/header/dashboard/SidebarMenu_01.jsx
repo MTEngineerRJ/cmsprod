@@ -18,7 +18,7 @@ import {
 
 const SidebarMenu = () => {
   const route = useRouter();
-  const [isMis,setIsMis]=useState(true);
+  const [isMis, setIsMis] = useState(true);
 
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -54,19 +54,17 @@ const SidebarMenu = () => {
     { id: 3, name: "Logout", route: "/login", icon: "flaticon-logout" },
   ];
 
-  useEffect(()=>{
-    let userInfo = JSON.parse(localStorage.getItem("userInfo"))
-    if(!userInfo){
-      route.push("/login")
+  useEffect(() => {
+    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    if (!userInfo) {
+      route.push("/login");
+    } else {
+      console.log("mis", userInfo, userInfo[0]?.IsMis);
+      if (String(userInfo[0].IsMis) === "0") {
+        setIsMis(false);
+      }
     }
-    else{
-    console.log("mis",userInfo,userInfo[0]?.IsMis);
-    if(String(userInfo[0].IsMis) === "0"){
-      setIsMis(false)
-    }
-    
-  }
-  },[]);
+  }, []);
 
   return (
     <>
@@ -122,23 +120,33 @@ const SidebarMenu = () => {
                       {/* <span> Create Listing</span> */}
                     </Link>
                   </li>
-
-                  
-                    { isMis && <li
+                  <li
                     className={`treeview ${
-                      isSinglePageActive("/mis-sheet", route.pathname)
+                      isSinglePageActive("/add-claim", route.pathname)
                         ? "active"
                         : ""
                     }`}
                   >
-                    <Link
-                      href={`/mis-sheet`}
-                      title="Mis - Sheet"
-                    >
-                      <i className="flaticon-document"></i>
-                      <span> </span>
+                    <Link href="/oem-dataset" title="OEM DATASET">
+                      <i className="flaticon-layers"></i>
+                      {/* <span> Create Listing</span> */}
                     </Link>
-                  </li>}
+                  </li>
+
+                  {isMis && (
+                    <li
+                      className={`treeview ${
+                        isSinglePageActive("/mis-sheet", route.pathname)
+                          ? "active"
+                          : ""
+                      }`}
+                    >
+                      <Link href={`/mis-sheet`} title="Mis - Sheet">
+                        <i className="flaticon-document"></i>
+                        <span> </span>
+                      </Link>
+                    </li>
+                  )}
                 </ul>
               </li>
               {/* End Main */}

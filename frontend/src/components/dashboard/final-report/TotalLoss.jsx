@@ -35,6 +35,11 @@ const TotalLoss_01 = ({
 
   useEffect(() => {
     // if(TotalLossEditor === "No,As Stated by Insured."){
+    console.log("allNewParts",allNewParts);
+    console.log("allLabour",allLabour);
+    console.log("currentGst",currentGst);
+    console.log("claim",claim);
+    console.log("allDepreciations",allDepreciations);
     setTotalLossEditor(
       replaceFunction(
         "",
@@ -57,14 +62,7 @@ const TotalLoss_01 = ({
               onClick={() => saveHandler(setIsEdit)}
               className="btn btn-color m-1"
               title="Update Values"
-            >
-              <Image
-                width={29}
-                height={30}
-                className="img-circle-rounded"
-                src="/assets/images/pngtree-update-icon-on-white-background-png-image_4915764.png"
-                alt="fp1.jpg"
-              />
+            >Update
             </button>
           </div>
         </div>

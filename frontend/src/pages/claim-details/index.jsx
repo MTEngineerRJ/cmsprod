@@ -5,7 +5,7 @@ import ClaimDetails from "../../components/dashboard/claim-details";
 const index = () => {
   return (
     <>
-      <Seo pageTitle="Claim Details" />
+      <Seo pageTitle="Documents Upload" />
       <ClaimDetails />
     </>
   );

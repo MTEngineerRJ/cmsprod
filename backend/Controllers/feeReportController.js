@@ -1,4 +1,5 @@
 const db = require("../Config/dbConfig");
+const { logMessage } = require("../utils/LoggerFile");
 
 const upload = (req, res) => {
   const {
@@ -29,6 +30,7 @@ const upload = (req, res) => {
     Others,
     BillDate,
     BillId,
+    Username
   } = req.body;
 
   const insertQuery = `INSERT INTO BillReportFees (
@@ -117,6 +119,15 @@ const upload = (req, res) => {
     [LeadId],
     (err, result_1) => {
       if (err) {
+        logMessage({
+          type: "error",
+          Function: "UPDATING_BILL_DETAILS",
+          message: `Got error while fetching the Bill Report Details for leadId --> ${LeadId}`,
+          username: Username,
+          leadId: LeadId,
+          consoleInfo: `${err.status} ${err.details}`,
+          info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+        });
         console.error(err);
         return res.status(500).send("Internal Server Error");
       }
@@ -125,6 +136,15 @@ const upload = (req, res) => {
 
       db.query(query, (err, result) => {
         if (err) {
+          logMessage({
+            type: "error",
+            Function: "UPDATING_BILL_DETAILS",
+            message: `Got error while ${query === updateQuery ? "Updating" : "Inserting"} the Bill Report Details for leadId --> ${LeadId}`,
+            username: Username,
+            leadId: LeadId,
+            consoleInfo: `${err.status} ${err.details}`,
+            info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`},query : ${query}, error : ${err}}}`,
+          });
           console.error(err);
           return res.status(500).send("Internal Server Error");
         }
@@ -137,6 +157,15 @@ const upload = (req, res) => {
           [LeadId],
           (error, result12) => {
             if (error) {
+              logMessage({
+                type: "error",
+                Function: "UPDATING_BILL_DETAILS",
+                message: `Got error while updating the BILLID OF the Bill Report Details for leadId --> ${LeadId}`,
+                username: Username,
+                leadId: LeadId,
+                consoleInfo: `${err.status} ${err.details}`,
+                info: `{ERRMESSAGE : ${err.details}, STATUS : ${`${err.status} ${err.message}`}, error : ${err}}}`,
+              });
               console.error("Error while updating the billId", error);
               return res.status(500).json({
                 error: "Error while updating the billId",
@@ -146,6 +175,15 @@ const upload = (req, res) => {
           }
         );
       }
+      logMessage({
+        type: "info",
+        Function: "UPDATING_BILL_DETAILS",
+        message: `Successfully Updated the Bill Report for leadId --> ${LeadId}`,
+        username: Username,
+        leadId: LeadId,
+        consoleInfo: `Successfully Updated the Bill Report for leadId --> ${LeadId}`,
+        info: `{message : SUCCESS }`,
+      });
       return res.status(200).json({
         message: "Successfully uploaded the fee report!",
         finalResult,
@@ -174,6 +212,7 @@ const getFeeReport = async (req, res) => {
       "SELECT * FROM BillReportFees WHERE LeadID=?",
       [leadId]
     );
+    
     const driverDetails = await executeQuery(
       "SELECT * FROM DriverDetailsOnline WHERE LeadID=?",
       [leadId]

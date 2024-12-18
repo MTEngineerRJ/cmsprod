@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../../common/header/dashboard/Header";
-import SidebarMenu from "../../common/header/dashboard/SidebarMenu";
+import SidebarMenu from "../../common/header/dashboard/SidebarMenu_Spot";
 import MobileMenu from "../../common/header/MobileMenu";
 import PropertyVideo from "./PropertyVideo";
 import { useRouter } from "next/router";
@@ -65,7 +65,7 @@ const Index = ({ SomeComponent, leadId }) => {
           id="DashboardOffcanvasMenu"
           data-bs-scroll="true"
         >
-          <SidebarMenu leadId={leadId}/>
+          <SidebarMenu leadId={leadId} />
         </div>
       </div>
       {/* End sidebar_menu */}
@@ -91,14 +91,7 @@ const Index = ({ SomeComponent, leadId }) => {
                     </div>
                   </div>
                 </div>
-                {/* End Dashboard Navigation */}
-
-                {/* <div className="col-lg-12 mb10">
-                  <div className="breadcrumb_content style2">
-                    <h2 className="breadcrumb_title">Message</h2>
-                    <p>We are glad to see you again!</p>
-                  </div>
-                </div> */}
+                
               </div>
               {/* End .row */}
               <div className="shop_single_tab_content style2">

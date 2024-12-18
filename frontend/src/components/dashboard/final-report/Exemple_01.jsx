@@ -269,8 +269,8 @@ export default function Exemple_01({
 
     let temp = [];
     allRows.map((row, index) => {
-      totalAssessed += Number(row.assessed);
-      totalEstimate += Number(row.estimate);
+      totalAssessed += row.isActive ? Number(row.assessed) : 0;
+      totalEstimate += row.isActive ? Number(row.estimate) : 0;
       const row2 = {
         sno: row.sno,
         description: row.description,
@@ -286,6 +286,8 @@ export default function Exemple_01({
       temp.push(row2);
     });
 
+    console.log("totalAssessed",totalAssessed);
+    console.log("totalEstimate",totalEstimate);
     if(Number(totalAssessed) > Number(totalEstimate)){
       toast.error("Listed assessed amount(s) cannot be greater than estimate amount(s).");
       setHide(false);

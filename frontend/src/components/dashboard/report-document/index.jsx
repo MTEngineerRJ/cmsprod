@@ -10,6 +10,7 @@ const Index = () => {
   const [lastActivityTimestamp, setLastActivityTimestamp] = useState(
     Date.now()
   );
+  const [claim, setClaim] = useState([]);
 
   const router = useRouter();
 
@@ -54,6 +55,26 @@ const Index = () => {
     toast.loading("Loading the report!!", {
       className: "toast-loading-message",
     });
+
+    axios
+      .get("/api/getSpecificClaim", {
+        headers: {
+          Authorization: `Bearer ${userData[0].Token}`,
+          "Content-Type": "application/json",
+        },
+        params: {
+          LeadId: leadId,
+          Username : userData[0]?.Username
+        },
+      })
+      .then((res) => {
+        // console.log(res.data.data);
+        setClaim(res.data.data);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
     axios
       .get("/api/getReportInfo", {
         headers: {
@@ -86,7 +107,7 @@ const Index = () => {
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-lg-12">
-                    <BaseLayout allInfo={allInfo} />
+                    <BaseLayout allInfo={allInfo} claim={claim}/>
                   </div>
                 </div>
               </div>

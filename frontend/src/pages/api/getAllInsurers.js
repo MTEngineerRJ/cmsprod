@@ -3,9 +3,10 @@ import axios from "axios";
 async function handler(request, response) {
   try {
     
+    // const domain = process.env.BACKEND_DOMAIN;
     const domain = process.env.BACKEND_DOMAIN;
-
     const userResponse = await axios.get(`${domain}/Insurers/getAll`);
+    console.log('domain: ', domain);
     const user = userResponse.data;
 
     if (!user) {

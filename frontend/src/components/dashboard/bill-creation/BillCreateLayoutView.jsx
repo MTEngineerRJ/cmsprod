@@ -1,5 +1,6 @@
 import DatePicker from "react-datepicker";
 import { addCommasToNumber, roundOff } from "./functions";
+import { useEffect } from "react";
 
 const BillCreateLayoutView = ({
   allInfo,
@@ -84,6 +85,51 @@ const BillCreateLayoutView = ({
   disable,
   onSubmitHnadler,
 }) => {
+
+  useEffect(() => {
+    if (Number(currentSelectedInsprectiontype) === 1) {
+
+      const total = FinalTotalKM * FinalVisit * DetailsKM;
+      setFinalConveyance(total)
+    }
+    else if (Number(currentSelectedInsprectiontype) === 3) {
+      const total = Number(SpotTotalKM) * Number(SpotVisit) * Number(DetailsKM);
+      setSpotConveyance(total)
+    }
+  },
+    [FinalTotalKM, FinalVisit, DetailsKM, currentSelectedInsprectiontype, SpotTotalKM, SpotVisit]);
+
+  useEffect(() => {
+    if (Number(currentSelectedInsprectiontype) === 1) {
+      const total = FinalPhotos * FinalCharges;
+      setFinalPhotoCD(total)
+    }
+    else if (Number(currentSelectedInsprectiontype) === 3) {
+      const total = Number(SpotPhotos) * Number(SpotCharges);
+      setSpotPhotoCD(total)
+    }
+  },
+    [FinalPhotos, FinalCharges, currentSelectedInsprectiontype, SpotPhotos, SpotCharges]);
+
+    useEffect(() => {
+      if (Number(currentSelectedInsprectiontype) === 3) {
+
+      }
+    },[currentSelectedInsprectiontype]);
+
+  const convertDateFormat = (dateString) => {
+    if (!dateString) return "";
+
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "";
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+  };
+
   return (
     <>
       <div className="row">
@@ -123,17 +169,17 @@ const BillCreateLayoutView = ({
                 </label>
               </div>
               <div className="col-lg-4">
-                <DatePicker
-                  className="form-control"
-                  id="propertyTitle"
-                  dateFormat="dd/MM/yyyy"
-                  selected={
-                    BillDate !== null && !isNaN(new Date(BillDate))
-                      ? new Date(BillDate)
-                      : ""
-                  }
-                  onChange={(date) => setBillDate(date)}
-                />
+                {BillDate ?
+                  <input
+                    type="text"
+                    value={convertDateFormat(BillDate)}
+                  />
+                  : <input
+                    type="date"
+                    onChange={(e) => setBillDate(e.target.value)}
+                    value={BillDate}
+                  />}
+
               </div>
             </div>
           </div>
@@ -1105,7 +1151,7 @@ const BillCreateLayoutView = ({
                   type="text"
                   className="form-control"
                   id="broker_mail_id"
-                  value={addCommasToNumber(roundOff(CGSTValue))}
+                  value={addCommasToNumber((CGSTValue))}
                 />
               </div>
             </div>
@@ -1149,7 +1195,7 @@ const BillCreateLayoutView = ({
                   type="text"
                   className="form-control"
                   id="broker_mail_id"
-                  value={addCommasToNumber(roundOff(SGSTValue))}
+                  value={addCommasToNumber((SGSTValue))}
                 />
               </div>
             </div>
@@ -1193,7 +1239,7 @@ const BillCreateLayoutView = ({
                   type="text"
                   className="form-control"
                   id="broker_mail_id"
-                  value={addCommasToNumber(roundOff(IGSTValue))}
+                  value={addCommasToNumber((IGSTValue))}
                 />
               </div>
             </div>

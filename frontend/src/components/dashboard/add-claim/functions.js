@@ -1,3 +1,12 @@
+const { regionList } = require("../../../utils/regionsList");
+
+const insurerCodeMapping = {
+  "United India Insurance Company Limited": "UIIC",
+  "The New India Assurance Company Limited": "NIA",
+  "National Insurance Company Limited": "NIC",
+  "The Oriental Insurance Company Limited": "OIC",
+};
+
 const getNextYear = (policyStartDate) => {
   if (policyStartDate && !isNaN(new Date(policyStartDate).getTime())) {
     const oneYearLater = new Date(policyStartDate);
@@ -100,19 +109,26 @@ const formatDateFinal = (inputDate2, type) => {
   return `${year}-${month}-${day}`;
 };
 
-const generateRegion = (region) => {
-  const firstThreeLetters =
-    String(region) === "Delhi"
-      ? "DLH"
-      : String(region) === "Jodhpur"
-      ? "JDH"
-      : "CHD";
+const generateRegion = (region, selectedInsurer) => {
+  // Find the region details from the regionList
+  const regionDetails = regionList.find(
+    (item) => item.Region.toLowerCase() === region.toLowerCase()
+  );
+
+  // Default to "UNK" (Unknown) if region is not found
+  const regionCode = regionDetails ? regionDetails.RegionShortName : "UNK";
+
+  // Get the insurer code from the mapping
+  const insurerCode = insurerCodeMapping[selectedInsurer]
+    ? insurerCodeMapping[selectedInsurer]
+    : "UNKNOWN"; // Handle unexpected values
 
   const now = new Date();
   const mm = String(now.getMonth() + 1).padStart(2, "0"); // Adding 1 because months are zero-indexed
   const yy = String(now.getFullYear() % 100).padStart(2, "0"); // Use the last two digits of the year
-  const result = `${firstThreeLetters}/${yy}-${mm}`;
-  return result;
+
+  // Return the region code and insurer code with the current date in "YY-MM" format
+  return `${insurerCode}/${regionCode}/${yy}-${mm}`;
 };
 
 const formatDate = (dateString) => {
@@ -126,7 +142,7 @@ const formatDate = (dateString) => {
   return formattedDate;
 };
 
-const handleInputChange_01 = (e,setInsuredMobileNo2,setPhoneNumber_01) => {
+const handleInputChange_01 = (e, setInsuredMobileNo2, setPhoneNumber_01) => {
   const inputValue = e.target.value;
   const numericValue = inputValue.replace(/\D/g, "");
   const truncatedValue = numericValue.slice(0, 10);
@@ -137,7 +153,7 @@ const handleInputChange_01 = (e,setInsuredMobileNo2,setPhoneNumber_01) => {
   setPhoneNumber_01(truncatedValue);
 };
 
-const handleInputChange = (e,setInsuredMobileNo1,setPhoneNumber) => {
+const handleInputChange = (e, setInsuredMobileNo1, setPhoneNumber) => {
   const inputValue = e.target.value;
   const numericValue = inputValue.replace(/\D/g, "");
   const truncatedValue = numericValue.slice(0, 10);

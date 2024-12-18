@@ -1,0 +1,261 @@
+2024-06-02T07:38:25.129Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,821] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 821" , info : "{message : 200 SUCCESS }"}
+2024-06-02T10:39:42.495Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,2155] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-06-02T10:42:19.158Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-02T17:31:33.869Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-02T17:58:13.343Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2155] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-06-02T17:58:41.411Z SENDING_ACKNOWLEDMENT_MAIL[SSMUTNEJA,2155] : INFO : {message : "Successfully Sent the MAIL from : mt.chro123@gmail.com , to : muskankushwah85@gmail.com , cc : ivijayrajsingh@gmail.com,intimationmt@gmail.com for LeadId --> 2155" , info : "{message : SUCCESS }"}
+2024-06-02T18:22:12.191Z SENDING_ACKNOWLEDMENT_MAIL[SSMUTNEJA,2155] : INFO : {message : "Successfully Sent the MAIL from : mt.chro123@gmail.com , to : muskankushwah85@gmail.com , cc : ivijayrajsingh@gmail.com,intimationmt@gmail.com for LeadId --> 2155" , info : "{message : SUCCESS }"}
+2024-06-03T19:01:33.433Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2160] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-06-03T19:01:43.691Z SENDING_ACKNOWLEDMENT_MAIL[SSMUTNEJA,2160] : INFO : {message : "Successfully Sent the MAIL from : mt.chro123@gmail.com , to : ivijayrajsingh@gmail.com , cc : muskankushwah85@gmail.com,intimationmt@gmail.com for LeadId --> 2160" , info : "{message : SUCCESS }"}
+2024-06-04T18:15:31.940Z SENDING_ACKNOWLEDMENT_MAIL[SSMUTNEJA,2054] : INFO : {message : "Successfully Sent the MAIL from : legalmtpi04@gmail.com , to : ivijayrajsingh@gmail.com , cc : muskankushwah85@gmail.com,intimationmt@gmail.com for LeadId --> 2054" , info : "{message : SUCCESS }"}
+2024-06-04T18:22:28.193Z SENDING_CUSTOM_MAIL[SSMUTNEJA,2054] : INFO : {message : "Successfully Sent the MAIL from : mt.jdro123@gmail.com , to : ivijayrajsingh@gmail.com , cc : intimationmt@gmail.com,muskankushwah85@gmail.com for LeadId --> 2054" , info : "{message : SUCCESS }"}
+2024-06-04T18:59:05.749Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-05T13:12:50.015Z SENDING_ADD_CLAIM_MAIL[,2346] : INFO : {message : "Successfully Sent the MAIL from : mt.chro123@gmail.com , to : xyz@gmail.com , cc : xyz@gmail.com,intimationmt@gmail.com for LeadId --> 2346" , info : "{message : SUCCESS }"}
+2024-06-05T13:12:50.025Z SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL[SSMUTNEJA,2346] : INFO : {message : "Sent Successfully." , info : "SENT SUCCESSFULLY"}
+2024-06-05T13:19:54.253Z SENDING_ADD_CLAIM_MAIL[,2352] : INFO : {message : "Successfully Sent the MAIL from : legalmtpi04@gmail.com , to : muskankushwah85@gmail.com , cc : ivijayrajsingh@gmail.com,intimationmt@gmail.com for LeadId --> 2352" , info : "{message : SUCCESS }"}
+2024-06-05T13:19:54.262Z SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL[SSMUTNEJA,2352] : INFO : {message : "Sent Successfully." , info : "SENT SUCCESSFULLY"}
+2024-06-05T13:25:52.172Z SENDING_ADD_CLAIM_MAIL[,2354] : INFO : {message : "Successfully Sent the MAIL from : legalmtpi04@gmail.com , to : muskankushwah85@gmail.com , cc : ivijayrajsingh@gmail.com,intimationmt@gmail.com for LeadId --> 2354" , info : "{message : SUCCESS }"}
+2024-06-05T13:25:52.183Z SUCCESSFULLY_SENT_ACKNOWLEDGMENT_MAIL[SSMUTNEJA,2354] : INFO : {message : "Sent Successfully." , info : "SENT SUCCESSFULLY"}
+2024-06-05T13:26:33.372Z UPDATING_CLAIM_STATUS[SSMUTNEJA,2352] : INFO : {message : "This last update of status was from Claim Appointment ---> Withdrawl/Rejected for LeadId 2352" , info : "Status Updated to Withdrawl/Rejected from Claim Appointment, LeadID -- 2352 (PLEASE CHECK THIS UPDATION)."}
+2024-06-05T13:26:52.939Z UPDATING_CLAIM_STATUS[SSMUTNEJA,2354] : INFO : {message : "This last update of status was from Claim Appointment ---> Withdrawl/Rejected for LeadId 2354" , info : "Status Updated to Withdrawl/Rejected from Claim Appointment, LeadID -- 2354 (PLEASE CHECK THIS UPDATION)."}
+2024-06-05T13:46:30.769Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2354] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-06-05T13:52:35.920Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2354] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-06-05T13:52:58.341Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2354] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-06-05T14:16:22.246Z UPDATING_BILL_DETAILS[SSMUTNEJA,2354] : INFO : {message : "Successfully Updated the Bill Report for leadId --> 2354" , info : "{message : SUCCESS }"}
+2024-06-05T14:33:37.295Z UPDATING_BILL_DETAILS[SSMUTNEJA,2354] : INFO : {message : "Successfully Updated the Bill Report for leadId --> 2354" , info : "{message : SUCCESS }"}
+2024-06-05T16:34:28.661Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-05T17:24:23.799Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-05T17:29:41.517Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-05T17:34:06.476Z SENDING_CUSTOM_MAIL[SSMUTNEJA,2346] : INFO : {message : "Successfully Sent the MAIL from : mthero893@gmail.com , to : ivijayrajsingh@gmail.com , cc : intimationmt@gmail.com for LeadId --> 2346" , info : "{message : SUCCESS }"}
+2024-06-05T17:38:40.168Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,2365] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-06-05T17:38:50.702Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,2365] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-06-05T17:39:03.088Z SENDING_ACKNOWLEDMENT_MAIL[SSMUTNEJA,2365] : INFO : {message : "Successfully Sent the MAIL from : legalmtpi04@gmail.com , to : ivijayrajsingh@gmail.com , cc : muskankushwah85@gmail.com,intimationmt@gmail.com for LeadId --> 2365" , info : "{message : SUCCESS }"}
+2024-06-06T17:51:18.319Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-06T17:53:06.276Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-06T17:53:25.488Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-06T18:51:11.518Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-06T18:52:45.415Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-06T18:57:56.534Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-06T18:58:07.134Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-06T19:01:21.936Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-06T19:02:19.051Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-06T19:05:11.215Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-06T19:05:36.308Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-09T09:12:46.709Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-09T09:37:25.343Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,661] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE SPOT" , info : "{message : "SUCCESS"}"}
+2024-06-09T09:37:37.556Z UPDATING_FINAL_REPORT[N/A,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-09T09:38:38.401Z UPDATING_FINAL_REPORT[N/A,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-09T09:39:22.436Z UPDATING_FINAL_REPORT[N/A,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-09T09:40:02.103Z UPDATING_FINAL_REPORT[N/A,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-09T09:42:23.873Z UPDATING_FINAL_REPORT[N/A,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-09T09:42:58.459Z UPDATING_FINAL_REPORT[N/A,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-09T09:44:48.350Z UPDATING_FINAL_REPORT[N/A,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-09T09:46:01.872Z UPDATING_FINAL_REPORT[N/A,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-09T09:48:17.112Z UPDATING_FINAL_REPORT[N/A,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-09T09:50:26.533Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,661] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE Final" , info : "{message : "SUCCESS"}"}
+2024-06-09T09:50:32.971Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-12T04:55:51.788Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-12T05:01:50.808Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-12T05:02:00.848Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-12T05:02:44.987Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-12T05:03:17.565Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-12T05:03:50.225Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-12T05:06:11.198Z UPDATING_FINAL_REPORT[SSMUTNEJA,2392] : INFO : {message : "Updated successfully the final report for leadId ---> 2392" , info : "{message : 200 SUCCESS }"}
+2024-06-12T05:06:18.571Z UPDATING_FINAL_REPORT[SSMUTNEJA,2392] : INFO : {message : "Updated successfully the final report for leadId ---> 2392" , info : "{message : 200 SUCCESS }"}
+2024-06-12T13:13:10.307Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-12T16:42:02.044Z UPDATING_FINAL_REPORT[SSMUTNEJA,2434] : INFO : {message : "Updated successfully the final report for leadId ---> 2434" , info : "{message : 200 SUCCESS }"}
+2024-06-12T16:44:08.913Z UPDATING_FINAL_REPORT[SSMUTNEJA,2434] : INFO : {message : "Updated successfully the final report for leadId ---> 2434" , info : "{message : 200 SUCCESS }"}
+2024-06-16T04:43:32.442Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-16T05:11:10.725Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-16T06:34:40.643Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-16T07:29:32.361Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-16T10:43:48.788Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-16T11:22:24.764Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-16T19:33:13.253Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-17T08:36:03.892Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-17T08:51:54.187Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-17T09:19:09.906Z UPDATING_FINAL_REPORT[SSMUTNEJA,661] : INFO : {message : "Updated successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-06-19T18:55:11.540Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-06-19T19:19:33.958Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,3087] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-06-19T19:19:47.825Z UPDATING_CLAIM_STATUS[SSMUTNEJA,3087] : INFO : {message : "This last update of status was from Claim Appointment ---> Withdrawl/Rejected for LeadId 3087" , info : "Status Updated to Withdrawl/Rejected from Claim Appointment, LeadID -- 3087 (PLEASE CHECK THIS UPDATION)."}
+2024-06-19T19:27:29.228Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,3087] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE pre-inspection" , info : "{message : "SUCCESS"}"}
+2024-07-24T17:38:40.569Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-07-24T18:06:28.460Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-07-24T18:08:00.375Z INSERT_FINAL_REPORT[N/A,661] : INFO : {message : "Inserted successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-07-24T18:11:25.526Z INSERT_FINAL_REPORT[N/A,661] : INFO : {message : "Inserted successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-07-24T18:31:27.760Z INSERT_FINAL_REPORT[N/A,661] : INFO : {message : "Inserted successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-07-24T18:33:45.681Z INSERT_FINAL_REPORT[N/A,661] : INFO : {message : "Inserted successfully the final report for leadId ---> 661" , info : "{message : 200 SUCCESS }"}
+2024-08-01T15:16:13.518Z INSERT_FINAL_REPORT[N/A,5391] : INFO : {message : "Inserted successfully the final report for leadId ---> 5391" , info : "{message : 200 SUCCESS }"}
+2024-08-11T08:15:40.622Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T08:15:41.117Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T09:26:29.782Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T09:47:49.005Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T10:40:02.926Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T14:30:48.726Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T14:47:08.411Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T14:51:35.965Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T14:55:22.095Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:00:01.140Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:35:33.293Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-11T15:38:18.907Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:39:31.809Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:41:32.241Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:45:08.727Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:50:18.130Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T15:52:19.519Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,5860] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-08-11T16:00:20.750Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T16:00:58.533Z UPDATING_INSPECTION_REPORT[SSMUTNEJA,5852] : INFO : {message : "Updated successfully the Inspection report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T16:10:59.268Z UPDATING_FINAL_REPORT[N/A,5852] : INFO : {message : "Updated successfully the final report for leadId ---> 5852" , info : "{message : 200 SUCCESS }"}
+2024-08-11T16:19:26.021Z FETCHING_ONLINE_VEHICLE_DETAILS[SSMUTNEJA,5852] : INFO : {message : "Transaction for updating and fetching vehicle details online has started :" , info : "Transaction for updating and fetching vehicle details online has started :"}
+2024-08-11T16:19:26.258Z FETCHING_ONLINE_VEHICLE_DETAILS[SSMUTNEJA,5852] : INFO : {message : "Transaction for updating and fetching vehicle details online has been successfully committed :" , info : "Transaction for updating and fetching vehicle details online has been successfully committed :"}
+2024-08-11T16:38:28.471Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,5852] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE SPOT" , info : "{message : "SUCCESS"}"}
+2024-08-24T14:24:00.935Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,6781] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-08-24T15:17:50.158Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-24T17:02:19.727Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-24T17:07:19.514Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,6783] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-08-24T17:32:38.154Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,6784] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-08-25T07:09:53.853Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-25T07:12:05.650Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,6784] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE re-inspection" , info : "{message : "SUCCESS"}"}
+2024-08-25T07:18:33.960Z UPDATED_CLAIM_DETAILS[SSMUTNEJA,6784] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE re-inspection" , info : "{message : "SUCCESS"}"}
+2024-08-25T09:06:36.823Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-31T05:02:30.402Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-08-31T06:05:48.037Z UPDATING_CLAIM_STATUS[SSMUTNEJA,6781] : INFO : {message : "This last update of status was from Claim Appointment --->  for LeadId 6781" , info : "Status Updated to  from Claim Appointment, LeadID -- 6781 (PLEASE CHECK THIS UPDATION)."}
+2024-08-31T06:09:33.762Z UPDATING_CLAIM_STATUS[SSMUTNEJA,6781] : INFO : {message : "This last update of status was from Claim Appointment ---> Settled Cases for LeadId 6781" , info : "Status Updated to Settled Cases from Claim Appointment, LeadID -- 6781 (PLEASE CHECK THIS UPDATION)."}
+2024-09-07T11:14:42.014Z UPLOADING_INSPECTION_REPORT_DOCUMENT[SSMUTNEJA,7616] : INFO : {message : "Successfully updated the INSPECTION report documents for leadId --> 7616" , info : "{message : 200 SUCCESS }"}
+2024-09-07T11:17:13.815Z UPLOADING_INSPECTION_REPORT_DOCUMENT[SSMUTNEJA,7616] : INFO : {message : "Successfully updated the INSPECTION report documents for leadId --> 7616" , info : "{message : 200 SUCCESS }"}
+2024-09-07T11:19:31.932Z UPLOADING_INSPECTION_REPORT_DOCUMENT[SSMUTNEJA,7616] : INFO : {message : "Successfully updated the INSPECTION report documents for leadId --> 7616" , info : "{message : 200 SUCCESS }"}
+2024-09-07T11:21:25.495Z UPLOADING_INSPECTION_REPORT_DOCUMENT[SSMUTNEJA,7616] : INFO : {message : "Successfully updated the INSPECTION report documents for leadId --> 7616" , info : "{message : 200 SUCCESS }"}
+2024-09-07T11:55:51.968Z FETCHING_ONLINE_VEHICLE_DETAILS[SSMUTNEJA,6781] : INFO : {message : "Transaction for updating and fetching vehicle details online has started :" , info : "Transaction for updating and fetching vehicle details online has started :"}
+2024-09-07T11:55:52.224Z FETCHING_ONLINE_VEHICLE_DETAILS[SSMUTNEJA,6781] : INFO : {message : "Transaction for updating and fetching vehicle details online has been successfully committed :" , info : "Transaction for updating and fetching vehicle details online has been successfully committed :"}
+2024-09-07T11:59:27.375Z FETCHING_MIS_SHEET[SSMUTNEJA,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-09-07T11:59:27.377Z FETCHING_MIS_SHEET[SSMUTNEJA,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-09-14T09:20:29.995Z FETCHING_ONLINE_VEHICLE_DETAILS[SSMUTNEJA,7360] : INFO : {message : "Transaction for updating and fetching vehicle details online has started :" , info : "Transaction for updating and fetching vehicle details online has started :"}
+2024-09-14T09:20:30.227Z FETCHING_ONLINE_VEHICLE_DETAILS[SSMUTNEJA,7360] : INFO : {message : "Transaction for updating and fetching vehicle details online has been successfully committed :" , info : "Transaction for updating and fetching vehicle details online has been successfully committed :"}
+2024-09-14T13:22:42.464Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-09-30T08:35:54.729Z SUCCESSFULLY_ADDED_CLAIM[SSMUTNEJA,8948] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-09-30T08:36:25.325Z UPDATING_CLAIM_STATUS[SSMUTNEJA,8948] : INFO : {message : "This last update of status was from Claim Appointment ---> Estimate Approval Pending for LeadId 8948" , info : "Status Updated to Estimate Approval Pending from Claim Appointment, LeadID -- 8948 (PLEASE CHECK THIS UPDATION)."}
+2024-09-30T09:04:40.119Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-04T12:10:55.251Z SUCCESSFULLY_ADDED_CLAIM[0,10767] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-04T12:12:32.257Z SUCCESSFULLY_ADDED_CLAIM[0,10768] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-04T12:21:01.052Z SUCCESSFULLY_ADDED_CLAIM[0,10769] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-04T12:26:59.772Z SUCCESSFULLY_ADDED_CLAIM[0,10771] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-04T12:30:19.340Z SUCCESSFULLY_ADDED_CLAIM[0,10772] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-05T05:21:41.238Z SUCCESSFULLY_ADDED_CLAIM[0,10774] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-05T06:05:12.474Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-05T06:29:08.191Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-05T07:10:15.685Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-05T07:57:46.360Z SUCCESSFULLY_ADDED_CLAIM[0,10775] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-05T08:07:07.201Z SUCCESSFULLY_ADDED_CLAIM[0,10776] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-05T08:11:22.118Z SUCCESSFULLY_ADDED_CLAIM[0,10777] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-05T08:35:02.526Z SUCCESSFULLY_ADDED_CLAIM[0,10778] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-05T09:53:39.536Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-05T10:20:46.835Z SUCCESSFULLY_ADDED_CLAIM[0,10779] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-05T10:32:49.775Z SUCCESSFULLY_ADDED_CLAIM[0,10780] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-05T10:46:55.601Z SUCCESSFULLY_ADDED_CLAIM[0,10781] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-05T10:54:51.954Z SUCCESSFULLY_ADDED_CLAIM[0,10782] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-05T11:05:47.734Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-05T11:08:39.785Z SUCCESSFULLY_ADDED_CLAIM[0,10783] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-05T11:47:03.751Z SUCCESSFULLY_ADDED_CLAIM[0,10784] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-06T04:16:21.641Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-06T07:40:22.773Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-06T10:42:40.311Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-06T10:42:53.079Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-06T10:42:53.325Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-06T10:43:34.709Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : 2024-11-04,endDate : 2024-12-03, dateType : submit
+      }}"}
+2024-12-06T11:59:32.213Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-06T11:59:42.674Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-06T11:59:42.933Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-06T11:59:56.717Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : 2024-11-01,endDate : 2024-12-06, dateType : intimation
+      }}"}
+2024-12-06T17:31:44.375Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-06T17:48:03.839Z SUCCESSFULLY_ADDED_CLAIM[0,10785] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-09T04:27:06.638Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-09T05:35:55.096Z SUCCESSFULLY_ADDED_CLAIM[0,10786] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-09T05:52:44.758Z SUCCESSFULLY_ADDED_CLAIM[0,10787] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-09T05:59:45.777Z SUCCESSFULLY_ADDED_CLAIM[0,10788] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-09T06:07:43.988Z SUCCESSFULLY_ADDED_CLAIM[0,10791] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-09T06:08:43.557Z SUCCESSFULLY_ADDED_CLAIM[0,10792] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-09T07:03:27.099Z SUCCESSFULLY_ADDED_CLAIM[0,10793] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-09T08:17:49.359Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-09T08:22:20.813Z SUCCESSFULLY_ADDED_CLAIM[0,10795] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-09T09:39:14.119Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-09T09:42:20.768Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-09T09:42:21.093Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-09T09:48:30.276Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : 2024-12-04,endDate : 2024-12-05, dateType : intimation
+      }}"}
+2024-12-09T09:56:23.774Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : submit
+      }}"}
+2024-12-09T09:56:34.988Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : 2024-12-04,endDate : 2024-12-05, dateType : intimation
+      }}"}
+<<<<<<< HEAD
+2024-12-09T16:33:48.420Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-09T16:35:04.384Z UPDATED_CLAIM_DETAILS[ANKIT,10795] : INFO : {message : "Successfully updated the Claim Details of INSPECTION_TYPE Final" , info : "{message : "SUCCESS"}"}
+2024-12-09T16:36:23.444Z UPDATING_BILL_DETAILS[ANKIT,10795] : INFO : {message : "Successfully Updated the Bill Report for leadId --> 10795" , info : "{message : SUCCESS }"}
+2024-12-09T16:50:20.555Z SUCCESSFULLY_ADDED_CLAIM[0,10796] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-10T04:39:30.444Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+=======
+2024-12-09T10:20:05.762Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-09T10:20:12.632Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-09T10:20:26.437Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-09T10:20:27.271Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-09T10:20:39.659Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : 2024-12-01,endDate : 2024-12-07, dateType : intimation
+      }}"}
+2024-12-09T10:21:07.926Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-09T10:21:08.435Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-09T10:21:16.325Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : 2024-12-01,endDate : 2024-12-09, dateType : intimation
+      }}"}
+2024-12-09T10:46:57.585Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-09T10:46:57.981Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-09T10:48:00.543Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : 2024-12-01,endDate : 2024-12-02, dateType : intimation
+      }}"}
+2024-12-09T10:48:00.565Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : undefined,endDate : undefined, dateType : intimation
+      }}"}
+2024-12-09T10:48:04.659Z FETCHING_MIS_SHEET[ANKIT,] : INFO : {message : "Successfully Fetched the MIS SHEET" , info : "{message : "SUCCESS",params : {
+        startDate : 2024-12-01,endDate : 2024-12-09, dateType : intimation
+      }}"}
+2024-12-10T11:24:02.598Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+>>>>>>> f3e5612d845f169fb8dfb5d505dddc0021917751
+2024-12-11T12:25:46.055Z LOGIN[ANKIT,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}
+2024-12-11T12:35:27.800Z SUCCESSFULLY_ADDED_CLAIM[7,10753] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-11T12:37:14.648Z SUCCESSFULLY_ADDED_CLAIM[7,10754] : INFO : {message : "Added Successfully." , info : "FETCHED SUCCESSFULLY"}
+2024-12-11T12:40:34.975Z UPDATED_DRIVER_DETAILS[ANKIT,10754] : INFO : {message : "Successfully updated the Driver Details of INSPECTION_TYPE Final" , info : "{message : "SUCCESS"}"}
+2024-12-11T12:41:03.662Z UPDATED_GARAGE_DETAILS[ANKIT,10754] : INFO : {message : "Successfully updated the Garage Details of INSPECTION_TYPE Final" , info : "{message : "SUCCESS"}"}
+2024-12-18T17:22:30.303Z LOGIN[SSMUTNEJA,] : INFO : {message : "Logged In Successfully." , info : "AUTHENTICATED"}

@@ -46,7 +46,7 @@ const LiabilityUnderImt = ({
         }
       });
 
-      if (indexValue === -1) {
+      if (indexValue === -1 && part?.IsImt === 1 ) {
         const newField = {
           field: part.NewPartsGSTPct,
           value: 1,

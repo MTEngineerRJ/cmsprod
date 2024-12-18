@@ -142,6 +142,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
         },
         params: {
           LeadId: leadId,
+          Username : userInfo[0]?.Username
         },
       })
       .then((res) => {
@@ -228,11 +229,6 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
   const [totalMetalRows, settotalMetalRows] = useState(0);
   const [DepreciationValue, setDepreciationValue] = useState(0);
 
-  const calculateDepreciation = () => {};
-
-  // useEffect(()=>{
-  //   setExpectedSalvage(Number(totalMetalRows) * Number(MetalPercent)/100);
-  // },[totalMetalRows])
 
   const returnTotal = () => {
     const a =
@@ -351,9 +347,6 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
           (String(policyType) === "Regular" || String(policyType) === "null")
             ? (Number(row.assessed) * Number(12.5)) / 100
             : 0;
-
-        console.log("total_taxable_amount", index, row.type, dep, policyType);
-
         const current_row_assessed = Number(row.assessed) - dep;
         total_taxable_amount =
           total_taxable_amount +
@@ -374,7 +367,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
         const remained_assessed_paint_dep =
           Number(row?.assessed) -
           calculateGSTWithoutPaintValue(row.assessed, row.type, row.gst);
-        console.log("labour", index + 1);
+        
         total_aassessed_wihtout_tax =
           total_aassessed_wihtout_tax +
           (row.gst % 2 === 0 ? remained_assessed_paint_dep : 0);
@@ -391,9 +384,22 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
     console.log(
       "total_labour_assessed",
       total_taxable_amount,
-      totalFinalLabourGST
+      totalFinalLabourGST,
+      allRows
     );
-    setTotalLabrorAssessed(total_taxable_amount + totalFinalLabourGST);
+
+    let allNonGSTValues = 0;
+    allRows.map((row,index)=>{
+      if(row.isActive && row.gst % 2 === 0){
+        const tempValue = Number(row.assessed);
+        const dep = row.type === 1 ? (tempValue * 12.5) : 0;
+        const depValue = tempValue - dep;
+        allNonGSTValues += depValue;
+      }
+    })
+
+    
+    setTotalLabrorAssessed(total_taxable_amount + totalFinalLabourGST + allNonGSTValues);
     setTotalLabrorEstimate(total_estimate);
     console.log("setTotalTaxbleAmount", total_taxable_amount);
     setTotalTaxbleAmount(total_taxable_amount);
@@ -1121,7 +1127,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
     );
     setInsuranceCompanyNameAddress(
       claim?.claimDetails?.InsuranceCompanyNameAddress ||
-        "United India Insurance Company Limited"
+        ""
     );
     setPolicyPeriodEnd(
       claim?.claimDetails?.PolicyPeriodEnd != null
@@ -1606,6 +1612,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
       phyCheck,
       ValidUpto,
       leadId,
+      Username : userInfo[0]?.Username
     };
 
     const totalValue = Number(totalPartsAssessed) + Number(totalLabrorAssessed);
@@ -1688,7 +1695,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
           </a>
         </li>
        
-        <li className="nav-item">
+         <li className="nav-item">
           <a
             className="nav-link "
             data-bs-toggle="tab"
@@ -1698,8 +1705,8 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
           >
             New Parts
           </a>
-        </li>
-        <li className="nav-item">
+        </li> 
+         <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="tab"
@@ -1710,7 +1717,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
             Labour
           </a>
         </li>
-        <li className="nav-item">
+         <li className="nav-item">
           <a
             className="nav-link"
             data-bs-toggle="tab"
@@ -1720,7 +1727,18 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
           >
             Summary & Notes
           </a>
-        </li>
+        </li> 
+        {claim?.claimDetails?.TotalLoss ?  <li className="nav-item">
+          <a
+            className="nav-link"
+            data-bs-toggle="tab"
+            href="#totalLoss"
+            role="tab"
+            style={{ padding: "10px" }}
+          >
+            Total Loss
+          </a>
+        </li> : ""}
 
         <li className="nav-item" style={{ marginLeft: "360px" }}>
           <a href={`/claim-details?leadId=${claim.LeadID}`}>{claim.PolicyNo}</a>
@@ -2262,10 +2280,6 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
                             className="form-control"
                             id="propertyTitle"
                             value={calculateDepreciationOnMetal()}
-                            // readOnly={!isEditMode}
-                            // onChange={(e) => setLicenseType(e.target.value)}
-
-                            // placeholder="Enter Registration No."
                           />
                         </div>
                       </div>
@@ -2373,7 +2387,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
             </div>
           </div>
         </div>
-        {/* <div
+        <div
           className="tab-pane fade row pl15 pl0-1199 pr15 pr0-1199"
           id="totalLoss"
           role="tabpanel"
@@ -2406,7 +2420,7 @@ const PropertyVideo = ({ SomeComponent, leadId }) => {
                />
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </>
   );
