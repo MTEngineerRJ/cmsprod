@@ -19,6 +19,11 @@ const insurerRoutes=require("./Routes/InsurerRoute");
 const uploadReportDoc = require("./Routes/reportDocumentUpload");
 const servicingOfficeRoutes = require("./Routes/servicingOfficeRoutes");
 const commentRoute = require("./Routes/commentsRoute");
+const preInspectionRoute = require("./Routes/PreInspectionImagesRoute");
+const partsRoute = require("./Routes/vehiclePartsRoutes");
+const spotRoute = require("./Routes/spotRoute");
+const userRoutes = require("./Routes/userRoutes");
+const assignedRoutes = require("./Routes/assignedOfficeRoutes");
 const multer = require("multer");
 
 
@@ -73,6 +78,16 @@ app.use("/reportDocument",uploadReportDoc);
 app.use("/comments",commentRoute)
 
 app.use("/fetch",servicingOfficeRoutes);
+
+app.use("/preInspection",preInspectionRoute);
+
+app.use("/parts",partsRoute);
+
+app.use("/spot",spotRoute);
+
+app.use("/user",userRoutes);
+
+app.use("/assigned",assignedRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello, this is your Express server!');

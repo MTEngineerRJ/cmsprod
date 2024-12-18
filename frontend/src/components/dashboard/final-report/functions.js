@@ -18,8 +18,7 @@ export const getMonthsDifference = (givenDate) => {
   return monthsDifference;
 };
 
-export const calculateDepreciationsPercenatge = (depreciations, type, time) => {
-  const age = getMonthsDifference(time);
+export const calculateDepreciationsPercenatge = (depreciations, type, age) => {
   let smaller = {};
   depreciations.map((dep, index) => {
     if (
@@ -29,7 +28,6 @@ export const calculateDepreciationsPercenatge = (depreciations, type, time) => {
       smaller = dep;
     }
   });
-
   return smaller ? smaller.DepreciationPercentage : 0;
 };
 

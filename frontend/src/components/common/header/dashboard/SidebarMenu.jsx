@@ -16,7 +16,8 @@ import {
   FaThList,
 } from "react-icons/fa";
 
-const SidebarMenu = ({ leadId, email, policyNo, vehicleNo, Insured ,Region,BrokerMailAddress,GarageMailAddress}) => {
+
+const SidebarMenu = ({ isInspectionType,leadId, email, policyNo, vehicleNo, Insured ,Region,BrokerMailAddress,GarageMailAddress}) => {
   
   const route = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -24,37 +25,7 @@ const SidebarMenu = ({ leadId, email, policyNo, vehicleNo, Insured ,Region,Broke
   
   const [isprint,setIsPrint]=useState(true);
   const toggle = () => setIsOpen(!isOpen);
-  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
-  const openQuoteModal = () => {
-    setIsQuoteModalOpen();
-  };
-  const closeQuoteModal = () => {
-    setIsQuoteModalOpen(false);
-  };
-  const myProperties = [
-    { id: 1, name: "General Elements", route: "/my-properties" },
-    { id: 2, name: "Advanced Elements", route: "/my-properties" },
-    { id: 3, name: "Editors", route: "/my-properties" },
-  ];
-  const reviews = [
-    { id: 1, name: "My Reviews", route: "/my-review" },
-    { id: 2, name: "Visitor Reviews", route: "/my-review" },
-  ];
-  const manageAccount = [
-    {
-      id: 1,
-      name: "My Package",
-      route: "/my-package",
-      icon: "flaticon-box",
-    },
-    {
-      id: 2,
-      name: "My Profile",
-      route: "/my-profile",
-      icon: "flaticon-user",
-    },
-    { id: 3, name: "Logout", route: "/login", icon: "flaticon-logout" },
-  ];
+
 
   const checkIsActive = (path)=>{
     const defaultUrl = window.location.href;
@@ -155,9 +126,9 @@ const SidebarMenu = ({ leadId, email, policyNo, vehicleNo, Insured ,Region,Broke
                         : ""
                     }`}
                   >
-                    <Link href={`/final-report/${leadId}`} title="Final Report">
+                    <Link href={isInspectionType ? `inspection-report/${leadId}`: `/final-report/${leadId}`} title="Final Report">
                       <i className="flaticon-invoice"></i>
-                      {/* <span> Message</span> */}
+                     
                     </Link>
                   </li>
                   <li
@@ -194,18 +165,7 @@ const SidebarMenu = ({ leadId, email, policyNo, vehicleNo, Insured ,Region,Broke
                     </Link>
                   </li>
                   }
-                   {/* <li
-                    className={`treeview ${
-                      isSinglePageActive("/mis-sheet", route.pathname)
-                        ? "active"
-                        : ""
-                    }`}
-                  >
-                    <Link href="/mis-sheet" title="MIS Sheet">
-                      <i className="flaticon-document"></i>
-                      <span> </span>
-                    </Link>
-                  </li>*/}
+                  
                   {isprint && <li
                     className={`treeview ${
                       isSinglePageActive(

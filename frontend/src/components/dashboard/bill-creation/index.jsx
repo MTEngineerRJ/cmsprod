@@ -13,6 +13,7 @@ const Index = () => {
   const [lastActivityTimestamp, setLastActivityTimestamp] = useState(
     Date.now()
   );
+  const [currentLeadType,setCurrentLeadType] = useState('final');
 
   const router = useRouter();
 
@@ -93,7 +94,7 @@ const Index = () => {
           id="DashboardOffcanvasMenu"
           data-bs-scroll="true"
         >
-          <SidebarMenu leadId={leadID} />
+        <SidebarMenu leadId={leadID} />
         </div>
       </div>
 
@@ -137,7 +138,7 @@ const Index = () => {
                             marginBottom: "5px",
                           }}
                         ></div>
-                        <BillCreateView allInfo={allInfo} leadID={leadID} />
+                        <BillCreateView allInfo={allInfo} leadID={leadID} setCurrentLeadType={setCurrentLeadType} />
                       </div>
                     </div>
                   </div>

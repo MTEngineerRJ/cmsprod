@@ -14,8 +14,11 @@ const LayoutView = ({
     calculateIGST,
     calculateSGST,
     grandTotalWithGST,
-    numberToWords
+    numberToWords,
+    selectedAssignedOffice,
+    setSelectedAssignedOffice
 })=>{
+  console.log({feeReport})
     return (<div
       className=""
       ref={pdfRef}
@@ -91,7 +94,40 @@ const LayoutView = ({
                             </span>
                           </div>
                         </>
-                      ) : (
+                      ) 
+                      : feeReport?.feeDetails?.BillTo === "Assigned Office" ? (
+                        <>
+                          <span style={{ marginLeft: "25px" }}>
+                            {
+                             selectedAssignedOffice?.OfficeAddress
+                            }
+                            ,
+                          </span>
+                          <br />
+                          <span style={{ marginLeft: "25px" }}>
+                            {`${ selectedAssignedOffice?.OfficeName ? selectedAssignedOffice?.OfficeName : '-'} ${selectedAssignedOffice?.OfficeCode ? selectedAssignedOffice?.OfficeCode : '-'}`}
+                          </span>
+                          <br />
+                          <span style={{ marginLeft: "25px" }}>
+                            {selectedAssignedOffice?.State}
+                          </span>
+                          <br />
+                          <div
+                            className="d-flex gap-5"
+                            style={{ marginLeft: "25px" }}
+                          >
+                            <span style={{ marginLeft: "" }}>
+                              GSTIN : {selectedAssignedOffice?.GST_No}
+                            </span>
+                            <br />
+                            <span style={{ marginLeft: "" }}>
+                              State Code : {selectedAssignedOffice?.StateCode}
+                            </span>
+                          </div>
+                        </>
+                      ):
+                      
+                      (
                         <>
                           <span style={{ marginLeft: "25px" }}>
                             {
@@ -233,7 +269,8 @@ const LayoutView = ({
                         : "--"}
                     </span>
                   </td>
-                  <td>
+                  {!String(feeReport?.claimDetails?.InspectionType).toLowerCase().includes("spot") && 
+                  <td><td>
                     <span>Assessed</span>
                   </td>
                   <td>:</td>
@@ -241,7 +278,7 @@ const LayoutView = ({
                     <span>
                       ₹ {addCommasToNumber(roundOff(Number(Assessed)))}
                     </span>
-                  </td>
+                  </td> </td>}
                 </tr>
                 <tr>
                   <td>
@@ -251,7 +288,8 @@ const LayoutView = ({
                   <td>
                     <span>{feeReport?.claimDetails?.PolicyNumber}</span>
                   </td>
-                  <td>
+                  {!String(feeReport?.claimDetails?.InspectionType).toLowerCase().includes("spot") && 
+                  <td><td>
                     <span>Estimate</span>
                   </td>
                   <td>:</td>
@@ -259,7 +297,7 @@ const LayoutView = ({
                     <span>
                       ₹ {addCommasToNumber(roundOff(Number(Estimate)))}
                     </span>
-                  </td>
+                  </td></td> }
                 </tr>
                 <tr>
                   <td>
@@ -269,6 +307,8 @@ const LayoutView = ({
                   <td>
                     <span> {feeReport?.claimDetails?.ClaimNumber}</span>
                   </td>
+                  {!String(feeReport?.claimDetails?.InspectionType).toLowerCase().includes("spot") && 
+                  <td>
                   <td style={{ width: "10%" }}>
                     <span>IDV</span>
                   </td>
@@ -280,7 +320,7 @@ const LayoutView = ({
                         roundOff(Number(feeReport?.claimDetails?.IDV))
                       )}
                     </span>
-                  </td>
+                  </td></td>}
                 </tr>
               </table>
             </div>

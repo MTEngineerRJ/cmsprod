@@ -9,8 +9,6 @@ async function handler(request, response) {
     const leadId = request.query.leadId;
 
     const payload = request.body;
-
-    console.log(token)
     
     const userResponse = await axios.put(`${domain}/finalReport/updateFinalReport/${leadId}`, payload, {
       headers: {

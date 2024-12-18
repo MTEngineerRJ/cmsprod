@@ -123,9 +123,47 @@ const formatDate = (dateString) => {
     return string.toUpperCase();
   }
 
+  const getProfessionalFees = (feeReport)=>{
+    const inspectionType = feeReport?.claimDetails?.InspectionType ;
+    const InspectionTypeOfConduct = feeReport?.claimDetails?.InspectionTypeOfConduct;
+    let fees = 0;
+    if(String(inspectionType).toLowerCase().includes("pre-inspection")){
+    if(String(InspectionTypeOfConduct).toLowerCase().includes("digital")){
+      fees = String(feeReport?.vehicleDetails?.VehicleType)
+      .toLowerCase()
+      .includes("4W".toLowerCase())
+      ? 40 :
+      String(feeReport?.vehicleDetails?.VehicleType)
+      .toLowerCase()
+      .includes("2W".toLowerCase())
+      ? 30
+      : 41;
+    }
+    else{
+      fees = String(feeReport?.vehicleDetails?.VehicleType)
+      .toLowerCase()
+      .includes("4W".toLowerCase())
+      ? 140 :
+      String(feeReport?.vehicleDetails?.VehicleType)
+      .toLowerCase()
+      .includes("2W".toLowerCase())
+      ? 75
+      : 150;
+    }
+  }
+  else{
+    fees = String(feeReport?.vehicleDetails?.VehicleType)
+      .toLowerCase()
+      .includes("2W".toLowerCase())
+      ? 500 :
+      700;
+  }
+  return fees;
+  }
+
   const calculateTheTotalBillWithoutGST = (feeReport) => {
     const is4W = String(feeReport?.vehicleDetails?.VehicleType).toLowerCase().includes("4w") ;
-    const propfessionalCharges = is4W ? 700 : 500 ;
+    const propfessionalCharges = getProfessionalFees(feeReport);
     const photoCharges =
       Number(feeReport?.feeDetails?.Photos) *
       Number(feeReport?.feeDetails?.PhotsRate);

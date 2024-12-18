@@ -8,6 +8,7 @@ import {
   convertToIST,
 } from "./functions";
 
+
 export default function BaseView({
   claims,
   setMajorSearch,
@@ -16,11 +17,29 @@ export default function BaseView({
   start,
   IsLoading,
   end,
+  fromDate,
+  toDate,
+  insurerSearchValue, 
 }) {
   const [updatedData, setUpdatedData] = useState([]);
   let tempData = [];
+
+  const isWithinDateRange = (claimDate) => {
+    if (!fromDate || !toDate) return true; // Include all claims if no range specified
+    const claimDateObj = new Date(claimDate);
+    return claimDateObj >= new Date(fromDate) && claimDateObj <= new Date(toDate);
+  };
+
+  const matchesInsurer = (insurer) => {
+    if (!insurerSearchValue) return true; // Include all claims if no insurer filter is applied
+    return insurer?.toLowerCase().includes(insurerSearchValue.toLowerCase());
+  };
+
   useEffect(() => {
-    claims?.map((claim, index) => {
+    claims?.forEach((claim) => {
+      // Skip claims outside the date range or insurer mismatch
+      if (!isWithinDateRange(claim.AddedDate) || !matchesInsurer(claim.InsuranceCompany)) return;
+
       const tempGarage = claim?.AssignedGarage?.split(",").map((item) =>
         item.trim()
       );
@@ -32,15 +51,31 @@ export default function BaseView({
           <div
             style={{ textDecorationLine: "underline", color: "lightskyblue" }}
           >
-            <a href={`/claim-details?leadId=${claim.LeadID}`}>
-              {claim.PolicyNo}
+            <a
+              href={
+                String(claim?.Region)
+                  .toLowerCase()
+                  .includes("preinspection")
+                  ? `/preInspection-claim-details?leadId=${claim.LeadID}`
+                  : String(claim?.Region)
+                      .toLowerCase()
+                      .includes("spot")
+                  ? `/spot-claim-details?leadId=${claim.LeadID}`
+                  : `/claim-details?leadId=${claim.LeadID}`
+              }
+            >
+              {String(claim?.Region)
+                .toLowerCase()
+                .includes("preinspection")
+                ? claim.VehicleNo
+                : claim?.PolicyNo}
             </a>
           </div>
         ),
         registration_no: claim.RegistrationNo,
         region: claim.Region,
         added_date: updatedFormatDate(convertToIST(claim.AddedDate)),
-        city: tempGarage ? tempGarage[1] : "N.Aa",
+        city: tempGarage ? tempGarage[1] : "N.A.",
         state: tempGarage ? tempGarage[2] : "N.A.",
         assigned_garage: tempGarage ? tempGarage[0] : "N.A.",
         case_age: claim?.garageNumber,
@@ -61,7 +96,7 @@ export default function BaseView({
       tempData.push(updatedRow);
     });
     setUpdatedData(tempData);
-  }, [status, selectedCard,claims]);
+  }, [status, selectedCard, claims, fromDate, toDate, insurerSearchValue]); // Add insurerSearchValue to dependencies
 
   return (
     <TabularView

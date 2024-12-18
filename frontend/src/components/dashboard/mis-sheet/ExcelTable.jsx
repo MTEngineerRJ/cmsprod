@@ -1,34 +1,66 @@
 import React, { useState, useEffect } from "react";
 import * as XLSX from "xlsx";
 
-function ExcelTable({ 
-  RegionType,
-  setRegionType, 
-  allRows 
-}) {
+function ExcelTable({ RegionType, setRegionType, allRows }) {
   const [isExportClicked, setIsExportClicked] = useState(false);
-  const [dataRows,setDataRows]=useState([]);
+  const [dataRows, setDataRows] = useState([]);
 
-  useEffect(()=>{
+  // Region to ReferenceNo mapping
+  const regionPrefixMapping = {
+    Chandigarh: "CHD",
+    Delhi: "DLH",
+    Jodhpur: "JDH",
+    Jaipur: "JPR",
+    Ludhiana: "LDN",
+    Bhopal: "BHP",
+    Dehradun: "DHD",
+    Lucknow: "LKW",
+    Ahmedabad: "AHB",
+    Vadodara: "VAD",
+    Hero: "HH",
+    Indore: "INDR",
+    Nagpur: "NGR",
+    "Delhi RO1": "DO1",
+    Ambala: "ABL",
+    "Delhi RO2": "DO2",
+    Guwahati: "GWT",
+    Preinspection: "PI",
+    Spot: "SPOT",
+  };
+
+  useEffect(() => {
     let data = [];
-    console.log("allRows",allRows)
-    allRows.map((row,index)=>{
-      const isChandigarh = String(row.ReferenceNo).includes("CHD") && String(RegionType) === "Chandigarh";
-      const isDelhi = String(row.ReferenceNo).includes("DLH") && String(RegionType) === "Delhi";
-      const isJodhpur = String(row.ReferenceNo).includes("JDH") && String(RegionType) === "Jodhpur";
+    console.log("allRows", allRows);
 
-      if(String(RegionType) === "All" || isChandigarh || isDelhi ||isJodhpur){
-        data.push(row)
+    allRows.map((row) => {
+      const rowReferenceNo = String(row.ReferenceNo).toUpperCase(); // Ensure it's upper case for matching
+
+      // If RegionType is "All", show all rows
+      if (String(RegionType) === "All") {
+        data.push(row);
+      } else {
+        // Check if the row's ReferenceNo matches the RegionType's prefix
+        const regionPrefix = regionPrefixMapping[RegionType];
+
+        // Now compare region prefix to ReferenceNo (case insensitive)
+        if (regionPrefix && rowReferenceNo.includes(regionPrefix)) {
+          data.push(row);
+        }
       }
-      
-    })
-    setDataRows(data);
-    console.log("dataa",data,RegionType)
-  },[allRows,RegionType])
+    });
 
+    setDataRows(data);
+    console.log("filtered data", data, RegionType);
+  }, [allRows, RegionType]);
+
+  // Format date function
   function formatDate(dateString) {
-    if(dateString === "" || dateString === null  || dateString === "undefined"){
-      return "-"
+    if (
+      dateString === "" ||
+      dateString === null ||
+      dateString === "undefined"
+    ) {
+      return "-";
     }
     const options = {
       day: "2-digit",
@@ -44,12 +76,13 @@ function ExcelTable({
     return formattedDate;
   }
 
+  // Add commas to numbers
   function addCommasToNumber(number) {
     if (Number(number) <= 100 || number === undefined) return number;
     return number.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-
+  // Export to Excel function
   function exportToExcel() {
     const wb = XLSX.utils.book_new();
     const wsData = [
@@ -111,7 +144,6 @@ function ExcelTable({
         {isExportClicked && (
           <table className="table" id="table-to-xls">
             <thead className="thead-dark">
-              {console.log("exportTAT",row.TAT)}
               <tr>
                 <th>S.No.</th>
                 <th>Ref No.</th>

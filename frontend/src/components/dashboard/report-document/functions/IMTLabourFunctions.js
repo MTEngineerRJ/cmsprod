@@ -55,6 +55,8 @@ const calculateGSTNoGSTLabour = (allInfo) => {
     }
   });
 
+  console.log("nonPainting",nonPainting)
+
   return { nonPainting, Painting };
 };
 
@@ -223,10 +225,13 @@ const getTotalLabourAssessedGSTValuess = (allInfo) => {
 
     const assessedvalue = assessed * Number(part.GSTPercentage);
     const gst = Number(part.IsGSTIncluded) %2 === 1 ?  Number(assessedvalue) / 100 : 0;
+    
+ 
     if (part.LabourIsActive && part.IsImt === 1 ) {
-      total = total + +gst;
+      total = total + gst;
     }
   });
+
   return total;
 };
 

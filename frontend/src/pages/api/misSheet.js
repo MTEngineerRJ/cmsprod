@@ -8,6 +8,7 @@ async function handler(request, response) {
     const startDate = request.query.startDate;
     const EndDate = request.query.EndDate;
     const DateType=request.query.DateType;
+    const username = request.query.username;
     
 
     const userResponse = await axios.get(`${domain}/mis/getMisSheet`, {
@@ -18,7 +19,8 @@ async function handler(request, response) {
       params:{
         startDate:startDate,
         EndDate:EndDate,
-        DateType: DateType
+        DateType: DateType,
+        username 
       }
     });
     const user = userResponse.data;

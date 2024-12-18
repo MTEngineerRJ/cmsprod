@@ -1,9 +1,21 @@
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import HeaderMenuContent from "./HeaderMenuContent";
-import Image from "next/image";
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import HeaderMenuContent from './HeaderMenuContent';
+import Image from 'next/image';
 
-const Header = ({ setIsRegionChange, setSelectedCard,isDashboard, setRegionSearchValue }) => {
+const Header = ({
+  setIsRegionChange,
+  setSelectedCard,
+  isDashboard = true,
+  setRegionSearchValue,
+  setToDate,
+  setFromDate,
+  setInsurerChange,     
+  setSelectedInsurer,
+  setSelectedRegion,
+  setInsurerSearchValue,
+}) => {
+  const [insurer, setInsurer] = useState(null);
   const [navbar, setNavbar] = useState(false);
 
   const changeBackground = () => {
@@ -15,18 +27,23 @@ const Header = ({ setIsRegionChange, setSelectedCard,isDashboard, setRegionSearc
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", changeBackground);
+    window.addEventListener('scroll', changeBackground);
+    return () => window.removeEventListener('scroll', changeBackground);
   }, []);
+
+  // useEffect(() => {
+  //   console.log("InsurerValue1:", setInsurerSearchValue);
+  // }, [setInsurerSearchValue]);
 
   return (
     <header
       className={`header-nav menu_style_home_one style2 navbar-scrolltofixed stricky main-menu  ${
-        navbar ? "stricky-fixed " : ""
-      }`}
-    >
+        navbar ? 'stricky-fixed ' : ''
+      }`}>
       <div className="container-fluid p0">
-        {/* <!-- Menu Toggle btn--> */}
-        <Link href="/" className="navbar_brand float-start dn-smd">
+        <Link
+          href="/"
+          className="navbar_brand float-start dn-smd">
           <Image
             width={40}
             height={45}
@@ -41,7 +58,9 @@ const Header = ({ setIsRegionChange, setSelectedCard,isDashboard, setRegionSearc
             src="/assets/images/Claim_Logo.jpg"
             alt="Claim_Logo.jpg"
           />
-          <span className="mb-1" style={{ fontSize: "25px" }}>
+          <span
+            className="mb-1"
+            style={{ fontSize: '25px' }}>
             Claim Management
           </span>
         </Link>
@@ -52,11 +71,20 @@ const Header = ({ setIsRegionChange, setSelectedCard,isDashboard, setRegionSearc
             isDashboard={isDashboard}
             setSelectedCard={setSelectedCard}
             setRegionSearchValue={setRegionSearchValue}
+            setFromDate={setFromDate}
+            setToDate={setToDate}
+            setSelectedRegion={setSelectedRegion}
+            
+            // Insurer-related props
+            insurer={insurer}
+            setInsurer={setInsurer}
+            setInsurerSearchValue={setInsurerSearchValue}
+            setSelectedInsurer={setSelectedInsurer}
+            setInsurerChange={setInsurerChange}
           />
         </nav>
       </div>
     </header>
-    // {/* <!-- /.theme-main-menu --> */}
   );
 };
 

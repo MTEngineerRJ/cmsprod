@@ -6,6 +6,7 @@ import axios from "axios";
     const token = request.headers.authorization;
     const domain = process.env.BACKEND_DOMAIN;
     const leadId = request.query.LeadId;
+    const Username = request.query.Username;
 
     console.log(leadId);
 
@@ -17,7 +18,8 @@ import axios from "axios";
           "Content-Type":"application/json"
         },
         params:{
-            LeadId : leadId
+            LeadId : leadId,
+            Username
         }
         
       });

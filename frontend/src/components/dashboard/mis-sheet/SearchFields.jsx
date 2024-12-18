@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const SearchFields = ({
   setSearchInput,
@@ -19,12 +19,69 @@ const SearchFields = ({
   start,
   end,
 }) => {
-  const [currentType, setCurrentType] = useState(0);
-  const [searchValue, setSearchValue] = useState("");
-  const handleInputChange = (value, type) => {
-    setCurrentType(type);
-    setSearchValue(value);
+  const [regions, setRegions] = useState([]);
+
+  // Insurer to region mapping
+  const insurerRegionMapping = {
+    "United India Insurance Company Limited": [
+      "Delhi",
+      "Chandigarh",
+      "Jaipur",
+      "Jodhpur",
+      "Hero",
+      "Preinspection",
+      "Spot",
+    ],
+   "National Insurance Company Limited": [
+    "Bhopal",
+    "Lucknow",
+    "Dehradun",
+    "Ludhiana",
+    "Ahmedabad",
+    "Vadodara",
+    "Jaipur",
+    "Ahmedabad",
+    "Indore",
+    "Ludhiana",
+    "Nagpur",
+    "Preinspection",
+    "Spot",
+  ],
+  "The New India Assurance Company Limited": [
+    "Bhopal",
+    "Lucknow",
+    "Dehradun",
+    "Ludhiana",
+    "Ahmedabad",
+    "Vadodara",
+    "Jaipur",
+    "Preinspection",
+    "Spot",
+  ],
+  "The Oriental Insurance Company Limited": [
+    "Ahmedabad",
+    "Indore",
+    "Vadodara",
+    "Nagpur",
+    "Delhi RO1",
+    "Lucknow",
+    "Chandigarh",
+    "Jaipur",
+    "Dehradun",
+    "Ambala",
+    "Delhi RO2",
+    "Guwahati",
+    "Preinspection",
+    "Spot",
+  ],
   };
+
+  // Update the regions when insurer is changed
+  useEffect(() => {
+    // Show only Preinspection and Spot if the insurer is not in the predefined list
+    setRegions(insurerRegionMapping[InsurerType] || ["Preinspection", "Spot"]);
+    setRegionType("All"); // Reset the region to "All" when insurer changes
+  }, [InsurerType, setRegionType]);
 
   const handleRegionType = (value) => {
     setRegionType(value);
@@ -32,11 +89,10 @@ const SearchFields = ({
   };
 
   const searchHandler = ({}) => {
-    setType(currentType);
+    setType(0); // Set to a default type if necessary, or change as needed
     setSearchInput(searchValue);
   };
 
-  console.log(InsurerType, setInsurerType);
   return (
     <>
       <div className="col-lg-12">
@@ -44,30 +100,24 @@ const SearchFields = ({
           <div className="col-lg-3">
             <div className="row">
               <div className="col-lg-12">
-                <label htmlFor="" className="">
-                  Insurer Name
-                </label>
+                <label>Insurer Name</label>
               </div>
               <div className="col-lg-12">
                 <select
-                  style={{ padding: "2px", marginTop: "" }}
+                  style={{ padding: "2px" }}
                   className="selectpicker form-select"
                   data-live-search="true"
                   data-width="100%"
                   value={InsurerType}
                   onChange={(e) => setInsurerType(e.target.value)}
                 >
-                  {allInsurer.map((insurer, index) => {
-                    return (
-                      <option
-                        key={index}
-                        data-tokens="Status1"
-                        value={insurer.name}
-                      >
-                        {insurer.name}
-                      </option>
-                    );
-                  })}
+                  <option value="">Select Insurer</option>{" "}
+                  {/* Initial empty value */}
+                  {allInsurer.map((insurer, index) => (
+                    <option key={index} value={insurer.name}>
+                      {insurer.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -76,9 +126,7 @@ const SearchFields = ({
           <div className="col-lg-2">
             <div className="row">
               <div className="col-lg-12">
-                <label htmlFor="" className="">
-                  Type Of Date
-                </label>
+                <label>Type Of Date</label>
               </div>
               <div className="col-lg-12">
                 <select
@@ -88,73 +136,71 @@ const SearchFields = ({
                   value={DateType}
                   onChange={(e) => setDateType(e.target.value)}
                 >
-                  <option value={"intimation"}>Date Of Intimation </option>
-                  <option value={"submit"}> Date Of Submit</option>
+                  <option value={"intimation"}>Date Of Intimation</option>
+                  <option value={"submit"}>Date Of Submit</option>
                 </select>
               </div>
             </div>
           </div>
-          <div className="col-lg-2">
-            <div className="row">
-              <div className="col-lg-12">
-                <label htmlFor="" className="">
-                  Region
-                </label>
-              </div>
-              <div className="col-lg-12">
-                <select
-                  className="selectpicker form-select"
-                  data-live-search="true"
-                  data-width="100%"
-                  value={RegionType}
-                  onChange={(e) => handleRegionType(e.target.value)}
-                >
-                  <option value={"All"}>All</option>
-                  <option value={"Delhi"}>Delhi</option>
-                  <option value={"Chandigarh"}>Chandigarh</option>
-                  <option value={"Jodhpur"}>Jodhpur</option>
-                </select>
+
+          {InsurerType && (
+            <div className="col-lg-2">
+              <div className="row">
+                <div className="col-lg-12">
+                  <label>Region</label>
+                </div>
+                <div className="col-lg-12">
+                  <select
+                    className="selectpicker form-select"
+                    data-live-search="true"
+                    data-width="100%"
+                    value={RegionType}
+                    onChange={(e) => handleRegionType(e.target.value)}
+                  >
+                    <option value={"All"}>All</option>
+                    {regions.map((region, index) => (
+                      <option key={index} value={region}>
+                        {region}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
           <div className="col-lg-2">
             <div className="row">
               <div className="col-lg-12">
-                <label htmlFor="" className="">
-                  From
-                </label>
+                <label>From</label>
               </div>
               <div className="col-lg-12">
                 <input
                   type="date"
                   className="form-control"
-                  id="propertyTitle"
                   value={start}
                   onChange={(e) => setStart(e.target.value)}
-                  placeholder="Enter Reference No."
                 />
               </div>
             </div>
           </div>
+
           <div className="col-lg-2">
             <div className="row">
               <div className="col-lg-12">
-                <label htmlFor="" className="">
-                  To
-                </label>
+                <label>To</label>
               </div>
               <div className="col-lg-12">
                 <input
                   type="date"
                   className="form-control"
-                  id="propertyTitle"
                   value={end}
                   onChange={(e) => setEnd(e.target.value)}
-                  placeholder="Enter Reference No."
                 />
               </div>
             </div>
           </div>
+
           <div className="col-lg-1">
             <div className="my_profile_setting_input">
               <button
@@ -173,7 +219,6 @@ const SearchFields = ({
               </button>
             </div>
           </div>
-          <div className="col-lg-1"></div>
         </div>
       </div>
     </>

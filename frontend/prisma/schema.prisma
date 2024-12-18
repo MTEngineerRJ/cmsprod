@@ -1,0 +1,248 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://devadmin:5PSfCkBE4NaM7KG@db-development.mysql.database.azure.com:3306/autoinsurance_dev?sslaccept=strict?sslmode=required"
+}
+
+model carbrands {
+  id        Int     @id @default(autoincrement())
+  car_maker String? @unique(map: "car_maker_UNIQUE") @db.VarChar(255)
+  cars      cars[]
+}
+
+model cars {
+  car_id       Int            @id
+  car_model    String         @db.VarChar(255)
+  carbrands_id Int
+  carbrands    carbrands      @relation(fields: [carbrands_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_cars_carbrands1")
+  labourvalues labourvalues[]
+  paintvalues  paintvalues[]
+  partvalues   partvalues[]
+
+  @@index([carbrands_id], map: "fk_cars_carbrands1_idx")
+}
+
+model labourvalues {
+  id                    Int    @id @default(autoincrement())
+  car_id                Int?
+  part_id               Int?
+  tier_a_plus_plus_rr   Float? @db.Float
+  tier_a_plus_plus_dent Float? @db.Float
+  tier_a_plus_rr        Float? @db.Float
+  tier_a_plus_dent      Float? @db.Float
+  tier_b_rr             Float? @db.Float
+  tier_b_dent           Float? @db.Float
+  tier_c_rr             Float? @db.Float
+  tier_c_dent           Float? @db.Float
+  cars                  cars?  @relation(fields: [car_id], references: [car_id], onDelete: NoAction, onUpdate: NoAction, map: "labourvalues_ibfk_1")
+  parts                 parts? @relation(fields: [part_id], references: [part_id], onDelete: NoAction, onUpdate: NoAction, map: "labourvalues_ibfk_2")
+
+  @@index([car_id], map: "car_id")
+  @@index([part_id], map: "part_id")
+}
+
+model paintvalues {
+  id                        Int      @id @default(autoincrement())
+  car_id                    Int?
+  part_id                   Int?
+  tier_a_plus_plus_metallic Decimal? @db.Decimal(10, 2)
+  tier_a_plus_plus_pearl    Decimal? @db.Decimal(10, 2)
+  tier_a_plus_metallic      Decimal? @db.Decimal(10, 2)
+  tier_a_plus_pearl         Decimal? @db.Decimal(10, 2)
+  tier_b_metallic           Decimal? @db.Decimal(10, 2)
+  tier_b_pearl              Decimal? @db.Decimal(10, 2)
+  tier_c_metallic           Decimal? @db.Decimal(10, 2)
+  tier_c_pearl              Decimal? @db.Decimal(10, 2)
+  cars                      cars?    @relation(fields: [car_id], references: [car_id], onDelete: NoAction, onUpdate: NoAction, map: "paintvalues_ibfk_1")
+  parts                     parts?   @relation(fields: [part_id], references: [part_id], onDelete: NoAction, onUpdate: NoAction, map: "paintvalues_ibfk_2")
+
+  @@index([car_id], map: "car_id")
+  @@index([part_id], map: "part_id")
+}
+
+model parts {
+  part_id      Int            @id
+  part_name    String         @db.VarChar(255)
+  part_type    String         @db.VarChar(255)
+  labourvalues labourvalues[]
+  paintvalues  paintvalues[]
+  partvalues   partvalues[]
+}
+
+model partvalues {
+  my_row_id        BigInt @id @db.UnsignedBigInt
+  car_id           Int?
+  part_id          Int?
+  tier_a_plus_plus Float? @db.Float
+  tier_a_plus      Float? @db.Float
+  tier_b           Float? @db.Float
+  tier_c           Float? @db.Float
+  cars             cars?  @relation(fields: [car_id], references: [car_id], onDelete: NoAction, onUpdate: NoAction, map: "partvalues_ibfk_1")
+  parts            parts? @relation(fields: [part_id], references: [part_id], onDelete: NoAction, onUpdate: NoAction, map: "partvalues_ibfk_2")
+
+  @@index([car_id], map: "car_id")
+  @@index([part_id], map: "part_id")
+}
+
+model bikebrands {
+  id         Int     @id @default(autoincrement())
+  bike_maker String? @unique(map: "bike_maker_UNIQUE") @db.VarChar(255)
+  bikes      bikes[]
+}
+
+model bikelabourvalues {
+  id                    Int        @id @default(autoincrement())
+  bike_id               Int?
+  part_id               Int?
+  tier_a_plus_plus_rr   Float?     @db.Float
+  tier_a_plus_plus_dent Float?     @db.Float
+  tier_a_plus_rr        Float?     @db.Float
+  tier_a_plus_dent      Float?     @db.Float
+  tier_b_rr             Float?     @db.Float
+  tier_b_dent           Float?     @db.Float
+  tier_c_rr             Float?     @db.Float
+  tier_c_dent           Float?     @db.Float
+  bikes                 bikes?     @relation(fields: [bike_id], references: [bike_id], onDelete: NoAction, onUpdate: NoAction, map: "bikelabourvalues_ibfk_1")
+  bikeparts             bikeparts? @relation(fields: [part_id], references: [part_id], onDelete: NoAction, onUpdate: NoAction, map: "bikelabourvalues_ibfk_2")
+
+  @@index([bike_id], map: "bike_id")
+  @@index([part_id], map: "part_id")
+}
+
+model bikepaintvalues {
+  id                        Int        @id @default(autoincrement())
+  bike_id                   Int?
+  part_id                   Int?
+  tier_a_plus_plus_metallic Decimal?   @db.Decimal(10, 2)
+  tier_a_plus_plus_pearl    Decimal?   @db.Decimal(10, 2)
+  tier_a_plus_metallic      Decimal?   @db.Decimal(10, 2)
+  tier_a_plus_pearl         Decimal?   @db.Decimal(10, 2)
+  tier_b_metallic           Decimal?   @db.Decimal(10, 2)
+  tier_b_pearl              Decimal?   @db.Decimal(10, 2)
+  tier_c_metallic           Decimal?   @db.Decimal(10, 2)
+  tier_c_pearl              Decimal?   @db.Decimal(10, 2)
+  bikes                     bikes?     @relation(fields: [bike_id], references: [bike_id], onDelete: NoAction, onUpdate: NoAction, map: "bikepaintvalues_ibfk_1")
+  bikeparts                 bikeparts? @relation(fields: [part_id], references: [part_id], onDelete: NoAction, onUpdate: NoAction, map: "bikepaintvalues_ibfk_2")
+
+  @@index([bike_id], map: "bike_id")
+  @@index([part_id], map: "part_id")
+}
+
+model bikeparts {
+  part_id          Int                @id
+  part_name        String             @db.VarChar(255)
+  part_type        String             @db.VarChar(255)
+  bikelabourvalues bikelabourvalues[]
+  bikepaintvalues  bikepaintvalues[]
+  bikepartvalues   bikepartvalues[]
+}
+
+model bikepartvalues {
+  my_row_id        BigInt     @id @db.UnsignedBigInt
+  bike_id          Int?
+  part_id          Int?
+  tier_a_plus_plus Float?     @db.Float
+  tier_a_plus      Float?     @db.Float
+  tier_b           Float?     @db.Float
+  tier_c           Float?     @db.Float
+  bikes            bikes?     @relation(fields: [bike_id], references: [bike_id], onDelete: NoAction, onUpdate: NoAction, map: "bikepartvalues_ibfk_1")
+  bikeparts        bikeparts? @relation(fields: [part_id], references: [part_id], onDelete: NoAction, onUpdate: NoAction, map: "bikepartvalues_ibfk_2")
+
+  @@index([bike_id], map: "bike_id")
+  @@index([part_id], map: "part_id")
+}
+
+model bikes {
+  bike_id          Int                @id
+  bike_model       String             @db.VarChar(255)
+  bikebrands_id    Int
+  bikelabourvalues bikelabourvalues[]
+  bikepaintvalues  bikepaintvalues[]
+  bikepartvalues   bikepartvalues[]
+  bikebrands       bikebrands         @relation(fields: [bikebrands_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_bikes_bikebrands1")
+
+  @@index([bikebrands_id], map: "fk_bikes_bikebrands1_idx")
+}
+
+model scooties {
+  scooty_id          Int                  @id
+  scooty_model       String               @db.VarChar(255)
+  scootybrands_id    Int
+  scootybrands       scootybrands         @relation(fields: [scootybrands_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_scooties_scootybrands1")
+  scootylabourvalues scootylabourvalues[]
+  scootypaintvalues  scootypaintvalues[]
+  scootypartvalues   scootypartvalues[]
+
+  @@index([scootybrands_id], map: "fk_scooties_scootybrands1_idx")
+}
+
+model scootybrands {
+  id           Int        @id @default(autoincrement())
+  scooty_maker String?    @unique(map: "scooty_maker_UNIQUE") @db.VarChar(255)
+  scooties     scooties[]
+}
+
+model scootylabourvalues {
+  id                    Int          @id @default(autoincrement())
+  scooty_id             Int?
+  part_id               Int?
+  tier_a_plus_plus_rr   Float?       @db.Float
+  tier_a_plus_plus_dent Float?       @db.Float
+  tier_a_plus_rr        Float?       @db.Float
+  tier_a_plus_dent      Float?       @db.Float
+  tier_b_rr             Float?       @db.Float
+  tier_b_dent           Float?       @db.Float
+  tier_c_rr             Float?       @db.Float
+  tier_c_dent           Float?       @db.Float
+  scooties              scooties?    @relation(fields: [scooty_id], references: [scooty_id], onDelete: NoAction, onUpdate: NoAction, map: "scootylabourvalues_ibfk_1")
+  scootyparts           scootyparts? @relation(fields: [part_id], references: [part_id], onDelete: NoAction, onUpdate: NoAction, map: "scootylabourvalues_ibfk_2")
+
+  @@index([part_id], map: "part_id")
+  @@index([scooty_id], map: "scooty_id")
+}
+
+model scootypaintvalues {
+  id                        Int          @id @default(autoincrement())
+  scooty_id                 Int?
+  part_id                   Int?
+  tier_a_plus_plus_metallic Decimal?     @db.Decimal(10, 2)
+  tier_a_plus_plus_pearl    Decimal?     @db.Decimal(10, 2)
+  tier_a_plus_metallic      Decimal?     @db.Decimal(10, 2)
+  tier_a_plus_pearl         Decimal?     @db.Decimal(10, 2)
+  tier_b_metallic           Decimal?     @db.Decimal(10, 2)
+  tier_b_pearl              Decimal?     @db.Decimal(10, 2)
+  tier_c_metallic           Decimal?     @db.Decimal(10, 2)
+  tier_c_pearl              Decimal?     @db.Decimal(10, 2)
+  scooties                  scooties?    @relation(fields: [scooty_id], references: [scooty_id], onDelete: NoAction, onUpdate: NoAction, map: "scootypaintvalues_ibfk_1")
+  scootyparts               scootyparts? @relation(fields: [part_id], references: [part_id], onDelete: NoAction, onUpdate: NoAction, map: "scootypaintvalues_ibfk_2")
+
+  @@index([part_id], map: "part_id")
+  @@index([scooty_id], map: "scooty_id")
+}
+
+model scootyparts {
+  part_id            Int                  @id
+  part_name          String               @db.VarChar(255)
+  part_type          String               @db.VarChar(255)
+  scootylabourvalues scootylabourvalues[]
+  scootypaintvalues  scootypaintvalues[]
+  scootypartvalues   scootypartvalues[]
+}
+
+model scootypartvalues {
+  my_row_id        BigInt       @id @db.UnsignedBigInt
+  scooty_id        Int?
+  part_id          Int?
+  tier_a_plus_plus Float?       @db.Float
+  tier_a_plus      Float?       @db.Float
+  tier_b           Float?       @db.Float
+  tier_c           Float?       @db.Float
+  scooties         scooties?    @relation(fields: [scooty_id], references: [scooty_id], onDelete: NoAction, onUpdate: NoAction, map: "scootypartvalues_ibfk_1")
+  scootyparts      scootyparts? @relation(fields: [part_id], references: [part_id], onDelete: NoAction, onUpdate: NoAction, map: "scootypartvalues_ibfk_2")
+
+  @@index([part_id], map: "part_id")
+  @@index([scooty_id], map: "scooty_id")
+}

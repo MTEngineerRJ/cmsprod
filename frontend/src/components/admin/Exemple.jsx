@@ -126,7 +126,7 @@ export default function Exemple({
   claims,
   setMajorSearch,
   status,
-  start,
+  start, 
   end,
 }) {
   const [updatedData, setUpdatedData] = useState([]);

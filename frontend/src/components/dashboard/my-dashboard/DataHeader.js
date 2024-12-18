@@ -20,7 +20,7 @@ const headCells = [
     {
       id: "policy_no",
       numeric: false,
-      label: "Policy No.",
+      label: "Policy No./ Vehicle No.",
       width: 150,
     },
     {
@@ -166,5 +166,64 @@ const headCells = [
     },
   ];
 
+  const PrenispectionHeadingCardsContent = [
+      {
+        id: 1,
+        blockStyle: "",
+        icon: "flaticon-home",
+        timer: "37",
+        name: "Claim Appointment",
+        color: "#a5d9c5",
+      },
+      {
+        id: 7,
+        blockStyle: "style2",
+        icon: "flaticon-view",
+        timer: "24",
+        name: "Soft Copy Completed",
+        color: "#FFE4E1",
+      },
+      {
+        id: 8,
+        blockStyle: "style3",
+        icon: "flaticon-chat",
+        timer: "12",
+        name: "Payment Pending",
+        color: "#B0C4DE",
+      },
+      {
+        id: 9,
+        blockStyle: "style4",
+        icon: "flaticon-heart",
+        timer: "18",
+        name: "Settled Cases",
+        color: "#7FFFD4",
+      },
+      {
+        id: 10,
+        blockStyle: "",
+        icon: "flaticon-home",
+        timer: "37",
+        name: "Withdrawn / Rejected",
+        color: "#FFFACD",
+      },
+      {
+        id: 11,
+        blockStyle: "style2",
+        icon: "flaticon-view",
+        timer: "24",
+        name: "More Info Required",
+        color: "#FFEFD5",
+      },
+      {
+        id: 12,
+        blockStyle: "style2",
+        icon: "flaticon-chat",
+        timer: "12",
+        name: "My Claims",
+        color: "#E6E6FA",
+      },
+    ];
 
-module.exports = {headCells,ClaimsHeadingCardsContent}
+
+module.exports = {headCells,ClaimsHeadingCardsContent,PrenispectionHeadingCardsContent}

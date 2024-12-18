@@ -1,34 +1,214 @@
- const regionList = [
-    {
-        "id": 1,
-        "Region": "Jodhpur",
-        "RegionShortName": "JDH",
-        "MailAddress": "mt.jdro123@gmail.com"
-    },
-    {
-        "id": 2,
-        "Region": "Delhi",
-        "RegionShortName": "DLH",
-        "MailAddress": "mt.dro123@gmail.com"
-    },
-    {
-        "id": 3,
-        "Region": "Chandigarh",
-        "RegionShortName": "CHD",
-        "MailAddress": "mt.chro123@gmail.com"
-    },
-    {
-        "id": 4,
-        "Region": "Jaipur",
-        "RegionShortName": "JPR",
-        "MailAddress": "mtjaipurro1@gmail.com"
-    },
-    {
-        "id": 5,
-        "Region": "Hero",
-        "RegionShortName": "HH",
-        "MailAddress": "mthero893@gmail.com"
-    }
+const regionList = [
+  {
+    id: 1,
+    Region: "Jodhpur",
+    RegionShortName: "JDH",
+    MailAddress: "mt.jdro123@gmail.com",
+  },
+  {
+    id: 2,
+    Region: "Delhi",
+    RegionShortName: "DLH",
+    MailAddress: "mt.dro123@gmail.com",
+  },
+  {
+    id: 3,
+    Region: "Chandigarh",
+    RegionShortName: "CHD",
+    MailAddress: "mt.chro123@gmail.com",
+  },
+  {
+    id: 4,
+    Region: "Jaipur",
+    RegionShortName: "JPR",
+    MailAddress: "mtjaipurro1@gmail.com",
+  },
+  {
+    id: 5,
+    Region: "Hero",
+    RegionShortName: "HH",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 6,
+    Region: "Bhopal",
+    RegionShortName: "BHP",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 7,
+    Region: "Lucknow",
+    RegionShortName: "LKW",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 8,
+    Region: "Dehradun",
+    RegionShortName: "DHD",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 9,
+    Region: "Ludhiana",
+    RegionShortName: "LDN",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 10,
+    Region: "Ahmadabad",
+    RegionShortName: "AHB",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 11,
+    Region: "Vedadora",
+    RegionShortName: "VDD",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 12,
+    Region: "Ahmedabad",
+    RegionShortName: "AHB",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 13,
+    Region: "Indore",
+    RegionShortName: "INDR",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 14,
+    Region: "Vadodara",
+    RegionShortName: "VAD",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 15,
+    Region: "Nagpur",
+    RegionShortName: "NGR",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 16,
+    Region: "Bhopal",
+    RegionShortName: "BPL",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 17,
+    Region: "Lucknow",
+    RegionShortName: "LKW",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 18,
+    Region: "Dehradun",
+    RegionShortName: "DRD",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 19,
+    Region: "Ludhiana",
+    RegionShortName: "LDA",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 20,
+    Region: "Ahmadabad",
+    RegionShortName: "AHD",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 21,
+    Region: "Vadodara",
+    RegionShortName: "VDA",
+    MailAddress: "mthero893@gmail.com",
+  },
+  {
+    id: 22,
+    Region: "Ahmedabad",
+    RegionShortName: "AHB",
+    MailAddress: "ahmedabad@example.com",
+  },
+  {
+    id: 23,
+    Region: "Indore",
+    RegionShortName: "INDR",
+    MailAddress: "indore@example.com",
+  },
+  {
+    id: 24,
+    Region: "Vadodara",
+    RegionShortName: "VAD",
+    MailAddress: "vadodara@example.com",
+  },
+  {
+    id: 25,
+    Region: "Nagpur",
+    RegionShortName: "NGR",
+    MailAddress: "nagpur@example.com",
+  },
+  {
+    id: 26,
+    Region: "Delhi RO1",
+    RegionShortName: "DO1",
+    MailAddress: "delhiero1@example.com",
+  },
+  {
+    id: 27,
+    Region: "Lucknow",
+    RegionShortName: "LKW",
+    MailAddress: "lucknow@example.com",
+  },
+  {
+    id: 28,
+    Region: "Chandigarh",
+    RegionShortName: "CHD",
+    MailAddress: "chandigarh@example.com",
+  },
+  {
+    id: 29,
+    Region: "Jaipur",
+    RegionShortName: "JPR",
+    MailAddress: "jaipur@example.com",
+  },
+  {
+    id: 30,
+    Region: "Dehradun",
+    RegionShortName: "DHD",
+    MailAddress: "dehradun@example.com",
+  },
+  {
+    id: 31,
+    Region: "Ambala",
+    RegionShortName: "ABL",
+    MailAddress: "ambala@example.com",
+  },
+  {
+    id: 32,
+    Region: "Delhi RO2",
+    RegionShortName: "DO2",
+    MailAddress: "delhiero2@example.com",
+  },
+  {
+    id: 33,
+    Region: "Guwahati",
+    RegionShortName: "GWT",
+    MailAddress: "guwahati@example.com",
+  },
+  {
+    id: 5,
+    Region: "Preinspection",
+    RegionShortName: "Preinspection",
+    MailAddress: "legalmtpi04@gmail.com",
+  },
+  {
+    id: 6,
+    Region: "Spot",
+    RegionShortName: "Spot",
+    MailAddress: "legalmt04@gmail.com",
+  },
 ];
 
-module.exports={regionList}
+module.exports = { regionList };

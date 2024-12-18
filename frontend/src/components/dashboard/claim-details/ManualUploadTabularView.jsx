@@ -5,6 +5,17 @@ import { FaUpload } from "react-icons/fa";
 import axios from "axios";
 import toast from "react-hot-toast";
 import AWS from "aws-sdk";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { Card } from "primereact/card";
+import { TabView, TabPanel } from "primereact/tabview";
+import { Button } from "primereact/button";
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import { Upload, RefreshCw, Download } from "lucide-react";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 AWS.config.update({
   accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID,
@@ -30,22 +41,17 @@ const headCells = [
     label: "Document Name",
     width: 120,
   },
-  {
-    id: "date",
-    numeric: false,
-    label: "Uploaded On",
-    width: 120,
-  },
-  // {
-  //   id: "status",
-  //   numeric: false,
-  //   label: "Status",
-  //   width: 120,
-  // },
+
   {
     id: "file",
     numeric: false,
     label: "File",
+    width: 120,
+  },
+  {
+    id: "date",
+    numeric: false,
+    label: "Uploaded On",
     width: 150,
   },
   {
@@ -162,6 +168,243 @@ export default function Exemple({ finalDisable, documents, leadId }) {
   const [loc, setLoc] = useState("");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [predictionResults, setPredictionResults] = useState([]);
+  console.log("predictionResults: ", predictionResults);
+  const [showPredictionModal, setShowPredictionModal] = useState(false);
+  const [damageFiles, setDamageFiles] = useState([]);
+  const [classifiedDamages, setClassifiedDamages] = useState([]); // New state to store damage classification
+  const [error, setError] = useState("");
+
+  // Mapping of numeric values to their respective damage classifications
+  const damageLabels = {
+    0: "Damaged",
+    1: "Dent",
+    2: "Scratch",
+    3: "Not Damaged",
+    4: "Not Damaged ",
+  };
+
+  const handleDamageFileUploadAndPredict = async () => {
+    if (damageFiles.length === 0) {
+      toast.error("Please select at least one file!");
+      return;
+    }
+
+    const formData = new FormData();
+    damageFiles.forEach((file) => formData.append("files", file));
+
+    try {
+      toast.loading("Predicting damage...", {
+        className: "toast-loading-message",
+      });
+
+      const response = await fetch("http://4.240.96.14:8000/predict/", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Failed to fetch predictions: ${errorMessage}`);
+      }
+
+      const data = await response.json();
+      setPredictionResults(data.results);
+      console.log("data.results: ", data.results);
+      sessionStorage.setItem("predictionResults", JSON.stringify(data.results));
+
+      toast.dismiss();
+      toast.success("Prediction completed!");
+      setShowPredictionModal(true);
+    } catch (error) {
+      console.error("Error:", error);
+      toast.dismiss();
+      toast.error(`An error occurred: ${error.message}`);
+    }
+  };
+  useEffect(() => {
+    // Analyze and store the classified damages whenever prediction results are updated
+    const newClassifiedDamages = [];
+
+    predictionResults.forEach((result) => {
+      Object.entries(result.damage_classification).forEach(
+        ([part, severity]) => {
+          if ([0, 1, 2].includes(severity)) {
+            newClassifiedDamages.push({
+              part,
+              severity: damageLabels[severity] || "Unknown",
+            });
+          }
+        }
+      );
+    });
+
+    setClassifiedDamages(newClassifiedDamages); // Store classified damages in state
+    console.log("Classified Damages: ", newClassifiedDamages); // Log the classified damages
+  }, [predictionResults]); // Run the effect when predictionResults changes
+
+  const handleDamageFileChange = (event) => {
+    setDamageFiles(Array.from(event.target.files));
+  };
+  const renderPredictionModal = () => {
+    if (!showPredictionModal) return null;
+
+    const downloadPDF = async () => {
+      try {
+        // Temporarily hide the buttons to ensure they don't appear in the PDF
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach((button) => {
+          button.style.display = "none";
+        });
+    
+        const doc = new jsPDF();
+        const margin = 10; // Margin for the PDF content
+        const imgWidth = 190; // Image width for A4 paper size
+        const pageHeight = doc.internal.pageSize.height; // Page height in PDF units
+        let yOffset = margin; // Initial vertical offset for positioning content
+        let isFirstPage = true; // Track whether we're on the first page
+    
+        for (const result of predictionResults) {
+          // Create a canvas for the modal content of each result
+          const contentElement = document.querySelector(".max-w-4xl");
+          if (!contentElement) {
+            throw new Error("Unable to find content to export.");
+          }
+    
+          // Use html2canvas to capture the content
+          const canvas = await html2canvas(contentElement, {
+            useCORS: true,
+            allowTaint: false,
+            scrollX: 0,
+            scrollY: -window.scrollY, // Ensure the capture respects the current scroll position
+          });
+    
+          const imgData = canvas.toDataURL("image/png");
+          const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain the aspect ratio
+    
+          // Check if the image fits on the current page; add a new page only if necessary
+          if (!isFirstPage && yOffset + imgHeight > pageHeight - margin) {
+            doc.addPage();
+            yOffset = margin;
+          }
+    
+          // Add the captured image content to the PDF
+          doc.addImage(imgData, "PNG", margin, yOffset, imgWidth, imgHeight);
+          yOffset += imgHeight + margin; // Update the yOffset for the next content
+    
+          isFirstPage = false; // After the first iteration, subsequent pages are not the first
+        }
+    
+        // Save the PDF file
+        doc.save("assessment_results.pdf");
+    
+        // Show success toast
+        toast.success("PDF downloaded successfully!");
+      } catch (error) {
+        console.error("PDF generation error:", error);
+        toast.error(`Failed to generate PDF: ${error.message}`);
+      } finally {
+        // Restore the buttons after the PDF is generated
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach((button) => {
+          button.style.display = "";
+        });
+      }
+    };
+    
+
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 max-w-4xl">
+        <div className="bg-white p-6 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold">Damage Prediction Results</h2>
+            <Button
+              onClick={() => setShowPredictionModal(false)}
+              className="text-red-500 hover:text-red-700"
+              style={{ marginRight: "50px" }}
+            >
+              Close
+            </Button>
+            <Button onClick={downloadPDF} variant="outline">
+              <Download className="w-4 h-4 mr-2" />
+              Download PDF
+            </Button>
+          </div>
+
+          {predictionResults.map((result, index) => {
+            // Filter out undamaged parts
+            const filteredDamageClassification = Object.entries(
+              result.damage_classification
+            ).filter(
+              ([, severity]) => severity && severity !== "None" // Adjust this condition as per your "no damage" indicator
+            );
+
+            // Skip rendering this result if no parts are damaged
+            if (filteredDamageClassification.length === 0) return null;
+
+            return (
+              <div key={index} className="mb-6 border-b pb-4">
+                <h3 className="text-lg font-semibold mb-3">
+                  {result.fileName || `Image ${index + 1}`}
+                </h3>
+
+                <div className="flex gap-4 mb-4" style={{ display: "flex" }}>
+                  {/* DataTable container with reduced size */}
+                  <div className="flex-1 max-w-[300px]">
+                    <h3 className="text-lg font-semibold mb-3">
+                      Damage Classification:
+                    </h3>
+                    <DataTable
+                      value={filteredDamageClassification.map(
+                        ([part, severity]) => ({
+                          part,
+                          severity: damageLabels[severity] || "Unknown",
+                        })
+                      )}
+                      responsiveLayout="scroll"
+                      className="text-sm" // Reduces font size for the DataTable
+                      style={{ width: "450px" }}
+                    >
+                      <Column field="part" header="Vehicle Part" />
+                      <Column field="severity" header="Damage Classification" />
+                    </DataTable>
+                  </div>
+
+                  {/* Images container with reduced size */}
+                  <div className="flex flex-col gap-4 w-[200px]">
+                    {/* Segmented Image */}
+                    <div className="flex flex-col items-center mb-4">
+                      <h3 className="text-sm font-bold mb-2">
+                        Segmented Image
+                      </h3>
+                      <img
+                        src={result.segmented_image_filename}
+                        alt="Segmented Image"
+                        style={{ width: "150px", height: "150px" }} // Adjusted image size
+                        className="object-contain border"
+                      />
+                    </div>
+
+                    {/* Damaged Image */}
+                    <div className="flex flex-col items-center mb-4">
+                      <h3 className="text-sm font-bold mb-2">Damaged Image</h3>
+                      <img
+                        src={result.damaged_image_filename}
+                        alt="Damaged Image"
+                        style={{ width: "150px", height: "150px" }} // Adjusted image size
+                        className="object-contain border"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -504,6 +747,46 @@ export default function Exemple({ finalDisable, documents, leadId }) {
     { name: "Payment/cash receipt" },
   ];
 
+  function formatDateWithWeekday(dateString) {
+    const date = new Date(dateString);
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const weekdayNames = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const year = date.getFullYear();
+    const month = monthNames[date.getMonth()];
+    const day = date.getDate();
+    const weekday = weekdayNames[date.getDay()];
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const minutesFormatted = minutes < 10 ? "0" + minutes : minutes;
+    const formattedDate = `${month} ${day}, ${year} ${hours}:${minutesFormatted} ${ampm}`;
+
+    return formattedDate;
+  }
+
   const onSubmitHandler = () => {
     setDisable(true);
 
@@ -632,53 +915,96 @@ export default function Exemple({ finalDisable, documents, leadId }) {
         </div>
       );
 
+      const dates = (
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {allInfo?.map((data, index) => {
+            return (
+              <div key={index}>{formatDateWithWeekday(data?.Timestamp)}</div>
+            );
+          })}
+        </div>
+      );
       const temp = {
         _id: docs._id,
         serial_num: docs.serial_num,
+        date: dates,
         doc_name: docs.doc_name,
         file: alllinks,
-        action: (
-          <>
-            <input
-              type="file"
-              id="fileInput"
-              style={{ display: "none" }}
-              onChange={(e) => handleFileInputChange(e, index, docs.doc_name)}
-            ></input>
-            <button
-              disabled={finalDisable}
-              className="btn btn-thm"
-              onClick={() => handleButtonClick(docs.doc_name)}
-            >
-              <FaUpload />
-            </button>
-            <p>
-              {fileName ? `Selected File: ${fileName?.name}` : "Choose File"}
-            </p>
-          </>
-        ),
+        action:
+          docs.doc_name === "Damage vehicle photographs/video" ? (
+            <div className="flex items-center space-x-2">
+              <input
+                type="file"
+                id="damageFileInput"
+                multiple
+                style={{ display: "none" }}
+                onChange={handleDamageFileChange}
+              ></input>
+              <button
+                disabled={finalDisable}
+                className="btn btn-thm"
+                onClick={() =>
+                  document.getElementById("damageFileInput").click()
+                }
+              >
+                <FaUpload />
+              </button>
+              <button
+                disabled={damageFiles.length === 0}
+                className="btn btn-thm"
+                onClick={handleDamageFileUploadAndPredict}
+              >
+                Predict Damage
+              </button>
+              {damageFiles.length > 0 && (
+                <span>{damageFiles.length} file(s) selected</span>
+              )}
+            </div>
+          ) : (
+            <>
+              <input
+                type="file"
+                id="fileInput"
+                style={{ display: "none" }}
+                onChange={(e) => handleFileInputChange(e, index, docs.doc_name)}
+              ></input>
+              <button
+                disabled={finalDisable}
+                className="btn btn-thm"
+                onClick={() => handleButtonClick(docs.doc_name)}
+              >
+                <FaUpload />
+              </button>
+              <p>
+                {fileName ? `Selected File: ${fileName?.name}` : "Choose File"}
+              </p>
+            </>
+          ),
         verify: docs.verify,
       };
 
       tempCode.push(temp);
     });
-    // data = tempCode;
+
     setUpdatedCode(tempCode);
-  }, [documents, uploadedFiles, changes]);
+  }, [documents, uploadedFiles, changes, damageFiles]);
 
   return (
-    <SmartTable
-      title="Customer Documents"
-      data={updatedCode}
-      headCells={headCells}
-      disable={disable}
-      downloadAllFiles={downloadAllFiles}
-      onSubmitHandler={onSubmitHandler}
-      addNewLabel={addNewLabel}
-      setNewLabel={setNewLabel}
-      closeModal={closeModal}
-      openModal={openModal}
-      isModalOpen={isModalOpen}
-    />
+    <>
+      <SmartTable
+        title="Customer Documents"
+        data={updatedCode}
+        headCells={headCells}
+        disable={disable}
+        downloadAllFiles={downloadAllFiles}
+        onSubmitHandler={onSubmitHandler}
+        addNewLabel={addNewLabel}
+        setNewLabel={setNewLabel}
+        closeModal={closeModal}
+        openModal={openModal}
+        isModalOpen={isModalOpen}
+      />
+      {renderPredictionModal()}
+    </>
   );
 }

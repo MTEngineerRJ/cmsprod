@@ -41,8 +41,7 @@ const LossDamagesDetails = ({ allInfo }) => {
           indexValue = idx;
         }
       });
-
-      if (indexValue === -1) {
+      if (indexValue === -1 && part.NewPartsIsActive === 1 && Number(part.IsImt) === 0) {
         const newField = {
           field: part.NewPartsGSTPct,
           value: 1,
@@ -52,7 +51,7 @@ const LossDamagesDetails = ({ allInfo }) => {
     });
 
     array.sort((a, b) => parseFloat(a.field) - parseFloat(b.field));
-    console.log("array", array);
+
     setAllGSTType(array);
   }, [allInfo]);
 
@@ -67,9 +66,9 @@ const LossDamagesDetails = ({ allInfo }) => {
             {allInfo?.otherInfo[0]?.ClaimServicingOffice}
           </b>{" "}
           dated <b>{formatDate(allInfo?.otherInfo[0]?.AddedDateTime)}</b> I
-          visited <b>{allInfo?.otherInfo[0]?.GarageNameAndAddress}</b> and
+          visited <b>{allInfo?.otherInfo[0]?.PlaceOfSurvey}</b> and
           inspected the subject vehicle, reported to have met with an accident
-          on <b>{formatDate(allInfo?.otherInfo[0]?.AddedDateTime)}</b> Between{" "}
+          on <b>{formatDate(allInfo?.otherInfo[0]?.DateOfAccident)}</b> Between{" "}
           {allInfo?.otherInfo[0]?.PlaceOfLoss} and snapped the vehicle from
           different angles before and after dismantling. <br />
           <br />

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useState } from "react";
 import {
   formatDate,
@@ -12,6 +12,41 @@ import {
   handleInputChange_01,
   openStatusUpdateHandler,
 } from "./functions/ClaimSectionFunctions";
+
+const insurerRegionMapping = {
+  "United India Insurance Company Limited": [
+    "Delhi",
+    "Chandigarh",
+    "Jaipur",
+    "Jodhpur",
+    "Hero",
+    "Preinspection",
+    "Spot",
+  ],
+  "National Insurance Company Limited": [
+    "Bhopal",
+    "Lucknow",
+    "Dehradun",
+    "Ludhiana",
+    "Ahmedabad",
+    "Vadodara",
+    "Jaipur",
+    "Preinspection",
+    "Spot",
+  ],
+  "The New India Assurance Company Limited": [
+    "Bhopal",
+    "Lucknow",
+    "Dehradun",
+    "Ludhiana",
+    "Ahmedabad",
+    "Vadodara",
+    "Jaipur",
+    "Preinspection",
+    "Spot",
+  ],
+};
+
 const ClaimDetailsEditForm = ({
   claim,
   disable,
@@ -56,6 +91,44 @@ const ClaimDetailsEditForm = ({
 
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [phoneNumber_01, setPhoneNumber_01] = useState(null);
+
+  const filteredRegions = useMemo(() => {
+    // If no insurance company is selected, return all regions
+    if (!insuranceCompanyNameAddress) return allListedRegions;
+
+    // Find the regions for the selected insurance company
+    const companyRegions = insurerRegionMapping[insuranceCompanyNameAddress];
+
+    if (companyRegions) {
+      // First, filter the regions based on the company-specific list
+      const filteredByCompany = allListedRegions?.filter((region) =>
+        companyRegions.includes(region.Region)
+      );
+
+      return filteredByCompany;
+    }
+
+    // If insurer is not in the mapping, return only Preinspection and Spot regions
+    const defaultRegions = allListedRegions?.filter(
+      (region) => region.Region === "Preinspection" || region.Region === "Spot"
+    );
+
+    return defaultRegions;
+  }, [insuranceCompanyNameAddress, allListedRegions]);
+
+  // Ensure the current claim region is valid after filtering
+  useEffect(() => {
+    if (filteredRegions && filteredRegions.length > 0) {
+      // If current claim region is not in the filtered list, set to the first available region
+      const isCurrentRegionValid = filteredRegions.some(
+        (region) => region.Region === claimRegion
+      );
+
+      if (!isCurrentRegionValid) {
+        setClaimRegion(filteredRegions[0].Region);
+      }
+    }
+  }, [filteredRegions, claimRegion, setClaimRegion]);
 
   useEffect(() => {
     setPolicyEndDate(getNextYear(policyStartDate));
@@ -123,6 +196,7 @@ const ClaimDetailsEditForm = ({
         Region: claim?.claimDetails?.Region,
         type: 4,
         date: formatDate(new Date()),
+        Username: userInfo[0].Username,
       };
 
       toast.loading("Sending Acknowledgment Mail!!");
@@ -144,6 +218,98 @@ const ClaimDetailsEditForm = ({
     }
   };
 
+  // const sendMessageHandler = (PolicyNo, Insured, phoneNumber) => {
+  //   console.log("phoneNumber: ", phoneNumber);
+  //   if (
+  //     !phoneNumber ||
+  //     phoneNumber === "null" ||
+  //     phoneNumber === "None" ||
+  //     phoneNumber === "undeifned"
+  //   ) {
+  //     toast.error("Please fill the number !!!");
+  //   } else {
+  //     const url = `https://cmsprod.vercel.app/claim-details?leadId=${claim?.claimDetails?.LeadID}`;
+  //     console.log("url: ", url);
+  //     const text = `Dear ${Insured} Deputed for motor claim survey of Policy No. ${PolicyNo} Please visit ${url} From MT Engineer`;
+
+  //     const payload = {
+  //       username: "mt engineer",
+  //       apikey: "N4pHWt1mmIbX",
+  //       senderid: "MTENG",
+  //       route: "Trans",
+  //       mobile: phoneNumber,
+  //       text: text,
+  //       TID: "1307173200339592814",
+  //       PEID: "1301172992987166851",
+  //     };
+
+  //     toast.loading("Sending Acknowledgment Message!!");
+  //     console.log("payload: ", payload);
+  //     axios
+  //       .get("https://vapio.in/api.php", { params: payload })
+  //       .then((res) => {
+  //         console.log("done");
+  //         console.log("res: ", res);
+  //         toast.dismiss();
+  //         toast.success("Successfully sent the Message");
+  //         // window.location.reload();
+  //       })
+  //       .catch((err) => {
+  //         console.log("errer", err);
+  //         toast.dismiss();
+  //         toast.error(err);
+  //       });
+  //   }
+  // };
+
+  const sendMessageHandler = (PolicyNo, Insured, phoneNumber) => {
+    console.log("phoneNumber: ", phoneNumber);
+
+    if (
+      !phoneNumber ||
+      phoneNumber === "null" ||
+      phoneNumber === "None" ||
+      phoneNumber === "undefined"
+    ) {
+      toast.error("Please fill the number !!!");
+      return;
+    }
+
+    const claimLeadId = "12345"; // Replace with `claim?.claimDetails?.LeadID` if available
+    const url = `https://cmsprod.vercel.app/claim-details?leadId=${claimLeadId}`;
+    console.log("url: ", url);
+
+    const text = `Dear ${Insured} Deputed for motor claim survey of Policy No. ${PolicyNo} Please visit ${url} From MT Engineer`;
+
+    const payload = {
+      username: "mt engineer",
+      apikey: "N4pHWt1mmIbX",
+      senderid: "MTEINV",
+      route: "Trans",
+      mobile: phoneNumber,
+      text: text,
+      TID: "1307173200339592814",
+      PEID: "1301172992987166851",
+    };
+
+    toast.loading("Sending Acknowledgment Message!!");
+    console.log("payload: ", payload);
+
+    axios
+      .get("/api/sendMessage", { params: payload }) // Use the proxy API route
+      .then((res) => {
+        console.log("Message sent successfully:", res);
+        toast.dismiss();
+        toast.success("Successfully sent the Message");
+        // Optional: Reload the page if needed
+        // window.location.reload();
+      })
+      .catch((err) => {
+        console.error("Error sending message:", err);
+        toast.dismiss();
+        toast.error("Failed to send the message. Please try again.");
+      });
+  };
   useEffect(() => {
     setPolicyEndDate(claim?.claimDetails?.PolicyPeriodEnd);
   }, []);
@@ -204,10 +370,28 @@ const ClaimDetailsEditForm = ({
                 className="form-control"
                 id="propertyTitle"
                 value={InsuredMobileNo1}
-                onChange={(e)=>handleInputChange(e,setInsuredMobileNo1)}
+                onChange={(e) => handleInputChange(e, setInsuredMobileNo1)}
                 disabled={!edit}
                 // placeholder="Enter Registration No."
               />
+            </div>
+            <div className="col-lg-1" style={{ marginLeft: "-20px" }}>
+              {claim?.insuredDetails?.InsuredMailAddress !== "null" && (
+                <button
+                  className="btn btn-color-icon p-0 flaticon-envelope"
+                  title="Send Message"
+                  style={{ width: "100%" }}
+                  onClick={() =>
+                    sendMessageHandler(
+                      claim?.claimDetails?.PolicyNumber,
+                      claim?.insuredDetails?.InsuredName,
+                      claim.insuredDetails?.InsuredMobileNo1
+                    )
+                  }
+                >
+                  {/* Send Email */}
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -234,7 +418,7 @@ const ClaimDetailsEditForm = ({
                 className="form-control"
                 id="propertyTitle"
                 value={InsuredMobileNo2}
-                onChange={(e)=>handleInputChange_01(e,setInsuredMobileNo2)}
+                onChange={(e) => handleInputChange_01(e, setInsuredMobileNo2)}
                 disabled={!edit}
                 // placeholder="Enter Registration No."
               />
@@ -402,22 +586,39 @@ const ClaimDetailsEditForm = ({
                 value={!requestType ? "" : requestType}
                 onChange={(e) => setRequestType(e.target.value)}
               >
-                {requestTypeTypes.map((sub, index) => {
-                  return (
-                    <option
-                      key={sub.id}
-                      style={{
-                        // paddingTop: "15px",
-                        color: "#1560bd",
-                        fontSize: "14px",
-                        // marginTop: "-13px",
-                      }}
-                      value={sub.value}
-                    >
-                      {sub.type}
-                    </option>
-                  );
-                })}
+                {!String(requestType)
+                  .toLowerCase()
+                  .includes("re-inspection") ? (
+                  requestTypeTypes.map((sub, index) => {
+                    return (
+                      <option
+                        key={sub.id}
+                        style={{
+                          // paddingTop: "15px",
+                          color: "#1560bd",
+                          fontSize: "14px",
+                          // marginTop: "-13px",
+                        }}
+                        value={sub.value}
+                      >
+                        {sub.type}
+                      </option>
+                    );
+                  })
+                ) : (
+                  <option
+                    key={"re-Inspection"}
+                    style={{
+                      // paddingTop: "15px",
+                      color: "#1560bd",
+                      fontSize: "14px",
+                      // marginTop: "-13px",
+                    }}
+                    value={"re-Inspection"}
+                  >
+                    Re-Inspection
+                  </option>
+                )}
               </select>
             </div>
           </div>
@@ -430,10 +631,8 @@ const ClaimDetailsEditForm = ({
                 htmlFor=""
                 className="text-color"
                 style={{
-                  // paddingTop: "15px",
                   color: "#1560bd",
                   fontSize: "14px",
-                  // marginTop: "-13px",
                 }}
               >
                 Claim Region
@@ -447,7 +646,7 @@ const ClaimDetailsEditForm = ({
                 value={claimRegion}
                 onChange={(e) => setClaimRegion(e.target.value)}
               >
-                {allListedRegions?.map((region, index) => {
+                {filteredRegions?.map((region, index) => {
                   return (
                     <option key={index} value={region.Region}>
                       {region.Region}
@@ -458,6 +657,7 @@ const ClaimDetailsEditForm = ({
             </div>
           </div>
         </div>
+
         <div className="col-lg-6">
           <div className="row mt-1">
             <div className="col-lg-4 my_profile_setting_input form-group">
@@ -624,6 +824,7 @@ const ClaimDetailsEditForm = ({
                 id="propertyTitle"
                 value={insuranceCompanyNameAddress}
                 onChange={(e) => setInsuranceCompanyNameAddress(e.target.value)}
+                readOnly
                 // placeholder="Enter Registration No."
               />
             </div>

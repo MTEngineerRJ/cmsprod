@@ -9,7 +9,7 @@ async function handler(request, response) {
 
     const leadId = request.query.leadId;
 
-
+    const Username = request.query.Username;
     const vehicle_data = await axios.get(`${domain}/vehicleDetails/getOnlineVehicleData`, {
       headers: {
         Authorization: token,
@@ -17,7 +17,8 @@ async function handler(request, response) {
       },
       params:{
         vehicleNo:vehicleNo,
-        leadId:leadId
+        leadId:leadId,
+        Username
       }
     });
     const vehicle = vehicle_data.data;

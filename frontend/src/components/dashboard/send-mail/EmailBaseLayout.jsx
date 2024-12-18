@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { data } from "./data";
+import { data , spotData} from "./data";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
@@ -31,6 +31,7 @@ const EmailBaseLayout = ({
   const [body, setBody] = useState("");
   const [type, setType] = useState(1);
   const [allRegions,setAllRegions] = useState(regionList);
+  const [CurrentTabHeaders,setCurrentTabHeaders] = useState([]);
   const router = useRouter();
   useEffect(() => {
     if (!leadId) {
@@ -38,6 +39,14 @@ const EmailBaseLayout = ({
     }
     
   }, []);
+  useEffect(() => {
+    if(Region === "Spot"){
+      setCurrentTabHeaders(spotData);
+    }
+    else{
+      setCurrentTabHeaders(data);
+    }
+  },[Region])
 
   // useEffect(()=>{
   //   axios
@@ -144,6 +153,7 @@ const EmailBaseLayout = ({
       body: body,
       Region: Region ? Region : "Chandigarh",
       fromEmail: fromEmail,
+      Username : userInfo[0]?.Username
     };
 
     if (
@@ -231,7 +241,7 @@ const EmailBaseLayout = ({
                   </label>
                 </div>
                 <div className="col-lg-8">
-                  {data?.map((stat, index) => (
+                  {CurrentTabHeaders?.map((stat, index) => (
                     <div key={index} className="row">
                       <div className="col-lg-4">
                         <input
