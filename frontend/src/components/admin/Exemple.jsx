@@ -158,7 +158,6 @@ export default function Exemple({
   function convertToIST(utcTimestamp) {
     const utcDate = new Date(utcTimestamp);
 
-    // Convert to Indian Standard Time (IST)
     const istDate = new Date(utcDate.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
   
     // Format IST date and time with hours, minutes, AM/PM
