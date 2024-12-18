@@ -36,7 +36,7 @@ const upload = multer({
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
-// Enable CORS for all origins (adjust as necessary for security)
+// Enable CORS for all * origins (adjust as necessary for security)
 app.use(cors());
 
 
