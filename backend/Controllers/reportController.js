@@ -27,7 +27,11 @@ const getAllInfo = async (req, res) => {
       "SELECT * FROM VehicleDetailsOnline WHERE LeadId=?",
       [leadId]
     );
-
+    
+    const accidentDetails = await executeQuery(
+      "SELECT * FROM AccidentDetails WHERE LeadId=?",
+      [leadId]
+    );
     const driverOnlineDetails = await executeQuery(
       "SELECT * FROM DriverDetailsOnline WHERE LeadId=?",
       [leadId]
@@ -59,6 +63,7 @@ const getAllInfo = async (req, res) => {
       GSTSummaryLabour,
       GSTSummaryNewParts,
       totalLoss,
+      accidentDetails
     };
 
     res.json(combinedResult);

@@ -58,9 +58,9 @@ const ReportDetails = ({allInfo}) => {
           </div>
           <div>
             <label htmlFor="" className="fw-bold text-dark fs-6">
-              {allInfo?.vehicleDetails[0]?.VehicleType === "2W" ? 
+              {String(allInfo?.vehicleDetails[0]?.VehicleType).toLowerCase().includes("2w") ? 
               "Two Wheeler Inspection Report" :
-              allInfo?.vehicleDetails[0]?.VehicleType === "4W" ? 
+              String(allInfo?.vehicleDetails[0]?.VehicleType).toLowerCase().includes("4w") ? 
               "Four Wheeler Inspection Report" :
               "Commercial Wheeler Inspection Report"
               }

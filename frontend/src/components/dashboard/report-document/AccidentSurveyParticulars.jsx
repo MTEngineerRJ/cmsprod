@@ -2,6 +2,7 @@ import React from "react";
 import {
   convertToReadable,
   formatDate,
+  reverseDate,
 } from "./functions/AccidentSurveyFunctions";
 
 const AccidentSurveyParticulars = ({ allInfo }) => {
@@ -67,7 +68,7 @@ const AccidentSurveyParticulars = ({ allInfo }) => {
             <span>:</span>
           </td>
           <td style={{ width: "55%" }} className="text-start">
-            <span> {formatDate(allInfo?.otherInfo[0]?.AddedDateTime)}</span>
+          <span> {reverseDate(allInfo?.accidentDetails?.InspectionDate)}</span>
           </td>
         </tr>
         <tr>

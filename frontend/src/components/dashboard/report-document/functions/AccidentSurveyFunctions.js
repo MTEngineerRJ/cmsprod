@@ -182,6 +182,19 @@ const formatDate = (dateString) => {
   return formattedDate;
 };
 
+function reverseDate(date) {
+  if (!date || typeof date !== 'string' || !date.includes('-')) {
+    return 'Invalid date format';
+  }
+
+  const parts = date.split('-');
+  if (parts.length !== 3) {
+    return 'Invalid date format';
+  }
+
+  return `${parts[2]}-${parts[1]}-${parts[0]}`;
+}
+
 module.exports = {
   getTotalGlassAssessed,
   getTotalMetalAssessed,
@@ -195,4 +208,5 @@ module.exports = {
   getTotalLabourAssessed,
   getTotalLabourAssessedGST,
   formatDate,
+  reverseDate
 };
